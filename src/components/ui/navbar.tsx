@@ -38,7 +38,7 @@ export default function Navbar() {
           <Link href="#" className="hover:text-black">
             Instruct
           </Link>
-          <Link href="#" className="hover:text-black">
+          <Link href="/about" className="hover:text-black">
             About
           </Link>
           <Link href="/contact" className="hover:text-black">
