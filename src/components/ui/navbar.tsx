@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
+import Link from "next/link"; // ✅ use Next.js Link
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
@@ -9,11 +10,15 @@ export default function Navbar() {
   return (
     <header className="w-full border-b border-gray-300 bg-[#FAF7F3] text-gray-900">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+        {/* LEFT SIDE */}
         <div className="flex items-center gap-4 lg:gap-8">
           {/* Logo */}
-          <div className="text-2xl font-bold text-gray-900 flex-shrink-0">
-            Skillscribe
-          </div>
+          <Link
+            href="/"
+            className="text-2xl font-bold text-gray-900 flex-shrink-0 hover:text-blue-700"
+          >
+            SkillScribe
+          </Link>
 
           {/* Search */}
           <div className="hidden items-center rounded-full border border-gray-400 bg-white px-3 py-1.5 text-sm text-gray-700 md:flex">
@@ -27,22 +32,40 @@ export default function Navbar() {
 
         {/* NAV LINKS */}
         <nav className="hidden items-center gap-6 text-sm text-gray-900 md:flex">
-          <a className="hover:text-black" href="#">Categories</a>
-          <a className="hover:text-black" href="#">Instruct</a>
-          <a className="hover:text-black" href="#">About</a>
-          <a className="hover:text-black" href="#">Contact</a>
+          <Link href="#" className="hover:text-black">
+            Categories
+          </Link>
+          <Link href="#" className="hover:text-black">
+            Instruct
+          </Link>
+          <Link href="#" className="hover:text-black">
+            About
+          </Link>
+          <Link href="#" className="hover:text-black">
+            Contact
+          </Link>
         </nav>
 
-        {/* Login */}
+        {/* RIGHT SIDE */}
         <div className="flex items-center gap-4">
-          <a
-            href="/auth/signin"
-            className="text-sm text-gray-900 hover:text-black"
-          >
-            Login/Signup
-          </a>
+          {/* Updated Login/Signup links */}
+          <div className="flex items-center gap-3 text-sm">
+            <Link
+              href="/auth/signin"
+              className="text-gray-900 hover:text-blue-700"
+            >
+              Sign In
+            </Link>
+            <span>/</span>
+            <Link
+              href="/auth/signup"
+              className="text-gray-900 hover:text-blue-700"
+            >
+              Sign Up
+            </Link>
+          </div>
 
-          {/* Toggle */}
+          {/* Toggle Button */}
           <button
             onClick={() => setEnabled((v) => !v)}
             className={`relative flex h-5 w-10 items-center rounded-full transition-colors ${
