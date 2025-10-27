@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
-import Link from "next/link"; // ✅ use Next.js Link
+import Link from "next/link"; //using next.js link for navigation
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
@@ -41,7 +41,7 @@ export default function Navbar() {
           <Link href="#" className="hover:text-black">
             About
           </Link>
-          <Link href="#" className="hover:text-black">
+          <Link href="/contact" className="hover:text-black">
             Contact
           </Link>
         </nav>
