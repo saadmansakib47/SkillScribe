@@ -1,6 +1,12 @@
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
+import { Raleway } from 'next/font/google';
+
+const raleway = Raleway({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'], // adjust
+})
 
 export const metadata = {
   title: "SkillScribe | Learn Anytime, Grow Every Day",
