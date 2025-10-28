@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function HeroSection() {
   return (
     <section
@@ -30,12 +32,12 @@ export default function HeroSection() {
             >
               Start learning for free
             </a>
-            <a
-              href="#"
+            <Link
+              href="/learner/allcourses"
               className="inline-flex items-center justify-center bg-white text-black py-3 px-7 rounded-[8px] border border-black font-medium transition-colors duration-150 ease-in-out hover:bg-[#90B2DE] hover:border-[#90B2DE] hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
             >
-              Browse Course
-            </a>
+              Browse Courses
+            </Link>
           </div>
         </div>
       </div>
