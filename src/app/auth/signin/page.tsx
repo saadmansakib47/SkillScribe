@@ -60,7 +60,7 @@ export default function SignIn() {
                                 </button>
                             </div>
                             <a
-                                href="#"
+                                href="/auth/forgotpassword"
                                 className="text-sm text-blue-600 hover:underline float-right mt-1"
                             >
                                 Forgot Password?
