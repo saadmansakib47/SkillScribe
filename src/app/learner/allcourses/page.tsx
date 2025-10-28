@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useRef, useEffect, ChangeEvent } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
@@ -238,6 +239,19 @@ export default function CoursesPage() {
   // ref to courses grid so we can auto-scroll into view on filter/sort changes
   const gridRef = useRef<HTMLDivElement | null>(null);
 
+  // read search params to support links like ?price=free
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!searchParams) return;
+    const p = searchParams.get('price');
+    if (p === 'free') {
+      const freeFilters = { ratings: [] as number[], durations: [] as string[], prices: ['free'], levels: [] as string[] };
+      setFilters(freeFilters);
+      setApplied(freeFilters);
+    }
+  }, [searchParams]);
+
   // auto-scroll to courses when applied filters or sort change
   useEffect(() => {
     if (gridRef.current) {
@@ -292,7 +306,7 @@ export default function CoursesPage() {
         {/* Header Section */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-semibold text-gray-900">All Courses</h1>
+            <h1 className="text-3xl font-semibold text-gray-900">Courses</h1>
           </div>
           <div>
             <select value={sort} onChange={(e: ChangeEvent<HTMLSelectElement>) => setSort(e.target.value as 'newest' | 'price' | 'rating')} className="border-2 border-gray-400 rounded-[8px] px-4 py-2 text-gray-900">

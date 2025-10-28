@@ -13,7 +13,7 @@ export default function CtaBanner() {
             Sign Up Now
           </a>
           <a
-            href="#"
+            href="/learner/allcourses?price=free"
             className="inline-flex items-center justify-center bg-white text-black py-3 px-7 rounded-[8px] border border-black font-medium transition-colors duration-150 ease-in-out hover:bg-[#90B2DE] hover:border-[#90B2DE] hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
           >
             Browse Free Courses
