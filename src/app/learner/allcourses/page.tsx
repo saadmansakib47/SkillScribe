@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, ChangeEvent } from 'react';
+import { useMemo, useState, useRef, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
@@ -21,6 +21,62 @@ type Course = {
 
 const COURSES: Course[] = [
   {
+    id: 12,
+    title: 'Complete Software Testing Mastery',
+    description: 'Master both manual and automated testing with real-world examples and hands-on practice.',
+    image: '/Asset/software test.jpg',
+    rating: 4.6,
+    reviews: 950,
+    durationHours: 16,
+    price: 20,
+    totalVideos: 28,
+    instructorName: 'Kate Weber',
+    instructorImage: '/Asset/Kate weber.png',
+    level: 'Intermediate',
+  },
+  {
+    id: 11,
+    title: 'Node.js APIs and Microservices',
+    description: 'Build scalable APIs with Node, Express and microservice patterns.',
+    image: '/Asset/nodejs.jpg',
+    rating: 3.3,
+    reviews: 480,
+    durationHours: 14,
+    price: 29,
+    totalVideos: 26,
+    instructorName: 'Samira Khan',
+    instructorImage: '/Asset/samira.jpg',
+    level: 'Advanced',
+  },
+  {
+    id: 10,
+    title: 'Design Thinking for Product Teams',
+    description: 'Learn user-centric design and rapid prototyping for product teams.',
+    image: '/Asset/design think.png',
+    rating: 4.1,
+    reviews: 390,
+    durationHours: 6,
+    price: 0,
+    totalVideos: 12,
+    instructorName: 'John Hamilton',
+    instructorImage: '/Asset/john hamilton.jpg',
+    level: 'Beginner',
+  },
+  {
+    id: 9,
+    title: 'Intro to Database',
+    description: 'Understand relational and NoSQL databases and how to model data.',
+    image: '/Asset/database.jpg',
+    rating: 4.0,
+    reviews: 210,
+    durationHours: 7,
+    price: 9,
+    totalVideos: 15,
+    instructorName: 'Daniel Park',
+    instructorImage: '/Asset/daniel.jpg',
+    level: 'Beginner',
+  },
+  {
     id: 8,
     title: 'Python Crash Course',
     description: 'A fast-paced introduction to Python for beginners and engineers who want to prototype quickly.',
@@ -30,8 +86,8 @@ const COURSES: Course[] = [
     durationHours: 8,
     price: 10,
     totalVideos: 20,
-    instructorName: 'Kate Weber',
-    instructorImage: '/Asset/Kate weber.png',
+    instructorName: 'Karan Sharma',
+    instructorImage: '/Asset/karan.jpg',
     level: 'Beginner',
   },
   {
@@ -179,6 +235,16 @@ export default function CoursesPage() {
     setApplied(empty);
   };
 
+  // ref to courses grid so we can auto-scroll into view on filter/sort changes
+  const gridRef = useRef<HTMLDivElement | null>(null);
+
+  // auto-scroll to courses when applied filters or sort change
+  useEffect(() => {
+    if (gridRef.current) {
+      gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [applied, sort]);
+
   const displayed = useMemo(() => {
     let list = [...COURSES];
 
@@ -307,7 +373,7 @@ export default function CoursesPage() {
           </div>
 
           {/* Courses Grid */}
-          <div className="w-3/4 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch">
+          <div ref={gridRef} className="w-3/4 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch pr-2">
             {displayed.map((course) => (
               <div key={course.id} className="rounded-2xl border border-[#e6ded9] overflow-hidden bg-white shadow-sm flex flex-col h-full">
                 <div className="h-44 overflow-hidden rounded-t-lg">
