@@ -1,5 +1,6 @@
 import { FaStar, FaRegStar } from "react-icons/fa";
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function FeaturedCourses() {
   return (
@@ -115,12 +116,9 @@ export default function FeaturedCourses() {
           </div>
         </div>
         <div className="mt-8 flex justify-center">
-          <a
-            href="#"
-            className="inline-block bg-[#0b4ca6] text-white py-3 px-10 rounded-[10px] hover:bg-[#083a8a] transition-colors"
-          >
+          <Link href="/learner/allcourses" className="inline-block bg-[#0b4ca6] text-white py-3 px-10 rounded-[10px] hover:bg-[#083a8a] transition-colors">
             View all courses
-          </a>
+          </Link>
         </div>
       </div>
     </section>
