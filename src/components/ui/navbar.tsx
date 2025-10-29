@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 import { Search } from "lucide-react";
-import Link from "next/link"; //using next.js link for navigation
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
+  const [query, setQuery] = useState('');
+  const router = useRouter();
+
+  const onSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      router.push(`/learner/allcourses?q=${encodeURIComponent(query)}`);
+    }
+  };
 
   return (
     <header className="w-full border-b border-gray-300 bg-[#FAF7F3] text-gray-900">
@@ -24,6 +33,9 @@ export default function Navbar() {
           <div className="hidden items-center rounded-full border border-gray-400 bg-white px-3 py-1.5 text-sm text-gray-700 md:flex">
             <Search className="mr-2 h-4 w-4 text-gray-500" />
             <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={onSearchKeyDown}
               className="w-48 bg-transparent outline-none placeholder:text-gray-500 md:w-80 lg:w-96"
               placeholder="Search for courses"
             />
