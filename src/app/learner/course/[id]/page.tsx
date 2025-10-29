@@ -30,7 +30,67 @@ export default async function CourseDetailPage({ params }: Props) {
   const outcomes = course.whatYouWillLearn ?? [];
   const resources = course.resources ?? [];
 
-  const related = COURSES.filter((c) => c.id !== course.id).slice(0, 3);
+  // Compute related courses by simple relevance scoring:
+  // - +3 points for each overlapping "whatYouWillLearn" item
+  // - +1 point if level matches
+  // - +0.5 point for each overlapping significant word in the title
+  // Fallback: if all scores are zero, pick a small random sample so related looks varied.
+  const computeRelated = () => {
+    const base = COURSES.filter((c) => c.id !== course.id);
+
+    const normalize = (s = '') => s.toLowerCase();
+    const titleWords = (s = '') =>
+      normalize(s)
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter((w) => w && w.length > 2);
+
+    const courseOutcomes = (course.whatYouWillLearn || []).map((o) => normalize(o));
+
+    const scored = base.map((c) => {
+      let score = 0;
+
+      // overlap in outcomes
+      const otherOutcomes = (c.whatYouWillLearn || []).map((o) => normalize(o));
+      for (const o of otherOutcomes) {
+        if (courseOutcomes.includes(o)) score += 3;
+      }
+
+      // level match
+      if (course.level && c.level && normalize(course.level) === normalize(c.level)) score += 1;
+
+      // title word overlap
+      const leftWords = titleWords(course.title || '');
+      const rightWords = titleWords(c.title || '');
+      for (const w of leftWords) {
+        if (rightWords.includes(w)) score += 0.5;
+      }
+
+      return { course: c, score };
+    });
+
+    // sort by score desc, then rating desc
+    scored.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return (b.course.rating || 0) - (a.course.rating || 0);
+    });
+
+    // Hybrid behavior: take positive scored items first, then pad with the best remaining
+    const positive = scored.filter((s) => s.score > 0).map((s) => s.course);
+    if (positive.length >= 3) return positive.slice(0, 3);
+
+    const picked = [...positive];
+    // Flatten full sorted list to courses
+    const allSorted = scored.map((s) => s.course);
+    for (const c of allSorted) {
+      if (picked.length >= 3) break;
+      if (!picked.find((p) => p.id === c.id)) picked.push(c);
+    }
+
+    return picked.slice(0, 3);
+  };
+
+  const related = computeRelated();
 
   return (
     <main className="py-12 bg-[#fffaf8]">
