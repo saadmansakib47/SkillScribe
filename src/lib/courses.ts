@@ -31,7 +31,7 @@ export const COURSES: Course[] = [
   {
     id: 12,
     title: 'Complete Software Testing Mastery',
-    shortDescription: 'Master manual & automated testing with hands-on examples.',
+  shortDescription: 'Master manual & automated testing with hands-on examples. Gain practical skills through labs and sample projects.',
     description: 'Master both manual and automated testing with real-world examples and hands-on practice.This course guides you through writing effective test cases, automating web UI tests with Selenium, testing APIs with Postman, and integrating tests into CI pipelines. Includes practical labs, downloadable resources, and sample projects to help you build a testing portfolio.',
     image: '/Asset/software test.jpg',
     rating: 4.6,
@@ -109,7 +109,7 @@ export const COURSES: Course[] = [
   {
     id: 11,
     title: 'Node.js APIs and Microservices',
-    shortDescription: 'Build scalable Node APIs and microservices.',
+  shortDescription: 'Build scalable Node APIs and microservices. Includes hands-on projects for observability and deployment.',
     description: 'Build scalable APIs with Node, Express and microservice patterns. Learn how to design RESTful services, integrate databases, and apply microservice communication patterns. Hands-on projects teach testing, observability, and deployment practices for production-ready services.',
     image: '/Asset/nodejs.jpg',
     rating: 3.3,
@@ -176,7 +176,7 @@ export const COURSES: Course[] = [
   {
     id: 10,
     title: 'Design Thinking for Product Teams',
-    shortDescription: 'User-centric design and rapid prototyping for teams.',
+  shortDescription: 'User-centric design and rapid prototyping for teams. Learn validation, usability testing, and prototype delivery.',
     description: 'Learn user-centric design and rapid prototyping for product teams. This course covers user research, ideation, and prototyping techniques with practical templates and guided workshops. You will learn to validate ideas, run usability tests, and produce prototype artifacts for stakeholders.',
     image: '/Asset/design think.png',
     rating: 4.1,
@@ -231,7 +231,7 @@ export const COURSES: Course[] = [
   {
   id: 9,
   title: 'Intro to Database',
-  shortDescription: 'Practical intro to relational and NoSQL databases.',
+  shortDescription: 'Practical intro to relational and NoSQL databases. Hands-on labs cover schema design and query patterns.',
   description: 'Understand relational and NoSQL databases and how to model data. Topics include ER modeling, SQL queries, indexing, transactions, and NoSQL patterns with practical examples and exercises. The course includes dataset-driven labs and schema design guidance for real applications.',
   image: '/Asset/database.jpg',
   rating: 4.0,
@@ -295,7 +295,7 @@ export const COURSES: Course[] = [
   {
   id: 8,
   title: 'Python Crash Course',
-  shortDescription: 'Fast-paced Python for prototyping and scripting.',
+  shortDescription: 'Fast-paced Python for prototyping and scripting. Covers practical scripts, data handling, and real examples.',
   description: 'A fast-paced introduction to Python for beginners and engineers who want to prototype quickly. You will learn core syntax, data structures, scripting tools, and advanced topics like decorators and generators. Each module includes code examples, exercises, and downloadable scripts to practice.',
   image: '/Asset/python.webp',
   rating: 4.6,
@@ -373,7 +373,7 @@ export const COURSES: Course[] = [
   {
     id: 7,
     title: 'Advanced React Patterns',
-    shortDescription: 'Advanced React patterns for scaling apps.',
+  shortDescription: 'Advanced React patterns for scaling apps. Learn advanced hooks, state architecture, and profiling techniques.',
   description: 'Take your React skills to the next level with hooks, context, and performance patterns. Focused lessons cover advanced hooks, state architecture, and profiling strategies to scale React applications. Includes pattern libraries, practical refactors, and exercises to optimize real-world apps.',
     image: '/Asset/advance react.jpg',
     rating: 4.4,
@@ -428,7 +428,7 @@ export const COURSES: Course[] = [
   {
   id: 6,
   title: 'Web Development Bootcamp',
-  shortDescription: 'Fullstack web dev — HTML, CSS, JS to deployment.',
+  shortDescription: 'Fullstack web dev — HTML, CSS, JS to deployment. Build and deploy a starter app with guided templates.',
   description: 'Become a fullstack web developer by taking this ONE course, even if you have never coded before. Learn HTML, CSS, JavaScript, Node.js, and deployment through guided projects and starter templates. By the end you will deploy a fullstack app and understand the core workflows used in modern development.',
   image: '/Asset/webdev.jpg',
   rating: 4.9,
@@ -502,7 +502,7 @@ export const COURSES: Course[] = [
   {
   id: 5,
   title: 'UI/UX Fundamentals',
-  shortDescription: 'Foundations of UI/UX: design, wireframing, prototypes.',
+  shortDescription: 'Foundations of UI/UX: design, wireframing, prototypes. Hands-on exercises and a ready-to-use UI kit included.',
   description: 'Do you love designing? If so, this course is the perfect one for you. Learn UI/UX foundations, wireframing, and prototyping tools with practical exercises and a complete UI kit. The course emphasizes real design workflows, handoff best practices, and portfolio-ready projects.',
   image: '/Asset/uiux.webp',
   rating: 2.9,
@@ -566,7 +566,7 @@ export const COURSES: Course[] = [
   {
   id: 4,
   title: 'Data Science with Python',
-  shortDescription: 'Data science with Python: cleaning, modeling, deployment.',
+  shortDescription: 'Data science with Python: cleaning, modeling, deployment. Learn with notebooks and practical datasets.',
   description: 'Learn data science with python by taking this course, and build your desired career. Covers data cleaning, exploration, modeling basics, and evaluation with hands-on notebooks and practical datasets. You will also get guidance on deploying models and assembling a data-science portfolio.',
   image: '/Asset/data science.jpeg',
   rating: 3.9,
@@ -631,7 +631,7 @@ export const COURSES: Course[] = [
   {
   id: 3,
   title: 'HTML, CSS, JS Basics',
-  shortDescription: 'Frontend basics: HTML, CSS, and vanilla JavaScript.',
+  shortDescription: 'Frontend basics: HTML, CSS, and vanilla JavaScript. Build small projects and deploy simple applications.',
   description: 'Learn frontend development from the ground up. This course covers semantic HTML, responsive CSS, and vanilla JavaScript with practical projects and deployable examples. You will build small applications to reinforce concepts and prepare for more advanced frontend work.',
   image: '/Asset/html-css-javascript.jpg',
   rating: 3.8,
@@ -709,7 +709,7 @@ export const COURSES: Course[] = [
   {
     id: 2,
     title: 'Manual and Automated Testing',
-    shortDescription: 'Hands-on manual and automated testing fundamentals.',
+  shortDescription: 'Hands-on manual and automated testing fundamentals. Covers tooling, scripting, and CI integration with labs.',
   description: 'Learn testing fundamentals for both manual and automated approaches. This course covers tooling setup, test case design, automation scripting, and CI integration with hands-on labs and example scripts. It is ideal for learners who want practical testing experience and reusable resources.',
     image: '/Asset/testing.jpg',
     rating: 4.7,
@@ -764,7 +764,7 @@ export const COURSES: Course[] = [
   {
     id: 1,
     title: 'Web Development with MERN',
-    shortDescription: 'Project-based MERN stack: build and deploy fullstack apps.',
+  shortDescription: 'Project-based MERN stack: build and deploy fullstack apps. Includes auth, data modeling, and deployment exercises.',
   description: 'Master the MERN stack by building real projects and end-to-end features. The course covers React frontend patterns, Node/Express APIs, MongoDB data modeling, authentication, and deployment. Includes starter templates, step-by-step labs, and exercises to reinforce each layer of the stack.',
     image: '/Asset/mern stack.jpg',
     rating: 4.8,
