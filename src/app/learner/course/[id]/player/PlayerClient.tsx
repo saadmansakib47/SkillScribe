@@ -10,6 +10,84 @@ export default function PlayerClient({ course }: Props) {
   const [tab, setTab] = useState<'Overview' | 'Resources' | 'Reviews' | 'Quizzes' | 'Certificate'>('Overview');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  // Aggregate resources from modules -> topics only (exclude top-level course.resources)
+  const aggregatedResources = useMemo(() => {
+    const list: { title: string; size?: string; file?: string; source?: string }[] = [];
+    (course.modules || []).forEach((m) => {
+      (m.topics || []).forEach((t) => {
+        (t.resources || []).forEach((res) => list.push({ ...res, source: `${m.title} › ${t.title}` }));
+      });
+    });
+    return list;
+  }, [course]);
+
+  // Create a dummy PDF (base64) and trigger download when user clicks "Download PDF"
+  const downloadResourcesPdf = () => {
+    try {
+      // Minimal one-page PDF (dummy) in base64. This is a small placeholder PDF.
+      const pdfBase64 =
+        'JVBERi0xLjQKJeLjz9MKNCAwIG9iago8PC9UeXBlIC9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXMgPDwvRm9udCA8PC9GMSA1IDAgUj4+Pj4vQ29udGVudHMgNiAwIFIvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXT4+CmVuZG9iago1IDAgb2JqCjw8L1R5cGUgL0ZvbnQvU3ViVHlwZSAvVHlwZTEvQmFzZUZvbnQgL0hlbHZldGljYT4+CmVuZG9iago2IDAgb2JqCjw8L0xlbmd0aCA0Mj4+CnN0cmVhbQpCVAovRjEgMTIgVGYKMTAgNzIwIFRkCihSZXNvdXJjZXMgUmVzb3VyY2VzKQpFVAplbmRzdHJlYW0KZW5kb2JqCjIgMCBvYmoKPDwvVHlwZSAvUGFnZXMvS2lkcyBbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKc3RhcnR4cmVmCjQzMwolJUVPRgo=';
+
+      // decode base64 to binary
+      const byteChars = atob(pdfBase64);
+      const byteNumbers = new Array(byteChars.length);
+      for (let i = 0; i < byteChars.length; i++) {
+        byteNumbers[i] = byteChars.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${course.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_resources.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+  } catch {
+      // fallback: generate a TXT file with resource list
+      const txt = (course.modules || [])
+        .flatMap((m) => (m.topics || []).flatMap((t) => (t.resources || []).map((r) => `${m.title} › ${t.title} - ${r.title}`)))
+        .join('\n') || 'No resources.';
+      const blob = new Blob([txt], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${course.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_resources.txt`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  // Download a single resource by fetching it and saving as a blob.
+  // This provides a nicer fallback and shows an error if the file cannot be fetched (e.g., dev server down).
+  const downloadResource = (file?: string, title?: string) => {
+    // For now, create a small dummy PDF (same approach as Download All) so every
+    // resource button produces a consistent download experience without depending
+    // on the dev server or real files. Replace later with real fetch/download logic.
+    const pdfBase64 =
+      'JVBERi0xLjQKJeLjz9MKNCAwIG9iago8PC9UeXBlIC9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXMgPDwvRm9udCA8PC9GMSA1IDAgUj4+Pj4vQ29udGVudHMgNiAwIFIvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXT4+CmVuZG9iago1IDAgb2JqCjw8L1R5cGUgL0ZvbnQvU3ViVHlwZSAvVHlwZTEvQmFzZUZvbnQgL0hlbHZldGljYT4+CmVuZG9iago2IDAgb2JqCjw8L0xlbmd0aCA0Mj4+CnN0cmVhbQpCVAovRjEgMTIgVGYKMTAgNzIwIFRkCihSZXNvdXJjZXMgUmVzb3VyY2VzKQpFVAplbmRzdHJlYW0KZW5kb2JqCjIgMCBvYmoKPDwvVHlwZSAvUGFnZXMvS2lkcyBbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKc3RhcnR4cmVmCjQzMwolJUVPRgo=';
+
+    const byteChars = atob(pdfBase64);
+    const byteNumbers = new Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) {
+      byteNumbers[i] = byteChars.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const name = title ? `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf` : (file?.split('/').pop() || 'resource.pdf');
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
   // selected lesson (moduleId + topicId)
   const initialLesson = useMemo(() => {
     const m = course.modules && course.modules.length > 0 ? course.modules[0] : undefined;
@@ -98,8 +176,42 @@ export default function PlayerClient({ course }: Props) {
 
           {tab === 'Resources' && (
             <div>
-              <h3 className="text-2xl font-semibold">Resources</h3>
-              <div className="mt-4 text-gray-600">Rsources UI placeholder.</div>
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-semibold">Resources</h3>
+                <div>
+                  <button
+                    onClick={downloadResourcesPdf}
+                    className="ml-2 inline-flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-md text-sm"
+                  >
+                    Download PDF
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-3">
+                {aggregatedResources.length === 0 && <div className="text-gray-600">No resources for this course.</div>}
+                {aggregatedResources.map((r, idx) => (
+                  <div key={idx} className="p-3 bg-white rounded-md border flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">{r.title}</div>
+                      <div className="text-sm text-gray-500">{r.source}</div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-sm text-gray-500">{r.size ?? ''}</div>
+                      {r.file ? (
+                        <button
+                          onClick={() => downloadResource(r.file, r.title)}
+                          className="inline-flex items-center gap-2 px-3 py-1 bg-white border rounded text-sm text-blue-600 hover:bg-blue-50"
+                        >
+                          Download
+                        </button>
+                      ) : (
+                        <span className="text-sm text-gray-400">No file</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
