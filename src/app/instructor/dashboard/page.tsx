@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
+import CourseStatsTable from "@/components/ui/CourseStatsTable";
 
 export default function InstructorDashboard() {
   const [activeRange, setActiveRange] = useState("7");
@@ -97,9 +98,9 @@ export default function InstructorDashboard() {
                   card.label as "Followers" | "Likes" | "Views" | "Watch Time"
                 )
               }
-              className={`p-4 rounded-2xl border bg-white text-left transition-all duration-300 ${selectedMetric === card.label
+              className={`p-4 rounded-2xl border bg-gray-100 text-left transition-all duration-300 ${selectedMetric === card.label
                 ? "border-[#4C6FFF] shadow-md scale-[1.02]"
-                : "border-black hover:shadow-sm"
+                : "border-[#FAF7F3] hover:shadow-sm"
                 }`}
             >
               <h3 className="text-gray-500 text-sm mb-1">{card.label}</h3>
@@ -192,41 +193,7 @@ export default function InstructorDashboard() {
 
         {/* Course Stats Table */}
         <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-4">
-          <h2 className="text-lg font-semibold mb-4">Course Stats</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse">
-              <thead>
-                <tr className="bg-blue-200 text-left text-sm font-semibold text-gray-700">
-                  <th className="px-4 py-2">Course</th>
-                  <th className="px-4 py-2 cursor-pointer">Category ▼</th>
-                  <th className="px-4 py-2">Rating</th>
-                  <th className="px-4 py-2">Visit</th>
-                  <th className="px-4 py-2">Sale</th>
-                  <th className="px-4 py-2">Earnings</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-700 text-sm">
-                {[
-                  { title: "Artificial Intelligence", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/ai.png" },
-                  { title: "Robotics", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/robotics.png" },
-                  { title: "Cyber Security", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/cyber.png" },
-                  { title: "Laravel", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/laravel.png" },
-                ].map((course) => (
-                  <tr key={course.title} className="border-t">
-                    <td className="px-4 py-2 flex items-center gap-2">
-                      <img src={course.img} alt={course.title} className="w-8 h-8 rounded" />
-                      {course.title}
-                    </td>
-                    <td className="px-4 py-2">{course.category}</td>
-                    <td className="px-4 py-2">{course.rating}</td>
-                    <td className="px-4 py-2">{course.visit}</td>
-                    <td className="px-4 py-2">{course.sale}</td>
-                    <td className="px-4 py-2">{course.earnings}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <CourseStatsTable />
         </div>
 
       </main>
