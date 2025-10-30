@@ -11,11 +11,14 @@ import {
   Bell,
 } from "lucide-react";
 import { useState } from "react";
-import InstructorChart from "@/components/chart/instructorChart";
+import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
+import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
 
 export default function InstructorDashboard() {
   const [activeRange, setActiveRange] = useState("7");
-  const [selectedMetric, setSelectedMetric] = useState<"Followers" | "Likes" | "Views" | "Watch Time">("Followers");
+  const [selectedMetric, setSelectedMetric] = useState<
+    "Followers" | "Likes" | "Views" | "Watch Time"
+  >("Followers");
 
   return (
     <div className="flex min-h-screen bg-[#F9FAFB]">
@@ -91,7 +94,11 @@ export default function InstructorDashboard() {
           ].map((card, i) => (
             <button
               key={i}
-              onClick={() => setSelectedMetric(card.label as "Followers" | "Likes" | "Views" | "Watch Time")}
+              onClick={() =>
+                setSelectedMetric(
+                  card.label as "Followers" | "Likes" | "Views" | "Watch Time"
+                )
+              }
               className={`p-4 rounded-2xl border bg-white text-left transition-all duration-300 ${
                 selectedMetric === card.label
                   ? "border-[#4C6FFF] shadow-md scale-[1.02]"
@@ -107,11 +114,44 @@ export default function InstructorDashboard() {
           ))}
         </div>
 
-        {/* Charts */}
-        <InstructorChart selectedMetric={selectedMetric} />
+        {/* Line Chart Section */}
+        <InstructorLineChart selectedMetric={selectedMetric} />
 
-        {/* Bottom Section */}
-        {/* (Courses in progress, same as before) */}
+        {/* Bottom Section (Courses in Progress + Pie Chart side by side) */}
+        <div className="grid grid-cols-3 gap-6">
+          {/* Courses in Progress */}
+          <div className="col-span-2 bg-white p-6 rounded-2xl border">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-semibold text-gray-800">Courses in Progress</h2>
+              <button className="text-gray-500 text-sm hover:text-[#4C6FFF]">
+                View All
+              </button>
+            </div>
+            <ul className="space-y-3">
+              {[
+                { title: "React for Beginners", progress: 70 },
+                { title: "Advanced Node.js", progress: 50 },
+                { title: "UI Design Principles", progress: 85 },
+              ].map((course, i) => (
+                <li key={i}>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-gray-700">{course.title}</span>
+                    <span className="text-gray-500 text-sm">{course.progress}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-[#4C6FFF] h-2 rounded-full transition-all duration-500"
+                      style={{ width: `${course.progress}%` }}
+                    ></div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Earning Pie Chart */}
+          <InstructorPieChart />
+        </div>
       </main>
     </div>
   );
