@@ -14,12 +14,12 @@ import { useState } from "react";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
 import CourseStatsTable from "@/components/ui/CourseStatsTable";
+import StatCards from "@/components/ui/StatCards";
 
 export default function InstructorDashboard() {
   const [activeRange, setActiveRange] = useState("7");
-  const [selectedMetric, setSelectedMetric] = useState<
-    "Followers" | "Likes" | "Views" | "Watch Time"
-  >("Followers");
+  const [selectedMetric, setSelectedMetricState] = useState<"Followers" | "Likes" | "Views" | "Watch Time">("Followers");
+
 
   return (
     <div className="flex min-h-screen bg-[#F9FAFB]">
@@ -83,34 +83,13 @@ export default function InstructorDashboard() {
           ))}
         </div>
 
-        {/* Stats Cards (now clickable) */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          {[
-            { label: "Likes", value: "323K", change: "+42k" },
-            { label: "Followers", value: "1.2M", change: "+23k" },
-            { label: "Views", value: "250k", change: "+15k" },
-            { label: "Watch Time", value: "128hr", change: "+3hr" },
-          ].map((card, i) => (
-            <button
-              key={i}
-              onClick={() =>
-                setSelectedMetric(
-                  card.label as "Followers" | "Likes" | "Views" | "Watch Time"
-                )
-              }
-              className={`p-4 rounded-2xl border bg-gray-100 text-left transition-all duration-300 ${selectedMetric === card.label
-                ? "border-[#4C6FFF] shadow-md scale-[1.02]"
-                : "border-[#FAF7F3] hover:shadow-sm"
-                }`}
-            >
-              <h3 className="text-gray-500 text-sm mb-1">{card.label}</h3>
-              <div className="flex justify-between items-end">
-                <p className="text-2xl font-semibold">{card.value}</p>
-                <p className="text-green-500 text-sm">{card.change}</p>
-              </div>
-            </button>
-          ))}
-        </div>
+        {/* Stats Cards ( clickable) */}
+        <StatCards
+          selectedMetric={selectedMetric}
+          setSelectedMetric={setSelectedMetricState}
+        />
+
+
 
         {/* Line Chart Section */}
         <InstructorLineChart selectedMetric={selectedMetric} />
