@@ -769,7 +769,7 @@ export const COURSES: Course[] = [
     image: '/Asset/mern stack.jpg',
     rating: 4.8,
     reviews: 2340,
-    durationHours: 19,
+    durationHours: 16,
     price: 22,
     totalVideos: 16,
     instructorName: 'Sadia Islam',
@@ -808,7 +808,7 @@ export const COURSES: Course[] = [
         ] },
       { id: 4,
         title: 'MongoDB & Deployment',
-        lectures: 6,
+        lectures: 4,
         duration: '3.5 hr',
         topics: [
           { id: 1, title: 'Mongo basics', resources: [{ title: 'Mongo primer', size: '120 KB', file: '/Asset/resources/mern/mongo.pdf' }] },
