@@ -38,11 +38,10 @@ export default function InstructorDashboard() {
           ].map(({ icon: Icon, label }) => (
             <button
               key={label}
-              className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl ${
-                label === "Dashboard"
+              className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl ${label === "Dashboard"
                   ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
                   : "hover:bg-gray-100"
-              }`}
+                }`}
             >
               <Icon className="w-5 h-5" />
               {label}
@@ -73,11 +72,10 @@ export default function InstructorDashboard() {
             <button
               key={r.key}
               onClick={() => setActiveRange(r.key)}
-              className={`px-4 py-2 border rounded-full text-sm ${
-                activeRange === r.key
+              className={`px-4 py-2 border rounded-full text-sm ${activeRange === r.key
                   ? "bg-[#4C6FFF] text-white"
                   : "bg-white hover:bg-gray-100"
-              }`}
+                }`}
             >
               {r.label}
             </button>
@@ -99,11 +97,10 @@ export default function InstructorDashboard() {
                   card.label as "Followers" | "Likes" | "Views" | "Watch Time"
                 )
               }
-              className={`p-4 rounded-2xl border bg-white text-left transition-all duration-300 ${
-                selectedMetric === card.label
+              className={`p-4 rounded-2xl border bg-white text-left transition-all duration-300 ${selectedMetric === card.label
                   ? "border-[#4C6FFF] shadow-md scale-[1.02]"
-                  : "border-gray-200 hover:shadow-sm"
-              }`}
+                  : "border-black hover:shadow-sm"
+                }`}
             >
               <h3 className="text-gray-500 text-sm mb-1">{card.label}</h3>
               <div className="flex justify-between items-end">
@@ -122,32 +119,72 @@ export default function InstructorDashboard() {
           {/* Courses in Progress */}
           <div className="col-span-2 bg-white p-6 rounded-2xl border">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold text-gray-800">Courses in Progress</h2>
+              <h2 className="font-semibold text-gray-800">
+                Courses In Progress (6)
+              </h2>
               <button className="text-gray-500 text-sm hover:text-[#4C6FFF]">
                 View All
               </button>
             </div>
+
             <ul className="space-y-3">
               {[
-                { title: "React for Beginners", progress: 70 },
-                { title: "Advanced Node.js", progress: 50 },
-                { title: "UI Design Principles", progress: 85 },
+                {
+                  title: "What is International Business?",
+                  lessons: "11 lessons, 2hr 30min",
+                  progress: 80,
+                },
+                {
+                  title: "Microsoft Excel: Learn MS Excel 2019",
+                  lessons: "7 lessons, 1hr 10min",
+                  progress: 20,
+                },
+                {
+                  title: "Make Website with WordPress",
+                  lessons: "13 lessons, 2hr 13min",
+                  progress: 50,
+                },
               ].map((course, i) => (
-                <li key={i}>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-gray-700">{course.title}</span>
-                    <span className="text-gray-500 text-sm">{course.progress}%</span>
+                <li
+                  key={i}
+                  className="p-3 rounded-xl border hover:shadow-sm transition-all duration-300"
+                >
+                  <div className="flex justify-between items-center mb-1">
+                    <a
+                      href="#"
+                      className="text-[#1d4ed8] font-medium hover:underline"
+                    >
+                      {course.title}
+                    </a>
+
+                    <div className="flex items-center gap-2">
+                      <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-2 bg-[#4C6FFF] rounded-full transition-all duration-500"
+                          style={{ width: `${course.progress}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm text-gray-600 font-medium">
+                        {course.progress}%
+                      </span>
+                      <button className="bg-[#EEF2FF] p-2 rounded-full hover:bg-[#DDE4FF]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 text-[#4C6FFF]"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M6 4l10 6-10 6V4z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-[#4C6FFF] h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${course.progress}%` }}
-                    ></div>
-                  </div>
+                  <p className="text-sm text-gray-500">{course.lessons}</p>
                 </li>
               ))}
             </ul>
           </div>
+
 
           {/* Earning Pie Chart */}
           <InstructorPieChart />
