@@ -24,7 +24,7 @@ export default function InstructorDashboard() {
     <div className="flex min-h-screen bg-[#F9FAFB]">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r flex flex-col p-4">
-        <h1 className="text-2xl font-semibold mb-8">Skillscribe</h1>
+        <h1 className="text-2xl font-semibold mb-8">Ready to Teach?</h1>
 
         <nav className="space-y-4">
           {[
@@ -39,8 +39,8 @@ export default function InstructorDashboard() {
             <button
               key={label}
               className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl ${label === "Dashboard"
-                  ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
-                  : "hover:bg-gray-100"
+                ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
+                : "hover:bg-gray-100"
                 }`}
             >
               <Icon className="w-5 h-5" />
@@ -73,8 +73,8 @@ export default function InstructorDashboard() {
               key={r.key}
               onClick={() => setActiveRange(r.key)}
               className={`px-4 py-2 border rounded-full text-sm ${activeRange === r.key
-                  ? "bg-[#4C6FFF] text-white"
-                  : "bg-white hover:bg-gray-100"
+                ? "bg-[#4C6FFF] text-white"
+                : "bg-white hover:bg-gray-100"
                 }`}
             >
               {r.label}
@@ -98,8 +98,8 @@ export default function InstructorDashboard() {
                 )
               }
               className={`p-4 rounded-2xl border bg-white text-left transition-all duration-300 ${selectedMetric === card.label
-                  ? "border-[#4C6FFF] shadow-md scale-[1.02]"
-                  : "border-black hover:shadow-sm"
+                ? "border-[#4C6FFF] shadow-md scale-[1.02]"
+                : "border-black hover:shadow-sm"
                 }`}
             >
               <h3 className="text-gray-500 text-sm mb-1">{card.label}</h3>
@@ -189,6 +189,46 @@ export default function InstructorDashboard() {
           {/* Earning Pie Chart */}
           <InstructorPieChart />
         </div>
+
+        {/* Course Stats Table */}
+        <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-4">
+          <h2 className="text-lg font-semibold mb-4">Course Stats</h2>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse">
+              <thead>
+                <tr className="bg-blue-200 text-left text-sm font-semibold text-gray-700">
+                  <th className="px-4 py-2">Course</th>
+                  <th className="px-4 py-2 cursor-pointer">Category ▼</th>
+                  <th className="px-4 py-2">Rating</th>
+                  <th className="px-4 py-2">Visit</th>
+                  <th className="px-4 py-2">Sale</th>
+                  <th className="px-4 py-2">Earnings</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-700 text-sm">
+                {[
+                  { title: "Artificial Intelligence", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/ai.png" },
+                  { title: "Robotics", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/robotics.png" },
+                  { title: "Cyber Security", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/cyber.png" },
+                  { title: "Laravel", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/laravel.png" },
+                ].map((course) => (
+                  <tr key={course.title} className="border-t">
+                    <td className="px-4 py-2 flex items-center gap-2">
+                      <img src={course.img} alt={course.title} className="w-8 h-8 rounded" />
+                      {course.title}
+                    </td>
+                    <td className="px-4 py-2">{course.category}</td>
+                    <td className="px-4 py-2">{course.rating}</td>
+                    <td className="px-4 py-2">{course.visit}</td>
+                    <td className="px-4 py-2">{course.sale}</td>
+                    <td className="px-4 py-2">{course.earnings}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </main>
     </div>
   );
