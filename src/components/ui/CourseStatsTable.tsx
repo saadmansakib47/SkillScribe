@@ -13,12 +13,13 @@ export default function CourseStatsTable() {
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const courses = [
-    { title: "Artificial Intelligence", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/ai.png" },
-    { title: "Robotics", category: "Computer Science", rating: 4.3, visit: "25,300", sale: 6, earnings: "$170.00", img: "/robotics.png" },
-    { title: "Cyber Security", category: "Computer Science", rating: 3.5, visit: "25,300", sale: 6, earnings: "$170.00", img: "/cyber.png" },
-    { title: "Laravel", category: "Computer Science", rating: 4.9, visit: "25,300", sale: 6, earnings: "$170.00", img: "/laravel.png" },
-  ];
+const courses = [
+  { title: "Artificial Intelligence", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/ai.jpg" },
+  { title: "Robotics", category: "Computer Science", rating: 4.3, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/robo.jpg" },
+  { title: "Cyber Security", category: "Computer Science", rating: 3.5, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/cyber.jpg" },
+  { title: "Laravel", category: "Computer Science", rating: 4.9, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/laravel.jpg" },
+];
+
 
   const filteredCourses =
     selectedCategory === "all"
