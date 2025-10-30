@@ -14,10 +14,11 @@ import { useState } from "react";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
 import CourseStatsTable from "@/components/ui/CourseStatsTable";
+import RangeSelector from "@/components/chart/instructorChart/rangeSelector";
 import StatCards from "@/components/ui/StatCards";
 
 export default function InstructorDashboard() {
-  const [activeRange, setActiveRange] = useState("7");
+  const [selectedRange, setSelectedRange] = useState<"7d" | "14d" | "30d" | "90d">("7d");
   const [selectedMetric, setSelectedMetricState] = useState<"Followers" | "Likes" | "Views" | "Watch Time">("Followers");
 
 
@@ -62,26 +63,11 @@ export default function InstructorDashboard() {
           <Bell className="w-5 h-5" />
         </div>
 
-        {/* Range Selector */}
-        <div className="flex gap-2 mb-6">
-          {[
-            { key: "7", label: "Last 7 days" },
-            { key: "14", label: "Last 14 days" },
-            { key: "28", label: "Last 28 days" },
-            { key: "custom", label: "Custom" },
-          ].map((r) => (
-            <button
-              key={r.key}
-              onClick={() => setActiveRange(r.key)}
-              className={`px-4 py-2 border rounded-full text-sm ${activeRange === r.key
-                ? "bg-[#4C6FFF] text-white"
-                : "bg-white hover:bg-gray-100"
-                }`}
-            >
-              {r.label}
-            </button>
-          ))}
-        </div>
+        {/* --- Timespan Buttons --- */}
+      <RangeSelector
+        selectedRange={selectedRange}
+        setSelectedRange={setSelectedRange}
+      />
 
         {/* Stats Cards ( clickable) */}
         <StatCards
@@ -92,8 +78,7 @@ export default function InstructorDashboard() {
 
 
         {/* Line Chart Section */}
-        <InstructorLineChart selectedMetric={selectedMetric} />
-
+        <InstructorLineChart selectedMetric={selectedMetric} selectedRange={selectedRange} />
         {/* Bottom Section (Courses in Progress + Pie Chart side by side) */}
         <div className="grid grid-cols-3 gap-6">
           {/* Courses in Progress */}
