@@ -8,12 +8,26 @@ type Module = { id: number; title: string; lectures: number; duration?: string; 
 
 export default function CourseModules({
   modules,
-  topResources,
   outcomes,
+  showOnlyTopics,
+  onTopicSelect,
+  showAsOverlay,
+  open = true,
+  onClose,
 }: {
   modules?: Module[];
   topResources?: Resource[];
   outcomes?: string[];
+  // when true, the right column shows only module topics/lectures (no resources/outcomes)
+  showOnlyTopics?: boolean;
+  // optional callback when a topic (lecture) is clicked: (moduleId, topicId)
+  onTopicSelect?: (moduleId: number, topicId: number) => void;
+  // when true, render the sidebar as an overlay fixed panel on the right
+  showAsOverlay?: boolean;
+  // overlay open state
+  open?: boolean;
+  // called when the overlay close button is clicked
+  onClose?: () => void;
 }) {
   const m = useMemo(() => modules || [], [modules]);
   const [selectedId, setSelectedId] = useState<number | null>(m.length > 0 ? m[0].id : null);
@@ -26,6 +40,138 @@ export default function CourseModules({
     return selected.topics.flatMap((t) => t.resources ?? []);
   }, [selected]);
 
+  if (showOnlyTopics) {
+    if (showAsOverlay) {
+      // overlay panel
+      return (
+        <>
+          {/* backdrop */}
+          {open && (
+            <div
+              className="fixed inset-0 bg-black/40 z-40"
+              onClick={onClose}
+              aria-hidden
+            />
+          )}
+
+          <div
+            className={`fixed top-0 right-0 h-full w-[380px] max-w-full bg-white border-l shadow-lg z-50 transform transition-transform duration-200 ease-in-out ${
+              open ? 'translate-x-0' : 'translate-x-full'
+            }`}
+            aria-hidden={!open}
+          >
+            <div className="p-4 h-full flex flex-col">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold">Course Modules</h3>
+                <button onClick={onClose} className="p-1 rounded-md bg-gray-100 hover:bg-gray-200">×</button>
+              </div>
+
+              <div className="overflow-auto">
+                <div className="space-y-3">
+                  {m.map((mod, modIdx) => {
+                    const expanded = selectedId === mod.id;
+                    return (
+                      <div key={mod.id} className="bg-white rounded-lg border">
+                        <button
+                          onClick={() => setSelectedId(mod.id)}
+                          className="w-full flex items-center justify-between p-3 rounded-t-lg bg-[#fbf7f2]"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="text-sm font-semibold text-gray-700">{modIdx + 1}.</div>
+                            <div>
+                              <div className="font-medium text-gray-900">{mod.title}</div>
+                              <div className="text-xs text-gray-500">{mod.lectures} lessons</div>
+                            </div>
+                          </div>
+                          <div className="text-gray-500">{expanded ? '▾' : '▸'}</div>
+                        </button>
+
+                        <div className={`transition-[max-height] duration-200 overflow-hidden ${expanded ? 'max-h-[800px]' : 'max-h-0'}`}>
+                          <div className="p-3 space-y-2">
+                            {mod.topics && mod.topics.length > 0 ? (
+                              mod.topics.map((t) => (
+                                <button
+                                  key={t.id}
+                                  onClick={() => onTopicSelect?.(mod.id, t.id)}
+                                  className="w-full text-left flex items-start gap-3 p-2 rounded hover:bg-gray-50"
+                                >
+                                  <div className="mt-1 w-3 h-3 rounded-full border border-gray-300" />
+                                  <div>
+                                    <div className="text-sm font-medium">{t.title}</div>
+                                  </div>
+                                </button>
+                              ))
+                            ) : (
+                              <div className="text-sm text-gray-500">No topics</div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+    // Render a single-column sidebar with accordion-like modules and topic lists
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold">Course Modules</h3>
+          <button className="text-gray-500 text-lg leading-none">×</button>
+        </div>
+
+        <div className="space-y-3">
+          {m.map((mod, modIdx) => {
+            const expanded = selectedId === mod.id;
+            return (
+              <div key={mod.id} className="bg-white rounded-lg border">
+                <button
+                  onClick={() => setSelectedId(mod.id)}
+                  className="w-full flex items-center justify-between p-3 rounded-t-lg bg-[#fbf7f2]"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="text-sm font-semibold text-gray-700">{modIdx + 1}.</div>
+                    <div>
+                      <div className="font-medium text-gray-900">{mod.title}</div>
+                      <div className="text-xs text-gray-500">{mod.lectures} lessons</div>
+                    </div>
+                  </div>
+                  <div className="text-gray-500">{expanded ? '▾' : '▸'}</div>
+                </button>
+
+                {expanded && (
+                  <div className="p-3 space-y-2">
+                      {mod.topics && mod.topics.length > 0 ? (
+                      mod.topics.map((t) => (
+                        <button
+                          key={t.id}
+                          onClick={() => onTopicSelect?.(mod.id, t.id)}
+                          className="w-full text-left flex items-start gap-3 p-2 rounded hover:bg-gray-50"
+                        >
+                          <div className="mt-1 w-3 h-3 rounded-full border border-gray-300" />
+                          <div>
+                            <div className="text-sm font-medium">{t.title}</div>
+                          </div>
+                        </button>
+                      ))
+                    ) : (
+                      <div className="text-sm text-gray-500">No topics</div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Default two-column layout: modules + resources/outcomes
   return (
     <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div>
