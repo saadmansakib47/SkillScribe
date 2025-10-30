@@ -1,15 +1,35 @@
 "use client";
 
+import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { earningData, COLORS } from "@/lib/chartData";
+import { earningDataset, COLORS } from "@/lib/chartData";
 
 export default function InstructorPieChart() {
+  const [selectedPeriod, setSelectedPeriod] = useState<"today" | "week" | "month" | "all">("week");
+  const earningData = earningDataset[selectedPeriod];
+
+  // compute total for the center text
+  const total = earningData.reduce((sum, item) => sum + item.value, 0);
+
   return (
     <div className="bg-white p-6 rounded-2xl border col-span-1">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-gray-800">Earning</h2>
-        <button className="text-gray-500 text-sm">This Week</button>
+
+        {/* Dropdown */}
+        <div className="relative">
+          <select
+            value={selectedPeriod}
+            onChange={(e) => setSelectedPeriod(e.target.value as any)}
+            className="border border-gray-300 rounded-[8px] text-sm text-gray-600 px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="today">Today</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="all">All Time</option>
+          </select>
+        </div>
       </div>
 
       {/* Pie Chart with Center Text */}
@@ -34,7 +54,7 @@ export default function InstructorPieChart() {
           {/* Center Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
             <span className="text-gray-500 text-sm">Total Earning</span>
-            <span className="text-2xl font-semibold">$382</span>
+            <span className="text-2xl font-semibold">${total}</span>
           </div>
         </div>
 

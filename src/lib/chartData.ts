@@ -37,10 +37,28 @@ export const chartData = {
   ],
 };
 
-export const earningData = [
-  { name: "Courses", value: 240 },
-  { name: "Bytes", value: 100 },
-  { name: "Read", value: 42 },
-];
+
+export const earningDataset = {
+  today: [
+    { name: "Courses", value: 30 },
+    { name: "Bytes", value: 10 },
+    { name: "Read", value: 5 },
+  ],
+  week: [
+    { name: "Courses", value: 240 },
+    { name: "Bytes", value: 100 },
+    { name: "Read", value: 42 },
+  ],
+  month: [
+    { name: "Courses", value: 900 },
+    { name: "Bytes", value: 400 },
+    { name: "Read", value: 180 },
+  ],
+  all: [
+    { name: "Courses", value: 4000 },
+    { name: "Bytes", value: 2000 },
+    { name: "Read", value: 760 },
+  ],
+};
 
 export const COLORS = ["#4C6FFF", "#E2B8FF", "#E5E483"];
