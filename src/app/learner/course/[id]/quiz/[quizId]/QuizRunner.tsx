@@ -46,7 +46,8 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
   const calculateScore = () => {
     let correct = 0;
     quiz.questions.forEach((question, index) => {
-      if (selectedAnswers[index] === question.correctAnswer) {
+      // correctAnswer is 1-based, but array indices are 0-based
+      if (selectedAnswers[index] === question.correctAnswer - 1) {
         correct++;
       }
     });
@@ -80,7 +81,8 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
             <h3 className="text-xl font-semibold mb-4">Review Your Answers</h3>
             {quiz.questions.map((question, qIndex) => {
               const userAnswer = selectedAnswers[qIndex];
-              const isCorrect = userAnswer === question.correctAnswer;
+              // correctAnswer is 1-based, but array indices are 0-based
+              const isCorrect = userAnswer === question.correctAnswer - 1;
               return (
                 <div
                   key={question.id}
@@ -101,7 +103,7 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
                       {!isCorrect && (
                         <p className="text-sm text-gray-700 mt-1">
                           <span className="font-medium">Correct answer:</span>{' '}
-                          {question.options[question.correctAnswer]}
+                          {question.options[question.correctAnswer - 1]}
                         </p>
                       )}
                     </div>
