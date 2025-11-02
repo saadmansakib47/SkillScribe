@@ -11,9 +11,10 @@ import {
   Bell,
 } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
-import CourseStatsTable from "@/components/ui/CourseStatsTable";
+import CourseStatsTable from "@/components/course/CourseStatsTable";
 import RangeSelector from "@/components/chart/instructorChart/rangeSelector";
 import StatCards from "@/components/ui/StatCards";
 
@@ -25,29 +26,32 @@ export default function InstructorDashboard() {
   return (
     <div className="flex min-h-screen bg-[#F9FAFB]">
       {/* Sidebar */}
+      {/* Sidebar */}
       <aside className="w-64 bg-white border-r flex flex-col p-4">
         <h1 className="text-2xl font-semibold mb-8">Ready to Teach?</h1>
 
         <nav className="space-y-4">
           {[
-            { icon: Home, label: "Dashboard" },
-            { icon: BookOpen, label: "My Courses" },
-            { icon: Calendar, label: "My Schedule" },
-            { icon: Star, label: "Review" },
-            { icon: MessageCircle, label: "Messages" },
-            { icon: HelpCircle, label: "Q&A" },
-            { icon: User, label: "My Account" },
-          ].map(({ icon: Icon, label }) => (
-            <button
+            { icon: Home, label: "Dashboard", href: "/instructor/dashboard" },
+            { icon: BookOpen, label: "My Courses", href: "/instructor/mycourses" },
+            { icon: Calendar, label: "My Schedule", href: "/instructor/schedule" },
+            { icon: Star, label: "Review", href: "/instructor/review" },
+            { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
+            { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
+            { icon: User, label: "My Account", href: "/instructor/account" },
+          ].map(({ icon: Icon, label, href }) => (
+            <Link
               key={label}
-              className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl ${label === "Dashboard"
-                ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
-                : "hover:bg-gray-100"
+              href={href}
+              className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl transition-all ${typeof window !== "undefined" &&
+                  window.location.pathname === href
+                  ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
+                  : "hover:bg-gray-100 text-gray-700"
                 }`}
             >
               <Icon className="w-5 h-5" />
               {label}
-            </button>
+            </Link>
           ))}
         </nav>
       </aside>
@@ -64,10 +68,10 @@ export default function InstructorDashboard() {
         </div>
 
         {/* --- Timespan Buttons --- */}
-      <RangeSelector
-        selectedRange={selectedRange}
-        setSelectedRange={setSelectedRange}
-      />
+        <RangeSelector
+          selectedRange={selectedRange}
+          setSelectedRange={setSelectedRange}
+        />
 
         {/* Stats Cards ( clickable) */}
         <StatCards
