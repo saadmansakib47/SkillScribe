@@ -26,7 +26,6 @@ export default function InstructorDashboard() {
   return (
     <div className="flex min-h-screen bg-[#F9FAFB]">
       {/* Sidebar */}
-      {/* Sidebar */}
       <aside className="w-64 bg-white border-r flex flex-col p-4">
         <h1 className="text-2xl font-semibold mb-8">Ready to Teach?</h1>
 
