@@ -182,40 +182,81 @@ export default function PlayerClient({ course }: Props) {
 
           {tab === 'Resources' && (
             <div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-semibold">Resources</h3>
-                <div>
-                  <button
-                    onClick={downloadResourcesPdf}
-                    className="ml-2 inline-flex items-center gap-2 px-3 py-2 text-white rounded-md text-sm"
-                    style={{ backgroundColor: '#094CA4' }}
-                  >
-                    Download PDF
-                  </button>
-                </div>
+                <button
+                  onClick={downloadResourcesPdf}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg transition-all hover:scale-105"
+                  style={{ backgroundColor: '#094CA4' }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Download All as PDF
+                </button>
               </div>
 
-              <div className="mt-4 space-y-3">
-                {aggregatedResources.length === 0 && <div className="text-gray-600">No resources for this course.</div>}
+              <div className="space-y-3">
+                {aggregatedResources.length === 0 && (
+                  <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-3 text-gray-400">
+                      <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <p className="text-gray-600 font-medium">No resources available for this course yet.</p>
+                  </div>
+                )}
                 {aggregatedResources.map((r, idx) => (
-                  <div key={idx} className="p-3 bg-white rounded-md border flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">{r.title}</div>
-                      <div className="text-sm text-gray-500">{r.source}</div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-sm text-gray-500">{r.size ?? ''}</div>
-                      {r.file ? (
-                        <button
-                          onClick={() => downloadResource(r.file, r.title)}
-                          className="inline-flex items-center gap-2 px-3 py-1 bg-white border rounded text-sm hover:bg-blue-50"
-                          style={{ color: '#094CA4' }}
-                        >
-                          Download
-                        </button>
-                      ) : (
-                        <span className="text-sm text-gray-400">No file</span>
-                      )}
+                  <div key={idx} className="group bg-white rounded-2xl border-2 border-gray-200 p-5 hover:shadow-lg hover:border-blue-300 transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      {/* File Icon */}
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-md" style={{ backgroundColor: '#094CA4' }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M13 3v6a1 1 0 001 1h6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">{r.title}</h4>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          <span className="truncate">{r.source}</span>
+                        </div>
+                        {r.size && (
+                          <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            <span>{r.size}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Download Button */}
+                      <div className="flex-shrink-0">
+                        {r.file ? (
+                          <button
+                            onClick={() => downloadResource(r.file, r.title)}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border-2 border-blue-200 rounded-xl text-sm font-medium hover:bg-blue-100 hover:border-blue-400 transition-all group-hover:scale-105"
+                            style={{ color: '#094CA4' }}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            Download
+                          </button>
+                        ) : (
+                          <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border-2 border-gray-200 rounded-xl text-sm text-gray-400">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            No file
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -236,47 +277,58 @@ export default function PlayerClient({ course }: Props) {
               {quizzes.length === 0 ? (
                 <div className="text-gray-600">No quizzes available for this course yet.</div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {quizzes.map((quiz) => (
                     <Link
                       key={quiz.id}
                       href={`/learner/course/${course.id}/quiz/${quiz.id}`}
-                      className="block bg-white rounded-lg border-2 border-gray-200 p-5 hover:shadow-lg transition group"
+                      className="block bg-white rounded-2xl border-2 border-gray-200 p-6 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group"
                       style={{ borderColor: 'inherit' }}
                       onMouseEnter={(e) => e.currentTarget.style.borderColor = '#094CA4'}
                       onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e7eb'}
                     >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#094CA4' }}>
-                            Q
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-900 group-hover:transition" style={{ color: 'inherit' }} onMouseEnter={(e) => e.currentTarget.style.color = '#094CA4'} onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}>
-                              {quiz.title}
-                            </h4>
-                          </div>
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md" style={{ backgroundColor: '#094CA4' }}>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11l3 3L22 4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-lg text-gray-900 group-hover:transition mb-1" style={{ color: 'inherit' }} onMouseEnter={(e) => e.currentTarget.style.color = '#094CA4'} onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}>
+                            {quiz.title}
+                          </h4>
+                          {quiz.description && (
+                            <p className="text-sm text-gray-600 line-clamp-2">{quiz.description}</p>
+                          )}
                         </div>
                       </div>
-                      {quiz.description && (
-                        <p className="text-sm text-gray-600 mb-4">{quiz.description}</p>
-                      )}
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
-                        <span className="flex items-center gap-1">
+                      
+                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-4 pb-4 border-b border-gray-100">
+                        <span className="flex items-center gap-1.5">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11H15M9 15H12M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
                           {quiz.questions.length} questions
                         </span>
-                        <span className="flex items-center gap-1">
+                        <span className="flex items-center gap-1.5">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
+                            <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                          </svg>
                           ~{Math.ceil(quiz.questions.length * 1.5)} min
                         </span>
                       </div>
-                      <div className="mt-4 inline-flex items-center gap-2 font-medium text-sm group-hover:gap-3 transition-all" style={{ color: '#094CA4' }}>
+                      
+                      <div className="inline-flex items-center gap-2 font-semibold text-sm group-hover:gap-3 transition-all" style={{ color: '#094CA4' }}>
                         Start Quiz
                         <svg
-                          width="16"
-                          height="16"
+                          width="18"
+                          height="18"
                           viewBox="0 0 24 24"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
+                          className="group-hover:translate-x-1 transition-transform"
                         >
                           <path
                             d="M5 12h14M12 5l7 7-7 7"
