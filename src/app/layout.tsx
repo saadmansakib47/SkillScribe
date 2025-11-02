@@ -21,9 +21,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-50 text-neutral-900 antialiased">
-        <Navbar />
-        <main>{children}</main>
+      <body
+        className={`bg-neutral-50 text-neutral-900 antialiased`}
+      >
+        {/* Sticky Navbar */}
+        <div className="fixed top-0 left-0 w-full z-50">
+          <Navbar />
+        </div>
+
+        {/* Main content */}
+        <main className="pt-16">
+          {children}
+        </main>
+
+        {/* Footer */}
         <Footer />
       </body>
     </html>

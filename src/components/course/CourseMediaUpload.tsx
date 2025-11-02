@@ -13,7 +13,7 @@ export default function CourseMediaUpload() {
 
       <div className="border border-dashed border-gray-300 rounded-2xl p-6 flex flex-col items-center text-center">
         <div className="flex flex-col items-center">
-          <div className="w-32 h-32 border border-gray-200 rounded-xl bg-gray-50 mb-3 flex items-center justify-center text-gray-400 text-sm">
+          <div className="w-32 h-32 border border-black rounded-xl bg-gray-50 mb-3 flex items-center justify-center text-gray-400 text-sm">
             400×320 pixel
           </div>
           <Button className="bg-[#4C6FFF] hover:bg-[#3b58d8] text-white flex items-center gap-2">
