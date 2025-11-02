@@ -1,9 +1,10 @@
 export default function CourseInfoForm() {
   return (
-    <div>
+    <div className="p-6 border-[#FAF7F3] rounded-2xl bg-[#FAF7F3] w-full max-w-[600px]">
       <h3 className="font-semibold mb-1 text-gray-800">Course Info</h3>
       <p className="text-sm text-gray-500 mb-4">
-        Add class details to help students discover your course and better understand what they’ll learn.
+        Add class details to help student discover your class and better
+        understand what they’ll learn, what they’ll need and expect.
       </p>
 
       <div className="space-y-3">
