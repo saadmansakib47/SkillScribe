@@ -1,14 +1,19 @@
 "use client";
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import CourseModules from '../../../../../components/course/CourseModules';
 import type { Course } from '../../../../../lib/courses';
+import { getQuizzesForCourse } from '../../../../../lib/quizzes';
 
 type Props = { course: Course };
 
 export default function PlayerClient({ course }: Props) {
   const [tab, setTab] = useState<'Overview' | 'Resources' | 'Reviews' | 'Quizzes' | 'Certificate'>('Overview');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Get quizzes for this course
+  const quizzes = useMemo(() => getQuizzesForCourse(course.id), [course.id]);
 
   // Aggregate resources from modules -> topics only (exclude top-level course.resources)
   const aggregatedResources = useMemo(() => {
@@ -109,7 +114,7 @@ export default function PlayerClient({ course }: Props) {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-36 h-36 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900">
-                      <path d="M5 3v18l15-9L5 3z" fill="#0b4ca6" />
+                      <path d="M5 3v18l15-9L5 3z" fill="#094CA4" />
                     </svg>
                   </div>
                 </div>
@@ -147,7 +152,7 @@ export default function PlayerClient({ course }: Props) {
           aria-label="Open course modules"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-gray-700">
-            <path d="M4 6h16M4 12h16M4 18h16" stroke="#0b4ca6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="#094CA4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span className="text-sm font-medium">Modules</span>
         </button>
@@ -158,7 +163,8 @@ export default function PlayerClient({ course }: Props) {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`px-4 py-2 rounded-md ${tab === t ? 'bg-blue-600 text-white' : 'bg-white border'}`}
+            className={`px-4 py-2 rounded-md ${tab === t ? 'text-white' : 'bg-white border'}`}
+            style={tab === t ? { backgroundColor: '#094CA4' } : {}}
           >
             {t}
           </button>
@@ -181,7 +187,8 @@ export default function PlayerClient({ course }: Props) {
                 <div>
                   <button
                     onClick={downloadResourcesPdf}
-                    className="ml-2 inline-flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-md text-sm"
+                    className="ml-2 inline-flex items-center gap-2 px-3 py-2 text-white rounded-md text-sm"
+                    style={{ backgroundColor: '#094CA4' }}
                   >
                     Download PDF
                   </button>
@@ -201,7 +208,8 @@ export default function PlayerClient({ course }: Props) {
                       {r.file ? (
                         <button
                           onClick={() => downloadResource(r.file, r.title)}
-                          className="inline-flex items-center gap-2 px-3 py-1 bg-white border rounded text-sm text-blue-600 hover:bg-blue-50"
+                          className="inline-flex items-center gap-2 px-3 py-1 bg-white border rounded text-sm hover:bg-blue-50"
+                          style={{ color: '#094CA4' }}
                         >
                           Download
                         </button>
@@ -224,8 +232,65 @@ export default function PlayerClient({ course }: Props) {
 
           {tab === 'Quizzes' && (
             <div>
-              <h3 className="text-2xl font-semibold">Quizzes</h3>
-              <div className="mt-4 text-gray-600">Quizzes UI placeholder.</div>
+              <h3 className="text-2xl font-semibold mb-6">Quizzes</h3>
+              {quizzes.length === 0 ? (
+                <div className="text-gray-600">No quizzes available for this course yet.</div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {quizzes.map((quiz) => (
+                    <Link
+                      key={quiz.id}
+                      href={`/learner/course/${course.id}/quiz/${quiz.id}`}
+                      className="block bg-white rounded-lg border-2 border-gray-200 p-5 hover:shadow-lg transition group"
+                      style={{ borderColor: 'inherit' }}
+                      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#094CA4'}
+                      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e7eb'}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#094CA4' }}>
+                            Q
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-900 group-hover:transition" style={{ color: 'inherit' }} onMouseEnter={(e) => e.currentTarget.style.color = '#094CA4'} onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}>
+                              {quiz.title}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                      {quiz.description && (
+                        <p className="text-sm text-gray-600 mb-4">{quiz.description}</p>
+                      )}
+                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          {quiz.questions.length} questions
+                        </span>
+                        <span className="flex items-center gap-1">
+                          ~{Math.ceil(quiz.questions.length * 1.5)} min
+                        </span>
+                      </div>
+                      <div className="mt-4 inline-flex items-center gap-2 font-medium text-sm group-hover:gap-3 transition-all" style={{ color: '#094CA4' }}>
+                        Start Quiz
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M5 12h14M12 5l7 7-7 7"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -285,3 +350,4 @@ export default function PlayerClient({ course }: Props) {
     </div>
   );
 }
+
