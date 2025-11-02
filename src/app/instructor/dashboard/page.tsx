@@ -17,6 +17,7 @@ import InstructorPieChart from "@/components/chart/instructorChart/instructorPie
 import CourseStatsTable from "@/components/course/CourseStatsTable";
 import RangeSelector from "@/components/chart/instructorChart/rangeSelector";
 import StatCards from "@/components/ui/StatCards";
+import InstructorLayout from "@/components/layout/instructorlayout";
 
 export default function InstructorDashboard() {
   const [selectedRange, setSelectedRange] = useState<"7d" | "14d" | "30d" | "90d">("7d");
@@ -24,36 +25,8 @@ export default function InstructorDashboard() {
 
 
   return (
+    <InstructorLayout>
     <div className="flex min-h-screen bg-[#F9FAFB]">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r flex flex-col p-4">
-        <h1 className="text-2xl font-semibold mb-8">Ready to Teach?</h1>
-
-        <nav className="space-y-4">
-          {[
-            { icon: Home, label: "Dashboard", href: "/instructor/dashboard" },
-            { icon: BookOpen, label: "My Courses", href: "/instructor/mycourses" },
-            { icon: Calendar, label: "My Schedule", href: "/instructor/schedule" },
-            { icon: Star, label: "Review", href: "/instructor/review" },
-            { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
-            { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
-            { icon: User, label: "My Account", href: "/instructor/account" },
-          ].map(({ icon: Icon, label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl transition-all ${typeof window !== "undefined" &&
-                  window.location.pathname === href
-                  ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
-                  : "hover:bg-gray-100 text-gray-700"
-                }`}
-            >
-              <Icon className="w-5 h-5" />
-              {label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-8">
@@ -165,5 +138,6 @@ export default function InstructorDashboard() {
 
       </main>
     </div>
+    </InstructorLayout>
   );
 }
