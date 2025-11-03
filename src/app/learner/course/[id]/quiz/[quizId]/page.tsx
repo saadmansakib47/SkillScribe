@@ -51,24 +51,19 @@ export default async function QuizPage({ params }: Props) {
   // if (!isUserEnrolledInCourse(userId, courseId)) { return <NotEnrolled /> }
 
   return (
-    <main className="py-12 bg-[#fffaf8] min-h-screen">
+    <main className="py-12 bg-[#FAF7F3] min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 text-center">
           <Link
             href={`/learner/course/${courseId}/player`}
-            className="inline-flex items-center hover:underline mb-4"
+            className="inline-flex items-center hover:underline mb-6"
             style={{ color: '#094CA4' }}
           >
             ← Back to {course.title}
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">{quiz.title}</h1>
-          {quiz.description && <p className="mt-2 text-gray-600">{quiz.description}</p>}
-          <div className="mt-4 flex items-center gap-4 text-sm text-gray-600">
-            <span> {quiz.questions.length} questions</span>
-            <span> ~{Math.ceil(quiz.questions.length * 1.5)} minutes</span>
-            <span> Passing score: 60%</span>
-          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-3">{quiz.title}</h1>
+          {quiz.description && <p className="mt-2 text-gray-600 max-w-2xl mx-auto">{quiz.description}</p>}
         </div>
 
         {/* Quiz Runner */}
