@@ -18,6 +18,10 @@ export default function PlayerClient({ course }: Props) {
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [reviewText, setReviewText] = useState<string>('');
   const [userSubmittedReviews, setUserSubmittedReviews] = useState<Review[]>([]);
+  const [likedReviews, setLikedReviews] = useState<Set<number>>(new Set());
+  const [replyingTo, setReplyingTo] = useState<number | null>(null);
+  const [replyText, setReplyText] = useState<string>('');
+  const [userReplies, setUserReplies] = useState<Record<number, string>>({});
 
   // Load reviews for this course (memoized)
   const courseReviews = useMemo(() => getReviewsForCourse(course.id), [course.id]);
@@ -79,6 +83,37 @@ export default function PlayerClient({ course }: Props) {
 
   const handleStarLeave = () => {
     setHoverRating(0);
+  };
+
+  const handleLikeReview = (reviewId: number) => {
+    setLikedReviews(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(reviewId)) {
+        newSet.delete(reviewId);
+      } else {
+        newSet.add(reviewId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleReplyClick = (reviewId: number) => {
+    setReplyingTo(reviewId === replyingTo ? null : reviewId);
+    setReplyText('');
+  };
+
+  const handleSubmitReply = (reviewId: number) => {
+    if (replyText.trim() === '') {
+      alert('Please write a reply before submitting.');
+      return;
+    }
+    // Store the user's reply for this review
+    setUserReplies(prev => ({
+      ...prev,
+      [reviewId]: replyText
+    }));
+    setReplyText('');
+    setReplyingTo(null);
   };
 
   // Aggregate resources from modules -> topics only (exclude top-level course.resources)
@@ -456,20 +491,108 @@ export default function PlayerClient({ course }: Props) {
                         </div>
                       </div>
                     </div>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 leading-relaxed mb-4">
                       {review.text}
                     </p>
                     
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-4 pt-3 border-t border-gray-100">
+                      <button
+                        onClick={() => handleLikeReview(review.id)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                          likedReviews.has(review.id)
+                            ? 'bg-blue-50 text-blue-600'
+                            : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path 
+                            d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                            fill={likedReviews.has(review.id) ? 'currentColor' : 'none'}
+                          />
+                        </svg>
+                        {likedReviews.has(review.id) ? 'Liked' : 'Like'}
+                      </button>
+                      <button
+                        onClick={() => handleReplyClick(review.id)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm bg-gray-50 text-gray-700 hover:bg-gray-100 transition-all"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path 
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" 
+                            stroke="currentColor" 
+                            strokeWidth="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        Reply
+                      </button>
+                    </div>
+
+                    {/* Reply Input */}
+                    {replyingTo === review.id && (
+                      <div className="mt-4 pt-4 border-t border-gray-100">
+                        <textarea
+                          value={replyText}
+                          onChange={(e) => setReplyText(e.target.value)}
+                          placeholder="Write your reply..."
+                          className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                          rows={3}
+                        />
+                        <div className="flex items-center gap-2 mt-2">
+                          <button
+                            onClick={() => handleSubmitReply(review.id)}
+                            className="px-4 py-2 rounded-lg font-medium text-sm text-white transition-all"
+                            style={{ backgroundColor: '#094CA4' }}
+                          >
+                            Submit Reply
+                          </button>
+                          <button
+                            onClick={() => setReplyingTo(null)}
+                            className="px-4 py-2 rounded-lg font-medium text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    
                     {/* Reply from instructor */}
                     {review.instructorReply && (
-                      <div className="mt-4 ml-12 p-4 bg-gray-50 rounded-xl">
+                      <div className="mt-4 ml-0 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-400">
                         <div className="flex items-start gap-3">
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: '#094CA4' }}>
+                          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: '#094CA4' }}>
                             {course.instructorName.charAt(0)}
                           </div>
                           <div className="flex-1">
-                            <p className="font-medium text-gray-900 text-sm">{course.instructorName}</p>
-                            <p className="text-sm text-gray-700 mt-1">{review.instructorReply}</p>
+                            <div className="flex items-center gap-2">
+                              <p className="font-semibold text-gray-900 text-sm">{course.instructorName}</p>
+                              <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">Instructor</span>
+                            </div>
+                            <p className="text-sm text-gray-700 mt-1.5 leading-relaxed">{review.instructorReply}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* User's reply */}
+                    {userReplies[review.id] && (
+                      <div className="mt-4 ml-0 p-4 bg-green-50 rounded-xl border-l-4 border-green-400">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold bg-green-600">
+                            Y
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <p className="font-semibold text-gray-900 text-sm">You</p>
+                              <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">Your Reply</span>
+                            </div>
+                            <p className="text-sm text-gray-700 mt-1.5 leading-relaxed">{userReplies[review.id]}</p>
                           </div>
                         </div>
                       </div>
