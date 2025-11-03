@@ -5,15 +5,81 @@ import Link from 'next/link';
 import CourseModules from '../../../../../components/course/CourseModules';
 import type { Course } from '../../../../../lib/courses';
 import { getQuizzesForCourse } from '../../../../../lib/quizzes';
+import { getReviewsForCourse, type Review } from '../../../../../lib/reviews';
 
 type Props = { course: Course };
 
 export default function PlayerClient({ course }: Props) {
   const [tab, setTab] = useState<'Overview' | 'Resources' | 'Reviews' | 'Quizzes' | 'Certificate'>('Overview');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+  // Review state
+  const [userRating, setUserRating] = useState<number>(0);
+  const [hoverRating, setHoverRating] = useState<number>(0);
+  const [reviewText, setReviewText] = useState<string>('');
+  const [userSubmittedReviews, setUserSubmittedReviews] = useState<Review[]>([]);
+
+  // Load reviews for this course (memoized)
+  const courseReviews = useMemo(() => getReviewsForCourse(course.id), [course.id]);
+  
+  // Combine user-submitted reviews with course reviews
+  const reviews = useMemo(() => [...userSubmittedReviews, ...courseReviews], [userSubmittedReviews, courseReviews]);
+
+  // Calculate rating breakdown from actual reviews
+  const ratingBreakdown = useMemo(() => {
+    const breakdown = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    reviews.forEach(review => {
+      if (review.rating >= 1 && review.rating <= 5) {
+        breakdown[review.rating as keyof typeof breakdown]++;
+      }
+    });
+    
+    const total = reviews.length || 1; // Avoid division by zero
+    return [
+      { star: 5, count: breakdown[5], percentage: Math.round((breakdown[5] / total) * 100) },
+      { star: 4, count: breakdown[4], percentage: Math.round((breakdown[4] / total) * 100) },
+      { star: 3, count: breakdown[3], percentage: Math.round((breakdown[3] / total) * 100) },
+      { star: 2, count: breakdown[2], percentage: Math.round((breakdown[2] / total) * 100) },
+      { star: 1, count: breakdown[1], percentage: Math.round((breakdown[1] / total) * 100) },
+    ];
+  }, [reviews]);
 
   // Get quizzes for this course
   const quizzes = useMemo(() => getQuizzesForCourse(course.id), [course.id]);
+
+  // Review handlers
+  const handleSubmitReview = () => {
+    if (userRating === 0 || reviewText.trim() === '') {
+      alert('Please provide both a rating and review text.');
+      return;
+    }
+
+    const newReview: Review = {
+      id: Date.now(), // Use timestamp as unique id
+      courseId: course.id,
+      userName: 'You', // In real app, get from user context
+      rating: userRating,
+      date: 'Just now',
+      text: reviewText,
+    };
+
+    setUserSubmittedReviews([newReview, ...userSubmittedReviews]);
+    setUserRating(0);
+    setReviewText('');
+    alert('Review submitted successfully!');
+  };
+
+  const handleStarClick = (rating: number) => {
+    setUserRating(rating);
+  };
+
+  const handleStarHover = (rating: number) => {
+    setHoverRating(rating);
+  };
+
+  const handleStarLeave = () => {
+    setHoverRating(0);
+  };
 
   // Aggregate resources from modules -> topics only (exclude top-level course.resources)
   const aggregatedResources = useMemo(() => {
@@ -327,8 +393,143 @@ export default function PlayerClient({ course }: Props) {
 
           {tab === 'Reviews' && (
             <div>
-              <h3 className="text-2xl font-semibold">Reviews</h3>
-              <div className="mt-4 text-gray-600">Reviews UI placeholder.</div>
+              {/* Rating Overview Card */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-6">
+                <div className="flex items-start justify-between mb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Student Reviews</h3>
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1">
+                        <span className="text-4xl font-bold text-gray-900">{course.rating}</span>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FDB022" stroke="#FDB022" strokeWidth="1"/>
+                        </svg>
+                      </div>
+                      <span className="text-gray-600">({course.reviews.toLocaleString()} reviews)</span>
+                    </div>
+                  </div>
+                  
+                  {/* Rating Breakdown */}
+                  <div className="space-y-2 min-w-[300px]">
+                    {ratingBreakdown.map(({ star, percentage }) => (
+                      <div key={star} className="flex items-center gap-3">
+                        <span className="text-sm text-gray-600 w-12">{star} star</span>
+                        <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full"
+                            style={{ width: `${percentage}%`, backgroundColor: '#10b981' }}
+                          />
+                        </div>
+                        <span className="text-sm text-gray-500 w-12 text-right">{percentage}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Reviews List */}
+              <div className="space-y-4 mb-8">
+                {reviews.map((review) => (
+                  <div key={review.id} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#094CA4' }}>
+                          {review.userName.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">{review.userName}</h4>
+                          <div className="flex items-center gap-2 mt-1">
+                            <div className="flex items-center gap-0.5">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <svg key={star} width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path 
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" 
+                                    fill={star <= review.rating ? "#FDB022" : "#E5E7EB"} 
+                                    stroke={star <= review.rating ? "#FDB022" : "#E5E7EB"} 
+                                    strokeWidth="1"
+                                  />
+                                </svg>
+                              ))}
+                            </div>
+                            <span className="text-sm text-gray-500">{review.date}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">
+                      {review.text}
+                    </p>
+                    
+                    {/* Reply from instructor */}
+                    {review.instructorReply && (
+                      <div className="mt-4 ml-12 p-4 bg-gray-50 rounded-xl">
+                        <div className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: '#094CA4' }}>
+                            {course.instructorName.charAt(0)}
+                          </div>
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900 text-sm">{course.instructorName}</p>
+                            <p className="text-sm text-gray-700 mt-1">{review.instructorReply}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Leave a Review Section */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-6">Leave a Review</h3>
+                
+                {/* Rating Selection */}
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Your Rating</label>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => handleStarClick(star)}
+                        onMouseEnter={() => handleStarHover(star)}
+                        onMouseLeave={handleStarLeave}
+                        className="transition-transform hover:scale-110 focus:outline-none"
+                      >
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path 
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" 
+                            fill={star <= (hoverRating || userRating) ? "#FDB022" : "#E5E7EB"} 
+                            stroke={star <= (hoverRating || userRating) ? "#FDB022" : "#D1D5DB"} 
+                            strokeWidth="1"
+                          />
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Review Text */}
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Your Review</label>
+                  <textarea
+                    value={reviewText}
+                    onChange={(e) => setReviewText(e.target.value)}
+                    rows={5}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-400 focus:outline-none resize-none"
+                    placeholder="Share your experience with this course..."
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="button"
+                  onClick={handleSubmitReview}
+                  className="px-6 py-3 text-white rounded-xl font-medium shadow-md hover:opacity-90 transition"
+                  style={{ backgroundColor: '#094CA4' }}
+                >
+                  Submit Review
+                </button>
+              </div>
             </div>
           )}
 
