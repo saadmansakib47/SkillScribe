@@ -79,13 +79,14 @@ export default function CoursesPage() {
 
   const qParam = searchParams ? (searchParams.get('q') || '') : '';
   const q = qParam.toLowerCase();
+  const categoryParam = searchParams ? (searchParams.get('category') || '') : '';
 
   // auto-scroll to courses when applied filters or sort change
   useEffect(() => {
     if (gridRef.current) {
       gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [applied, sort, q]);
+  }, [applied, sort, q, categoryParam]);
 
   const displayed = useMemo(() => {
     let list = [...COURSES];
@@ -120,6 +121,11 @@ export default function CoursesPage() {
       list = list.filter((c) => levels.includes(c.level || ''));
     }
 
+    // apply category filter if present
+    if (categoryParam) {
+      list = list.filter((c) => c.category === categoryParam);
+    }
+
     // apply free/text search query if present
     if (q) {
       list = list.filter((c) =>
@@ -135,7 +141,7 @@ export default function CoursesPage() {
     if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
 
     return list;
-  }, [applied, sort, q]);
+  }, [applied, sort, q, categoryParam]);
 
   return (
     <section className="bg-[#FAF7F3] py-16">

@@ -12,6 +12,7 @@ export type Course = {
   instructorName: string;
   instructorImage: string;
   level?: string;
+  category?: string;
   modules?: {
     id: number;
     title: string;
@@ -42,6 +43,7 @@ export const COURSES: Course[] = [
     instructorName: 'Kate Weber',
     instructorImage: '/Asset/Kate weber.png',
     level: 'Intermediate',
+    category: 'Software Testing',
     modules: [
       {
         id: 1,
@@ -120,6 +122,7 @@ export const COURSES: Course[] = [
     instructorName: 'Samira Khan',
     instructorImage: '/Asset/samira.jpg',
     level: 'Advanced',
+    category: 'Web Development',
     modules: [
       { id: 1,
         title: 'Node.js Fundamentals',
@@ -186,7 +189,8 @@ export const COURSES: Course[] = [
     totalVideos: 12,
     instructorName: 'John Hamilton',
     instructorImage: '/Asset/john hamilton.jpg',
-    level: 'Beginner',
+    level: 'Intermediate',
+    category: 'Design',
     modules: [
   { id: 1,
     title: 'Empathy & Research',
@@ -242,6 +246,7 @@ export const COURSES: Course[] = [
   instructorName: 'Daniel Park',
   instructorImage: '/Asset/daniel.jpg',
   level: 'Beginner',
+  category: 'Database',
   modules: [
     { 
       id: 1,
@@ -306,6 +311,7 @@ export const COURSES: Course[] = [
   instructorName: 'Karan Sharma',
   instructorImage: '/Asset/karan.jpg',
   level: 'Beginner',
+  category: 'Programming',
   modules: [
     { 
       id: 1, 
@@ -384,6 +390,7 @@ export const COURSES: Course[] = [
     instructorName: 'Morgan Lee',
     instructorImage: '/Asset/morgan lee.jpg',
     level: 'Advanced',
+    category: 'Web Development',
     modules: [
       { id: 1,
         title: 'Hooks Deep-dive',
@@ -439,6 +446,7 @@ export const COURSES: Course[] = [
   instructorName: 'Karim Kabir',
   instructorImage: '/Asset/karim.jpg',
   level: 'Beginner',
+  category: 'Web Development',
   modules: [
     { 
       id: 1, 
@@ -513,6 +521,7 @@ export const COURSES: Course[] = [
   instructorName: 'John Hamilton',
   instructorImage: '/Asset/john hamilton.jpg',
   level: 'Beginner',
+  category: 'Design',
   modules: [
     { 
       id: 1, 
@@ -577,6 +586,7 @@ export const COURSES: Course[] = [
   instructorName: 'Jashim Uddin',
   instructorImage: '/Asset/jashim uddin.jpg',
   level: 'Intermediate',
+  category: 'Data Science',
   modules: [
     { 
       id: 1, 
@@ -642,6 +652,7 @@ export const COURSES: Course[] = [
   instructorName: 'Emily Rose',
   instructorImage: '/Asset/emily rose.jpg',
   level: 'Beginner',
+  category: 'Web Development',
   modules: [
     { 
       id: 1, 
@@ -720,6 +731,7 @@ export const COURSES: Course[] = [
     instructorName: 'Kate Weber',
     instructorImage: '/Asset/Kate weber.png',
     level: 'Intermediate',
+    category: 'Software Testing',
     modules: [
   { id: 1,
     title: 'Intro & Tools',
@@ -775,6 +787,7 @@ export const COURSES: Course[] = [
     instructorName: 'Sadia Islam',
     instructorImage: '/Asset/sadia islam.jpg',
     level: 'Advanced',
+    category: 'Web Development',
     modules: [
       { id: 1,
         title: 'MERN Overview',
