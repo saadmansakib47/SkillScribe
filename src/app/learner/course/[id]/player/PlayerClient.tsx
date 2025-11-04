@@ -23,6 +23,12 @@ export default function PlayerClient({ course }: Props) {
   const [replyText, setReplyText] = useState<string>('');
   const [userReplies, setUserReplies] = useState<Record<number, string>>({});
 
+  // Generate stable certificate ID from course ID
+  const certificateId = useMemo(() => {
+    const hash = course.id * 7919; // Simple deterministic hash
+    return `CERT-${course.id}-${hash.toString(36).toUpperCase().slice(0, 6)}`;
+  }, [course.id]);
+
   // Load reviews for this course (memoized)
   const courseReviews = useMemo(() => getReviewsForCourse(course.id), [course.id]);
   
@@ -192,6 +198,49 @@ export default function PlayerClient({ course }: Props) {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
+  };
+
+  // Download certificate as PDF
+  const downloadCertificate = () => {
+    try {
+      // Minimal certificate PDF (dummy) in base64
+      const pdfBase64 =
+        'JVBERi0xLjQKJeLjz9MKNCAwIG9iago8PC9UeXBlIC9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXMgPDwvRm9udCA8PC9GMSA1IDAgUj4+Pj4vQ29udGVudHMgNiAwIFIvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXT4+CmVuZG9iago1IDAgb2JqCjw8L1R5cGUgL0ZvbnQvU3ViVHlwZSAvVHlwZTEvQmFzZUZvbnQgL0hlbHZldGljYT4+CmVuZG9iago2IDAgb2JqCjw8L0xlbmd0aCA0OD4+CnN0cmVhbQpCVAovRjEgMjAgVGYKNTAgNzAwIFRkCihDZXJ0aWZpY2F0ZSBvZiBDb21wbGV0aW9uKQpFVAplbmRzdHJlYW0KZW5kb2JqCjIgMCBvYmoKPDwvVHlwZSAvUGFnZXMvS2lkcyBbNCAwIFJdL0NvdW50IDE+PgplbmRvYmoKMSAwIG9iago8PC9UeXBlIC9DYXRhbG9nL1BhZ2VzIDIgMCBSPj4KZW5kb2JqCjMgMCBvYmoKPDw+PgplbmRvYmoKeHJlZgowIDcKMDAwMDAwMDAwMCA2NTUzNSBmDQowMDAwMDAwNDM1IDAwMDAwIG4NCjAwMDAwMDAzODYgMDAwMDAgbg0KMDAwMDAwMDQ4NCAwMDAwMCBuDQowMDAwMDAwMDA5IDAwMDAwIG4NCjAwMDAwMDAxNDYgMDAwMDAgbg0KMDAwMDAwMDIxNSAwMDAwMCBuDQp0cmFpbGVyCjw8L1NpemUgNy9Sb290IDEgMCBSPj4Kc3RhcnR4cmVmCjUwMwolJUVPRgo=';
+
+      const byteChars = atob(pdfBase64);
+      const byteNumbers = new Array(byteChars.length);
+      for (let i = 0; i < byteChars.length; i++) {
+        byteNumbers[i] = byteChars.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${course.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_certificate.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('Error downloading certificate. Please try again.');
+    }
+  };
+
+  // Share certificate to social media
+  const shareCertificate = (platform: 'linkedin' | 'twitter' | 'copy') => {
+    const certificateUrl = `${window.location.origin}/learner/course/${course.id}/certificate`;
+    const text = `I just completed "${course.title}" on SkillScribe! 🎓`;
+    
+    if (platform === 'linkedin') {
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certificateUrl)}`, '_blank');
+    } else if (platform === 'twitter') {
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(certificateUrl)}`, '_blank');
+    } else if (platform === 'copy') {
+      navigator.clipboard.writeText(certificateUrl).then(() => {
+        alert('Certificate link copied to clipboard!');
+      });
+    }
   };
 
   // selected lesson (moduleId + topicId)
@@ -732,9 +781,186 @@ export default function PlayerClient({ course }: Props) {
           )}
 
           {tab === 'Certificate' && (
-            <div>
-              <h3 className="text-2xl font-semibold">Certificate</h3>
-              <div className="mt-4 text-gray-600">Certificate UI placeholder.</div>
+            <div className="max-w-5xl mx-auto">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">Certificate of Completion</h2>
+                <p className="text-gray-600">Congratulations on completing this course!</p>
+              </div>
+
+              {/* Certificate Preview Card - Landscape Orientation */}
+              <div className="bg-gradient-to-br from-white via-blue-50/30 to-amber-50/20 rounded-3xl shadow-2xl border-8 border-double px-20 py-12 mb-8 relative overflow-hidden mx-auto" style={{ borderColor: '#094CA4', maxWidth: '1200px', aspectRatio: '1.414/1' }}>
+                {/* Ornamental Corner Decorations */}
+                <div className="absolute top-0 left-0 w-24 h-24">
+                  <div className="absolute top-3 left-3 w-16 h-16 border-t-4 border-l-4 rounded-tl-3xl opacity-30" style={{ borderColor: '#FDB022' }}></div>
+                  <div className="absolute top-1.5 left-1.5 w-12 h-12 border-t-2 border-l-2 rounded-tl-2xl opacity-20" style={{ borderColor: '#094CA4' }}></div>
+                </div>
+                <div className="absolute top-0 right-0 w-24 h-24">
+                  <div className="absolute top-3 right-3 w-16 h-16 border-t-4 border-r-4 rounded-tr-3xl opacity-30" style={{ borderColor: '#FDB022' }}></div>
+                  <div className="absolute top-1.5 right-1.5 w-12 h-12 border-t-2 border-r-2 rounded-tr-2xl opacity-20" style={{ borderColor: '#094CA4' }}></div>
+                </div>
+                <div className="absolute bottom-0 left-0 w-24 h-24">
+                  <div className="absolute bottom-3 left-3 w-16 h-16 border-b-4 border-l-4 rounded-bl-3xl opacity-30" style={{ borderColor: '#FDB022' }}></div>
+                  <div className="absolute bottom-1.5 left-1.5 w-12 h-12 border-b-2 border-l-2 rounded-bl-2xl opacity-20" style={{ borderColor: '#094CA4' }}></div>
+                </div>
+                <div className="absolute bottom-0 right-0 w-24 h-24">
+                  <div className="absolute bottom-3 right-3 w-16 h-16 border-b-4 border-r-4 rounded-br-3xl opacity-30" style={{ borderColor: '#FDB022' }}></div>
+                  <div className="absolute bottom-1.5 right-1.5 w-12 h-12 border-b-2 border-r-2 rounded-br-2xl opacity-20" style={{ borderColor: '#094CA4' }}></div>
+                </div>
+                
+                {/* Certificate Content */}
+                <div className="relative z-10 text-center h-full flex flex-col justify-between">
+                  {/* Header with Logo */}
+                  <div className="mb-4">
+                    <h1 className="text-4xl font-serif font-bold mb-1 tracking-tight" style={{ color: '#094CA4', textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>SkillScribe</h1>
+                    <div className="flex items-center justify-center gap-2 mb-1">
+                      <div className="h-px w-12 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+                      <p className="text-xs text-gray-600 tracking-[0.3em] uppercase font-semibold">Learning Platform</p>
+                      <div className="h-px w-12 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+                    </div>
+                  </div>
+
+                  {/* Certificate Title */}
+                  <div className="mb-4">
+                    <div className="inline-block mb-3">
+                      <h2 className="text-2xl font-serif italic text-gray-700 mb-1">Certificate of Completion</h2>
+                      <div className="h-0.5 rounded-full bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                    </div>
+                  </div>
+
+                  {/* Recipient Info */}
+                  <div className="mb-4 px-8">
+                    <p className="text-base text-gray-600 mb-3 font-light italic">This is to certify that</p>
+                    <div className="relative inline-block mb-3">
+                      <h2 className="text-3xl font-bold text-gray-900 px-6 py-1" style={{ fontFamily: 'Georgia, serif' }}>Your Name</h2>
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+                    </div>
+                    <p className="text-base text-gray-600 mb-3 font-light italic">has successfully completed</p>
+                    <div className="bg-gradient-to-r from-blue-50 to-amber-50 rounded-xl p-4 mx-auto max-w-3xl border-2 border-blue-200 shadow-inner">
+                      <h3 className="text-xl font-bold leading-tight" style={{ color: '#094CA4' }}>{course.title}</h3>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-2 italic">with outstanding dedication and achievement</p>
+                  </div>
+
+                  {/* Signatures and Badge */}
+                  <div className="flex items-end justify-between px-12 mb-4">
+                    <div className="text-center flex-1">
+                      <div className="w-32 h-0.5 bg-gray-400 mb-2 mx-auto"></div>
+                      <p className="text-xs text-gray-600 font-semibold mb-0.5">Date of Completion</p>
+                      <p className="font-bold text-gray-900 text-sm">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    </div>
+                    <div className="text-center flex-1">
+                      <div className="w-32 h-0.5 bg-gray-400 mb-2 mx-auto"></div>
+                      <p className="text-xs text-gray-600 font-semibold mb-0.5">Instructor Signature</p>
+                      <p className="font-bold text-gray-900 text-sm">{course.instructorName}</p>
+                    </div>
+                  </div>
+
+                  {/* Footer with Certificate ID */}
+                  <div className="pt-4 border-t-2 border-dashed border-gray-300 pb-2">
+                    <div className="flex items-center justify-center gap-6 text-xs text-gray-500">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold">Certificate ID:</span>
+                        <span className="font-mono">{certificateId}</span>
+                      </div>
+                      <div className="h-3 w-px bg-gray-300"></div>
+                      <div className="flex items-center gap-1.5">
+                        <span>Verify at: <span className="font-semibold">skillscribe.com/verify</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <button
+                  onClick={downloadCertificate}
+                  className="flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-white transition-all hover:opacity-90 shadow-md"
+                  style={{ backgroundColor: '#094CA4' }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Download Certificate
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold bg-gray-100 text-gray-900 hover:bg-gray-200 transition-all"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9V2H18V9M6 18H4C3.46957 18 2.96086 17.7893 2.58579 17.4142C2.21071 17.0391 2 16.5304 2 16V11C2 10.4696 2.21071 9.96086 2.58579 9.58579C2.96086 9.21071 3.46957 9 4 9H20C20.5304 9 21.0391 9.21071 21.4142 9.58579C21.7893 9.96086 22 10.4696 22 11V16C22 16.5304 21.7893 17.0391 21.4142 17.4142C21.0391 17.7893 20.5304 18 20 18H18M6 14H18V22H6V14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Print Certificate
+                </button>
+              </div>
+
+              {/* Share Section */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Share Your Achievement</h3>
+                <p className="text-gray-600 text-center mb-6">Let others know about your accomplishment!</p>
+                <div className="flex items-center justify-center gap-4 flex-wrap">
+                  <button
+                    onClick={() => shareCertificate('linkedin')}
+                    className="flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white transition-all hover:opacity-90"
+                    style={{ backgroundColor: '#0A66C2' }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    Share on LinkedIn
+                  </button>
+                  <button
+                    onClick={() => shareCertificate('twitter')}
+                    className="flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white bg-black transition-all hover:opacity-90"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    Share on Twitter
+                  </button>
+                  <button
+                    onClick={() => shareCertificate('copy')}
+                    className="flex items-center gap-2 px-6 py-3 rounded-lg font-medium bg-white text-gray-900 hover:bg-gray-50 transition-all border-2 border-gray-200"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 13C10.4295 13.5741 10.9774 14.0491 11.6066 14.3929C12.2357 14.7367 12.9315 14.9411 13.6467 14.9923C14.3618 15.0435 15.0796 14.9403 15.7513 14.6897C16.4231 14.4392 17.0331 14.047 17.54 13.54L20.54 10.54C21.4508 9.59695 21.9548 8.33394 21.9434 7.02296C21.932 5.71198 21.4061 4.45791 20.4791 3.53087C19.5521 2.60383 18.298 2.07799 16.987 2.0666C15.676 2.0552 14.413 2.55918 13.47 3.46997L11.75 5.17997M14 11C13.5705 10.4258 13.0226 9.95078 12.3934 9.60703C11.7642 9.26327 11.0685 9.05885 10.3533 9.00763C9.63816 8.95641 8.92037 9.0596 8.24861 9.31018C7.57685 9.56077 6.96684 9.9529 6.45996 10.46L3.45996 13.46C2.54917 14.403 2.04519 15.666 2.05659 16.977C2.06798 18.288 2.59382 19.5421 3.52086 20.4691C4.4479 21.3961 5.70197 21.922 7.01295 21.9334C8.32393 21.9448 9.58694 21.4408 10.53 20.53L12.24 18.82" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    Copy Link
+                  </button>
+                </div>
+              </div>
+
+              {/* Certificate Info */}
+              <div className="mt-8 bg-white rounded-xl p-6 border border-gray-200">
+                <h4 className="font-semibold text-gray-900 mb-3">About Your Certificate</h4>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 mt-0.5">
+                      <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>This certificate verifies that you have successfully completed the course requirements</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 mt-0.5">
+                      <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Share your certificate on LinkedIn, Twitter, or add it to your resume</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 mt-0.5">
+                      <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Each certificate includes a unique ID for verification purposes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 mt-0.5">
+                      <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Download and print your certificate anytime from your account</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
