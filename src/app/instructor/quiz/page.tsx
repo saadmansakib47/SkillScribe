@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import InstructorLayout from "@/app/instructor/instructorlayout";
 import { px } from "framer-motion";
+import QuizBuilder from "@/components/quiz/quizBuilder";
 
 export default function CreateQuizPage() {
     const [quizData, setQuizData] = useState({
@@ -144,6 +145,7 @@ export default function CreateQuizPage() {
                             </div>
                         </CardContent>
                     </Card>
+                    <QuizBuilder />
                 </main>
             </div>
         </InstructorLayout>
