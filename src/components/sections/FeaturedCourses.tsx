@@ -38,12 +38,12 @@ export default function FeaturedCourses() {
               <div className="mt-3 text-black">Duration: 12 hours</div>
               <div className="mt-1 text-black">Price: Free</div>
 
-              <a
-                href="#"
+              <Link
+                href="/learner/course/6"
                 className="mt-6 inline-block w-full rounded-[10px] border border-black py-3 px-4 text-center bg-white transition-colors duration-150 ease-in-out hover:bg-[#90B2DE] hover:border-[#90B2DE] hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
                 >    
                 View Details
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -72,12 +72,12 @@ export default function FeaturedCourses() {
               <div className="mt-3 text-black">Duration: 5 hours</div>
               <div className="mt-1 text-black">Price: $14</div>
 
-              <a
-                href="#"
+              <Link
+                href="/learner/course/5"
                 className="mt-6 inline-block w-full rounded-[10px] border border-black py-3 px-4 text-center bg-white transition-colors duration-150 ease-in-out hover:bg-[#90B2DE] hover:border-[#90B2DE] hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
                 >
                 View Details
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -106,12 +106,12 @@ export default function FeaturedCourses() {
               <div className="mt-3 text-black">Duration: 18 hours</div>
               <div className="mt-1 text-black">Price: $25</div>
 
-              <a
-                href="#"
+              <Link
+                href="/learner/course/4"
                 className="mt-6 inline-block w-full rounded-[10px] border border-black py-3 px-4 text-center bg-white transition-colors duration-150 ease-in-out hover:bg-[#90B2DE] hover:border-[#90B2DE] hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
                 >
                 View Details
-              </a>
+              </Link>
             </div>
           </div>
         </div>
