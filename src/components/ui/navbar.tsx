@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 import { Search, Menu } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import InstructorSidebar from "@/components/ui/sidebar";
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const pathname = usePathname();
+  const router = useRouter();
 
   // Detect if we're on an instructor page
   const isInstructorPage = pathname.startsWith("/instructor");
@@ -20,6 +22,12 @@ export default function Navbar() {
       setSidebarOpen((prev) => !prev);
     } else {
       console.log("Non-instructor sidebar toggle logic will go here later.");
+    }
+  };
+
+  const onSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      router.push(`/learner/allcourses?q=${encodeURIComponent(query)}`);
     }
   };
 
@@ -50,6 +58,9 @@ export default function Navbar() {
             <div className="hidden items-center rounded-full border border-gray-400 bg-white px-3 py-1.5 text-sm text-gray-700 md:flex">
               <Search className="mr-2 h-4 w-4 text-gray-500" />
               <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={onSearchKeyDown}
                 className="w-48 bg-transparent outline-none placeholder:text-gray-500 md:w-80 lg:w-96"
                 placeholder="Search for courses"
               />
