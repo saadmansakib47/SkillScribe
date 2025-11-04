@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Calendar, Star, MessageCircle, HelpCircle, User } from "lucide-react";
+import { Home, BookOpen, Clipboard, Calendar, Star, MessageCircle, HelpCircle, User } from "lucide-react";
 
 export default function FixedSidebar() {
   const pathname = usePathname();
@@ -10,6 +10,7 @@ export default function FixedSidebar() {
   const links = [
     { icon: Home, label: "Dashboard", href: "/instructor/dashboard" },
     { icon: BookOpen, label: "My Courses", href: "/instructor/mycourses" },
+    { icon: Clipboard, label: "Quizzes", href: "/instructor/quiz" },
     { icon: Calendar, label: "My Schedule", href: "/instructor/schedule" },
     { icon: Star, label: "Review", href: "/instructor/review" },
     { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
@@ -18,7 +19,7 @@ export default function FixedSidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r flex flex-col p-4 fixed h-screen">
+    <aside className="w-64 z-10 bg-white border-r flex flex-col p-4 fixed h-screen">
       <h1 className="text-2xl font-semibold mb-8">Ready to Teach?</h1>
 
       <nav className="space-y-4">
