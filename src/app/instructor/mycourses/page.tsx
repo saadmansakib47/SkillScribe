@@ -16,7 +16,7 @@ import CourseInfoForm from "@/components/course/CourseInfoForm";
 import CourseMediaUpload from "@/components/course/CourseMediaUpload";
 import CourseContentManager from "@/components/course/CourseContentManager";
 import LatestCoursesList from "@/components/course/LatestCoursesList";
-import InstructorLayout from "@/components/layout/instructorlayout";
+import InstructorLayout from "@/app/instructor/instructorlayout";
 
 export default function MyCoursesPage() {
   const pathname = usePathname();
