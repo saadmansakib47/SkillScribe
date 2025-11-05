@@ -28,11 +28,11 @@ export default function CreateScheduleModal({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: "spring", stiffness: 120, damping: 15 }}
-            className="bg-white rounded-2xl shadow-lg w-full max-w-4xl p-6 relative"
+            className="bg-white border-black rounded-2xl shadow-lg w-full max-w-2xl p-6 relative"
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-800">
+              <h2 className="text-lg font-medium text-gray-800">
                 Select Schedule Type
               </h2>
               <button
@@ -132,15 +132,15 @@ export default function CreateScheduleModal({
                 ].map((schedule, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between items-center border border-black rounded-xl px-4 py-3"
+                    className="flex justify-between items-center bg-[#FAF7F3] border border-black rounded-xl px-4 py-3"
                   >
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="font-semibold text-gray-800">
                           {schedule.title}
                         </h4>
-                        <span className="text-blue-600 text-sm font-medium">
-                          ({schedule.type})
+                        <span className="text-blue-600 text-sm font-bold">
+                          {schedule.type}
                         </span>
                       </div>
                       <p className="text-xs text-gray-500 mt-1">
@@ -151,12 +151,12 @@ export default function CreateScheduleModal({
                     <div className="flex gap-2">
                       <Button
                         variant="outline"
-                        className="border border-black text-black bg-white hover:bg-gray-100 text-sm px-3 py-1"
+                        className="border border-black text-black rounded-[8px] bg-white hover:bg-gray-100 text-sm px-3 py-1"
                       >
                         View
                       </Button>
                       <Button
-                        className="bg-blue-600 text-white border border-blue-600 hover:bg-blue-700 text-sm px-3 py-1"
+                        className="bg-blue-600 text-white rounded-[8px] border border-blue-600 hover:bg-blue-700 text-sm px-3 py-1"
                       >
                         Edit
                       </Button>
