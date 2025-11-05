@@ -20,7 +20,7 @@ const sampleEvents: EventItem[] = [
     start: "08:30",
     end: "10:00",
     meta: "Sunday, 2 November · 08:30 - 10:00",
-    avatars: ["/avatars/a1.png", "/avatars/a2.png", "/avatars/a3.png"],
+    avatars: ["../Asset/person3.jpg", "../Asset/person2.png", "../Asset/person1.png"],
   },
   {
     id: "evt2",
@@ -28,7 +28,7 @@ const sampleEvents: EventItem[] = [
     start: "12:15",
     end: "14:00",
     meta: "Sunday, 2 November · 12:15 - 02:00",
-    avatars: ["/avatars/a4.png", "/avatars/a5.png"],
+    avatars: ["../Asset/person3.jpg", "../Asset/person2.png"],
   },
 ];
 
