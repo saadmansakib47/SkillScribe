@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,34 +13,52 @@ export default function ScheduleCalendar({
 }) {
   const [selected, setSelected] = useState(selectedProp);
   const [direction, setDirection] = useState<"next" | "prev" | null>(null);
+  const [monthFadeKey, setMonthFadeKey] = useState(
+    `${selected.getMonth()}-${selected.getFullYear()}`
+  );
+
   const scrollInterval = useRef<NodeJS.Timeout | null>(null);
   const holdTimeout = useRef<NodeJS.Timeout | null>(null);
+  const speedRef = useRef(300); // base interval speed in ms
 
-  // ---------- Utility ----------
+  // ------------------- Core Shifting -------------------
   const shiftDay = (offset: number) => {
     setDirection(offset > 0 ? "next" : "prev");
     setSelected((prev) => {
       const newDate = new Date(prev);
       newDate.setDate(prev.getDate() + offset);
+
+      // when month changes, trigger subtle fade
+      const newKey = `${newDate.getMonth()}-${newDate.getFullYear()}`;
+      if (newKey !== monthFadeKey) setMonthFadeKey(newKey);
+
       return newDate;
     });
   };
 
+  // ------------------- Hold Acceleration -------------------
   const startHold = (offset: number) => {
-    // after short delay, start continuous scroll
+    speedRef.current = 300; // reset base speed
     holdTimeout.current = setTimeout(() => {
-      scrollInterval.current = setInterval(() => shiftDay(offset), 200);
-    }, 300);
+      const accelerate = () => {
+        shiftDay(offset);
+        // accelerate speed by 15% each iteration, until min 60ms
+        speedRef.current = Math.max(speedRef.current * 0.85, 60);
+        scrollInterval.current = setTimeout(accelerate, speedRef.current);
+      };
+      accelerate();
+    }, 300); // delay before auto-scroll starts
   };
 
   const stopHold = () => {
     if (holdTimeout.current) clearTimeout(holdTimeout.current);
-    if (scrollInterval.current) clearInterval(scrollInterval.current);
+    if (scrollInterval.current) clearTimeout(scrollInterval.current);
     holdTimeout.current = null;
     scrollInterval.current = null;
+    speedRef.current = 300;
   };
 
-  // ---------- Dates ----------
+  // ------------------- Derived Data -------------------
   const daysRow = useMemo(() => {
     const year = selected.getFullYear();
     const month = selected.getMonth();
@@ -75,6 +93,7 @@ export default function ScheduleCalendar({
     return arr;
   }, [selected]);
 
+  // ------------------- Animations -------------------
   const variants = {
     enter: (dir: string) => ({
       x: dir === "next" ? 40 : -40,
@@ -102,6 +121,35 @@ export default function ScheduleCalendar({
     }),
   };
 
+  const slideVariants = {
+    enter: (dir: string) => ({
+      x: dir === "next" ? 40 : -40,
+      opacity: 0,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    },
+    exit: (dir: string) => ({
+      x: dir === "next" ? -40 : 40,
+      opacity: 0,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    }),
+  };
+
+
+  // ------------------- UI -------------------
   return (
     <div
       className="absolute left-6 top-6 z-20 w-[calc(100%-12rem)] max-w-[820px] bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-md border border-gray-100"
@@ -110,8 +158,8 @@ export default function ScheduleCalendar({
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <button
-          onClick={() => shiftDay(-1)} // single click → one day
-          onMouseDown={() => startHold(-1)} // hold → continuous
+          onClick={() => shiftDay(-1)}
+          onMouseDown={() => startHold(-1)}
           onMouseUp={stopHold}
           onMouseLeave={stopHold}
           className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition"
@@ -134,20 +182,35 @@ export default function ScheduleCalendar({
         </button>
       </div>
 
-      {/* Month Row */}
-      <div className="flex items-center justify-between mb-3 px-2">
-        {months.map((m, idx) => (
-          <div
-            key={idx}
-            className={`text-sm font-medium text-center ${fadeClass(
-              idx,
-              months.length
-            )}`}
-            style={{ width: "18%" }}
+      {/* Subtle Month Fade */}
+      <div className="relative mb-3 h-[24px] px-2">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={monthFadeKey}
+            variants={slideVariants}
+            custom={direction}
+            initial={false} // prevents blink
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="flex items-center justify-between absolute inset-0"
           >
-            {m.toLocaleString("default", { month: "long" })}
-          </div>
-        ))}
+
+
+            {months.map((m, idx) => (
+              <div
+                key={idx}
+                className={`text-sm font-medium text-center ${fadeClass(
+                  idx,
+                  months.length
+                )}`}
+                style={{ width: "18%" }}
+              >
+                {m.toLocaleString("default", { month: "long" })}
+              </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Animated Dates Row */}
@@ -176,14 +239,13 @@ export default function ScheduleCalendar({
                   style={{ width: `${100 / daysRow.length}%` }}
                 >
                   <div
-                    className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm transition ${
-                      isSelected
-                        ? "bg-black text-white font-semibold"
-                        : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(
-                            idx,
-                            daysRow.length
-                          )}`
-                    }`}
+                    className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm transition ${isSelected
+                      ? "bg-black text-white font-semibold"
+                      : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(
+                        idx,
+                        daysRow.length
+                      )}`
+                      }`}
                   >
                     {date.getDate()}
                   </div>
