@@ -16,7 +16,6 @@ export default function MySchedulePage() {
               Track, manage and see the latest updates here
             </p>
 
-            <ScheduleCalendar />
             <ScheduleTimeline />
           </div>
 
