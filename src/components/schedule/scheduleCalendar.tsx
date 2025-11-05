@@ -1,28 +1,22 @@
 "use client";
 
-import { useMemo } from "react";
-
-/**
- * Overlay calendar card designed to float over the ScheduleTimeline.
- * - Shows header "D Month, YYYY"
- * - Shows a 5-month spread with center month highlighted (opacity gradient)
- * - Shows date row with rounded [12px] boxes, center date highlighted
- * - Exposes a container suitable for absolute placement over the timeline
- */
+import { useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ScheduleCalendar({
-  // optional: allow passing a base date if desired later
-  baseDate = new Date(),
-  selected = new Date(),
+  baseDate: baseDateProp = new Date(),
+  selected: selectedProp = new Date(),
 }: {
   baseDate?: Date;
   selected?: Date;
 }) {
+  const [baseDate, setBaseDate] = useState(baseDateProp);
+  const [selected, setSelected] = useState(selectedProp);
+
   // Build a 5-month window centered on baseDate's month
   const months = useMemo(() => {
     const centerMonthIndex = baseDate.getMonth();
     const year = baseDate.getFullYear();
-    // take two months back, center, two months forward
     const arr = [];
     for (let offset = -2; offset <= 2; offset++) {
       const dt = new Date(year, centerMonthIndex + offset, 1);
@@ -31,10 +25,8 @@ export default function ScheduleCalendar({
     return arr;
   }, [baseDate]);
 
-  // For date boxes: show range around selected month's first week (we'll just show 7 days window like design)
+  // Days row: 7 days centered around selected
   const daysRow = useMemo(() => {
-    // For the selected/current month, render the date numbers of a single week sample:
-    // I am rendering 7 numbers centered around selected date (or start of month if near edges)
     const year = selected.getFullYear();
     const month = selected.getMonth();
     const totalDays = new Date(year, month + 1, 0).getDate();
@@ -44,9 +36,7 @@ export default function ScheduleCalendar({
     const end = Math.min(totalDays, day + half);
     const arr: number[] = [];
     for (let d = start; d <= end; d++) arr.push(d);
-    // If we have fewer than 7 (month edges), pad preceding/following days (but keep within month)
     while (arr.length < 7) {
-      // try prepend
       const prepend = arr[0] - 1;
       if (prepend >= 1) arr.unshift(prepend);
       else {
@@ -58,19 +48,18 @@ export default function ScheduleCalendar({
     return arr;
   }, [selected]);
 
-  // Day names for daysRow
+  // Day names row
   const dayNames = useMemo(() => {
     return daysRow.map((d) => {
       const dt = new Date(selected.getFullYear(), selected.getMonth(), d);
-      return dt.toLocaleString("default", { weekday: "short" }); // e.g., "Sun"
+      return dt.toLocaleString("default", { weekday: "short" });
     });
   }, [daysRow, selected]);
 
-  // helper to get fade class depending on distance from center index
+  // Fade class for opacity gradient
   function fadeClass(index: number, length: number) {
     const center = (length - 1) / 2;
     const dist = Math.abs(index - center);
-    // return tailwind classes for opacity - center fully opaque, edges less
     if (dist < 0.5) return "opacity-100";
     if (dist < 1.5) return "opacity-90 text-gray-800";
     if (dist < 2.5) return "opacity-70 text-gray-600";
@@ -81,6 +70,24 @@ export default function ScheduleCalendar({
     month: "long",
   })}, ${selected.getFullYear()}`;
 
+  // Slide functions
+  const handlePrev = () => {
+    const newDate = new Date(baseDate);
+    newDate.setMonth(newDate.getMonth() - 1);
+    setBaseDate(newDate);
+    setSelected(new Date(selected.getFullYear(), selected.getMonth() - 1, selected.getDate()));
+  };
+
+  const handleNext = () => {
+    const newDate = new Date(baseDate);
+    newDate.setMonth(newDate.getMonth() + 1);
+    setBaseDate(newDate);
+    setSelected(new Date(selected.getFullYear(), selected.getMonth() + 1, selected.getDate()));
+  };
+
+  // Detect if months cross a year boundary
+  const uniqueYears = Array.from(new Set(months.map((m) => m.getFullYear())));
+
   return (
     <div
       className="absolute left-6 top-6 z-20 w-[calc(100%-12rem)] max-w-[820px] bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-md border border-gray-100"
@@ -88,12 +95,37 @@ export default function ScheduleCalendar({
       aria-label="Schedule calendar overlay"
       style={{ pointerEvents: "auto" }}
     >
-      {/* Header: Selected date */}
-      <div className="mb-3">
-        <div className="text-sm text-gray-700 font-medium">{headerTitle}</div>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <button
+          onClick={handlePrev}
+          className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition"
+          aria-label="Previous month"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        <div className="text-sm text-gray-700 font-medium text-center">
+          {headerTitle}
+        </div>
+
+        <div className="flex items-center gap-2">
+          {uniqueYears.length > 1 && (
+            <span className="text-xs text-gray-500 font-medium">
+              {months[months.length - 1].getFullYear()}
+            </span>
+          )}
+          <button
+            onClick={handleNext}
+            className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition"
+            aria-label="Next month"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
-      {/* Months row (5 months, equally spaced) */}
+      {/* Months row */}
       <div className="flex items-center justify-between mb-3 px-2">
         {months.map((m, idx) => {
           const label = m.toLocaleString("default", { month: "long" });
@@ -112,13 +144,14 @@ export default function ScheduleCalendar({
         })}
       </div>
 
-      {/* Dates row: small rounded [12px] boxes and day names under them */}
+      {/* Dates row */}
       <div className="flex items-center justify-between px-2">
         {daysRow.map((num, idx) => {
           const isSelected =
             num === selected.getDate() &&
-            selected.getMonth() === new Date().getMonth() &&
-            selected.getFullYear() === new Date().getFullYear();
+            selected.getMonth() === baseDate.getMonth() &&
+            selected.getFullYear() === baseDate.getFullYear();
+
           return (
             <div
               key={idx}
@@ -126,7 +159,7 @@ export default function ScheduleCalendar({
               style={{ width: `${100 / daysRow.length}%` }}
             >
               <div
-                className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm ${
+                className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm transition ${
                   isSelected
                     ? "bg-black text-white font-semibold"
                     : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(
