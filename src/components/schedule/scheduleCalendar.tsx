@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ScheduleCalendar({
   baseDate: baseDateProp = new Date(),
@@ -10,53 +11,69 @@ export default function ScheduleCalendar({
   baseDate?: Date;
   selected?: Date;
 }) {
-  const [baseDate, setBaseDate] = useState(baseDateProp);
   const [selected, setSelected] = useState(selectedProp);
+  const [direction, setDirection] = useState<"next" | "prev" | null>(null);
+  const [monthFadeKey, setMonthFadeKey] = useState(
+    `${selected.getMonth()}-${selected.getFullYear()}`
+  );
 
-  // Build a 5-month window centered on baseDate's month
-  const months = useMemo(() => {
-    const centerMonthIndex = baseDate.getMonth();
-    const year = baseDate.getFullYear();
-    const arr = [];
-    for (let offset = -2; offset <= 2; offset++) {
-      const dt = new Date(year, centerMonthIndex + offset, 1);
-      arr.push(dt);
-    }
-    return arr;
-  }, [baseDate]);
+  const scrollInterval = useRef<NodeJS.Timeout | null>(null);
+  const holdTimeout = useRef<NodeJS.Timeout | null>(null);
+  const speedRef = useRef(300); // base interval speed in ms
 
-  // Days row: 7 days centered around selected
+  // ------------------- Core Shifting -------------------
+  const shiftDay = (offset: number) => {
+    setDirection(offset > 0 ? "next" : "prev");
+    setSelected((prev) => {
+      const newDate = new Date(prev);
+      newDate.setDate(prev.getDate() + offset);
+
+      // when month changes, trigger subtle fade
+      const newKey = `${newDate.getMonth()}-${newDate.getFullYear()}`;
+      if (newKey !== monthFadeKey) setMonthFadeKey(newKey);
+
+      return newDate;
+    });
+  };
+
+  // ------------------- Hold Acceleration -------------------
+  const startHold = (offset: number) => {
+    speedRef.current = 300; // reset base speed
+    holdTimeout.current = setTimeout(() => {
+      const accelerate = () => {
+        shiftDay(offset);
+        // accelerate speed by 15% each iteration, until min 60ms
+        speedRef.current = Math.max(speedRef.current * 0.85, 60);
+        scrollInterval.current = setTimeout(accelerate, speedRef.current);
+      };
+      accelerate();
+    }, 300); // delay before auto-scroll starts
+  };
+
+  const stopHold = () => {
+    if (holdTimeout.current) clearTimeout(holdTimeout.current);
+    if (scrollInterval.current) clearTimeout(scrollInterval.current);
+    holdTimeout.current = null;
+    scrollInterval.current = null;
+    speedRef.current = 300;
+  };
+
+  // ------------------- Derived Data -------------------
   const daysRow = useMemo(() => {
     const year = selected.getFullYear();
     const month = selected.getMonth();
-    const totalDays = new Date(year, month + 1, 0).getDate();
     const day = selected.getDate();
-    const half = 3;
-    const start = Math.max(1, day - half);
-    const end = Math.min(totalDays, day + half);
-    const arr: number[] = [];
-    for (let d = start; d <= end; d++) arr.push(d);
-    while (arr.length < 7) {
-      const prepend = arr[0] - 1;
-      if (prepend >= 1) arr.unshift(prepend);
-      else {
-        const append = arr[arr.length - 1] + 1;
-        if (append <= totalDays) arr.push(append);
-        else break;
-      }
+    const arr: Date[] = [];
+    for (let offset = -3; offset <= 3; offset++) {
+      arr.push(new Date(year, month, day + offset));
     }
     return arr;
   }, [selected]);
 
-  // Day names row
-  const dayNames = useMemo(() => {
-    return daysRow.map((d) => {
-      const dt = new Date(selected.getFullYear(), selected.getMonth(), d);
-      return dt.toLocaleString("default", { weekday: "short" });
-    });
-  }, [daysRow, selected]);
+  const headerTitle = `${selected.getDate()} ${selected.toLocaleString("default", {
+    month: "long",
+  })}, ${selected.getFullYear()}`;
 
-  // Fade class for opacity gradient
   function fadeClass(index: number, length: number) {
     const center = (length - 1) / 2;
     const dist = Math.abs(index - center);
@@ -66,41 +83,86 @@ export default function ScheduleCalendar({
     return "opacity-50 text-gray-500";
   }
 
-  const headerTitle = `${selected.getDate()} ${selected.toLocaleString("default", {
-    month: "long",
-  })}, ${selected.getFullYear()}`;
+  const months = useMemo(() => {
+    const arr = [];
+    const centerMonthIndex = selected.getMonth();
+    const year = selected.getFullYear();
+    for (let offset = -2; offset <= 2; offset++) {
+      arr.push(new Date(year, centerMonthIndex + offset, 1));
+    }
+    return arr;
+  }, [selected]);
 
-  // Slide functions
-  const handlePrev = () => {
-    const newDate = new Date(baseDate);
-    newDate.setMonth(newDate.getMonth() - 1);
-    setBaseDate(newDate);
-    setSelected(new Date(selected.getFullYear(), selected.getMonth() - 1, selected.getDate()));
+  // ------------------- Animations -------------------
+  const variants = {
+    enter: (dir: string) => ({
+      x: dir === "next" ? 40 : -40,
+      opacity: 0,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    },
+    exit: (dir: string) => ({
+      x: dir === "next" ? -40 : 40,
+      opacity: 0,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    }),
   };
 
-  const handleNext = () => {
-    const newDate = new Date(baseDate);
-    newDate.setMonth(newDate.getMonth() + 1);
-    setBaseDate(newDate);
-    setSelected(new Date(selected.getFullYear(), selected.getMonth() + 1, selected.getDate()));
+  const slideVariants = {
+    enter: (dir: string) => ({
+      x: dir === "next" ? 40 : -40,
+      opacity: 0,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    },
+    exit: (dir: string) => ({
+      x: dir === "next" ? -40 : 40,
+      opacity: 0,
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
+      right: 0,
+    }),
   };
 
-  // Detect if months cross a year boundary
-  const uniqueYears = Array.from(new Set(months.map((m) => m.getFullYear())));
 
+  // ------------------- UI -------------------
   return (
     <div
       className="absolute left-6 top-6 z-20 w-[calc(100%-12rem)] max-w-[820px] bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-md border border-gray-100"
-      role="region"
-      aria-label="Schedule calendar overlay"
       style={{ pointerEvents: "auto" }}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <button
-          onClick={handlePrev}
+          onClick={() => shiftDay(-1)}
+          onMouseDown={() => startHold(-1)}
+          onMouseUp={stopHold}
+          onMouseLeave={stopHold}
           className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition"
-          aria-label="Previous month"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -109,74 +171,93 @@ export default function ScheduleCalendar({
           {headerTitle}
         </div>
 
-        <div className="flex items-center gap-2">
-          {uniqueYears.length > 1 && (
-            <span className="text-xs text-gray-500 font-medium">
-              {months[months.length - 1].getFullYear()}
-            </span>
-          )}
-          <button
-            onClick={handleNext}
-            className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition"
-            aria-label="Next month"
+        <button
+          onClick={() => shiftDay(1)}
+          onMouseDown={() => startHold(1)}
+          onMouseUp={stopHold}
+          onMouseLeave={stopHold}
+          className="p-2 rounded-full hover:bg-gray-200 text-gray-600 transition"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Subtle Month Fade */}
+      <div className="relative mb-3 h-[24px] px-2">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={monthFadeKey}
+            variants={slideVariants}
+            custom={direction}
+            initial={false} // prevents blink
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="flex items-center justify-between absolute inset-0"
           >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
 
-      {/* Months row */}
-      <div className="flex items-center justify-between mb-3 px-2">
-        {months.map((m, idx) => {
-          const label = m.toLocaleString("default", { month: "long" });
-          return (
-            <div
-              key={idx}
-              className={`text-sm font-medium text-center ${fadeClass(
-                idx,
-                months.length
-              )}`}
-              style={{ width: "18%" }}
-            >
-              {label}
-            </div>
-          );
-        })}
-      </div>
 
-      {/* Dates row */}
-      <div className="flex items-center justify-between px-2">
-        {daysRow.map((num, idx) => {
-          const isSelected =
-            num === selected.getDate() &&
-            selected.getMonth() === baseDate.getMonth() &&
-            selected.getFullYear() === baseDate.getFullYear();
-
-          return (
-            <div
-              key={idx}
-              className="flex flex-col items-center text-center"
-              style={{ width: `${100 / daysRow.length}%` }}
-            >
+            {months.map((m, idx) => (
               <div
-                className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm transition ${
-                  isSelected
-                    ? "bg-black text-white font-semibold"
-                    : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(
+                key={idx}
+                className={`text-sm font-medium text-center ${fadeClass(
+                  idx,
+                  months.length
+                )}`}
+                style={{ width: "18%" }}
+              >
+                {m.toLocaleString("default", { month: "long" })}
+              </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Animated Dates Row */}
+      <div className="relative px-2 h-[80px] overflow-hidden">
+        <AnimatePresence custom={direction}>
+          <motion.div
+            key={selected.toISOString()}
+            variants={variants}
+            custom={direction}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="flex items-center justify-between absolute inset-0"
+          >
+            {daysRow.map((date, idx) => {
+              const isSelected =
+                date.getDate() === selected.getDate() &&
+                date.getMonth() === selected.getMonth() &&
+                date.getFullYear() === selected.getFullYear();
+
+              return (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center text-center"
+                  style={{ width: `${100 / daysRow.length}%` }}
+                >
+                  <div
+                    className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm transition ${isSelected
+                      ? "bg-black text-white font-semibold"
+                      : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(
                         idx,
                         daysRow.length
                       )}`
-                }`}
-              >
-                {num}
-              </div>
+                      }`}
+                  >
+                    {date.getDate()}
+                  </div>
 
-              <div className={`mt-2 text-xs ${fadeClass(idx, daysRow.length)}`}>
-                {dayNames[idx]}
-              </div>
-            </div>
-          );
-        })}
+                  <div className={`mt-2 text-xs ${fadeClass(idx, daysRow.length)}`}>
+                    {date.toLocaleString("default", { weekday: "short" })}
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
