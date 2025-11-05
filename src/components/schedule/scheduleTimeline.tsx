@@ -81,7 +81,7 @@ export default function ScheduleTimeline({
         className="bg-[#fffaf9] rounded-xl p-6 relative border border-gray-100 shadow-sm"
         style={{ minHeight: `${totalSlots * slotHeight + 20}px` }}
       >
-        <div className="flex mt-40">
+        <div className="flex mt-60">
           {/* Left column with time labels */}
           <div className="w-20 pr-4 select-none">
             <div className="flex flex-col">
@@ -121,7 +121,7 @@ export default function ScheduleTimeline({
                   }}
                 >
                   <div
-                    className="mx-4 border-t border-dashed border-gray-200"
+                    className="mx-4 border-t border-dashed border-gray-400"
                     style={{
                       position: "absolute",
                       top: `${slotHeight / 2 - 1}px`,
