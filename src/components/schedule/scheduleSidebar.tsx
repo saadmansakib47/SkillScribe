@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import CreateScheduleModal from "@/components/schedule/createScheduleModal";
 
 export default function ScheduleSidebar() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -24,6 +25,8 @@ export default function ScheduleSidebar() {
   const monthName = currentDate.toLocaleString("default", { month: "long" });
   const year = currentDate.getFullYear();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <aside className="w-[310px] bg-[#fefefe] rounded-xl shadow-sm border border-gray-100 p-5">
       {/* Calendar mini */}
@@ -42,23 +45,24 @@ export default function ScheduleSidebar() {
             return (
               <div
                 key={day}
-                className={`flex items-center justify-center w-9 h-9 rounded-[12px] transition-colors duration-150 cursor-pointer ${
-                  isToday
+                className={`flex items-center justify-center w-9 h-9 rounded-[12px] transition-colors duration-150 cursor-pointer ${isToday
                     ? "bg-black text-white font-semibold"
                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                }`}
+                  }`}
               >
                 {day}
               </div>
             );
           })}
         </div>
-        <button className="w-full max-w-[400px] bg-[#1E40AF] text-white font-semibold text-sm py-2 mt-5 rounded-[10px] hover:bg-[#1d4ed8] transition">
+        <button onClick={() => setIsModalOpen(true)} className="w-full max-w-[400px] bg-[#1E40AF] text-white font-semibold text-sm py-2 mt-5 rounded-[10px] hover:bg-[#1d4ed8] transition">
           Create New Schedule
         </button>
+        <CreateScheduleModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
 
       {/* Next Schedule */}
+
       <div className="mb-6">
         <h4 className="font-bold text-black mb-2">Next Schedule</h4>
         <p className="text-sm font-medium">UI Designers Roadmap to Career</p>
