@@ -46,7 +46,7 @@ export default function CreateScheduleModal({
             {/* Schedule Type Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {/* Live Session Card */}
-              <div className="bg-blue-500 text-white rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
+              <div className="bg-[#E6F2FF] text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Video className="w-5 h-5" />
@@ -64,14 +64,14 @@ export default function CreateScheduleModal({
                 </div>
                 <Button
                   variant="outline"
-                  className="mt-4 border border-white text-white hover:bg-white hover:text-blue-600"
+                  className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
                 >
                   Create Live Session
                 </Button>
               </div>
 
               {/* Recorded Video Card */}
-              <div className="bg-purple-500 text-white rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
+              <div className="bg-purple-300 text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <PlayCircle className="w-5 h-5" />
@@ -91,9 +91,9 @@ export default function CreateScheduleModal({
                 </div>
                 <Button
                   variant="outline"
-                  className="mt-4 border border-white text-white hover:bg-white hover:text-purple-600"
+                  className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
                 >
-                  Schedule Live Video
+                  Schedule Video Upload
                 </Button>
               </div>
             </div>
