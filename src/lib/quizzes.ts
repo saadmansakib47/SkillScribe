@@ -2528,6 +2528,1586 @@ export const QUIZZES: Quiz[] = [
       },
     ],
   },
+
+  // Course 13: PostgreSQL Mastery
+  {
+    id: 29,
+    courseId: 13,
+    title: 'PostgreSQL Fundamentals Quiz',
+    description: 'Test your knowledge of PostgreSQL basics and core concepts.',
+    questions: [
+      {
+        id: 1,
+        text: 'What type of database is PostgreSQL?',
+        options: [
+          'Relational database',
+          'NoSQL database',
+          'Key-value store',
+          'Graph database',
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 2,
+        text: 'Which PostgreSQL data type is best for storing JSON documents?',
+        options: ['TEXT', 'JSONB', 'VARCHAR', 'BLOB'],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is a PRIMARY KEY in PostgreSQL?',
+        options: [
+          'A key that unlocks the database',
+          'A unique identifier for each row in a table',
+          'A password for database access',
+          'A foreign key reference',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'Which command is used to retrieve data from a PostgreSQL table?',
+        options: ['INSERT', 'UPDATE', 'DELETE', 'SELECT'],
+        correctAnswer: 4,
+      },
+      {
+        id: 5,
+        text: 'What does ACID stand for in database transactions?',
+        options: [
+          'Atomicity, Consistency, Isolation, Durability',
+          'Access, Control, Integration, Data',
+          'Authentication, Credentials, Identity, Directory',
+          'Automatic, Cached, Indexed, Distributed',
+        ],
+        correctAnswer: 1,
+      },
+    ],
+  },
+
+  // Course 13: PostgreSQL Mastery
+  {
+    id: 30,
+    courseId: 13,
+    title: 'PostgreSQL Advanced Features Quiz',
+    description: 'Test your understanding of advanced PostgreSQL features.',
+    questions: [
+      {
+        id: 1,
+        text: 'What are window functions in PostgreSQL?',
+        options: [
+          'Functions that open new database connections',
+          'Functions that perform calculations across rows related to the current row',
+          'Functions that create GUI windows',
+          'Functions that manage database windows',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is the purpose of EXPLAIN ANALYZE in PostgreSQL?',
+        options: [
+          'To create documentation',
+          'To backup the database',
+          'To show query execution plan and actual runtime statistics',
+          'To encrypt data',
+        ],
+        correctAnswer: 3,
+      },
+      {
+        id: 3,
+        text: 'Which index type is best for full-text search in PostgreSQL?',
+        options: ['B-tree', 'Hash', 'GIN', 'BRIN'],
+        correctAnswer: 3,
+      },
+      {
+        id: 4,
+        text: 'What is a CTE (Common Table Expression) in PostgreSQL?',
+        options: [
+          'A compressed table entity',
+          'A temporary result set that can be referenced within a SELECT, INSERT, UPDATE, or DELETE',
+          'A cached table entry',
+          'A column type extension',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the purpose of VACUUM in PostgreSQL?',
+        options: [
+          'To delete all data',
+          'To compress files',
+          'To reclaim storage and update statistics',
+          'To create backups',
+        ],
+        correctAnswer: 3,
+      },
+      {
+        id: 6,
+        text: 'Which PostgreSQL feature allows you to store and query JSON data efficiently?',
+        options: ['TEXT columns', 'JSONB data type', 'VARCHAR fields', 'BLOB storage'],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What is the difference between JSONB and JSON in PostgreSQL?',
+        options: [
+          'No difference',
+          'JSONB is stored in binary format and supports indexing',
+          'JSON is faster',
+          'JSONB only stores numbers',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What is table partitioning in PostgreSQL?',
+        options: [
+          'Splitting large tables into smaller, more manageable pieces',
+          'Creating backup copies',
+          'Encrypting table data',
+          'Compressing table storage',
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 9,
+        text: 'Which PostgreSQL extension provides additional data types for geometric data?',
+        options: ['PostGIS', 'pgAdmin', 'pg_stat', 'pg_dump'],
+        correctAnswer: 1,
+      },
+      {
+        id: 10,
+        text: 'What is the purpose of connection pooling in PostgreSQL?',
+        options: [
+          'To store connections in a pool',
+          'To manage and reuse database connections for better performance',
+          'To create multiple databases',
+          'To backup connections',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 14: Database Design 
+  {
+    id: 31,
+    courseId: 14,
+    title: 'Database Design Principles Quiz',
+    description: 'Test your knowledge of database design fundamentals.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is normalization in database design?',
+        options: [
+          'Making all values normal',
+          'Organizing data to reduce redundancy and improve data integrity',
+          'Converting data to standard format',
+          'Backing up the database',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is the First Normal Form (1NF) requirement?',
+        options: [
+          'All attributes must be atomic (indivisible)',
+          'All tables must have primary keys',
+          'No duplicate rows allowed',
+          'Foreign keys must be defined',
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 3,
+        text: 'What is a foreign key?',
+        options: [
+          'A key from another database',
+          'A field that links to the primary key of another table',
+          'An encrypted key',
+          'A backup key',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What does denormalization mean?',
+        options: [
+          'Removing all normalization',
+          'Intentionally introducing redundancy to improve query performance',
+          'Deleting normalized data',
+          'Converting to NoSQL',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is an ER diagram?',
+        options: [
+          'Error Recovery diagram',
+          'Entity-Relationship diagram showing database structure',
+          'Encrypted Record diagram',
+          'External Resource diagram',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What type of relationship exists when one record in Table A relates to many records in Table B?',
+        options: [
+          'One-to-one',
+          'One-to-many',
+          'Many-to-many',
+          'Many-to-one',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What is a composite key?',
+        options: [
+          'A key made of multiple columns',
+          'A key that is very complex',
+          'An encrypted key',
+          'A backup key',
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 8,
+        text: 'What is referential integrity?',
+        options: [
+          'Keeping references to external documents',
+          'Ensuring relationships between tables remain consistent',
+          'Encrypting data references',
+          'Backing up table relationships',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What is the purpose of indexing in databases?',
+        options: [
+          'To organize files',
+          'To speed up data retrieval operations',
+          'To backup data',
+          'To encrypt data',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is a junction table used for?',
+        options: [
+          'Connecting two databases',
+          'Implementing many-to-many relationships',
+          'Storing temporary data',
+          'Creating backups',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 14: Database Design
+  {
+    id: 32,
+    courseId: 14,
+    title: 'Query Optimization Quiz',
+    description: 'Test your understanding of database query optimization techniques.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is a query execution plan?',
+        options: [
+          'A plan for when to run queries',
+          'A step-by-step strategy the database uses to execute a query',
+          'A backup plan for failed queries',
+          'A query scheduling system',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'Which index type is most commonly used in relational databases?',
+        options: ['B-tree', 'Hash', 'Bitmap', 'Full-text'],
+        correctAnswer: 1,
+      },
+      {
+        id: 3,
+        text: 'What is the main disadvantage of having too many indexes?',
+        options: [
+          'Takes up too much memory',
+          'Slows down write operations (INSERT, UPDATE, DELETE)',
+          'Makes queries slower',
+          'Increases security risks',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What does query caching do?',
+        options: [
+          'Deletes old queries',
+          'Stores query results for faster retrieval of repeated queries',
+          'Compresses queries',
+          'Encrypts queries',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is database sharding?',
+        options: [
+          'Breaking glass',
+          'Horizontally partitioning data across multiple database instances',
+          'Encrypting data',
+          'Compressing data',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 15: JavaScript ES6+ Deep Dive
+  {
+    id: 33,
+    courseId: 15,
+    title: 'Modern JavaScript Features Quiz',
+    description: 'Test your knowledge of ES6+ JavaScript features.',
+    questions: [
+      {
+        id: 1,
+        text: 'What does the spread operator (...) do?',
+        options: [
+          'Spreads butter',
+          'Expands an iterable into individual elements',
+          'Creates new variables',
+          'Deletes array elements',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is the difference between let and var?',
+        options: [
+          'No difference',
+          'let has block scope, var has function scope',
+          'var is faster',
+          'let cannot be reassigned',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What does destructuring allow you to do?',
+        options: [
+          'Delete objects',
+          'Extract values from arrays or objects into distinct variables',
+          'Destroy variables',
+          'Compress data',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is an arrow function?',
+        options: [
+          'A function that points',
+          'A concise syntax for writing functions with implicit return and lexical this',
+          'A faster function',
+          'A decorative function',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What are template literals in JavaScript?',
+        options: [
+          'Pre-made code templates',
+          'String literals allowing embedded expressions using backticks',
+          'Design templates',
+          'Function templates',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What is the purpose of the const keyword?',
+        options: [
+          'To create constant functions',
+          'To declare variables that cannot be reassigned',
+          'To make code faster',
+          'To create constructors',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What are default parameters in ES6?',
+        options: [
+          'Parameters that are always used',
+          'Parameters with predefined fallback values',
+          'Required parameters',
+          'Optional parameters only',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What is the rest parameter in JavaScript?',
+        options: [
+          'A sleeping parameter',
+          'Syntax to represent an indefinite number of arguments as an array',
+          'The last parameter only',
+          'A backup parameter',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What are ES6 modules?',
+        options: [
+          'Hardware modules',
+          'A way to organize and share code using import/export',
+          'Software packages',
+          'Code libraries',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is the purpose of the class keyword in ES6?',
+        options: [
+          'To classify data',
+          'To create constructor functions with cleaner syntax',
+          'To grade code quality',
+          'To group variables',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 15: JavaScript ES6+ Deep Dive 
+  {
+    id: 34,
+    courseId: 15,
+    title: 'Async JavaScript Quiz',
+    description: 'Test your understanding of asynchronous JavaScript concepts.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is a Promise in JavaScript?',
+        options: [
+          'A guarantee',
+          'An object representing the eventual completion or failure of an async operation',
+          'A function type',
+          'A variable type',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What are the three states of a Promise?',
+        options: [
+          'Start, Middle, End',
+          'Pending, Fulfilled, Rejected',
+          'New, Running, Completed',
+          'Open, Processing, Closed',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What does the async keyword do?',
+        options: [
+          'Makes functions run faster',
+          'Declares a function as asynchronous, always returning a Promise',
+          'Delays function execution',
+          'Creates multiple threads',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is the purpose of the await keyword?',
+        options: [
+          'To wait for user input',
+          'To pause execution until a Promise is resolved',
+          'To delay code',
+          'To create timeouts',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the event loop in JavaScript?',
+        options: [
+          'A loop that creates events',
+          'A mechanism that handles asynchronous operations by managing callback queue',
+          'An infinite loop',
+          'A for loop for events',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 16: TypeScript Complete Guide 
+  {
+    id: 35,
+    courseId: 16,
+    title: 'TypeScript Basics Quiz',
+    description: 'Test your knowledge of TypeScript fundamentals.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is TypeScript?',
+        options: [
+          'A new programming language',
+          'A typed superset of JavaScript that compiles to plain JavaScript',
+          'A JavaScript library',
+          'A database language',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is the purpose of type annotations in TypeScript?',
+        options: [
+          'To make code colorful',
+          'To explicitly specify the type of variables, parameters, and return values',
+          'To add comments',
+          'To format code',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is an interface in TypeScript?',
+        options: [
+          'A user interface',
+          'A way to define the shape of an object',
+          'A network interface',
+          'A class type',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What does the "any" type mean in TypeScript?',
+        options: [
+          'Any number',
+          'A type that can be anything, disabling type checking',
+          'Any string',
+          'Any array',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is a union type in TypeScript?',
+        options: [
+          'A type for unions',
+          'A type that can be one of several types (e.g., string | number)',
+          'A combined type',
+          'A special class',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 16: TypeScript Complete Guide 
+  {
+    id: 36,
+    courseId: 16,
+    title: 'Advanced TypeScript Quiz',
+    description: 'Test your understanding of advanced TypeScript features.',
+    questions: [
+      {
+        id: 1,
+        text: 'What are generics in TypeScript?',
+        options: [
+          'Generic functions',
+          'A way to create reusable components that work with multiple types',
+          'General types',
+          'Default types',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is a type guard?',
+        options: [
+          'Security for types',
+          'A way to narrow down the type of a variable within a conditional block',
+          'A type protector',
+          'An error handler',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What does the "readonly" modifier do?',
+        options: [
+          'Makes code readable',
+          'Prevents properties from being modified after initialization',
+          'Creates read-only files',
+          'Enables read operations',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What are utility types in TypeScript?',
+        options: [
+          'Useful types',
+          'Built-in types that help transform existing types (e.g., Partial, Pick, Omit)',
+          'Helper functions',
+          'Special classes',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the difference between "type" and "interface"?',
+        options: [
+          'No difference',
+          'Interfaces can be extended and merged, types are more flexible with unions/intersections',
+          'Types are faster',
+          'Interfaces are deprecated',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 17: Rust Programming
+  {
+    id: 37,
+    courseId: 17,
+    title: 'Rust Fundamentals Quiz',
+    description: 'Test your knowledge of Rust programming basics.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is Rust\'s key feature for memory safety?',
+        options: [
+          'Garbage collection',
+          'Ownership system',
+          'Manual memory management',
+          'Automatic cleanup',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What are the three rules of ownership in Rust?',
+        options: [
+          'Copy, Move, Drop',
+          'Each value has an owner, only one owner at a time, value dropped when owner goes out of scope',
+          'Borrow, Own, Share',
+          'Create, Use, Delete',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is borrowing in Rust?',
+        options: [
+          'Taking code from others',
+          'Temporarily accessing data without taking ownership',
+          'Copying values',
+          'Sharing memory',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is a mutable reference in Rust?',
+        options: [
+          'A changeable variable',
+          'A reference that allows modification of borrowed data',
+          'A constant reference',
+          'An immutable pointer',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What does the Result type represent in Rust?',
+        options: [
+          'Test results',
+          'Either a success value (Ok) or an error value (Err)',
+          'Return values',
+          'Output data',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 17: Rust Programming
+  {
+    id: 38,
+    courseId: 17,
+    title: 'Advanced Rust Quiz',
+    description: 'Test your understanding of advanced Rust concepts.',
+    questions: [
+      {
+        id: 1,
+        text: 'What are lifetimes in Rust?',
+        options: [
+          'How long a program runs',
+          'Annotations that help the compiler ensure references are valid',
+          'Variable duration',
+          'Memory lifespan',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is a trait in Rust?',
+        options: [
+          'A personality feature',
+          'A collection of methods that types can implement',
+          'A data structure',
+          'A variable type',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is pattern matching in Rust?',
+        options: [
+          'Text matching',
+          'A powerful control flow construct that matches values against patterns',
+          'String comparison',
+          'Regex matching',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What does the Option type represent?',
+        options: [
+          'Configuration options',
+          'A value that can be either Some(value) or None',
+          'User choices',
+          'Program settings',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is unsafe Rust?',
+        options: [
+          'Dangerous code',
+          'Code that bypasses Rust\'s safety guarantees for low-level operations',
+          'Untested code',
+          'Deprecated code',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What are closures in Rust?',
+        options: [
+          'Code endings',
+          'Anonymous functions that can capture their environment',
+          'Class destructors',
+          'Loop terminators',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What is the purpose of the Box type?',
+        options: [
+          'To box data',
+          'To allocate data on the heap instead of the stack',
+          'To compress data',
+          'To encrypt data',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What does Rust\'s "fearless concurrency" mean?',
+        options: [
+          'No fear in coding',
+          'Rust\'s ownership system prevents data races at compile time',
+          'Fast threading',
+          'Easy parallelism',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What is a smart pointer in Rust?',
+        options: [
+          'An intelligent pointer',
+          'A data structure that acts like a pointer with additional metadata and capabilities',
+          'A fast pointer',
+          'A safe pointer',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is the difference between String and &str in Rust?',
+        options: [
+          'No difference',
+          'String is owned and growable, &str is a borrowed string slice',
+          'String is faster',
+          '&str is deprecated',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 18: Java Spring Boot Masterclass 
+  {
+    id: 39,
+    courseId: 18,
+    title: 'Spring Boot Basics Quiz',
+    description: 'Test your knowledge of Spring Boot fundamentals.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is Spring Boot?',
+        options: [
+          'A shoe brand',
+          'A framework that simplifies Spring application development',
+          'A Java library',
+          'A database tool',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is dependency injection in Spring?',
+        options: [
+          'Adding libraries',
+          'A design pattern where objects receive their dependencies from external sources',
+          'Installing packages',
+          'Importing modules',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What annotation is used to mark a class as a Spring REST controller?',
+        options: [
+          '@Controller',
+          '@RestController',
+          '@Service',
+          '@Component',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is the purpose of @Autowired annotation?',
+        options: [
+          'To wire hardware',
+          'To automatically inject dependencies',
+          'To create wires',
+          'To connect databases',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What file format does Spring Boot use for configuration?',
+        options: [
+          'XML only',
+          'application.properties or application.yml',
+          'JSON only',
+          'INI files',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 18: Java Spring Boot Masterclass
+  {
+    id: 40,
+    courseId: 18,
+    title: 'Spring Boot Advanced Quiz',
+    description: 'Test your understanding of advanced Spring Boot concepts.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is Spring Data JPA?',
+        options: [
+          'A data format',
+          'A framework that simplifies database access using JPA',
+          'A database type',
+          'A Java library',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is the purpose of @Entity annotation?',
+        options: [
+          'To create entities',
+          'To mark a class as a JPA entity mapped to a database table',
+          'To define objects',
+          'To create services',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is Spring Security used for?',
+        options: [
+          'Physical security',
+          'Providing authentication and authorization for applications',
+          'Encrypting files',
+          'Securing hardware',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is a microservice?',
+        options: [
+          'A small service',
+          'An independently deployable service that focuses on a single business capability',
+          'A mini application',
+          'A tiny function',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the purpose of @Transactional annotation?',
+        options: [
+          'To make transactions',
+          'To manage database transactions declaratively',
+          'To transfer data',
+          'To translate data',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What is Spring Cloud?',
+        options: [
+          'Cloud storage',
+          'A framework for building cloud-native applications with distributed system patterns',
+          'A weather service',
+          'A backup service',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What is the purpose of @RequestMapping?',
+        options: [
+          'To create maps',
+          'To map HTTP requests to handler methods',
+          'To request data',
+          'To route traffic',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What is Hibernate in Spring Boot?',
+        options: [
+          'Sleep mode',
+          'An ORM framework for mapping Java objects to database tables',
+          'A caching system',
+          'A storage solution',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What is the purpose of application.properties file?',
+        options: [
+          'To list properties',
+          'To configure Spring Boot application settings',
+          'To store data',
+          'To define classes',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is a RESTful API?',
+        options: [
+          'A sleeping API',
+          'An API that follows REST architectural principles using HTTP methods',
+          'A relaxed API',
+          'A retired API',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 19: Go Language
+  {
+    id: 41,
+    courseId: 19,
+    title: 'Go Basics Quiz',
+    description: 'Test your knowledge of Go programming fundamentals.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is a goroutine in Go?',
+        options: [
+          'A Go library',
+          'A lightweight thread managed by the Go runtime',
+          'A function type',
+          'A data structure',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'How do you declare a variable in Go?',
+        options: [
+          'var name type',
+          'let name type',
+          'dim name type',
+          'declare name type',
+        ],
+        correctAnswer: 1,
+      },
+      {
+        id: 3,
+        text: 'What is a channel in Go?',
+        options: [
+          'A TV channel',
+          'A mechanism for goroutines to communicate and synchronize',
+          'A data pipe',
+          'A network connection',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What keyword is used to define a function in Go?',
+        options: [
+          'function',
+          'func',
+          'def',
+          'fn',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the purpose of the defer statement?',
+        options: [
+          'To delay execution',
+          'To schedule a function call to run after the surrounding function returns',
+          'To postpone code',
+          'To create timeouts',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 19: Go Language
+  {
+    id: 42,
+    courseId: 19,
+    title: 'Go Concurrency Quiz',
+    description: 'Test your understanding of Go concurrency patterns.',
+    questions: [
+      {
+        id: 1,
+        text: 'What does the select statement do in Go?',
+        options: [
+          'Selects data',
+          'Waits on multiple channel operations',
+          'Chooses variables',
+          'Picks functions',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is a buffered channel?',
+        options: [
+          'A channel with storage',
+          'A channel that can hold a limited number of values without a receiver',
+          'A fast channel',
+          'A large channel',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is the purpose of sync.WaitGroup?',
+        options: [
+          'To create groups',
+          'To wait for a collection of goroutines to finish',
+          'To synchronize time',
+          'To group data',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is a mutex in Go?',
+        options: [
+          'A musical term',
+          'A mutual exclusion lock to protect shared resources',
+          'A multiplexer',
+          'A data type',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What happens when you close a channel in Go?',
+        options: [
+          'Channel is deleted',
+          'No more values can be sent, but receivers can still read remaining values',
+          'All data is lost',
+          'Channel becomes unusable',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What is the difference between buffered and unbuffered channels?',
+        options: [
+          'Speed',
+          'Buffered channels can store values; unbuffered require sender and receiver to be ready',
+          'Size',
+          'Performance',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What does the go keyword do?',
+        options: [
+          'Starts the program',
+          'Launches a new goroutine',
+          'Goes to a line',
+          'Continues execution',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What is a deadlock in Go?',
+        options: [
+          'A locked door',
+          'A situation where goroutines are waiting for each other indefinitely',
+          'A security lock',
+          'A database lock',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What is sync.Mutex used for?',
+        options: [
+          'Music synchronization',
+          'Protecting shared resources from concurrent access',
+          'Time synchronization',
+          'Data multiplication',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is the purpose of context package in Go?',
+        options: [
+          'To add context',
+          'To carry deadlines, cancellation signals, and request-scoped values',
+          'To create documentation',
+          'To manage state',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 20: C++ Modern Programming
+  {
+    id: 43,
+    courseId: 20,
+    title: 'Modern C++ Fundamentals Quiz',
+    description: 'Test your knowledge of modern C++ features.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is a smart pointer in C++?',
+        options: [
+          'An intelligent pointer',
+          'A pointer that automatically manages memory',
+          'A fast pointer',
+          'A safe pointer',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is move semantics in C++?',
+        options: [
+          'Moving code',
+          'Transferring ownership of resources without copying',
+          'Relocating memory',
+          'Shifting data',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is an rvalue reference?',
+        options: [
+          'A right-side reference',
+          'A reference to a temporary object using &&',
+          'A return value reference',
+          'A recursive reference',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is RAII in C++?',
+        options: [
+          'A design pattern',
+          'Resource Acquisition Is Initialization - managing resources through object lifetime',
+          'A memory model',
+          'A programming style',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the auto keyword used for?',
+        options: [
+          'Automatic cars',
+          'Automatic type deduction',
+          'Automatic functions',
+          'Automatic variables',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 20: C++ Modern Programming 
+  {
+    id: 44,
+    courseId: 20,
+    title: 'C++ STL and Templates Quiz',
+    description: 'Test your understanding of the Standard Template Library.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is the STL in C++?',
+        options: [
+          'Standard Type Library',
+          'Standard Template Library - a collection of template classes and functions',
+          'Static Type Library',
+          'System Template Library',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is a vector in C++ STL?',
+        options: [
+          'A math vector',
+          'A dynamic array that can resize automatically',
+          'A pointer array',
+          'A static array',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is a lambda expression in C++?',
+        options: [
+          'A Greek letter',
+          'An anonymous function that can capture variables from its scope',
+          'A template function',
+          'A macro',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What does std::unique_ptr guarantee?',
+        options: [
+          'Uniqueness',
+          'Exclusive ownership of a dynamically allocated object',
+          'Fast access',
+          'Thread safety',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is the difference between std::vector and std::array?',
+        options: [
+          'No difference',
+          'vector is dynamic and heap-allocated, array is fixed-size and stack-allocated',
+          'vector is faster',
+          'array is deprecated',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What is a template in C++?',
+        options: [
+          'A code template',
+          'A blueprint for creating generic functions or classes',
+          'A design pattern',
+          'A pre-made class',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What is std::shared_ptr?',
+        options: [
+          'A shared pointer',
+          'A smart pointer with shared ownership using reference counting',
+          'A fast pointer',
+          'A thread-safe pointer',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What does the constexpr keyword do?',
+        options: [
+          'Makes constants',
+          'Enables compile-time evaluation of expressions',
+          'Creates expressions',
+          'Defines constraints',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What is std::map used for?',
+        options: [
+          'Creating maps',
+          'Storing key-value pairs in sorted order',
+          'Navigation',
+          'Data mapping',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is the purpose of iterators in C++ STL?',
+        options: [
+          'To repeat code',
+          'To traverse and access elements in containers',
+          'To create loops',
+          'To iterate numbers',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 21: Machine Learning with Python 
+  {
+    id: 45,
+    courseId: 21,
+    title: 'Machine Learning Fundamentals Quiz',
+    description: 'Test your knowledge of ML basics and concepts.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is supervised learning?',
+        options: [
+          'Learning with supervision',
+          'Learning from labeled data with input-output pairs',
+          'Watching tutorials',
+          'Teacher-led training',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is the difference between classification and regression?',
+        options: [
+          'No difference',
+          'Classification predicts categories, regression predicts continuous values',
+          'Classification is faster',
+          'Regression is more accurate',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is overfitting in machine learning?',
+        options: [
+          'Too much data',
+          'When a model learns training data too well and performs poorly on new data',
+          'Model is too big',
+          'Training too long',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is cross-validation?',
+        options: [
+          'Validating twice',
+          'A technique to assess model performance by splitting data into multiple folds',
+          'Checking answers',
+          'Comparing models',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is feature engineering?',
+        options: [
+          'Building features',
+          'The process of selecting and transforming variables for ML models',
+          'Engineering software',
+          'Creating functions',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
+
+  // Course 21: Machine Learning with Python 
+  {
+    id: 46,
+    courseId: 21,
+    title: 'Deep Learning Quiz',
+    description: 'Test your understanding of neural networks and deep learning.',
+    questions: [
+      {
+        id: 1,
+        text: 'What is a neural network?',
+        options: [
+          'A network of neurons',
+          'A computational model inspired by biological neural networks',
+          'A brain scan',
+          'A connection network',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 2,
+        text: 'What is backpropagation?',
+        options: [
+          'Moving backwards',
+          'An algorithm for computing gradients to update neural network weights',
+          'Reversing predictions',
+          'Going back in time',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 3,
+        text: 'What is a CNN (Convolutional Neural Network) best used for?',
+        options: [
+          'Text processing',
+          'Image recognition and computer vision tasks',
+          'Time series',
+          'Audio processing',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 4,
+        text: 'What is an activation function?',
+        options: [
+          'A starting function',
+          'A function that introduces non-linearity into neural networks',
+          'An activator',
+          'A trigger function',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 5,
+        text: 'What is transfer learning?',
+        options: [
+          'Transferring data',
+          'Using a pre-trained model as a starting point for a new task',
+          'Moving models',
+          'Sharing weights',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 6,
+        text: 'What is the purpose of dropout in neural networks?',
+        options: [
+          'Dropping data',
+          'A regularization technique to prevent overfitting by randomly dropping neurons',
+          'Removing layers',
+          'Stopping training',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 7,
+        text: 'What is an epoch in training?',
+        options: [
+          'A time period',
+          'One complete pass through the entire training dataset',
+          'An era',
+          'A training session',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 8,
+        text: 'What is gradient descent?',
+        options: [
+          'Going downhill',
+          'An optimization algorithm that minimizes loss by updating parameters',
+          'Descending gradients',
+          'Slope calculation',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 9,
+        text: 'What is an RNN (Recurrent Neural Network) used for?',
+        options: [
+          'Recurring tasks',
+          'Processing sequential data like text or time series',
+          'Repeated training',
+          'Recursive functions',
+        ],
+        correctAnswer: 2,
+      },
+      {
+        id: 10,
+        text: 'What is the difference between batch and online learning?',
+        options: [
+          'Speed',
+          'Batch learns from all data at once, online learns incrementally',
+          'Batch is better',
+          'Online is faster',
+        ],
+        correctAnswer: 2,
+      },
+    ],
+  },
 ];
 
 /**
