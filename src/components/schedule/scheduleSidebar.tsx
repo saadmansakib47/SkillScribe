@@ -3,38 +3,50 @@
 import { useEffect, useState } from "react";
 
 export default function ScheduleSidebar() {
-  const [today, setToday] = useState<number | null>(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [daysInMonth, setDaysInMonth] = useState<number[]>([]);
 
+  // Runs on mount and whenever the month changes
   useEffect(() => {
-    const now = new Date();
-    const month = now.getMonth(); // 0 = Jan
-    const year = now.getFullYear();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
 
-    // Only highlight if we are in November 2025 (month = 10)
-    if (month === 10 && year === 2025) {
-      setToday(now.getDate());
-    } else {
-      setToday(null);
-    }
-  }, []);
+    // Get total number of days in current month
+    const totalDays = new Date(year, month + 1, 0).getDate();
+    setDaysInMonth(Array.from({ length: totalDays }, (_, i) => i + 1));
+  }, [currentDate]);
 
-  const days = Array.from({ length: 30 }, (_, i) => i + 1);
+  const today = new Date().getDate();
+  const thisMonth = new Date().getMonth();
+  const thisYear = new Date().getFullYear();
+
+  // For formatting the heading (e.g., “November, 2025”)
+  const monthName = currentDate.toLocaleString("default", { month: "long" });
+  const year = currentDate.getFullYear();
+
   return (
     <aside className="w-[310px] bg-[#fefefe] rounded-xl shadow-sm border border-gray-100 p-5">
       {/* Calendar mini */}
       <div className="mb-6">
-        <h4 className="font-semibold text-gray-900 mb-3">November,2025</h4>
+        <h4 className="font-semibold text-gray-900 mb-3">
+          {monthName}, {year}
+        </h4>
 
         <div className="grid grid-cols-7 gap-2 text-sm">
-          {days.map((day) => {
-            const isSelected = day === today;
+          {daysInMonth.map((day) => {
+            const isToday =
+              day === today &&
+              currentDate.getMonth() === thisMonth &&
+              currentDate.getFullYear() === thisYear;
+
             return (
               <div
                 key={day}
-                className={`flex items-center justify-center w-9 h-9 rounded-[12px] transition-colors duration-150 cursor-pointer ${isSelected
-                  ? "bg-black text-white font-semibold"
-                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                  }`}
+                className={`flex items-center justify-center w-9 h-9 rounded-[12px] transition-colors duration-150 cursor-pointer ${
+                  isToday
+                    ? "bg-black text-white font-semibold"
+                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                }`}
               >
                 {day}
               </div>
