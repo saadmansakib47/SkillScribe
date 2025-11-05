@@ -34,7 +34,7 @@ export default function ScheduleCalendar({
   // For date boxes: show range around selected month's first week (we'll just show 7 days window like design)
   const daysRow = useMemo(() => {
     // For the selected/current month, render the date numbers of a single week sample:
-    // We'll render 7 numbers centered around selected date (or start of month if near edges)
+    // I am rendering 7 numbers centered around selected date (or start of month if near edges)
     const year = selected.getFullYear();
     const month = selected.getMonth();
     const totalDays = new Date(year, month + 1, 0).getDate();
