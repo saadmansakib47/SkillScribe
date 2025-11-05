@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { COURSES } from '../../../../lib/courses';
 import CourseModules from '../../../../components/course/CourseModules';
+import CourseActions from '../../../../components/course/CourseActions';
 
 type Props = {
   params: { id: string } | Promise<{ id: string }>;
@@ -102,10 +103,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 <h1 className="text-3xl font-semibold text-gray-900">{course.title}</h1>
                 <p className="mt-3 text-gray-700">{course.shortDescription ?? course.description}</p>
 
-                <div className="mt-6 flex items-center gap-3">
-                  <Link href="#" className="inline-flex items-center justify-center bg-[#0b4ca6] text-white py-2 px-4 rounded-[10px] border-2 border-black font-medium">Wishlist</Link>
-                  <Link href="#" className="inline-flex items-center justify-center bg-white text-gray-900 py-2 px-4 rounded-[10px] border-2 border-gray-400">Enroll Now</Link>
-                </div>
+                <CourseActions course={course} />
               </div>
 
               <div className="w-full lg:w-80 relative">

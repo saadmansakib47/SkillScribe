@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
+import { CartProvider } from "@/contexts/CartContext";
 import { Raleway } from 'next/font/google';
 
 const raleway = Raleway({
@@ -24,18 +25,20 @@ export default function RootLayout({
       <body
         className={`bg-neutral-50 text-neutral-900 antialiased`}
       >
-        {/* Sticky Navbar */}
-        <div className="fixed top-0 left-0 w-full z-50">
-          <Navbar />
-        </div>
+        <CartProvider>
+          {/* Sticky Navbar */}
+          <div className="fixed top-0 left-0 w-full z-50">
+            <Navbar />
+          </div>
 
-        {/* Main content */}
-        <main className="pt-16">
-          {children}
-        </main>
+          {/* Main content */}
+          <main className="pt-16">
+            {children}
+          </main>
 
-        {/* Footer */}
-        <Footer />
+          {/* Footer */}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
