@@ -17,22 +17,38 @@ export default function CreateScheduleModal({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+          initial={{ opacity: 0, backdropFilter: "blur(0px)", backgroundColor: "rgba(0,0,0,0)" }}
+          animate={{
+            opacity: 1,
+            backdropFilter: "blur(8px)",
+            backgroundColor: "rgba(0,0,0,0.45)",
+            transition: {
+              opacity: { duration: 0.4, ease: "easeOut" },
+              backdropFilter: { duration: 0.6, ease: "easeOut" },
+              backgroundColor: { duration: 0.6, ease: "easeOut" },
+            },
+          }}
+          exit={{
+            opacity: 0,
+            backdropFilter: "blur(0px)",
+            backgroundColor: "rgba(0,0,0,0)",
+            transition: {
+              opacity: { duration: 0.3, ease: "easeIn" },
+              backdropFilter: { duration: 0.5, ease: "easeIn" },
+              backgroundColor: { duration: 0.5, ease: "easeIn" },
+            },
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center"
         >
           {/* Modal Container */}
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            exit={{ scale: 0.92, opacity: 0 }}
             transition={{
               type: "spring",
-              stiffness: 120,
-              damping: 12,
-              mass: 0.8,
+              stiffness: 130,
+              damping: 16,
             }}
             className="bg-white border-black rounded-2xl shadow-lg w-full max-w-2xl p-6 relative"
           >
@@ -41,24 +57,18 @@ export default function CreateScheduleModal({
               <h2 className="text-lg font-medium text-gray-800">
                 Select Schedule Type
               </h2>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+              <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-full text-gray-600"
+                className="p-2 hover:bg-gray-100 rounded-full text-gray-600 transition-transform hover:scale-105 active:scale-95"
               >
                 <X className="w-5 h-5" />
-              </motion.button>
+              </button>
             </div>
 
             {/* Schedule Type Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {/* Live Session Card */}
-              <motion.div
-                whileHover={{ scale: 1.015 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="bg-[#E6F2FF] text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition"
-              >
+              <div className="bg-[#E6F2FF] text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Video className="w-5 h-5" />
@@ -74,7 +84,7 @@ export default function CreateScheduleModal({
                     <li>Record session automatically</li>
                   </ul>
                 </div>
-                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     variant="outline"
                     className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
@@ -82,14 +92,10 @@ export default function CreateScheduleModal({
                     Create Live Session
                   </Button>
                 </motion.div>
-              </motion.div>
+              </div>
 
               {/* Recorded Video Card */}
-              <motion.div
-                whileHover={{ scale: 1.015 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="bg-purple-300 text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition"
-              >
+              <div className="bg-purple-300 text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <PlayCircle className="w-5 h-5" />
@@ -107,7 +113,7 @@ export default function CreateScheduleModal({
                     <li>Auto-notify enrolled students</li>
                   </ul>
                 </div>
-                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     variant="outline"
                     className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
@@ -115,7 +121,7 @@ export default function CreateScheduleModal({
                     Schedule Video Upload
                   </Button>
                 </motion.div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Divider with text */}
@@ -154,7 +160,7 @@ export default function CreateScheduleModal({
                     key={idx}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 * idx }}
+                    transition={{ delay: idx * 0.05 }}
                     className="flex justify-between items-center bg-[#FAF7F3] border border-black rounded-xl px-4 py-3"
                   >
                     <div>
