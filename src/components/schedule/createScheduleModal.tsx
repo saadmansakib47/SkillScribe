@@ -20,6 +20,7 @@ export default function CreateScheduleModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
         >
           {/* Modal Container */}
@@ -27,7 +28,12 @@ export default function CreateScheduleModal({
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 120, damping: 15 }}
+            transition={{
+              type: "spring",
+              stiffness: 120,
+              damping: 12,
+              mass: 0.8,
+            }}
             className="bg-white border-black rounded-2xl shadow-lg w-full max-w-2xl p-6 relative"
           >
             {/* Header */}
@@ -35,18 +41,24 @@ export default function CreateScheduleModal({
               <h2 className="text-lg font-medium text-gray-800">
                 Select Schedule Type
               </h2>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100 rounded-full text-gray-600"
               >
                 <X className="w-5 h-5" />
-              </button>
+              </motion.button>
             </div>
 
             {/* Schedule Type Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {/* Live Session Card */}
-              <div className="bg-[#E6F2FF] text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
+              <motion.div
+                whileHover={{ scale: 1.015 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                className="bg-[#E6F2FF] text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition"
+              >
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Video className="w-5 h-5" />
@@ -62,16 +74,22 @@ export default function CreateScheduleModal({
                     <li>Record session automatically</li>
                   </ul>
                 </div>
-                <Button
-                  variant="outline"
-                  className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
-                >
-                  Create Live Session
-                </Button>
-              </div>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                  <Button
+                    variant="outline"
+                    className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
+                  >
+                    Create Live Session
+                  </Button>
+                </motion.div>
+              </motion.div>
 
               {/* Recorded Video Card */}
-              <div className="bg-purple-300 text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition">
+              <motion.div
+                whileHover={{ scale: 1.015 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                className="bg-purple-300 text-black rounded-xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition"
+              >
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <PlayCircle className="w-5 h-5" />
@@ -89,13 +107,15 @@ export default function CreateScheduleModal({
                     <li>Auto-notify enrolled students</li>
                   </ul>
                 </div>
-                <Button
-                  variant="outline"
-                  className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
-                >
-                  Schedule Video Upload
-                </Button>
-              </div>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                  <Button
+                    variant="outline"
+                    className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
+                  >
+                    Schedule Video Upload
+                  </Button>
+                </motion.div>
+              </motion.div>
             </div>
 
             {/* Divider with text */}
@@ -130,8 +150,11 @@ export default function CreateScheduleModal({
                     time: "Sat, 9 Nov, 3:00 PM - 4:30 PM",
                   },
                 ].map((schedule, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * idx }}
                     className="flex justify-between items-center bg-[#FAF7F3] border border-black rounded-xl px-4 py-3"
                   >
                     <div>
@@ -149,19 +172,23 @@ export default function CreateScheduleModal({
                     </div>
 
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        className="border border-black text-black rounded-[8px] bg-white hover:bg-gray-100 text-sm px-3 py-1"
-                      >
-                        View
-                      </Button>
-                      <Button
-                        className="bg-blue-600 text-white rounded-[8px] border border-blue-600 hover:bg-blue-700 text-sm px-3 py-1"
-                      >
-                        Edit
-                      </Button>
+                      <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                        <Button
+                          variant="outline"
+                          className="border border-black text-black rounded-[8px] bg-white hover:bg-gray-100 text-sm px-3 py-1"
+                        >
+                          View
+                        </Button>
+                      </motion.div>
+                      <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                        <Button
+                          className="bg-blue-600 text-white rounded-[8px] border border-blue-600 hover:bg-blue-700 text-sm px-3 py-1"
+                        >
+                          Edit
+                        </Button>
+                      </motion.div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
