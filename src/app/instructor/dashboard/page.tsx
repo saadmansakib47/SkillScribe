@@ -17,7 +17,7 @@ import InstructorPieChart from "@/components/chart/instructorChart/instructorPie
 import CourseStatsTable from "@/components/course/CourseStatsTable";
 import RangeSelector from "@/components/chart/instructorChart/rangeSelector";
 import StatCards from "@/components/ui/StatCards";
-import InstructorLayout from "@/components/layout/instructorlayout";
+import InstructorLayout from "@/app/instructor/instructorlayout";
 
 export default function InstructorDashboard() {
   const [selectedRange, setSelectedRange] = useState<"7d" | "14d" | "30d" | "90d">("7d");
