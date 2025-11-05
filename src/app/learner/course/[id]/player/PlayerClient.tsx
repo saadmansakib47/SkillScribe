@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import CourseModules from '../../../../../components/course/CourseModules';
 import type { Course } from '../../../../../lib/courses';
 import { getQuizzesForCourse } from '../../../../../lib/quizzes';
 import { getReviewsForCourse, type Review } from '../../../../../lib/reviews';
@@ -11,7 +10,8 @@ type Props = { course: Course };
 
 export default function PlayerClient({ course }: Props) {
   const [tab, setTab] = useState<'Overview' | 'Resources' | 'Reviews' | 'Quizzes' | 'Certificate'>('Overview');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [expandedModules, setExpandedModules] = useState<Record<number, boolean>>({ 0: true });
   
   // Review state
   const [userRating, setUserRating] = useState<number>(0);
@@ -254,9 +254,12 @@ export default function PlayerClient({ course }: Props) {
 
   return (
     <div>
-      {/* Player area */}
-      <div className="relative">
-        <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-black">
+      {/* Player area with flex layout for sidebar */}
+      <div className="relative flex gap-4">
+        {/* Video player container - shrinks when sidebar is open */}
+        <div className={`relative rounded-2xl overflow-hidden shadow-2xl bg-black transition-all duration-300 ${
+          sidebarOpen ? 'lg:flex-1' : 'w-full'
+        }`}>
           {/* 16:9 container */}
           <div className="w-full" style={{ paddingTop: '56.25%' }}>
             <div className="absolute inset-0 flex flex-col">
@@ -293,22 +296,104 @@ export default function PlayerClient({ course }: Props) {
               </div>
             </div>
           </div>
+
+          {/* modules opener at top-right of player */}
+          {!sidebarOpen && (
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="hidden lg:flex absolute right-2 top-2 z-50 bg-white border rounded-md px-3 py-2 items-center gap-2 shadow-md hover:bg-gray-50 transition-colors"
+              aria-label="Open course modules"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-gray-700">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="#094CA4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="text-sm font-medium">Modules</span>
+            </button>
+          )}
         </div>
 
-        {/* modules opener at top-right of player */}
+        {/* Desktop sidebar - shown inline when open */}
+        {sidebarOpen && (
+          <div className="hidden lg:block w-[380px] flex-shrink-0">
+            <div className="bg-white rounded-2xl border shadow-lg h-full max-h-[calc(100vh-12rem)] overflow-hidden flex flex-col">
+              <div className="p-4 border-b flex items-center justify-between">
+                <h3 className="text-xl font-semibold">Course Modules</h3>
+                <button 
+                  onClick={() => setSidebarOpen(false)} 
+                  className="p-2 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+                  aria-label="Close modules"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="overflow-auto flex-1 p-4">
+                <div className="space-y-3">
+                  {(course.modules || []).map((mod, modIdx) => {
+                    const expanded = expandedModules[modIdx] ?? false;
+                    return (
+                      <div key={mod.id} className="bg-white rounded-lg border">
+                        <button
+                          onClick={() => setExpandedModules(prev => ({ ...prev, [modIdx]: !prev[modIdx] }))}
+                          className="w-full flex items-center justify-between p-3 rounded-t-lg bg-[#fbf7f2] hover:bg-[#f5f1ec] transition-colors"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="text-sm font-semibold text-gray-700">{modIdx + 1}.</div>
+                            <div className="text-left">
+                              <div className="font-medium text-gray-900">{mod.title}</div>
+                              <div className="text-xs text-gray-500">{mod.lectures} lessons</div>
+                            </div>
+                          </div>
+                          <div className="text-gray-500">{expanded ? '▾' : '▸'}</div>
+                        </button>
+
+                        <div className={`transition-all duration-200 overflow-hidden ${expanded ? 'max-h-[800px]' : 'max-h-0'}`}>
+                          <div className="p-3 space-y-2">
+                            {mod.topics && mod.topics.length > 0 ? (
+                              mod.topics.map((t) => (
+                                <button
+                                  key={t.id}
+                                  onClick={() => {
+                                    setCurrentLesson({ moduleId: mod.id, topicId: t.id, title: t.title });
+                                  }}
+                                  className="w-full text-left flex items-start gap-3 p-2 rounded hover:bg-blue-50 transition-colors group"
+                                >
+                                  <div className="mt-1 w-3 h-3 rounded-full border border-gray-300 group-hover:border-blue-500 transition-colors" />
+                                  <div>
+                                    <div className="text-sm font-medium group-hover:text-blue-600 transition-colors">{t.title}</div>
+                                  </div>
+                                </button>
+                              ))
+                            ) : (
+                              <div className="text-sm text-gray-500">No topics</div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-4 flex gap-3 items-center flex-wrap">
+        {/* Mobile Modules Button */}
         <button
           onClick={() => setSidebarOpen(true)}
-          className="hidden lg:flex absolute right-2 top-2 z-50 bg-white border rounded-md px-3 py-2 items-center gap-2 shadow-md"
-          aria-label="Open course modules"
+          className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-200 rounded-xl font-medium hover:border-gray-300 transition-all"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-gray-700">
             <path d="M4 6h16M4 12h16M4 18h16" stroke="#094CA4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="text-sm font-medium">Modules</span>
+          <span className="text-sm">Modules</span>
         </button>
-      </div>
 
-      <div className="mt-4 flex gap-3 items-center">
+        {/* Tab buttons */}
         {(['Overview', 'Resources', 'Reviews', 'Quizzes', 'Certificate'] as const).map((t) => (
           <button
             key={t}
@@ -321,8 +406,84 @@ export default function PlayerClient({ course }: Props) {
         ))}
       </div>
 
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      {/* Mobile Overlay Sidebar */}
+      {sidebarOpen && (
+        <div className="lg:hidden fixed inset-0 z-50">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setSidebarOpen(false)}
+          />
+          
+          {/* Sidebar Panel */}
+          <div className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-2xl overflow-hidden flex flex-col">
+            <div className="p-4 border-b flex items-center justify-between">
+              <h3 className="text-xl font-semibold">Course Modules</h3>
+              <button 
+                onClick={() => setSidebarOpen(false)} 
+                className="p-2 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+                aria-label="Close modules"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div className="overflow-auto flex-1 p-4">
+              <div className="space-y-3">
+                {(course.modules || []).map((mod, modIdx) => {
+                  const expanded = expandedModules[modIdx] ?? false;
+                  return (
+                    <div key={mod.id} className="bg-white rounded-lg border">
+                      <button
+                        onClick={() => setExpandedModules(prev => ({ ...prev, [modIdx]: !prev[modIdx] }))}
+                        className="w-full flex items-center justify-between p-3 rounded-t-lg bg-[#fbf7f2] hover:bg-[#f5f1ec] transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="text-sm font-semibold text-gray-700">{modIdx + 1}.</div>
+                          <div className="text-left">
+                            <div className="font-medium text-gray-900">{mod.title}</div>
+                            <div className="text-xs text-gray-500">{mod.lectures} lessons</div>
+                          </div>
+                        </div>
+                        <div className="text-gray-500">{expanded ? '▾' : '▸'}</div>
+                      </button>
+
+                      <div className={`transition-all duration-200 overflow-hidden ${expanded ? 'max-h-[800px]' : 'max-h-0'}`}>
+                        <div className="p-3 space-y-2">
+                          {mod.topics && mod.topics.length > 0 ? (
+                            mod.topics.map((t) => (
+                              <button
+                                key={t.id}
+                                onClick={() => {
+                                  setCurrentLesson({ moduleId: mod.id, topicId: t.id, title: t.title });
+                                  setSidebarOpen(false); // Close on mobile after selection
+                                }}
+                                className="w-full text-left flex items-start gap-3 p-2 rounded hover:bg-blue-50 transition-colors group"
+                              >
+                                <div className="mt-1 w-3 h-3 rounded-full border border-gray-300 group-hover:border-blue-500 transition-colors" />
+                                <div>
+                                  <div className="text-sm font-medium group-hover:text-blue-600 transition-colors">{t.title}</div>
+                                </div>
+                              </button>
+                            ))
+                          ) : (
+                            <div className="text-sm text-gray-500">No topics</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6 grid grid-cols-1 gap-6">
+        <div>
           {tab === 'Overview' && (
             <div>
               <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
@@ -964,51 +1125,6 @@ export default function PlayerClient({ course }: Props) {
             </div>
           )}
         </div>
-
-        <aside className="lg:col-span-1">
-          <div className="hidden lg:block">
-            {/* Desktop: show overlay-styled sticky panel */}
-            <CourseModules
-              modules={course.modules ?? []}
-              outcomes={[]}
-              showOnlyTopics
-              showAsOverlay
-              open={sidebarOpen}
-              onClose={() => setSidebarOpen(false)}
-              onTopicSelect={(moduleId, topicId) => {
-                const m = (course.modules || []).find((x) => x.id === moduleId);
-                const t = m?.topics?.find((x) => x.id === topicId);
-                if (t) setCurrentLesson({ moduleId, topicId, title: t.title });
-              }}
-            />
-          </div>
-
-          <div className="block lg:hidden">
-            {/* Mobile: a compact modules button to open sidebar */}
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="w-full bg-white border rounded-lg py-2 text-sm font-medium"
-            >
-              Open Modules
-            </button>
-            {/* Render inline modules when open on small screens */}
-            {sidebarOpen && (
-              <div className="mt-3">
-                <CourseModules
-                  modules={course.modules ?? []}
-                  outcomes={[]}
-                  showOnlyTopics
-                  onTopicSelect={(moduleId, topicId) => {
-                    const m = (course.modules || []).find((x) => x.id === moduleId);
-                    const t = m?.topics?.find((x) => x.id === topicId);
-                    if (t) setCurrentLesson({ moduleId, topicId, title: t.title });
-                    setSidebarOpen(false);
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        </aside>
       </div>
     </div>
   );
