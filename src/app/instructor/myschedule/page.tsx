@@ -1,7 +1,6 @@
 "use client";
 
 import InstructorLayout from "@/app/instructor/instructorlayout";
-import ScheduleCalendar from "@/components/schedule/scheduleCalendar";
 import ScheduleTimeline from "@/components/schedule/scheduleTimeline";
 import ScheduleSidebar from "@/components/schedule/scheduleSidebar";
 export default function MySchedulePage() {
