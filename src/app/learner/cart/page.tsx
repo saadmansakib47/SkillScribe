@@ -411,20 +411,70 @@ export default function ShoppingCartPage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" suppressHydrationWarning>
         {items.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border p-12 text-center">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-4 text-gray-400">
-              <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="currentColor"/>
-            </svg>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Your cart is empty</h3>
-            <p className="text-gray-600 mb-6">Browse our courses and add some to your cart!</p>
-            <Link
-              href="/learner/allcourses"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white transition-all"
-              style={{ backgroundColor: '#094CA4' }}
-            >
-              Browse Courses
-            </Link>
-          </div>
+          <>
+            {/* Empty Cart State */}
+            <div className="bg-white rounded-2xl shadow-sm border p-12 text-center mb-8">
+
+              {/* Message */}
+              <h2 className="text-2xl font-bold text-gray-900 mb-3">Your shopping cart is empty</h2>
+              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                Explore our wide range of courses and start building your skills today. Add courses to your cart and begin your learning journey!
+              </p>
+
+              {/* CTA Button */}
+              <Link
+                href="/learner/allcourses"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white transition-all hover:opacity-90"
+                style={{ backgroundColor: '#094CA4' }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Browse Courses
+              </Link>
+            </div>
+
+            {/* Recommended Courses */}
+            {recommendedCourses.length > 0 && (
+              <div>
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Start with these popular courses</h2>
+                  <p className="text-gray-600">Handpicked courses to kickstart your learning</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {recommendedCourses.map((course) => (
+                    <Link
+                      key={course.id}
+                      href={`/learner/course/${course.id}`}
+                      className="bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="relative w-full h-48">
+                        <Image
+                          src={course.image}
+                          alt={course.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
+                        <p className="text-sm text-gray-600 mb-3">{course.instructorName}</p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FFA500" stroke="#FFA500" strokeWidth="1"/>
+                            </svg>
+                            <span className="text-sm font-semibold text-gray-900">{course.rating}</span>
+                          </div>
+                          <span className="text-lg font-bold" style={{ color: '#094CA4' }}>${course.price.toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         ) : (
           <>
             {/* Cart Items */}
