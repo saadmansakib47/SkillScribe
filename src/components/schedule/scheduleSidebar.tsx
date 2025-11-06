@@ -5,9 +5,7 @@ import CreateScheduleModal from "@/components/schedule/createScheduleModal";
 
 export default function ScheduleSidebar() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [daysArray, setDaysArray] = useState<
-    { day: number; weekday: number }[]
-  >([]);
+  const [daysArray, setDaysArray] = useState<{ day: number; weekday: number }[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(new Date().getDate());
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,7 +20,6 @@ export default function ScheduleSidebar() {
       const date = new Date(year, month, i + 1);
       return { day: i + 1, weekday: date.getDay() };
     });
-
     setDaysArray(days);
   }, [currentDate]);
 
@@ -34,9 +31,9 @@ export default function ScheduleSidebar() {
   const year = currentDate.getFullYear();
 
   return (
-    <aside className="w-[310px] bg-[#fefefe] rounded-xl shadow-sm border border-gray-100 p-5">
-      {/* Calendar mini */}
-      <div className="mb-6">
+    <aside className="w-[310px] bg-[#fefefe] rounded-xl shadow-sm border border-gray-100 p-5 space-y-5">
+      {/* Mini Calendar Section */}
+      <div className="bg-[#FAF7F3] rounded-xl p-4">
         <h4 className="font-semibold text-gray-900 mb-3">
           {monthName}, {year}
         </h4>
@@ -49,7 +46,7 @@ export default function ScheduleSidebar() {
         </div>
 
         {/* Days Grid */}
-        <div className="grid grid-cols-7 gap-2 text-sm text-center">
+        <div className="grid grid-cols-7 gap-x-3 gap-y-2 text-sm text-center">
           {(() => {
             const firstDayOfWeek = daysArray[0]?.weekday || 0;
             const blanks = Array.from({ length: firstDayOfWeek }).map((_, i) => (
@@ -64,17 +61,14 @@ export default function ScheduleSidebar() {
                     day === today &&
                     currentDate.getMonth() === thisMonth &&
                     currentDate.getFullYear() === thisYear;
-
                   const isSelected = day === selectedDay;
-
-                  const active =
-                    isSelected || (isToday && selectedDay === today);
+                  const active = isSelected || (isToday && selectedDay === today);
 
                   return (
                     <div
                       key={day}
                       onClick={() => setSelectedDay(day)}
-                      className={`flex items-center justify-center w-9 h-9 rounded-[12px] cursor-pointer transition-colors duration-150 select-none
+                      className={`flex items-center justify-center w-7 h-7 rounded-[12px] cursor-pointer transition-colors duration-150 select-none
                         ${
                           active
                             ? "bg-black text-white font-semibold"
@@ -103,8 +97,8 @@ export default function ScheduleSidebar() {
         />
       </div>
 
-      {/* Next Schedule */}
-      <div className="mb-6">
+      {/* Next Schedule Section */}
+      <div className="bg-[#FAF7F3] rounded-xl p-4">
         <h4 className="font-bold text-black mb-2">Next Schedule</h4>
         <p className="text-sm font-medium">UI Designers Roadmap to Career</p>
         <p className="text-sm text-gray-500 mt-1">
@@ -124,8 +118,8 @@ export default function ScheduleSidebar() {
         </div>
       </div>
 
-      {/* Upcoming Schedule */}
-      <div>
+      {/* Upcoming Schedule Section */}
+      <div className="bg-[#FAF7F3] rounded-xl p-4">
         <h4 className="font-semibold text-gray-700 mb-2">Upcoming Schedule</h4>
         <div className="text-sm text-gray-500 space-y-3">
           <p>
