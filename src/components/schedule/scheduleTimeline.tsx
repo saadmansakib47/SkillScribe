@@ -2,35 +2,7 @@
 
 import ScheduleCalendar from "@/components/schedule/scheduleCalendar";
 import { useMemo } from "react";
-
-type EventItem = {
-  id: string;
-  title: string;
-  start: string;
-  end: string;
-  date?: string;
-  meta?: string;
-  avatars?: string[];
-};
-
-const sampleEvents: EventItem[] = [
-  {
-    id: "evt1",
-    title: "UI Designers Roadmap to Career",
-    start: "08:30",
-    end: "10:00",
-    meta: "Sunday, 2 November · 08:30 - 10:00",
-    avatars: ["../Asset/person3.jpg", "../Asset/person2.png", "../Asset/person1.png"],
-  },
-  {
-    id: "evt2",
-    title: "Figma Basics for Beginners",
-    start: "12:15",
-    end: "14:00",
-    meta: "Sunday, 2 November · 12:15 - 02:00",
-    avatars: ["../Asset/person3.jpg", "../Asset/person2.png"],
-  },
-];
+import { upcomingSchedules } from "@/lib/upcomingSchedule";
 
 export default function ScheduleTimeline({
   startHour = 8,
@@ -43,6 +15,7 @@ export default function ScheduleTimeline({
   const slotsPerHour = 2;
   const totalSlots = (endHour - startHour) * slotsPerHour;
 
+  // ------------------- Generate timeline times -------------------
   const times = useMemo(() => {
     const arr: string[] = [];
     for (let h = startHour; h < endHour; h++) {
@@ -54,20 +27,27 @@ export default function ScheduleTimeline({
     return arr;
   }, [startHour, endHour]);
 
-  function minutesFromStart(t: string) {
+  // ------------------- Convert HH:mm to minutes from startHour -------------------
+  function minutesFromStart(t?: string) {
+    if (!t) return 0; // fallback
     const [hh, mm] = t.split(":").map(Number);
     return (hh - startHour) * 60 + mm;
   }
 
+
+  // ------------------- Position events dynamically -------------------
   const positionedEvents = useMemo(() => {
-    return sampleEvents.map((e) => {
-      const topMinutes = minutesFromStart(e.start);
-      const endMinutes = minutesFromStart(e.end);
-      const top = (topMinutes / 30) * slotHeight;
-      const height = ((endMinutes - topMinutes) / 30) * slotHeight;
-      return { ...e, top, height };
-    });
+    return upcomingSchedules
+      .filter(ev => ev.start && ev.end) // skip events without start/end
+      .map((ev) => {
+        const topMinutes = minutesFromStart(ev.start!);
+        const endMinutes = minutesFromStart(ev.end!);
+        const top = (topMinutes / 30) * slotHeight;
+        const height = ((endMinutes - topMinutes) / 30) * slotHeight;
+        return { ...ev, top, height };
+      });
   }, [slotHeight]);
+
 
   return (
     <div className="relative mt-6">
@@ -147,10 +127,11 @@ export default function ScheduleTimeline({
                   <div className="text-sm font-semibold text-gray-700 text-center">
                     {ev.title}
                   </div>
-                  <div className="text-xs text-gray-500 mt-2 text-center">
-                    {ev.meta}
-                  </div>
-
+                  {ev.meta && (
+                    <div className="text-xs text-gray-500 mt-2 text-center">
+                      {ev.meta}
+                    </div>
+                  )}
                   <div className="flex items-center justify-center mt-3">
                     <div className="flex -space-x-2">
                       {(ev.avatars || []).map((src, i) => (
@@ -163,7 +144,7 @@ export default function ScheduleTimeline({
                       ))}
                     </div>
                     <div className="text-xs text-gray-500 ml-3">
-                      and 123 others
+                      and {ev.participants} others
                     </div>
                   </div>
                 </div>

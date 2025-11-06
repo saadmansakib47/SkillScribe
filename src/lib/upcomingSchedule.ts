@@ -7,7 +7,34 @@ export type ScheduleEvent = {
   endDate: string;
   participants: number;
   meetingLink: string;
+  // For ScheduleTimeline
+  start?: string; // HH:mm
+  end?: string;   // HH:mm
+  avatars?: string[];
+  meta?: string;
 };
+
+function formatTime(iso: string) {
+  const d = new Date(iso);
+  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+
+function formatMeta(isoStart: string, isoEnd: string) {
+  const d = new Date(isoStart);
+  const weekday = d.toLocaleString("default", { weekday: "long" });
+  const month = d.toLocaleString("default", { month: "long" });
+  const day = d.getDate();
+  const startTime = formatTime(isoStart);
+  const endTime = formatTime(isoEnd);
+  return `${weekday}, ${day} ${month} · ${startTime} - ${endTime}`;
+}
+
+// Dummy avatars
+const dummyAvatars = [
+  "../Asset/person1.png",
+  "../Asset/person2.png",
+  "../Asset/person3.jpg",
+];
 
 export const upcomingSchedules: ScheduleEvent[] = [
   {
@@ -18,6 +45,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-06T10:30",
     participants: 135,
     meetingLink: "meet.google.com/dkje-fdf-yhf",
+    start: formatTime("2025-11-06T09:00"),
+    end: formatTime("2025-11-06T10:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-06T09:00", "2025-11-06T10:30"),
   },
   {
     id: "2",
@@ -27,6 +58,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-07T22:00",
     participants: 88,
     meetingLink: "meet.google.com/abc-xyz-def",
+    start: formatTime("2025-11-07T21:00"),
+    end: formatTime("2025-11-07T22:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-07T21:00", "2025-11-07T22:00"),
   },
   {
     id: "3",
@@ -35,6 +70,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-08T21:00",
     participants: 102,
     meetingLink: "meet.google.com/qwe-rty-uio",
+    start: formatTime("2025-11-08T20:00"),
+    end: formatTime("2025-11-08T21:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-08T20:00", "2025-11-08T21:00"),
   },
   {
     id: "4",
@@ -44,6 +83,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-09T21:00",
     participants: 94,
     meetingLink: "meet.google.com/xyz-lmn-ghi",
+    start: formatTime("2025-11-09T19:30"),
+    end: formatTime("2025-11-09T21:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-09T19:30", "2025-11-09T21:00"),
   },
   {
     id: "5",
@@ -53,6 +96,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-10T19:00",
     participants: 76,
     meetingLink: "meet.google.com/mno-uvw-abc",
+    start: formatTime("2025-11-10T18:00"),
+    end: formatTime("2025-11-10T19:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-10T18:00", "2025-11-10T19:00"),
   },
   {
     id: "6",
@@ -62,6 +109,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-11T22:00",
     participants: 120,
     meetingLink: "meet.google.com/def-pqr-stu",
+    start: formatTime("2025-11-11T20:30"),
+    end: formatTime("2025-11-11T22:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-11T20:30", "2025-11-11T22:00"),
   },
   {
     id: "7",
@@ -70,6 +121,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-12T18:30",
     participants: 90,
     meetingLink: "meet.google.com/asd-fgh-jkl",
+    start: formatTime("2025-11-12T17:00"),
+    end: formatTime("2025-11-12T18:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-12T17:00", "2025-11-12T18:30"),
   },
   {
     id: "8",
@@ -79,6 +134,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-13T16:30",
     participants: 110,
     meetingLink: "meet.google.com/tyu-iop-ghj",
+    start: formatTime("2025-11-13T15:00"),
+    end: formatTime("2025-11-13T16:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-13T15:00", "2025-11-13T16:30"),
   },
   {
     id: "9",
@@ -87,6 +146,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-14T20:00",
     participants: 78,
     meetingLink: "meet.google.com/qaz-wsx-edc",
+    start: formatTime("2025-11-14T19:00"),
+    end: formatTime("2025-11-14T20:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-14T19:00", "2025-11-14T20:00"),
   },
   {
     id: "10",
@@ -96,6 +159,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-15T10:30",
     participants: 112,
     meetingLink: "meet.google.com/rfv-tgb-yhn",
+    start: formatTime("2025-11-15T09:00"),
+    end: formatTime("2025-11-15T10:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-15T09:00", "2025-11-15T10:30"),
   },
   {
     id: "11",
@@ -104,6 +171,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-17T21:30",
     participants: 125,
     meetingLink: "meet.google.com/bgt-vfr-nhy",
+    start: formatTime("2025-11-17T20:00"),
+    end: formatTime("2025-11-17T21:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-17T20:00", "2025-11-17T21:30"),
   },
   {
     id: "12",
@@ -113,6 +184,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-18T12:00",
     participants: 140,
     meetingLink: "meet.google.com/plm-okn-ijn",
+    start: formatTime("2025-11-18T10:00"),
+    end: formatTime("2025-11-18T12:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-18T10:00", "2025-11-18T12:00"),
   },
   {
     id: "13",
@@ -121,6 +196,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-20T20:30",
     participants: 160,
     meetingLink: "meet.google.com/jkl-bnm-hgf",
+    start: formatTime("2025-11-20T19:00"),
+    end: formatTime("2025-11-20T20:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-20T19:00", "2025-11-20T20:30"),
   },
   {
     id: "14",
@@ -130,6 +209,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-21T17:00",
     participants: 95,
     meetingLink: "meet.google.com/wer-tyu-opa",
+    start: formatTime("2025-11-21T16:00"),
+    end: formatTime("2025-11-21T17:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-21T16:00", "2025-11-21T17:00"),
   },
   {
     id: "15",
@@ -138,6 +221,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-22T11:00",
     participants: 89,
     meetingLink: "meet.google.com/sdf-ghj-zxc",
+    start: formatTime("2025-11-22T09:30"),
+    end: formatTime("2025-11-22T11:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-22T09:30", "2025-11-22T11:00"),
   },
   {
     id: "16",
@@ -147,6 +234,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-24T20:00",
     participants: 130,
     meetingLink: "meet.google.com/xcv-bnm-ert",
+    start: formatTime("2025-11-24T18:30"),
+    end: formatTime("2025-11-24T20:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-24T18:30", "2025-11-24T20:00"),
   },
   {
     id: "17",
@@ -155,6 +246,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-26T22:00",
     participants: 210,
     meetingLink: "meet.google.com/yui-opl-wer",
+    start: formatTime("2025-11-26T21:00"),
+    end: formatTime("2025-11-26T22:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-26T21:00", "2025-11-26T22:00"),
   },
   {
     id: "18",
@@ -164,6 +259,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-11-29T12:30",
     participants: 170,
     meetingLink: "meet.google.com/mnb-vcx-zsa",
+    start: formatTime("2025-11-29T11:00"),
+    end: formatTime("2025-11-29T12:30"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-11-29T11:00", "2025-11-29T12:30"),
   },
   {
     id: "19",
@@ -173,6 +272,10 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-12-02T21:00",
     participants: 220,
     meetingLink: "meet.google.com/qwe-rty-uio",
+    start: formatTime("2025-12-02T19:00"),
+    end: formatTime("2025-12-02T21:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-12-02T19:00", "2025-12-02T21:00"),
   },
   {
     id: "20",
@@ -182,5 +285,9 @@ export const upcomingSchedules: ScheduleEvent[] = [
     endDate: "2025-12-06T19:00",
     participants: 145,
     meetingLink: "meet.google.com/dfg-hjk-lop",
+    start: formatTime("2025-12-06T17:00"),
+    end: formatTime("2025-12-06T19:00"),
+    avatars: dummyAvatars,
+    meta: formatMeta("2025-12-06T17:00", "2025-12-06T19:00"),
   },
 ];
