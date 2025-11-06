@@ -1,7 +1,7 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import ScheduleCalendar from "@/components/schedule/scheduleCalendar";
-import { useMemo } from "react";
 import { upcomingSchedules } from "@/lib/upcomingSchedule";
 
 export default function ScheduleTimeline({
@@ -14,6 +14,9 @@ export default function ScheduleTimeline({
   const slotHeight = 48;
   const slotsPerHour = 2;
   const totalSlots = (endHour - startHour) * slotsPerHour;
+
+  // ------------------- Selected date state -------------------
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // ------------------- Generate timeline times -------------------
   const times = useMemo(() => {
@@ -29,16 +32,27 @@ export default function ScheduleTimeline({
 
   // ------------------- Convert HH:mm to minutes from startHour -------------------
   function minutesFromStart(t?: string) {
-    if (!t) return 0; // fallback
+    if (!t) return 0;
     const [hh, mm] = t.split(":").map(Number);
     return (hh - startHour) * 60 + mm;
   }
 
+  // ------------------- Filter events by selected date -------------------
+  const filteredEvents = useMemo(() => {
+    return upcomingSchedules.filter((ev) => {
+      const evDate = new Date(ev.date);
+      return (
+        evDate.getFullYear() === selectedDate.getFullYear() &&
+        evDate.getMonth() === selectedDate.getMonth() &&
+        evDate.getDate() === selectedDate.getDate()
+      );
+    });
+  }, [selectedDate]);
 
   // ------------------- Position events dynamically -------------------
   const positionedEvents = useMemo(() => {
-    return upcomingSchedules
-      .filter(ev => ev.start && ev.end) // skip events without start/end
+    return filteredEvents
+      .filter((ev) => ev.start && ev.end)
       .map((ev) => {
         const topMinutes = minutesFromStart(ev.start!);
         const endMinutes = minutesFromStart(ev.end!);
@@ -46,14 +60,16 @@ export default function ScheduleTimeline({
         const height = ((endMinutes - topMinutes) / 30) * slotHeight;
         return { ...ev, top, height };
       });
-  }, [slotHeight]);
-
+  }, [filteredEvents, slotHeight]);
 
   return (
     <div className="relative mt-6">
       {/* Calendar at the top */}
       <div className="mb-6">
-        <ScheduleCalendar />
+        <ScheduleCalendar
+          selected={selectedDate}
+          onDateChange={(date) => setSelectedDate(date)}
+        />
       </div>
 
       {/* Timeline container */}
