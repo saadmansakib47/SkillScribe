@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
-import { Search, Menu, ChevronDown } from "lucide-react";
+import { Search, Menu, ChevronDown, ShoppingCart, Heart } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import InstructorSidebar from "@/components/ui/sidebar";
 import { COURSES } from "@/lib/courses";
+import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
@@ -16,6 +18,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { itemCount: cartCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
 
   // Detect if we're on an instructor page
   const isInstructorPage = pathname.startsWith("/instructor");
@@ -136,9 +140,35 @@ export default function Navbar() {
           </nav>
 
           {/* RIGHT SIDE */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Cart Icon */}
+            <Link
+              href="/learner/cart"
+              className="relative p-2 rounded-md hover:bg-gray-200 transition"
+            >
+              <ShoppingCart className="h-5 w-5 text-gray-800" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Wishlist Icon */}
+            <Link
+              href="/learner/wishlist"
+              className="relative p-2 rounded-md hover:bg-gray-200 transition"
+            >
+              <Heart className="h-5 w-5 text-gray-800" />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+
             {/* Login/Signup */}
-            <div className="flex items-center gap-3 text-sm">
+            <div className="flex items-center gap-2 text-sm whitespace-nowrap">
               <Link
                 href="/auth/signin"
                 className="text-gray-900 hover:text-blue-700"
@@ -157,7 +187,7 @@ export default function Navbar() {
             {/* Toggle Button */}
             <button
               onClick={() => setEnabled((v) => !v)}
-              className={`relative flex h-5 w-10 items-center rounded-full transition-colors ${
+              className={`relative flex h-5 w-10 items-center rounded-full transition-colors flex-shrink-0 ${
                 enabled ? "bg-[#1d4ed8]" : "bg-gray-400"
               }`}
             >
