@@ -13,7 +13,7 @@ export default function CreateLiveSessionPage() {
       <div className="flex min-h-screen bg-[#f8f9fb]">
         <main className="flex-1 p-8 flex gap-6">
           {/* Left content */}
-          <div className="max-w-[1000px] mx-auto py-10 px-6 w-full">
+          <div className="max-w-[800px] mx-auto py-10 px-6 w-full">
             <BasicInfoSection />
             <ScheduleSection />
             <SessionSettingsSection />

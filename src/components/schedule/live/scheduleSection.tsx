@@ -15,7 +15,7 @@ export default function ScheduleSection() {
           Session Date <span className="text-red-500">*</span>
         </label>
         <div className="relative mt-1">
-          <Input type="date" className="rounded-[8px] border-gray-300 pr-10" />
+          <Input type="date" className="rounded-[8px] border-black pr-10" />
           <Calendar className="absolute right-3 top-3 text-gray-400 w-4 h-4" />
         </div>
       </div>
@@ -26,7 +26,7 @@ export default function ScheduleSection() {
           Starting Time <span className="text-red-500">*</span>
         </label>
         <div className="relative mt-1">
-          <Input type="time" className="rounded-[8px] border-gray-300 pr-10" />
+          <Input type="time" className="rounded-[8px] border-black pr-10" />
           <Clock className="absolute right-3 top-3 text-gray-400 w-4 h-4" />
         </div>
       </div>
@@ -37,7 +37,7 @@ export default function ScheduleSection() {
           Duration (minutes) <span className="text-red-500">*</span>
         </label>
         <Select>
-          <SelectTrigger className="mt-1 rounded-[8px] border-gray-300">
+          <SelectTrigger className="mt-1 rounded-[8px] border-black">
             <SelectValue placeholder="60 min" />
           </SelectTrigger>
           <SelectContent>
@@ -57,7 +57,7 @@ export default function ScheduleSection() {
         </label>
         <Input
           placeholder="Leave empty for unlimited participants"
-          className="mt-1 rounded-[8px] border-gray-300"
+          className="mt-1 rounded-[8px] border-black"
         />
       </div>
     </div>
