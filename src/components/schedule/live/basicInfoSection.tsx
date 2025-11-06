@@ -16,7 +16,7 @@ export default function BasicInfoSection() {
         </label>
         <Input
           placeholder="e.g. UI Designer Career Path"
-          className="mt-1 border-gray-300 rounded-[8px]"
+          className="mt-1 border-black rounded-[8px]"
         />
       </div>
 
@@ -27,7 +27,7 @@ export default function BasicInfoSection() {
         </label>
         <Textarea
           placeholder="Describe what students will learn from this session"
-          className="mt-1 border-gray-300 rounded-[8px] h-24"
+          className="mt-1 border-black rounded-[8px] h-24"
         />
       </div>
 
@@ -37,7 +37,7 @@ export default function BasicInfoSection() {
           Category <span className="text-red-500">*</span>
         </label>
         <Select>
-          <SelectTrigger className="mt-1 rounded-[8px] border-gray-300">
+          <SelectTrigger className="mt-1 rounded-[8px] border-black">
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>

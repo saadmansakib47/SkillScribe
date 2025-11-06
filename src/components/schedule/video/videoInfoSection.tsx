@@ -16,7 +16,7 @@ export default function VideoInfoSection() {
         </label>
         <Input
           placeholder="e.g. UI Designer Career Path"
-          className="mt-1 border-gray-300 rounded-[8px]"
+          className="mt-1 border-black rounded-[8px]"
         />
       </div>
 
@@ -27,17 +27,17 @@ export default function VideoInfoSection() {
         </label>
         <Textarea
           placeholder="Describe what student will learn from this video session"
-          className="mt-1 border-gray-300 rounded-[8px] h-24"
+          className="mt-1 border-black rounded-[8px] h-24"
         />
       </div>
 
       {/* Category */}
-      <div className="mb-4">
+      <div className="mb-4 ">
         <label className="text-sm font-medium text-gray-700">
           Category <span className="text-red-500">*</span>
         </label>
         <Select>
-          <SelectTrigger className="mt-1 rounded-[8px] border-gray-300">
+          <SelectTrigger className="mt-1 rounded-[8px] border-black">
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
@@ -54,7 +54,7 @@ export default function VideoInfoSection() {
         <label className="text-sm font-medium text-gray-700">Tags</label>
         <Input
           placeholder="e.g. design, frontend..."
-          className="mt-1 border-gray-300 rounded-[8px]"
+          className="mt-1 border-black rounded-[8px]"
         />
       </div>
     </div>

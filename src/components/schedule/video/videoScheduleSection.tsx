@@ -13,7 +13,7 @@ export default function VideoScheduleSection() {
           Release Date <span className="text-red-500">*</span>
         </label>
         <div className="relative mt-1">
-          <Input type="date" className="rounded-[8px] border-gray-300 pr-10" />
+          <Input type="date" className="rounded-[8px] border-black pr-10" />
           <Calendar className="absolute right-3 top-3 text-gray-400 w-4 h-4" />
         </div>
       </div>
@@ -23,7 +23,7 @@ export default function VideoScheduleSection() {
           Release Time <span className="text-red-500">*</span>
         </label>
         <div className="relative mt-1">
-          <Input type="time" className="rounded-[8px] border-gray-300 pr-10" />
+          <Input type="time" className="rounded-[8px] border-black pr-10" />
           <Clock className="absolute right-3 top-3 text-gray-400 w-4 h-4" />
         </div>
       </div>
