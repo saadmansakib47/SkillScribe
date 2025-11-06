@@ -32,6 +32,13 @@ export default function ShoppingCartPage() {
     clearCart();
   };
 
+  // Check if all form fields are filled
+  const isFormValid = formData.name.trim() !== '' && 
+                      formData.country !== '' && 
+                      formData.cardNumber.trim() !== '' && 
+                      formData.expirationDate.trim() !== '' && 
+                      formData.securityCode.trim() !== '';
+
   if (activeTab === 'billing' as TabType) {
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#FAF7F3' }}>
@@ -230,7 +237,12 @@ export default function ShoppingCartPage() {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:opacity-90"
+                  disabled={!isFormValid}
+                  className={`w-full py-3 rounded-xl font-semibold text-white transition-all ${
+                    isFormValid 
+                      ? 'hover:opacity-90 cursor-pointer' 
+                      : 'opacity-50 cursor-not-allowed'
+                  }`}
                   style={{ backgroundColor: '#094CA4' }}
                 >
                   Proceed
