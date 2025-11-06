@@ -34,9 +34,9 @@ export default function ShoppingCartPage() {
 
   if (activeTab === 'billing' as TabType) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ backgroundColor: '#FAF7F3' }}>
         {/* Tab Navigation */}
-        <div className="bg-white border-b">
+        <div style={{ backgroundColor: '#FAF7F3' }} className="border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex gap-8">
               <button
@@ -244,9 +244,9 @@ export default function ShoppingCartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#FAF7F3' }}>
       {/* Tab Navigation */}
-      <div className="bg-white border-b">
+      <div style={{ backgroundColor: '#FAF7F3' }} className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-8">
             <button
