@@ -121,6 +121,7 @@ export default function CreateScheduleModal({
                   <Button
                     variant="outline"
                     className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
+                    onClick={() => router.push("/instructor/myschedule/scheduleRecordedVideo")}
                   >
                     Schedule Video Upload
                   </Button>
