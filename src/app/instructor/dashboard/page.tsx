@@ -15,9 +15,11 @@ import Link from "next/link";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
 import CourseStatsTable from "@/components/course/CourseStatsTable";
+import CoursesInProgress from "@/components/course/CoursesInProgress";
 import RangeSelector from "@/components/chart/instructorChart/rangeSelector";
 import StatCards from "@/components/ui/StatCards";
 import InstructorLayout from "@/app/instructor/instructorlayout";
+
 
 export default function InstructorDashboard() {
   const [selectedRange, setSelectedRange] = useState<"7d" | "14d" | "30d" | "90d">("7d");
@@ -26,118 +28,56 @@ export default function InstructorDashboard() {
 
   return (
     <InstructorLayout>
-    <div className="flex min-h-screen bg-[#F9FAFB]">
+      <div className="flex min-h-screen bg-[#F9FAFB]">
 
-      {/* Main Content */}
-      <main className="flex-1 p-8">
-        {/* Top Bar */}
-        <div className="flex justify-between items-center mb-6">
-          <input
-            placeholder="Search for courses"
-            className="w-1/2 px-4 py-2 border rounded-full focus:outline-none"
-          />
-          <Bell className="w-5 h-5" />
-        </div>
-
-        {/* --- Timespan Buttons --- */}
-        <RangeSelector
-          selectedRange={selectedRange}
-          setSelectedRange={setSelectedRange}
-        />
-
-        {/* Stats Cards ( clickable) */}
-        <StatCards
-          selectedMetric={selectedMetric}
-          setSelectedMetric={setSelectedMetricState}
-        />
-
-
-
-        {/* Line Chart Section */}
-        <InstructorLineChart selectedMetric={selectedMetric} selectedRange={selectedRange} />
-        {/* Bottom Section (Courses in Progress + Pie Chart side by side) */}
-        <div className="grid grid-cols-3 gap-6">
-          {/* Courses in Progress */}
-          <div className="col-span-2 bg-white p-6 rounded-2xl border">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold text-gray-800">
-                Courses In Progress (6)
-              </h2>
-              <button className="text-gray-500 text-sm hover:text-[#4C6FFF]">
-                View All
-              </button>
-            </div>
-
-            <ul className="space-y-3">
-              {[
-                {
-                  title: "What is International Business?",
-                  lessons: "11 lessons, 2hr 30min",
-                  progress: 80,
-                },
-                {
-                  title: "Microsoft Excel: Learn MS Excel 2019",
-                  lessons: "7 lessons, 1hr 10min",
-                  progress: 20,
-                },
-                {
-                  title: "Make Website with WordPress",
-                  lessons: "13 lessons, 2hr 13min",
-                  progress: 50,
-                },
-              ].map((course, i) => (
-                <li
-                  key={i}
-                  className="p-3 rounded-xl border hover:shadow-sm transition-all duration-300"
-                >
-                  <div className="flex justify-between items-center mb-1">
-                    <a
-                      href="#"
-                      className="text-[#1d4ed8] font-medium hover:underline"
-                    >
-                      {course.title}
-                    </a>
-
-                    <div className="flex items-center gap-2">
-                      <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-2 bg-[#4C6FFF] rounded-full transition-all duration-500"
-                          style={{ width: `${course.progress}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-sm text-gray-600 font-medium">
-                        {course.progress}%
-                      </span>
-                      <button className="bg-[#EEF2FF] p-2 rounded-full hover:bg-[#DDE4FF]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-[#4C6FFF]"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M6 4l10 6-10 6V4z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500">{course.lessons}</p>
-                </li>
-              ))}
-            </ul>
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          {/* Top Bar */}
+          <div className="flex justify-between items-center mb-6">
+            <input
+              placeholder="Search for courses"
+              className="w-1/2 px-4 py-2 border rounded-full focus:outline-none"
+            />
+            <Bell className="w-5 h-5" />
           </div>
 
+          {/* --- Timespan Buttons --- */}
+          <RangeSelector
+            selectedRange={selectedRange}
+            setSelectedRange={setSelectedRange}
+          />
 
-          {/* Earning Pie Chart */}
-          <InstructorPieChart />
-        </div>
+          {/* Stats Cards ( clickable) */}
+          <StatCards
+            selectedMetric={selectedMetric}
+            setSelectedMetric={setSelectedMetricState}
+          />
 
-        {/* Course Stats Table */}
-        <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-4">
-          <CourseStatsTable />
-        </div>
 
-      </main>
-    </div>
+
+          {/* Line Chart Section */}
+          <InstructorLineChart selectedMetric={selectedMetric} selectedRange={selectedRange} />
+          {/* Bottom Section (Courses in Progress + Pie Chart side by side) */}
+          <div className="grid grid-cols-3 gap-6">
+            {/* Courses in Progress */}
+            <div className="grid grid-cols-3 gap-6">
+              <CoursesInProgress />
+              <InstructorPieChart />
+            </div>
+
+
+
+            {/* Earning Pie Chart */}
+            <InstructorPieChart />
+          </div>
+
+          {/* Course Stats Table */}
+          <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-4">
+            <CourseStatsTable />
+          </div>
+
+        </main>
+      </div>
     </InstructorLayout>
   );
 }
