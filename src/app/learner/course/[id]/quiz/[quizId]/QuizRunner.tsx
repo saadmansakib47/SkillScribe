@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import type { Quiz } from '../../../../../../lib/quizzes';
 
@@ -14,8 +14,59 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
     new Array(quiz.questions.length).fill(null)
   );
   const [showResults, setShowResults] = useState(false);
-
+  
+  // Timer state - time in seconds
   const totalQuestions = quiz.questions.length;
+  const totalTimeInMinutes = Math.ceil(totalQuestions * 1.5);
+  const totalTimeInSeconds = totalTimeInMinutes * 60;
+  
+  const [timeRemaining, setTimeRemaining] = useState(totalTimeInSeconds);
+  const [isTimerActive, setIsTimerActive] = useState(true);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Timer effect
+  useEffect(() => {
+    if (!isTimerActive || showResults) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          // Time's up - auto submit
+          clearInterval(timerRef.current!);
+          setIsTimerActive(false);
+          setShowResults(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [isTimerActive, showResults]);
+
+  // Format time as MM:SS
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Get timer color based on time remaining
+  const getTimerColor = () => {
+    const percentageRemaining = (timeRemaining / totalTimeInSeconds) * 100;
+    if (percentageRemaining <= 20) return '#EF4444'; // Red
+    if (percentageRemaining <= 50) return '#F59E0B'; // Orange
+    return '#094CA4'; // Blue
+  };
 
   const handleSelectOption = (questionIndex: number, optionIndex: number) => {
     const newAnswers = [...selectedAnswers];
@@ -24,6 +75,7 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
   };
 
   const handleSubmit = () => {
+    setIsTimerActive(false);
     setShowResults(true);
   };
 
@@ -102,6 +154,8 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
               onClick={() => {
                 setShowResults(false);
                 setSelectedAnswers(new Array(quiz.questions.length).fill(null));
+                setTimeRemaining(totalTimeInSeconds);
+                setIsTimerActive(true);
               }}
               className="px-6 py-3 text-white rounded-xl font-medium transition shadow-md hover:opacity-90"
               style={{ backgroundColor: '#094CA4' }}
@@ -122,6 +176,75 @@ export default function QuizRunner({ quiz, courseId }: QuizRunnerProps) {
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Timer Display - Sticky at top */}
+      <div className="sticky top-16 z-10 mb-6">
+        <div className="bg-gradient-to-r from-white to-gray-50 rounded-2xl p-6 shadow-xl border border-gray-200">
+          <div className="flex items-center justify-center gap-8">
+            {/* Timer Circle */}
+            <div className="relative">
+              <svg width="120" height="120" className="transform -rotate-90">
+                {/* Background circle */}
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="50"
+                  fill="none"
+                  stroke="#E5E7EB"
+                  strokeWidth="8"
+                />
+                {/* Progress circle */}
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="50"
+                  fill="none"
+                  stroke={getTimerColor()}
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeDasharray={`${2 * Math.PI * 50}`}
+                  strokeDashoffset={`${2 * Math.PI * 50 * (1 - timeRemaining / totalTimeInSeconds)}`}
+                  style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.3s ease' }}
+                />
+              </svg>
+              {/* Time in center */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="text-3xl font-bold" style={{ color: getTimerColor() }}>
+                    {formatTime(timeRemaining)}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Timer Info */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="10" stroke={getTimerColor()} strokeWidth="2"/>
+                  <path d="M12 6v6l4 2" stroke={getTimerColor()} strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                <h3 className="text-lg font-semibold text-gray-900">Time Remaining</h3>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Complete all {totalQuestions} questions before time runs out
+              </p>
+              <div className="flex items-center gap-4 text-sm">
+                <div className="px-3 py-1 rounded-full bg-gray-100">
+                  <span className="text-gray-600">Total: </span>
+                  <span className="font-semibold text-gray-900">{totalTimeInMinutes} min</span>
+                </div>
+                <div className="px-3 py-1 rounded-full" style={{ backgroundColor: `${getTimerColor()}20` }}>
+                  <span className="text-gray-600">Status: </span>
+                  <span className="font-semibold" style={{ color: getTimerColor() }}>
+                    {timeRemaining / totalTimeInSeconds > 0.5 ? 'On Track' : timeRemaining / totalTimeInSeconds > 0.2 ? 'Hurry Up' : 'Almost Done'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Header Card - Instructions */}
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 mb-6">
         <h2 className="text-xl font-bold mb-4" style={{ color: '#094CA4' }}>Read the instructions carefully</h2>
