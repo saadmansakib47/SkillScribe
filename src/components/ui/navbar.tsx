@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
-import { Search, Menu, ChevronDown, ShoppingCart, Heart } from "lucide-react";
+import { Search, Menu, ChevronDown, ShoppingCart, Heart, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -9,6 +9,7 @@ import InstructorSidebar from "@/components/ui/sidebar";
 import { COURSES } from "@/lib/courses";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { getCurrentLearner } from "@/lib/learners";
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
@@ -20,6 +21,7 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { itemCount: cartCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
+  const currentLearner = getCurrentLearner();
 
   // Detect if we're on an instructor page
   const isInstructorPage = pathname.startsWith("/instructor");
@@ -141,10 +143,20 @@ export default function Navbar() {
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Profile Icon */}
+            <Link
+              href={`/learner/profile/${currentLearner.id}`}
+              className="relative p-2 rounded-md hover:bg-gray-200 transition"
+              title="Profile"
+            >
+              <User className="h-5 w-5 text-gray-800" />
+            </Link>
+
             {/* Cart Icon */}
             <Link
               href="/learner/cart"
               className="relative p-2 rounded-md hover:bg-gray-200 transition"
+              title="Shopping Cart"
             >
               <ShoppingCart className="h-5 w-5 text-gray-800" />
               {cartCount > 0 && (
@@ -158,6 +170,7 @@ export default function Navbar() {
             <Link
               href="/learner/wishlist"
               className="relative p-2 rounded-md hover:bg-gray-200 transition"
+              title="Wishlist"
             >
               <Heart className="h-5 w-5 text-gray-800" />
               {wishlistCount > 0 && (
