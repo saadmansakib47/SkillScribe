@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { COURSES } from '../../../lib/courses';
+import WishlistButton from '@/components/course/WishlistButton';
 
 export default function CoursesPage() {
   // UI state
@@ -232,37 +233,43 @@ export default function CoursesPage() {
           {/* Courses Grid */}
           <div ref={gridRef} className="w-3/4 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch pr-2">
             {displayed.map((course) => (
-              <Link key={course.id} href={`/learner/course/${course.id}`} className="no-underline">
-                <div className="rounded-2xl border border-[#e6ded9] overflow-hidden bg-white shadow-sm flex flex-col h-full hover:shadow-md transition-shadow">
-                  <div className="h-44 overflow-hidden rounded-t-lg">
-                    <Image src={course.image} alt={course.title} width={800} height={400} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="p-5 bg-[#fffaf8] flex flex-col flex-1">
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-900">{course.title}</h3>
-                      <p className="mt-2 text-sm text-gray-700">{course.shortDescription ?? course.description}</p>
+              <div key={course.id} className="relative">
+                <Link href={`/learner/course/${course.id}`} className="no-underline">
+                  <div className="rounded-2xl border border-[#e6ded9] overflow-hidden bg-white shadow-sm flex flex-col h-full hover:shadow-md transition-shadow">
+                    <div className="h-44 overflow-hidden rounded-t-lg">
+                      <Image src={course.image} alt={course.title} width={800} height={400} className="w-full h-full object-cover" />
                     </div>
-
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-yellow-400">
-                        {Array.from({ length: 5 }).map((_, i) => (i < Math.round(course.rating) ? <FaStar key={i} /> : <FaRegStar key={i} />))}
+                    <div className="p-5 bg-[#fffaf8] flex flex-col flex-1">
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900">{course.title}</h3>
+                        <p className="mt-2 text-sm text-gray-700">{course.shortDescription ?? course.description}</p>
                       </div>
-                      <div className="text-sm text-gray-700">{course.rating} ({course.reviews.toLocaleString()})</div>
-                    </div>
 
-                    <div className="mt-3 flex items-center gap-6 text-sm text-gray-700">
-                      <div>Duration: {course.durationHours} hr</div>
-                      <div>Price: {course.price === 0 ? 'Free' : `$${course.price}`}</div>
-                      <div>Total Videos: {course.totalVideos}</div>
-                    </div>
+                      <div className="mt-3 flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-yellow-400">
+                          {Array.from({ length: 5 }).map((_, i) => (i < Math.round(course.rating) ? <FaStar key={i} /> : <FaRegStar key={i} />))}
+                        </div>
+                        <div className="text-sm text-gray-700">{course.rating} ({course.reviews.toLocaleString()})</div>
+                      </div>
 
-                    <div className="border-t pt-4 flex items-center gap-3 mt-auto">
-                      <Image src={course.instructorImage} alt={course.instructorName} width={36} height={36} className="rounded-full" />
-                      <div className="text-sm font-medium text-gray-800">{course.instructorName}</div>
+                      <div className="mt-3 flex items-center gap-6 text-sm text-gray-700">
+                        <div>Duration: {course.durationHours} hr</div>
+                        <div>Price: {course.price === 0 ? 'Free' : `$${course.price}`}</div>
+                        <div>Total Videos: {course.totalVideos}</div>
+                      </div>
+
+                      <div className="border-t pt-4 flex items-center gap-3 mt-auto">
+                        <Image src={course.instructorImage} alt={course.instructorName} width={36} height={36} className="rounded-full" />
+                        <div className="text-sm font-medium text-gray-800">{course.instructorName}</div>
+                      </div>
                     </div>
                   </div>
+                </Link>
+                {/* Wishlist Button - positioned absolutely */}
+                <div className="absolute top-3 right-3 z-10">
+                  <WishlistButton course={course} size="md" />
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
