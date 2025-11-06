@@ -134,7 +134,7 @@ export default function ScheduleTimeline({
               {positionedEvents.map((ev) => (
                 <div
                   key={ev.id}
-                  className="absolute left-6 right-6 bg-white rounded-xl p-4 shadow-sm border border-gray-100"
+                  className="absolute left-6 right-6 bg-white rounded-xl p-2 shadow-sm border border-black"
                   style={{
                     top: `${ev.top}px`,
                     height: `${Math.max(44, ev.height)}px`,
