@@ -1,17 +1,16 @@
 "use client";
 
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ScheduleCalendar({
-  baseDate: baseDateProp = new Date(),
-  selected: selectedProp = new Date(),
+  selected,
+  onDateChange,
 }: {
-  baseDate?: Date;
-  selected?: Date;
+  selected: Date;
+  onDateChange: (date: Date) => void;
 }) {
-  const [selected, setSelected] = useState(selectedProp);
   const [direction, setDirection] = useState<"next" | "prev" | null>(null);
   const [monthFadeKey, setMonthFadeKey] = useState(
     `${selected.getMonth()}-${selected.getFullYear()}`
@@ -19,35 +18,31 @@ export default function ScheduleCalendar({
 
   const scrollInterval = useRef<NodeJS.Timeout | null>(null);
   const holdTimeout = useRef<NodeJS.Timeout | null>(null);
-  const speedRef = useRef(300); // base interval speed in ms
+  const speedRef = useRef(300);
 
   // ------------------- Core Shifting -------------------
   const shiftDay = (offset: number) => {
     setDirection(offset > 0 ? "next" : "prev");
-    setSelected((prev) => {
-      const newDate = new Date(prev);
-      newDate.setDate(prev.getDate() + offset);
+    const newDate = new Date(selected);
+    newDate.setDate(selected.getDate() + offset);
 
-      // when month changes, trigger subtle fade
-      const newKey = `${newDate.getMonth()}-${newDate.getFullYear()}`;
-      if (newKey !== monthFadeKey) setMonthFadeKey(newKey);
+    onDateChange(newDate);
 
-      return newDate;
-    });
+    const newKey = `${newDate.getMonth()}-${newDate.getFullYear()}`;
+    if (newKey !== monthFadeKey) setMonthFadeKey(newKey);
   };
 
   // ------------------- Hold Acceleration -------------------
   const startHold = (offset: number) => {
-    speedRef.current = 300; // reset base speed
+    speedRef.current = 300;
     holdTimeout.current = setTimeout(() => {
       const accelerate = () => {
         shiftDay(offset);
-        // accelerate speed by 15% each iteration, until min 60ms
         speedRef.current = Math.max(speedRef.current * 0.85, 60);
         scrollInterval.current = setTimeout(accelerate, speedRef.current);
       };
       accelerate();
-    }, 300); // delay before auto-scroll starts
+    }, 300);
   };
 
   const stopHold = () => {
@@ -121,34 +116,6 @@ export default function ScheduleCalendar({
     }),
   };
 
-  const slideVariants = {
-    enter: (dir: string) => ({
-      x: dir === "next" ? 40 : -40,
-      opacity: 0,
-      position: "absolute" as const,
-      top: 0,
-      left: 0,
-      right: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      position: "absolute" as const,
-      top: 0,
-      left: 0,
-      right: 0,
-    },
-    exit: (dir: string) => ({
-      x: dir === "next" ? -40 : 40,
-      opacity: 0,
-      position: "absolute" as const,
-      top: 0,
-      left: 0,
-      right: 0,
-    }),
-  };
-
-
   // ------------------- UI -------------------
   return (
     <div
@@ -187,23 +154,18 @@ export default function ScheduleCalendar({
         <AnimatePresence mode="wait">
           <motion.div
             key={monthFadeKey}
-            variants={slideVariants}
+            variants={variants}
             custom={direction}
-            initial={false} // prevents blink
+            initial={false}
             animate="center"
             exit="exit"
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="flex items-center justify-between absolute inset-0"
           >
-
-
             {months.map((m, idx) => (
               <div
                 key={idx}
-                className={`text-sm font-medium text-center ${fadeClass(
-                  idx,
-                  months.length
-                )}`}
+                className={`text-sm font-medium text-center ${fadeClass(idx, months.length)}`}
                 style={{ width: "18%" }}
               >
                 {m.toLocaleString("default", { month: "long" })}
@@ -241,10 +203,7 @@ export default function ScheduleCalendar({
                   <div
                     className={`w-9 h-9 flex items-center justify-center rounded-[12px] text-sm transition ${isSelected
                       ? "bg-black text-white font-semibold"
-                      : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(
-                        idx,
-                        daysRow.length
-                      )}`
+                      : `bg-gray-200 text-gray-800 hover:bg-gray-300 ${fadeClass(idx, daysRow.length)}`
                       }`}
                   >
                     {date.getDate()}
