@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Video, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,8 @@ export default function CreateScheduleModal({
   isOpen,
   onClose,
 }: CreateScheduleModalProps) {
+
+  const router = useRouter();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -87,10 +89,12 @@ export default function CreateScheduleModal({
                 <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     variant="outline"
-                    className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600"
+                    className="mt-4 border bg-white border-black text-black rounded-[8px] hover:bg-white hover:text-blue-600 transition"
+                    onClick={() => router.push("/instructor/myschedule/createLiveSession")}
                   >
                     Create Live Session
                   </Button>
+
                 </motion.div>
               </div>
 
