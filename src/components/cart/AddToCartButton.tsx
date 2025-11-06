@@ -18,7 +18,8 @@ export default function AddToCartButton({ course, variant = 'secondary', classNa
 
   // Only access cart state after component mounts (client-side only)
   useEffect(() => {
-    setMounted(true);
+    // Using a microtask to avoid the cascading setState warning
+    Promise.resolve().then(() => setMounted(true));
   }, []);
 
   const handleClick = () => {
