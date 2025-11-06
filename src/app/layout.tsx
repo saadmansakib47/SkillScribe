@@ -3,6 +3,7 @@ import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import { CartProvider } from "@/contexts/CartContext";
 import { Raleway } from 'next/font/google';
+import { WishlistProvider } from "@/contexts/WishlistContext";
 
 const raleway = Raleway({
   subsets: ['latin'],
@@ -26,18 +27,20 @@ export default function RootLayout({
         className={`bg-neutral-50 text-neutral-900 antialiased`}
       >
         <CartProvider>
-          {/* Sticky Navbar */}
-          <div className="fixed top-0 left-0 w-full z-50">
-            <Navbar />
-          </div>
+          <WishlistProvider>
+            {/* Sticky Navbar */}
+            <div className="fixed top-0 left-0 w-full z-50">
+              <Navbar />
+            </div>
 
-          {/* Main content */}
-          <main className="pt-16">
-            {children}
-          </main>
+            {/* Main content */}
+            <main className="pt-16">
+              {children}
+            </main>
 
-          {/* Footer */}
-          <Footer />
+            {/* Footer */}
+            <Footer />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

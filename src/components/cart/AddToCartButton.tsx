@@ -38,7 +38,7 @@ export default function AddToCartButton({ course, variant = 'secondary', classNa
       className={`inline-flex items-center justify-center py-2 px-4 rounded-[10px] border-2 font-medium transition-all hover:opacity-90 ${
         isPrimary
           ? 'bg-[#0b4ca6] text-white border-black'
-          : 'bg-white text-gray-900 border-gray-400'
+          : 'bg-white text-gray-900 border-black'
       } ${className}`}
     >
       {inCart ? (
