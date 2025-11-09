@@ -139,6 +139,9 @@ export default function Navbar() {
             <Link href="#" className="hover:text-black">
               Instruct
             </Link>
+            <Link href="/learner/community" className="hover:text-black">
+              Community
+            </Link>
             <Link href="/about" className="hover:text-black">
               About
             </Link>
