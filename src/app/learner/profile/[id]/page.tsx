@@ -126,6 +126,57 @@ export default function LearnerProfilePage() {
           </div>
         </div>
 
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8F0FF' }}>
+                <BookOpen className="h-5 w-5" style={{ color: '#094CA4' }} />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">{enrolledCourseDetails.length}</p>
+                <p className="text-xs text-gray-600">Enrolled</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center">
+                <Award className="h-5 w-5 text-green-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">{learner.completedCourses.length}</p>
+                <p className="text-xs text-gray-600">Completed</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center">
+                <Clock className="h-5 w-5 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">{learner.totalLearningHours}</p>
+                <p className="text-xs text-gray-600">Hours</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center">
+                <Target className="h-5 w-5 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">{learner.certificatesEarned}</p>
+                <p className="text-xs text-gray-600">Certificates</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
@@ -166,6 +217,97 @@ export default function LearnerProfilePage() {
               ) : (
                 <p className="text-gray-500 text-center py-8 text-sm">No courses in progress</p>
               )}
+            </div>
+
+            {/* Completed Courses */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Completed Courses</h2>
+              {completedCourseDetails.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {completedCourseDetails.map(course => (
+                    <Link
+                      key={course.id}
+                      href={`/learner/course/${course.id}`}
+                      className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all"
+                    >
+                      <div className="relative w-full h-28">
+                        <Image
+                          src={course.image}
+                          alt={course.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-3">
+                        <h3 className="font-semibold text-gray-900 text-sm line-clamp-1">{course.title}</h3>
+                        <p className="text-xs text-gray-500 mt-1">{course.instructorName}</p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <div className="flex-1 bg-gray-200 rounded-full h-1.5">
+                            <div className="bg-green-500 h-1.5 rounded-full" style={{ width: '100%' }}></div>
+                          </div>
+                          <span className="text-xs text-green-600 font-semibold whitespace-nowrap">100%</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-center py-8 text-sm">No completed courses yet</p>
+              )}
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Skills */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Skills</h2>
+              <div className="flex flex-wrap gap-2">
+                {learner.skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Interests */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Interests</h2>
+              <div className="flex flex-wrap gap-2">
+                {learner.interests.map((interest, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1.5 rounded-lg text-sm font-medium text-white hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: '#094CA4' }}
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Achievements */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Achievements</h2>
+              <div className="space-y-3">
+                {learner.achievements.map(achievement => (
+                  <div
+                    key={achievement.id}
+                    className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-200 hover:bg-gray-100 transition-colors"
+                  >
+                    <span className="text-2xl">{achievement.icon}</span>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 text-sm">{achievement.title}</h3>
+                      <p className="text-xs text-gray-600 mt-0.5">{achievement.description}</p>
+                      <p className="text-xs text-gray-500 mt-1">{formatDate(achievement.earnedDate)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

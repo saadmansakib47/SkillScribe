@@ -16,6 +16,7 @@ export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,6 +29,11 @@ export default function Navbar() {
 
   // Get unique categories from courses
   const categories = Array.from(new Set(COURSES.map(c => c.category).filter(Boolean))).sort();
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    Promise.resolve().then(() => setMounted(true));
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -159,7 +165,7 @@ export default function Navbar() {
               title="Shopping Cart"
             >
               <ShoppingCart className="h-5 w-5 text-gray-800" />
-              {cartCount > 0 && (
+              {mounted && cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {cartCount}
                 </span>
@@ -173,7 +179,7 @@ export default function Navbar() {
               title="Wishlist"
             >
               <Heart className="h-5 w-5 text-gray-800" />
-              {wishlistCount > 0 && (
+              {mounted && wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {wishlistCount}
                 </span>
