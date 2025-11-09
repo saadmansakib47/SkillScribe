@@ -37,7 +37,7 @@ export default function QuizCreator() {
 
       <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Quiz Title */}
-        <div>
+        <div className="justify-start">
           <Label htmlFor="title">Quiz Title</Label>
           <Input
             id="title"
@@ -46,12 +46,12 @@ export default function QuizCreator() {
             value={quizData.title}
             onChange={handleChange}
             className="mt-1"
-            style={{ borderRadius: "8px" }}
+            style={{ borderRadius: "8px", backgroundColor: "#FFFFFF" }}
           />
         </div>
 
         {/* Time Limit */}
-        <div>
+        <div className="justify-end">
           <Label htmlFor="timeLimit">Time (limit) Minutes</Label>
           <Input
             id="timeLimit"
@@ -60,7 +60,7 @@ export default function QuizCreator() {
             value={quizData.timeLimit}
             onChange={handleChange}
             className="mt-1"
-            style={{ borderRadius: "8px" }}
+            style={{ borderRadius: "8px", backgroundColor: "#FFFFFF" }}
           />
         </div>
 
@@ -74,7 +74,7 @@ export default function QuizCreator() {
             value={quizData.totalQuestions}
             onChange={handleChange}
             className="mt-1"
-            style={{ borderRadius: "8px" }}
+            style={{ borderRadius: "8px", backgroundColor: "#FFFFFF" }}
           />
           <p className="text-xs text-gray-500 mt-1">
             Specify how many questions will be in this quiz
@@ -91,7 +91,7 @@ export default function QuizCreator() {
             value={quizData.questionType}
             onChange={handleChange}
             className="mt-1"
-            style={{ borderRadius: "8px" }}
+            style={{ borderRadius: "8px", backgroundColor: "#FFFFFF" }}
           />
         </div>
 
@@ -107,7 +107,7 @@ export default function QuizCreator() {
             value={quizData.optionsPerQuestion}
             onChange={handleChange}
             className="mt-1"
-            style={{ borderRadius: "8px" }}
+            style={{ borderRadius: "8px", backgroundColor: "#FFFFFF" }}
           />
           <p className="text-xs text-gray-500 mt-1">
             This will apply to all questions in this quiz
