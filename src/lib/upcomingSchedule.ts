@@ -12,6 +12,8 @@ export type ScheduleEvent = {
   end?: string;   // HH:mm
   avatars?: string[];
   meta?: string;
+  type?: "Live" | "Recorded";
+  time?: string;
 };
 
 function formatTime(iso: string) {
@@ -50,6 +52,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-06T10:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-06T09:00", "2025-11-06T10:00"),
+    type: "Live",
+    time: "09:00 AM - 10:00 AM",
   },
   {
     id: "2",
@@ -63,6 +67,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-07T12:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-07T11:00", "2025-11-07T12:00"),
+    type: "Live",
+    time: "11:00 AM - 12:00 PM",
   },
   {
     id: "3",
@@ -75,6 +81,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-08T15:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-08T14:00", "2025-11-08T15:00"),
+    type: "Live",
+    time: "02:00 PM - 03:00 PM",
   },
   {
     id: "4",
@@ -88,6 +96,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-09T11:30"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-09T10:30", "2025-11-09T11:30"),
+    type: "Live",
+    time: "10:30 AM - 11:30 AM",
   },
   {
     id: "5",
@@ -101,6 +111,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-10T09:30"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-10T08:30", "2025-11-10T09:30"),
+    type: "Live",
+    time: "08:30 AM - 09:30 AM",
   },
   {
     id: "6",
@@ -114,6 +126,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-11T14:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-11T13:00", "2025-11-11T14:00"),
+    type: "Live",
+    time: "01:00 PM - 02:00 PM",
   },
   {
     id: "7",
@@ -126,6 +140,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-12T16:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-12T15:00", "2025-11-12T16:00"),
+    type: "Live",
+    time: "03:00 PM - 04:00 PM",
   },
   {
     id: "8",
@@ -139,6 +155,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-13T10:30"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-13T09:30", "2025-11-13T10:30"),
+    type: "Live",
+    time: "09:30 AM - 10:30 AM",
   },
   {
     id: "9",
@@ -151,6 +169,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-14T12:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-14T11:00", "2025-11-14T12:00"),
+    type: "Live",
+    time: "11:00 AM - 12:00 PM",
   },
   {
     id: "10",
@@ -164,6 +184,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-15T15:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-15T14:00", "2025-11-15T15:00"),
+    type: "Live",
+    time: "02:00 PM - 03:00 PM",
   },
     {
     id: "11",
@@ -176,6 +198,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-17T16:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-17T15:00", "2025-11-17T16:00"),
+    type: "Live",
+    time: "03:00 PM - 04:00 PM",
   },
   {
     id: "12",
@@ -189,6 +213,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-18T11:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-18T10:00", "2025-11-18T11:00"),
+    type: "Live",
+    time: "10:00 AM - 11:00 AM",
   },
   {
     id: "13",
@@ -201,6 +227,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-20T14:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-20T13:00", "2025-11-20T14:00"),
+    type: "Live",
+    time: "01:00 PM - 02:00 PM",
   },
   {
     id: "14",
@@ -214,6 +242,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-21T17:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-21T16:00", "2025-11-21T17:00"),
+    type: "Live",
+    time: "04:00 PM - 05:00 PM",
   },
   {
     id: "15",
@@ -226,6 +256,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-22T10:30"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-22T09:30", "2025-11-22T10:30"),
+    type: "Live",
+    time: "09:30 AM - 10:30 AM",
   },
   {
     id: "16",
@@ -239,6 +271,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-24T15:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-24T14:00", "2025-11-24T15:00"),
+    type: "Live",
+    time: "02:00 PM - 03:00 PM",
   },
   {
     id: "17",
@@ -251,6 +285,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-26T12:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-26T11:00", "2025-11-26T12:00"),
+    type: "Live",
+    time: "11:00 AM - 12:00 PM",
   },
   {
     id: "18",
@@ -264,6 +300,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-11-29T10:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-11-29T09:00", "2025-11-29T10:00"),
+    type: "Live",
+    time: "09:00 AM - 10:00 AM",
   },
   {
     id: "19",
@@ -277,6 +315,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-12-02T14:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-12-02T13:00", "2025-12-02T14:00"),
+    type: "Live",
+    time: "01:00 PM - 02:00 PM",
   },
   {
     id: "20",
@@ -290,6 +330,8 @@ export const upcomingSchedules: ScheduleEvent[] = [
     end: formatTime("2025-12-06T16:00"),
     avatars: dummyAvatars,
     meta: formatMeta("2025-12-06T15:00", "2025-12-06T16:00"),
+    type: "Live",
+    time: "03:00 PM - 04:00 PM",
   },
 ];
 

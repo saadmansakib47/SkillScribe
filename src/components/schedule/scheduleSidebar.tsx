@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import CreateScheduleModal from "@/components/schedule/createScheduleModal";
+import CreateScheduleModal from "@/components/schedule/createScheduleModal/createScheduleModal";
 import { upcomingSchedules, ScheduleEvent } from "@/lib/upcomingSchedule";
 
 export default function ScheduleSidebar() {
