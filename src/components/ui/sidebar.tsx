@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Home, BookOpen, Calendar, Star, MessageCircle, HelpCircle, User } from "lucide-react";
+import { X, Home, BookOpen, Calendar, Clipboard, Star, MessageCircle, HelpCircle, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,6 +18,7 @@ export default function InstructorSidebar({ isOpen, onClose }: SidebarProps) {
   const instructorItems = [
     { label: "Dashboard", href: "/instructor/dashboard", icon: Home },
     { label: "My Courses", href: "/instructor/courses", icon: BookOpen },
+    { label: "Quizzes", href: "/instructor/quiz", icon: Clipboard },
     { label: "My Schedule", href: "/instructor/schedule", icon: Calendar },
     { label: "Review", href: "/instructor/review", icon: Star },
     { label: "Messages", href: "/instructor/messages", icon: MessageCircle },
@@ -67,11 +68,10 @@ export default function InstructorSidebar({ isOpen, onClose }: SidebarProps) {
                       key={label}
                       href={href}
                       onClick={onClose}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-gray-700 transition-colors ${
-                        isActive
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-gray-700 transition-colors ${isActive
                           ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
                           : "hover:bg-gray-100"
-                      }`}
+                        }`}
                     >
                       <Icon className={`w-5 h-5 ${isActive ? "text-[#4C6FFF]" : "text-gray-600"}`} />
                       <span>{label}</span>
