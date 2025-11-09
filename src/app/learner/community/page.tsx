@@ -236,7 +236,7 @@ export default function CommunityPage() {
                       </span>
                     </div>
                     <p className="text-sm text-gray-500">{post.authorRole}</p>
-                    <p className="text-xs text-gray-400 mt-1">{formatTimeAgo(post.createdAt)}</p>
+                    <p className="text-xs text-gray-400 mt-1" suppressHydrationWarning>{formatTimeAgo(post.createdAt)}</p>
                   </div>
                 </div>
 
@@ -294,7 +294,7 @@ export default function CommunityPage() {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
                                 <p className="font-semibold text-sm text-gray-900">{comment.authorName}</p>
-                                <span className="text-xs text-gray-400">{formatTimeAgo(comment.createdAt)}</span>
+                                <span className="text-xs text-gray-400" suppressHydrationWarning>{formatTimeAgo(comment.createdAt)}</span>
                               </div>
                               <p className="text-sm text-gray-700">{comment.content}</p>
                             </div>
