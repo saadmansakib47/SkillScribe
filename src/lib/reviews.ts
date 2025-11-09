@@ -884,7 +884,7 @@ const REVIEWS: Review[] = [
     date: '5d ago',
     text: 'Outstanding ML course! Jashim covers everything from basics to deep learning. The TensorFlow projects were fantastic!',
     instructorReply: 'Thanks Richard! So happy you enjoyed the deep learning section!',
-    avatar : '@/../Asset/Richards.jpg'
+    avatar : '../Asset/Richards.jpg'
   },
   {
     id: 102,
@@ -893,7 +893,7 @@ const REVIEWS: Review[] = [
     rating: 5,
     date: '1w ago',
     text: 'Best machine learning course available! The supervised learning algorithms and neural networks sections are brilliant!',
-    avatar : '@/../Asset/Karen.jpg'
+    avatar : '../Asset/Karen.jpg'
   },
   {
     id: 103,
@@ -902,7 +902,7 @@ const REVIEWS: Review[] = [
     rating: 4,
     date: '2w ago',
     text: 'Comprehensive ML coverage! The gradient boosting and CNN sections were excellent. Could use more on NLP.',
-    avatar : '@/../Asset/Thomas.jpg'
+    avatar : '../Asset/Thomas.jpg'
   },
   {
     id: 104,
@@ -912,7 +912,7 @@ const REVIEWS: Review[] = [
     date: '3w ago',
     text: 'Phenomenal machine learning course! The model deployment and transfer learning sections were game-changers!',
     instructorReply: 'Love hearing that Susan! Deployment is where ML becomes real!',
-    avatar : '@/../Asset/Susan.jpg'
+    avatar : '../Asset/Susan.jpg'
   },
   {
     id: 105,
@@ -921,7 +921,7 @@ const REVIEWS: Review[] = [
     rating: 5,
     date: '1mo ago',
     text: 'Incredible ML course! Jashim makes complex algorithms understandable. The real-world projects built my portfolio!',
-    avatar : '@/../Asset/Joseph.jpg'
+    avatar : '../Asset/Joseph.jpg'
   },
 ];
 
