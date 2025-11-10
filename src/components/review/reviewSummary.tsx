@@ -9,8 +9,8 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
     total === 0
       ? 0
       : parseFloat(
-          (reviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1)
-        );
+        (reviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1)
+      );
 
   const distribution = [5, 4, 3, 2, 1].map((star) => ({
     star,
@@ -24,8 +24,8 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
         i <= Math.floor(rating)
           ? 100
           : i - 1 < rating && rating < i
-          ? (rating - (i - 1)) * 100
-          : 0;
+            ? (rating - (i - 1)) * 100
+            : 0;
 
       stars.push(
         <div key={i} className="relative w-7 h-7">
@@ -49,13 +49,15 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
   const CornerBorders = () => (
     <>
       {/* Top-left corner */}
-      <div className="absolute top-0 left-0 w-10 h-[3px] bg-blue-500 rounded-tr-lg"></div>
-      <div className="absolute top-0 left-0 w-[3px] h-10 bg-blue-500 rounded-br-lg"></div>
+      <div className="absolute top-0 left-0 w-20 h-[4px] bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 rounded-tl-xl rounded-tr-md"></div>
+      <div className="absolute top-0 left-0 w-[4px] h-20 bg-gradient-to-b from-blue-500 via-blue-300 to-blue-500 rounded-tl-xl rounded-bl-md"></div>
 
       {/* Bottom-right corner */}
-      <div className="absolute bottom-0 right-0 w-10 h-[3px] bg-blue-500 rounded-tl-lg"></div>
-      <div className="absolute bottom-0 right-0 w-[3px] h-10 bg-blue-500 rounded-tl-lg"></div>
+      <div className="absolute bottom-0 right-0 w-20 h-[4px] bg-gradient-to-l from-blue-500 via-blue-300 to-blue-500 rounded-br-xl rounded-bl-md"></div>
+      <div className="absolute bottom-0 right-0 w-[4px] h-20 bg-gradient-to-t from-blue-500 via-blue-300 to-blue-500 rounded-br-xl rounded-tr-md"></div>
     </>
+
+
   );
 
   return (
