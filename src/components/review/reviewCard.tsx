@@ -28,8 +28,11 @@ export default function ReviewCard({ review }: { review: any }) {
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -2, boxShadow: "0 8px 15px rgba(0,0,0,0.08)" }}
       transition={{ duration: 0.3, type: "spring", stiffness: 120 }}
-      className="bg-white border border-gray-400 rounded-[12px] p-5 shadow-sm"
+      className="relative bg-white border border-gray-300 rounded-[12px] p-5 shadow-sm overflow-hidden"
     >
+      {/* Creative border glow effect */}
+      <div className="absolute inset-0 rounded-[12px] border border-transparent bg-gradient-to-r from-blue-200/50 via-transparent to-blue-200/50 [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [mask-composite:exclude] p-[1px] pointer-events-none"></div>
+
       <div className="flex items-start gap-4">
         <Avatar className="w-10 h-10 border">
           <AvatarImage src={review.avatar} alt={review.userName} />
@@ -58,7 +61,9 @@ export default function ReviewCard({ review }: { review: any }) {
           </div>
 
           {/* Review text */}
-          <p className="text-gray-700 mt-3 text-sm leading-relaxed">{review.text}</p>
+          <p className="text-black mt-3 text-sm leading-relaxed">
+            {review.text}
+          </p>
 
           {/* Instructor Reply */}
           {review.instructorReply && (
@@ -86,7 +91,9 @@ export default function ReviewCard({ review }: { review: any }) {
             <motion.button
               whileTap={{ scale: 0.95 }}
               className={`flex items-center gap-1 transition-colors ${
-                reported ? "text-red-600 font-semibold" : "text-gray-600 hover:text-red-600"
+                reported
+                  ? "text-red-600 font-semibold"
+                  : "text-gray-600 hover:text-red-600"
               }`}
               onClick={() => setReported(true)}
             >
@@ -114,7 +121,9 @@ export default function ReviewCard({ review }: { review: any }) {
             >
               <ReplyInputBox
                 onClose={() => setShowReply(false)}
-                onSubmit={(reply) => console.log("Reply submitted:", reply)}
+                onSubmit={(reply) =>
+                  console.log("Reply submitted:", reply)
+                }
               />
             </motion.div>
           )}
