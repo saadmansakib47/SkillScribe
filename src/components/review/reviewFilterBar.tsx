@@ -66,7 +66,7 @@ export default function ReviewFilterBar() {
             placeholder="Search Reviews"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8"
+            className="pl-8 rounded-[8px] h-9"
           />
         </div>
       </div>
