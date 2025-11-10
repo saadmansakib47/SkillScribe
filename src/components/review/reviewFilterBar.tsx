@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,16 +10,53 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+import { getReviewsForCourse } from "@/lib/reviews";
 
-export default function ReviewFilterBar() {
+export default function ReviewFilterBar({
+  courseId,
+  onFilteredReviews,
+}: {
+  courseId: number;
+  onFilteredReviews: (filtered: any[]) => void;
+}) {
   const [courseFilter, setCourseFilter] = useState("all");
   const [ratingFilter, setRatingFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [allReviews, setAllReviews] = useState<any[]>([]);
+
+  // Fetch reviews once
+  useEffect(() => {
+    const fetched = getReviewsForCourse(courseId);
+    setAllReviews(fetched);
+    onFilteredReviews(fetched);
+  }, [courseId]);
+
+  // Re-filter when any filter changes
+  useEffect(() => {
+    const query = searchQuery.trim().toLowerCase();
+
+    let filtered = allReviews.filter((r) => {
+      const matchesSearch =
+        r.userName.toLowerCase().includes(query) ||
+        r.text.toLowerCase().includes(query) ||
+        (r.instructorReply && r.instructorReply.toLowerCase().includes(query));
+
+      const matchesRating =
+        ratingFilter === "all" || r.rating === Number(ratingFilter);
+
+      const matchesCourse =
+        courseFilter === "all" || r.courseId === Number(courseFilter);
+
+      return matchesSearch && matchesRating && matchesCourse;
+    });
+
+    onFilteredReviews(filtered);
+  }, [searchQuery, ratingFilter, courseFilter, allReviews]);
 
   return (
     <div className="flex flex-wrap items-center gap-4 bg-white border border-gray-200 rounded-[8px] p-4 shadow-sm">
       {/* Select Course */}
-      <div className="flex flex-col border">
+      <div className="flex flex-col">
         <label className="text-sm font-medium text-gray-700 mb-1">
           Select Course
         </label>
@@ -56,9 +93,7 @@ export default function ReviewFilterBar() {
 
       {/* Search */}
       <div className="flex flex-col flex-1 min-w-[220px]">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Search
-        </label>
+        <label className="text-sm font-medium text-gray-700 mb-1">Search</label>
         <div className="relative">
           <Search className="absolute left-2 top-2.5 w-4 h-4 text-gray-500" />
           <Input
