@@ -52,6 +52,68 @@ export default function MyLearningPage() {
     currentUser.inProgressCourses.includes(course.id)
   );
 
+  // Show empty state if no courses enrolled at all
+  if (enrolledCourseDetails.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#FAF7F3] py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">My Learning</h1>
+            <p className="text-gray-600">Your enrolled courses and learning progress</p>
+          </div>
+
+          {/* Empty State */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-2xl shadow-sm border border-gray-200 p-16 text-center"
+          >
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center mx-auto mb-6">
+              <BookOpen className="h-16 w-16 text-[#094CA4]" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Start Your Learning Journey</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              You haven't enrolled in any courses yet. Explore our wide range of courses and start building your skills today!
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Link
+                href="/learner/allcourses"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all font-semibold text-lg shadow-lg hover:shadow-xl"
+              >
+                <Search className="h-5 w-5" />
+                Browse All Courses
+              </Link>
+              <Link
+                href="/learner/allcourses?price=free"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#094CA4] border-2 border-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-semibold text-lg"
+              >
+                <Award className="h-5 w-5" />
+                Try Free Courses
+              </Link>
+            </div>
+
+            {/* Popular Categories */}
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <p className="text-sm text-gray-500 mb-4">Popular Categories</p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                {['Web Development', 'Data Science', 'Design', 'Business', 'Marketing'].map((category) => (
+                  <Link
+                    key={category}
+                    href={`/learner/allcourses?category=${encodeURIComponent(category)}`}
+                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-[#094CA4] hover:text-white transition-all text-sm font-medium"
+                  >
+                    {category}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
   // Filter courses based on active tab
   const getFilteredCourses = () => {
     let courses = enrolledCourseDetails;
