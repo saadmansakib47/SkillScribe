@@ -884,7 +884,7 @@ const REVIEWS: Review[] = [
     date: '5d ago',
     text: 'Outstanding ML course! Jashim covers everything from basics to deep learning. The TensorFlow projects were fantastic!',
     instructorReply: 'Thanks Richard! So happy you enjoyed the deep learning section!',
-    avatar : '@/../Asset/Richards.jpg'
+    avatar : '../Asset/Richards.jpg'
   },
   {
     id: 102,
@@ -893,7 +893,7 @@ const REVIEWS: Review[] = [
     rating: 5,
     date: '1w ago',
     text: 'Best machine learning course available! The supervised learning algorithms and neural networks sections are brilliant!',
-    avatar : '@/../Asset/Karen.jpg'
+    avatar : '../Asset/Karen.jpg'
   },
   {
     id: 103,
@@ -902,7 +902,7 @@ const REVIEWS: Review[] = [
     rating: 4,
     date: '2w ago',
     text: 'Comprehensive ML coverage! The gradient boosting and CNN sections were excellent. Could use more on NLP.',
-    avatar : '@/../Asset/Thomas.jpg'
+    avatar : '../Asset/Thomas.jpg'
   },
   {
     id: 104,
@@ -912,7 +912,7 @@ const REVIEWS: Review[] = [
     date: '3w ago',
     text: 'Phenomenal machine learning course! The model deployment and transfer learning sections were game-changers!',
     instructorReply: 'Love hearing that Susan! Deployment is where ML becomes real!',
-    avatar : '@/../Asset/Susan.jpg'
+    avatar : '../Asset/Susan.jpg'
   },
   {
     id: 105,
@@ -921,7 +921,91 @@ const REVIEWS: Review[] = [
     rating: 5,
     date: '1mo ago',
     text: 'Incredible ML course! Jashim makes complex algorithms understandable. The real-world projects built my portfolio!',
-    avatar : '@/../Asset/Joseph.jpg'
+    avatar : '../Asset/Joseph.jpg'
+  },
+  {
+    id: 106,
+    courseId: 21,
+    userName: 'Emily Thompson',
+    rating: 3,
+    date: '1mo ago',
+    text: 'The course is okay but sometimes felt rushed. Would appreciate slower explanations in the math-heavy sections.',
+    avatar: '../Asset/Emily.jpg',
+  },
+  {
+    id: 107,
+    courseId: 21,
+    userName: 'Michael Lee',
+    rating: 2,
+    date: '2mo ago',
+    text: 'Too theoretical for my taste. Expected more practical, hands-on ML projects instead of long slides.',
+    avatar: '../Asset/Michael.jpg',
+  },
+  {
+    id: 108,
+    courseId: 21,
+    userName: 'Olivia Harris',
+    rating: 4,
+    date: '2mo ago',
+    text: 'Pretty solid course. Some videos could use editing for pacing, but the assignments were great!',
+    instructorReply: 'Thanks Olivia! We’re working on tightening up those lecture edits.',
+    avatar: '../Asset/Olivia.jpg',
+  },
+  {
+    id: 109,
+    courseId: 21,
+    userName: 'Daniel Clark',
+    rating: 1,
+    date: '3mo ago',
+    text: 'Not satisfied. The explanations didn’t go deep enough and many advanced topics were skipped.',
+    avatar: '../Asset/Daniel.jpg',
+  },
+  {
+    id: 110,
+    courseId: 21,
+    userName: 'Sophia Robinson',
+    rating: 3,
+    date: '3mo ago',
+    text: 'Good start for beginners, but intermediate learners might find it too shallow. Needs more challenging tasks.',
+    avatar: '../Asset/Sophia.jpg',
+  },
+  //New negative and mixed
+  {
+    id: 111,
+    courseId: 21,
+    userName: 'James Carter',
+    rating: 5,
+    date: '3mo ago',
+    text: 'Absolutely loved it! I finally understand neural networks thanks to Jashim’s simple approach.',
+    instructorReply: 'So glad to hear that James! Neural networks can be tricky at first.',
+    avatar: '../Asset/James.jpg',
+  },
+  {
+    id: 112,
+    courseId: 21,
+    userName: 'Ava Mitchell',
+    rating: 2,
+    date: '4mo ago',
+    text: 'Not what I expected. Some lessons were repetitive and there were no updates to the materials.',
+    avatar: '../Asset/Ava.jpg',
+  },
+  {
+    id: 113,
+    courseId: 21,
+    userName: 'William Scott',
+    rating: 4,
+    date: '4mo ago',
+    text: 'The content is well-structured. Would have been 5 stars if there were more quizzes and real-world datasets.',
+    avatar: '../Asset/William.jpg',
+  },
+  {
+    id: 114,
+    courseId: 21,
+    userName: 'Grace Evans',
+    rating: 3,
+    date: '5mo ago',
+    text: 'Average experience. Nice explanations, but some sections felt outdated.',
+    avatar: '../Asset/Grace.jpg',
   },
 ];
 
