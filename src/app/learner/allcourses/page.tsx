@@ -11,6 +11,7 @@ import WishlistButton from '@/components/course/WishlistButton';
 export default function CoursesPage() {
   // UI state
   const [sort, setSort] = useState<'newest' | 'price' | 'rating'>('newest');
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   // transient filter checkboxes (what user currently toggles)
   const [filters, setFilters] = useState({
@@ -45,6 +46,7 @@ export default function CoursesPage() {
 
   const applyFilters = () => {
     setApplied(filters);
+    setFiltersOpen(false); // Close mobile modal after applying
   };
 
   const clearFilters = () => {
@@ -148,12 +150,12 @@ export default function CoursesPage() {
     <section className="bg-[#FAF7F3] py-16">
       <div className="mx-auto max-w-7xl px-4">
         {/* Header Section */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-semibold text-gray-900">Courses</h1>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Courses</h1>
           </div>
-          <div>
-            <select value={sort} onChange={(e: ChangeEvent<HTMLSelectElement>) => setSort(e.target.value as 'newest' | 'price' | 'rating')} className="border-2 border-gray-400 rounded-[8px] px-4 py-2 text-gray-900">
+          <div className="w-full sm:w-auto">
+            <select value={sort} onChange={(e: ChangeEvent<HTMLSelectElement>) => setSort(e.target.value as 'newest' | 'price' | 'rating')} className="w-full sm:w-auto border-2 border-gray-400 rounded-[8px] px-4 py-2 text-gray-900">
               <option value="newest">Sort by: Newest</option>
               <option value="price">Sort by: Price</option>
               <option value="rating">Sort by: Rating</option>
@@ -161,9 +163,22 @@ export default function CoursesPage() {
           </div>
         </div>
 
+        {/* Mobile Filter Button */}
+        <div className="lg:hidden mb-6">
+          <button
+            onClick={() => setFiltersOpen(true)}
+            className="w-full flex items-center justify-center gap-2 bg-white border-2 border-gray-300 px-4 py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Filters & Sort
+          </button>
+        </div>
+
   <div className="flex gap-8 items-start">
-          {/* Sidebar: Filters */}
-          <div className="w-1/4 bg-white p-6 rounded-2xl shadow-lg border border-gray-200 ring-1 ring-gray-50 space-y-6 divide-y divide-gray-100">
+          {/* Desktop Sidebar: Filters */}
+          <div className="hidden lg:block w-1/4 bg-white p-6 rounded-2xl shadow-lg border border-gray-200 ring-1 ring-gray-50 space-y-6 divide-y divide-gray-100">
             <div className="flex items-center justify-start gap-3 mb-4">
               <button onClick={applyFilters} className="inline-flex items-center justify-center bg-[#0b4ca6] text-white py-2 px-4 rounded-[8px] border-2 border-black font-medium transition-colors duration-150 ease-in-out hover:bg-[#083a8a] hover:border-[#052a62] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]">Apply</button>
               <button onClick={clearFilters} className="inline-flex items-center justify-center bg-white text-gray-900 py-2 px-4 rounded-[8px] border-2 border-gray-400">Clear</button>
@@ -230,8 +245,123 @@ export default function CoursesPage() {
             </div>
           </div>
 
+          {/* Mobile Filter Modal */}
+          {filtersOpen && (
+            <div className="lg:hidden fixed inset-0 z-50">
+              {/* Backdrop */}
+              <div 
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => setFiltersOpen(false)}
+              />
+              
+              {/* Modal Panel */}
+              <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[80vh] overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="p-4 border-b flex items-center justify-between sticky top-0 bg-white z-10">
+                  <h3 className="text-xl font-semibold">Filters</h3>
+                  <button 
+                    onClick={() => setFiltersOpen(false)} 
+                    className="p-2 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+                    aria-label="Close filters"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Filter Content */}
+                <div className="overflow-y-auto flex-1 p-6 space-y-6">
+                  {/* Ratings */}
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-3">Ratings</p>
+                    <div className="flex flex-col space-y-2">
+                      {[5, 4, 3, 2].map((r) => (
+                        <label key={r} className="flex items-center">
+                          <input checked={filters.ratings.includes(r)} onChange={() => handleRatingChange(r)} type="checkbox" className="mr-3 w-5 h-5" /> 
+                          <span className="text-gray-700">{r} Stars</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Video Duration */}
+                  <div className="pt-4 border-t">
+                    <p className="font-semibold text-gray-800 mb-3">Video Duration</p>
+                    <div className="flex flex-col space-y-2">
+                      <label className="flex items-center">
+                        <input checked={filters.durations.includes('0-1')} onChange={() => handleDurationChange('0-1')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">0-1 hour</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input checked={filters.durations.includes('1-3')} onChange={() => handleDurationChange('1-3')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">1-3 hours</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input checked={filters.durations.includes('3-9')} onChange={() => handleDurationChange('3-9')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">3-9 hours</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input checked={filters.durations.includes('9-18')} onChange={() => handleDurationChange('9-18')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">9-18 hours</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input checked={filters.durations.includes('18+')} onChange={() => handleDurationChange('18+')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">18+ hours</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Price */}
+                  <div className="pt-4 border-t">
+                    <p className="font-semibold text-gray-800 mb-3">Price</p>
+                    <div className="flex flex-col space-y-2">
+                      <label className="flex items-center">
+                        <input checked={filters.prices.includes('free')} onChange={() => handlePriceChange('free')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">Free</span>
+                      </label>
+                      <label className="flex items-center">
+                        <input checked={filters.prices.includes('paid')} onChange={() => handlePriceChange('paid')} type="checkbox" className="mr-3 w-5 h-5" /> 
+                        <span className="text-gray-700">Paid</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Level */}
+                  <div className="pt-4 border-t">
+                    <p className="font-semibold text-gray-800 mb-3">Level</p>
+                    <div className="flex flex-col space-y-2">
+                      {['Beginner', 'Intermediate', 'Advanced'].map((l) => (
+                        <label key={l} className="flex items-center">
+                          <input checked={filters.levels.includes(l)} onChange={() => handleLevelChange(l)} type="checkbox" className="mr-3 w-5 h-5" /> 
+                          <span className="text-gray-700">{l}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Buttons */}
+                <div className="p-4 border-t bg-white sticky bottom-0 flex gap-3">
+                  <button 
+                    onClick={clearFilters} 
+                    className="flex-1 px-4 py-3 bg-white text-gray-900 rounded-xl font-medium border-2 border-gray-300 hover:bg-gray-50 transition-colors"
+                  >
+                    Clear All
+                  </button>
+                  <button 
+                    onClick={applyFilters} 
+                    className="flex-1 px-4 py-3 bg-[#0b4ca6] text-white rounded-xl font-medium hover:bg-[#083a8a] transition-colors"
+                  >
+                    Apply Filters
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Courses Grid */}
-          <div ref={gridRef} className="w-3/4 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch pr-2">
+          <div ref={gridRef} className="w-full lg:w-3/4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch pr-2">
             {displayed.map((course) => (
               <div key={course.id} className="relative">
                 <Link href={`/learner/course/${course.id}`} className="no-underline">
