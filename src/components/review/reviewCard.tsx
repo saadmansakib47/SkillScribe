@@ -22,7 +22,7 @@ export default function ReviewCard({ review }: { review: any }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-[12px] p-5 shadow-sm"
+      className="bg-white border border-gray-400 rounded-[12px] p-5 shadow-sm"
     >
       <div className="flex items-start gap-4">
         <Avatar className="w-10 h-10 border">
@@ -42,7 +42,7 @@ export default function ReviewCard({ review }: { review: any }) {
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                className={`w-4 h-4 ${i < review.rating ? "text-blue-600 fill-blue-400" : "text-gray-300"
                   }`}
               />
             ))}

@@ -33,13 +33,13 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
         <div key={i} className="relative w-7 h-7">
           {/* Base empty star */}
           <Star className="absolute w-7 h-7 text-gray-300" strokeWidth={1.5} />
-          {/* Filled yellow star */}
+          {/* Filled star */}
           <div
-            className="absolute top-0 left-0 overflow-hidden"
+            className="absolute top-0 left-0 overflow-hidden transition-all duration-500 ease-out"
             style={{ width: `${fill}%`, height: "100%" }}
           >
             <Star
-              className="w-7 h-7 text-yellow-400 fill-yellow-400"
+              className="w-7 h-7 text-blue-600 fill-blue-400"
               strokeWidth={1.5}
             />
           </div>
@@ -50,41 +50,49 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Total Reviews */}
-      <Card className="rounded-xl shadow-sm">
-        <CardContent className="p-6">
-          <p className="text-gray-500 text-sm">Total Reviews</p>
-          <h2 className="text-3xl font-bold mt-2">{total}</h2>
+      <Card className="rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50">
+        <CardContent className="p-6 text-center">
+          <p className="text-black text-sm uppercase tracking-wide">
+            Total Reviews
+          </p>
+          <h2 className="text-4xl font-extrabold mt-2 text-gray-800">{total}</h2>
         </CardContent>
       </Card>
 
       {/* Average Rating */}
-      <Card className="rounded-xl shadow-sm text-center">
+      <Card className="rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-yellow-50 text-center">
         <CardContent className="p-6">
-          <p className="text-gray-500 text-sm">Average Rating</p>
-          <h2 className="text-3xl font-bold mt-2">{avgRating.toFixed(1)}</h2>
+          <p className="text-black text-sm uppercase tracking-wide">
+            Average Rating
+          </p>
+          <h2 className="text-4xl font-extrabold mt-2 text-black-600">
+            {avgRating.toFixed(1)}
+          </h2>
           {renderStars(avgRating)}
         </CardContent>
       </Card>
 
       {/* Rating Distribution */}
-      <Card className="rounded-xl shadow-sm">
+      <Card className="rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50">
         <CardContent className="p-6">
-          <p className="text-gray-500 text-sm">Rating Distribution</p>
-          <div className="mt-3 space-y-1">
+          <p className="text-black text-sm uppercase tracking-wide">
+            Rating Distribution
+          </p>
+          <div className="mt-3 space-y-2">
             {distribution.map((d) => (
               <div key={d.star} className="flex items-center gap-2 text-sm">
-                <span>{d.star}★</span>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <span className="w-5 text-gray-600">{d.star}★</span>
+                <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                   <div
-                    className="bg-yellow-400 h-2 rounded-full"
+                    className="bg-blue-400 h-2 rounded-full transition-all duration-700 ease-out"
                     style={{
                       width: `${(d.count / total) * 100 || 0}%`,
                     }}
                   />
                 </div>
-                <span>{d.count}</span>
+                <span className="w-6 text-gray-700 font-medium">{d.count}</span>
               </div>
             ))}
           </div>
