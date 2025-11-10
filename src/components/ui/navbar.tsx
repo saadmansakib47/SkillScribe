@@ -14,6 +14,7 @@ import { getCurrentLearner } from "@/lib/learners";
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -56,7 +57,8 @@ export default function Navbar() {
     if (isInstructorPage) {
       setSidebarOpen((prev) => !prev);
     } else {
-      console.log("Non-instructor sidebar toggle logic will go here later.");
+      // For learner pages, toggle mobile menu
+      setMobileMenuOpen((prev) => !prev);
     }
   };
 
@@ -73,10 +75,12 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-3 lg:gap-4">
-            {/* Hamburger menu */}
+            {/* Hamburger menu - Shows on mobile (md:hidden) OR on instructor pages (always visible when isInstructorPage) */}
             <button
               onClick={handleSidebarToggle}
-              className="p-2 rounded-md hover:bg-gray-200 transition md:hidden lg:flex"
+              className={`p-2 rounded-md hover:bg-gray-200 transition ${
+                isInstructorPage ? 'block' : 'md:hidden'
+              }`}
             >
               <Menu className="h-6 w-6 text-gray-800" />
             </button>
@@ -84,7 +88,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="text-2xl font-bold text-gray-900 flex-shrink-0 hover:text-blue-700"
+              className="text-xl sm:text-2xl font-bold text-gray-900 flex-shrink-0 hover:text-blue-700"
             >
               SkillScribe
             </Link>
@@ -157,8 +161,8 @@ export default function Navbar() {
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            {/* User Avatar Dropdown */}
-            <div className="relative" ref={userDropdownRef}>
+            {/* User Avatar Dropdown - Hidden on mobile */}
+            <div className="hidden md:block relative" ref={userDropdownRef}>
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                 className="flex items-center gap-2 p-1.5 rounded-full hover:bg-gray-200 transition"
@@ -236,7 +240,7 @@ export default function Navbar() {
             {/* Wishlist Icon */}
             <Link
               href="/learner/wishlist"
-              className="relative p-2 rounded-md hover:bg-gray-200 transition"
+              className="relative p-2 rounded-md hover:bg-gray-200 transition hidden sm:block"
               title="Wishlist"
             >
               <Heart className="h-5 w-5 text-gray-800" />
@@ -247,8 +251,8 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* Login/Signup */}
-            <div className="flex items-center gap-2 text-sm whitespace-nowrap">
+            {/* Login/Signup - Hidden on mobile */}
+            <div className="hidden md:flex items-center gap-2 text-sm whitespace-nowrap">
               <Link
                 href="/auth/signin"
                 className="text-gray-900 hover:text-blue-700"
@@ -264,10 +268,10 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Toggle Button */}
+            {/* Toggle Button - Hidden on smallest screens */}
             <button
               onClick={() => setEnabled((v) => !v)}
-              className={`relative flex h-5 w-10 items-center rounded-full transition-colors flex-shrink-0 ${
+              className={`hidden sm:flex relative h-5 w-10 items-center rounded-full transition-colors flex-shrink-0 ${
                 enabled ? "bg-[#1d4ed8]" : "bg-gray-400"
               }`}
             >
@@ -279,7 +283,164 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* MOBILE SEARCH BAR - Shows below main navbar on mobile */}
+        <div className="md:hidden px-4 pb-3">
+          <div className="flex items-center rounded-full border border-gray-400 bg-white px-3 py-2 text-sm text-gray-700">
+            <Search className="mr-2 h-4 w-4 text-gray-500" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={onSearchKeyDown}
+              className="w-full bg-transparent outline-none placeholder:text-gray-500"
+              placeholder="Search for courses"
+            />
+          </div>
+        </div>
       </header>
+
+      {/* MOBILE MENU OVERLAY */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          ></div>
+          
+          {/* Menu Panel */}
+          <div className="absolute left-0 top-0 bottom-0 w-80 bg-white shadow-xl overflow-y-auto">
+            <div className="p-6">
+              {/* Close Button */}
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* User Info */}
+              <div className="flex items-center gap-3 mb-6 pb-6 border-b">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#094CA4] to-[#0d6fd9] flex items-center justify-center">
+                  <User className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">{currentLearner.name}</p>
+                  <p className="text-sm text-gray-600">{currentLearner.email}</p>
+                </div>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="space-y-1">
+                <Link
+                  href={`/learner/my-learning/${currentLearner.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  <BookOpen className="h-5 w-5" />
+                  My Learning
+                </Link>
+                <Link
+                  href={`/learner/profile/${currentLearner.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  <User className="h-5 w-5" />
+                  My Profile
+                </Link>
+                <Link
+                  href={`/learner/settings/${currentLearner.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  <Settings className="h-5 w-5" />
+                  Settings
+                </Link>
+                <Link
+                  href="/learner/cart"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  Cart {mounted && cartCount > 0 && <span className="ml-auto bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{cartCount}</span>}
+                </Link>
+                <Link
+                  href="/learner/wishlist"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  <Heart className="h-5 w-5" />
+                  Wishlist {mounted && wishlistCount > 0 && <span className="ml-auto bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{wishlistCount}</span>}
+                </Link>
+                <Link
+                  href="/learner/community"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Community
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                >
+                  Contact
+                </Link>
+              </nav>
+
+              {/* Categories Section */}
+              <div className="mt-6 pt-6 border-t">
+                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3 px-4">
+                  Categories
+                </p>
+                <div className="space-y-1">
+                  {categories.slice(0, 5).map((category) => (
+                    <Link
+                      key={category}
+                      href={`/learner/allcourses?category=${encodeURIComponent(category as string)}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                    >
+                      {category}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/learner/allcourses"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block px-4 py-2 text-[#094CA4] font-medium hover:bg-blue-50 rounded-lg transition-colors"
+                  >
+                    View All Courses →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Logout */}
+              <div className="mt-6 pt-6 border-t">
+                <Link
+                  href="/learner/switch-user"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                  <LogOut className="h-5 w-5" />
+                  Logout
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ✅ INSTRUCTOR SIDEBAR (Animated) */}
       {isInstructorPage && (

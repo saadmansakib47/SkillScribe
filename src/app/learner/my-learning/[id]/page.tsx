@@ -74,19 +74,19 @@ export default function MyLearningPage() {
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Start Your Learning Journey</h2>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              You haven't enrolled in any courses yet. Explore our wide range of courses and start building your skills today!
+              You haven&apos;t enrolled in any courses yet. Explore our wide range of courses and start building your skills today!
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/learner/allcourses"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all font-semibold text-lg shadow-lg hover:shadow-xl"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all font-semibold text-lg shadow-lg hover:shadow-xl"
               >
                 <Search className="h-5 w-5" />
                 Browse All Courses
               </Link>
               <Link
                 href="/learner/allcourses?price=free"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#094CA4] border-2 border-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-semibold text-lg"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#094CA4] border-2 border-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-semibold text-lg"
               >
                 <Award className="h-5 w-5" />
                 Try Free Courses
