@@ -37,13 +37,13 @@ export default function ReplyInputBox({ onClose, onSubmit }: ReplyInputBoxProps)
       <div className="flex justify-end gap-2 mt-2">
         <button
           onClick={onClose}
-          className="px-3 py-1 text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+          className="px-3 py-1 text-gray-600 bg-gray-200 rounded-[10px] hover:bg-gray-300 transition"
         >
           Cancel
         </button>
         <button
           onClick={handleSubmit}
-          className="px-3 py-1 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition"
+          className="px-3 py-1 text-white bg-blue-600 rounded-[10px] hover:bg-blue-700 transition"
         >
           Reply
         </button>
