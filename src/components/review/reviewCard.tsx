@@ -1,50 +1,63 @@
+"use client";
+
 import { MessageSquare, Flag, EyeOff, Star } from "lucide-react";
 import ReplyInput from "@/components/review/replyInput";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function ReviewCard({ review }: { review: any }) {
   const [showReply, setShowReply] = useState(false);
 
+  const initials = review.userName
+    ? review.userName
+        .split(" ")
+        .map((n: string) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    : "?";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-300 rounded-lg p-4"
+      className="bg-white border border-gray-200 rounded-[12px] p-5 shadow-sm"
     >
-      <div className="flex items-start gap-3">
-        {/* Avatar */}
-        <img
-          src={review.avatar}
-          alt={review.name}
-          className="w-10 h-10 rounded-full border"
-        />
+      <div className="flex items-start gap-4">
+        <Avatar className="w-10 h-10 border">
+          <AvatarImage src={review.avatar} alt={review.userName} />
+          <AvatarFallback>{initials}</AvatarFallback>
+        </Avatar>
+
         <div className="flex-1">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <div>
-              <h4 className="font-semibold text-gray-800">{review.name}</h4>
-              <p className="text-xs text-gray-500">{review.course}</p>
-            </div>
-            <p className="text-xs text-gray-400">{review.date}</p>
+            <h4 className="font-semibold text-gray-900">{review.userName}</h4>
+            <span className="text-sm text-gray-500">{review.date}</span>
           </div>
 
           {/* Stars */}
-          <div className="flex mt-1">
-            {Array.from({ length: review.rating }).map((_, i) => (
-              <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+          <div className="flex items-center gap-1 mt-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                }`}
+              />
             ))}
           </div>
 
-          {/* Message */}
-          <p className="text-sm text-gray-700 mt-2">{review.comment}</p>
+          {/* Review text */}
+          <p className="text-gray-700 mt-3 text-sm leading-relaxed">{review.text}</p>
 
-          {/* Reply (Instructor’s reply) */}
-          {review.reply && (
+          {/* Instructor Reply */}
+          {review.instructorReply && (
             <div className="bg-blue-50 text-sm text-gray-700 p-3 mt-3 rounded-md border border-blue-100">
               <p>
                 <strong>Your Reply: </strong>
-                {review.reply}
+                {review.instructorReply}
               </p>
             </div>
           )}
@@ -65,7 +78,6 @@ export default function ReviewCard({ review }: { review: any }) {
             </button>
           </div>
 
-          {/* Reply input (nested level) */}
           {showReply && <ReplyInput onClose={() => setShowReply(false)} />}
         </div>
       </div>
