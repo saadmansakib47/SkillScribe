@@ -9,16 +9,14 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
     total === 0
       ? 0
       : parseFloat(
-          (reviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1)
-        );
+        (reviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1)
+      );
 
-  // Rating distribution
   const distribution = [5, 4, 3, 2, 1].map((star) => ({
     star,
     count: reviews.filter((r) => r.rating === star).length,
   }));
 
-  // Proper fractional stars
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -26,14 +24,12 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
         i <= Math.floor(rating)
           ? 100
           : i - 1 < rating && rating < i
-          ? (rating - (i - 1)) * 100
-          : 0;
+            ? (rating - (i - 1)) * 100
+            : 0;
 
       stars.push(
         <div key={i} className="relative w-7 h-7">
-          {/* Base empty star */}
           <Star className="absolute w-7 h-7 text-gray-300" strokeWidth={1.5} />
-          {/* Filled star */}
           <div
             className="absolute top-0 left-0 overflow-hidden transition-all duration-500 ease-out"
             style={{ width: `${fill}%`, height: "100%" }}
@@ -49,10 +45,26 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
     return <div className="flex justify-center mt-2">{stars}</div>;
   };
 
+  // Shared corner border element
+  const CornerBorders = () => (
+    <>
+      {/* Top-left corner */}
+      <div className="absolute top-0 left-0 w-20 h-[4px] bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 rounded-tl-xl rounded-tr-md"></div>
+      <div className="absolute top-0 left-0 w-[4px] h-20 bg-gradient-to-b from-blue-500 via-blue-300 to-blue-500 rounded-tl-xl rounded-bl-md"></div>
+
+      {/* Bottom-right corner */}
+      <div className="absolute bottom-0 right-0 w-20 h-[4px] bg-gradient-to-l from-blue-500 via-blue-300 to-blue-500 rounded-br-xl rounded-bl-md"></div>
+      <div className="absolute bottom-0 right-0 w-[4px] h-20 bg-gradient-to-t from-blue-500 via-blue-300 to-blue-500 rounded-br-xl rounded-tr-md"></div>
+    </>
+
+
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Total Reviews */}
-      <Card className="rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50">
+      <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50 overflow-hidden">
+        <CornerBorders />
         <CardContent className="p-6 text-center">
           <p className="text-black text-sm uppercase tracking-wide">
             Total Reviews
@@ -62,7 +74,8 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
       </Card>
 
       {/* Average Rating */}
-      <Card className="rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-yellow-50 text-center">
+      <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-yellow-50 text-center overflow-hidden">
+        <CornerBorders />
         <CardContent className="p-6">
           <p className="text-black text-sm uppercase tracking-wide">
             Average Rating
@@ -75,7 +88,8 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
       </Card>
 
       {/* Rating Distribution */}
-      <Card className="rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50">
+      <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50 overflow-hidden">
+        <CornerBorders />
         <CardContent className="p-6">
           <p className="text-black text-sm uppercase tracking-wide">
             Rating Distribution
