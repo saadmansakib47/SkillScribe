@@ -19,7 +19,7 @@ export default function ReviewFilterBar() {
   return (
     <div className="flex flex-wrap items-center gap-4 bg-white border border-gray-200 rounded-[8px] p-4 shadow-sm">
       {/* Select Course */}
-      <div className="flex flex-col">
+      <div className="flex flex-col border">
         <label className="text-sm font-medium text-gray-700 mb-1">
           Select Course
         </label>
