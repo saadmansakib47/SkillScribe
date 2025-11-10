@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
-import { Search, Menu, ChevronDown, ShoppingCart, Heart, User } from "lucide-react";
+import { Search, Menu, ChevronDown, ShoppingCart, Heart, User, BookOpen, Settings, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -16,10 +16,12 @@ export default function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
   const { itemCount: cartCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
   const currentLearner = getCurrentLearner();
@@ -40,6 +42,9 @@ export default function Navbar() {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setCategoriesOpen(false);
+      }
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+        setUserDropdownOpen(false);
       }
     };
 
@@ -67,7 +72,7 @@ export default function Navbar() {
       <header className="w-full border-b border-gray-300 bg-[#FAF7F3] text-gray-900">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           {/* LEFT SIDE */}
-          <div className="flex items-center gap-4 lg:gap-8">
+          <div className="flex items-center gap-3 lg:gap-4">
             {/* Hamburger menu */}
             <button
               onClick={handleSidebarToggle}
@@ -98,7 +103,7 @@ export default function Navbar() {
           </div>
 
           {/* NAV LINKS */}
-          <nav className="hidden items-center gap-6 text-sm text-gray-900 md:flex">
+          <nav className="hidden items-center gap-4 text-sm text-gray-900 md:flex">
             {/* Categories Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
@@ -151,15 +156,68 @@ export default function Navbar() {
           </nav>
 
           {/* RIGHT SIDE */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Profile Icon */}
-            <Link
-              href={`/learner/profile/${currentLearner.id}`}
-              className="relative p-2 rounded-md hover:bg-gray-200 transition"
-              title="Profile"
-            >
-              <User className="h-5 w-5 text-gray-800" />
-            </Link>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            {/* User Avatar Dropdown */}
+            <div className="relative" ref={userDropdownRef}>
+              <button
+                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                className="flex items-center gap-2 p-1.5 rounded-full hover:bg-gray-200 transition"
+                title="Account"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#094CA4] to-[#0d6fd9] flex items-center justify-center border-2 border-gray-300">
+                  <User className="h-4 w-4 text-white" />
+                </div>
+                <ChevronDown className="h-4 w-4 text-gray-600" />
+              </button>
+
+              {/* Dropdown Menu */}
+              {userDropdownOpen && (
+                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
+                  {/* User Info Header */}
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="font-semibold text-gray-900 truncate">{currentLearner.name}</p>
+                    <p className="text-sm text-gray-600 truncate">{currentLearner.email}</p>
+                  </div>
+
+                  {/* Menu Items */}
+                  <div className="py-2">
+                    <Link
+                      href={`/learner/my-learning/${currentLearner.id}`}
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                    >
+                      <BookOpen className="h-4 w-4" />
+                      My Learning
+                    </Link>
+                    <Link
+                      href={`/learner/profile/${currentLearner.id}`}
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                    >
+                      <User className="h-4 w-4" />
+                      My Profile
+                    </Link>
+                    <Link
+                      href={`/learner/settings/${currentLearner.id}`}
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                    >
+                      <Settings className="h-4 w-4" />
+                      Settings
+                    </Link>
+                    <div className="border-t border-gray-100 my-2"></div>
+                    <Link
+                      href="/learner/switch-user"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Switch User
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Cart Icon */}
             <Link
