@@ -1,27 +1,33 @@
 "use client";
 
 import { MessageSquare, Flag, EyeOff, Star } from "lucide-react";
-import ReplyInput from "@/components/review/replyInput";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ReplyInputBox from "@/components/review/replyInputBox";
 
 export default function ReviewCard({ review }: { review: any }) {
   const [showReply, setShowReply] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [reported, setReported] = useState(false);
 
   const initials = review.userName
     ? review.userName
-      .split(" ")
-      .map((n: string) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2)
+        .split(" ")
+        .map((n: string) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
     : "?";
+
+  if (hidden) return null; // Hide the card completely if hidden
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -2, boxShadow: "0 8px 15px rgba(0,0,0,0.08)" }}
+      transition={{ duration: 0.3, type: "spring", stiffness: 120 }}
       className="bg-white border border-gray-400 rounded-[12px] p-5 shadow-sm"
     >
       <div className="flex items-start gap-4">
@@ -42,8 +48,11 @@ export default function ReviewCard({ review }: { review: any }) {
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${i < review.rating ? "text-blue-600 fill-blue-400" : "text-gray-300"
-                  }`}
+                className={`w-4 h-4 ${
+                  i < review.rating
+                    ? "text-blue-600 fill-blue-400"
+                    : "text-gray-300"
+                }`}
               />
             ))}
           </div>
@@ -64,21 +73,51 @@ export default function ReviewCard({ review }: { review: any }) {
 
           {/* Action buttons */}
           <div className="flex gap-4 mt-3 text-sm text-gray-600">
-            <button
-              className="flex items-center gap-1 hover:text-blue-600"
+            {/* Reply Button */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"
               onClick={() => setShowReply((p) => !p)}
             >
               <MessageSquare className="w-4 h-4" /> Reply
-            </button>
-            <button className="flex items-center gap-1 hover:text-red-600">
-              <Flag className="w-4 h-4" /> Report
-            </button>
-            <button className="flex items-center gap-1 hover:text-gray-700">
+            </motion.button>
+
+            {/* Report Button */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center gap-1 transition-colors ${
+                reported ? "text-red-600 font-semibold" : "text-gray-600 hover:text-red-600"
+              }`}
+              onClick={() => setReported(true)}
+            >
+              <Flag className="w-4 h-4" /> {reported ? "Reported" : "Report"}
+            </motion.button>
+
+            {/* Hide Button */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-1 text-gray-600 hover:text-gray-700 transition-colors"
+              onClick={() => setHidden(true)}
+            >
               <EyeOff className="w-4 h-4" /> Hide
-            </button>
+            </motion.button>
           </div>
 
-          {showReply && <ReplyInput onClose={() => setShowReply(false)} />}
+          {/* Reply Input with slide-down animation */}
+          {showReply && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-3"
+            >
+              <ReplyInputBox
+                onClose={() => setShowReply(false)}
+                onSubmit={(reply) => console.log("Reply submitted:", reply)}
+              />
+            </motion.div>
+          )}
         </div>
       </div>
     </motion.div>
