@@ -11,11 +11,11 @@ export default function ReviewCard({ review }: { review: any }) {
 
   const initials = review.userName
     ? review.userName
-        .split(" ")
-        .map((n: string) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2)
+      .split(" ")
+      .map((n: string) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2)
     : "?";
 
   return (
@@ -42,9 +42,8 @@ export default function ReviewCard({ review }: { review: any }) {
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${
-                  i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                }`}
+                className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+                  }`}
               />
             ))}
           </div>
@@ -54,9 +53,10 @@ export default function ReviewCard({ review }: { review: any }) {
 
           {/* Instructor Reply */}
           {review.instructorReply && (
-            <div className="bg-blue-50 text-sm text-gray-700 p-3 mt-3 rounded-md border border-blue-100">
+            <div className="relative bg-blue-50 text-sm text-gray-700 p-3 mt-3 rounded-[10px] border-l-4 border-blue-500">
               <p>
-                <strong>Your Reply: </strong>
+                <span className="font-bold text-gray-600">Your Reply</span>
+                <br />
                 {review.instructorReply}
               </p>
             </div>
