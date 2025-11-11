@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
+import AIAssistant from "@/components/ai/AIAssistant";
 import { CartProvider } from "@/contexts/CartContext";
 import { Raleway } from 'next/font/google';
 import { WishlistProvider } from "@/contexts/WishlistContext";
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-neutral-50 text-neutral-900 antialiased`}
+        className={`${raleway.className} bg-neutral-50 text-neutral-900 antialiased`}
       >
         <CartProvider>
           <WishlistProvider>
@@ -37,6 +38,9 @@ export default function RootLayout({
             <main className="pt-16">
               {children}
             </main>
+
+            {/* AI Assistant - Floating on all pages */}
+            <AIAssistant />
 
             {/* Footer */}
             <Footer />
