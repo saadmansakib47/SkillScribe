@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { generateAIQuiz } from "@/components/quiz/AIQuizGeneratorModal";
+import AIQuizGeneratorModal from "@/components/quiz/AIQuizGeneratorModal";
 
 interface Option {
   id: string;
@@ -19,7 +20,8 @@ interface Question {
   options: Option[];
 }
 
-export default function QuizBuilder() {
+// ✅ Accept course prop
+export default function QuizBuilder({ course }: { course: string }) {
   const quizTitle = "Sample Quiz";
 
   const [questions, setQuestions] = useState<Question[]>([
@@ -36,6 +38,8 @@ export default function QuizBuilder() {
   ]);
 
   const [showPreview, setShowPreview] = useState(false);
+  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [currentQuestionId, setCurrentQuestionId] = useState<string | null>(null);
 
   // ----------------------------------
   // Handlers
@@ -139,25 +143,34 @@ export default function QuizBuilder() {
   // ----------------------------------
   // AI Generation Handler
   // ----------------------------------
-  const handleGenerateAI = async (questionId: string) => {
-    const topic = "React"; // 🔧 Stubbed topic for now
-    const aiData = await generateAIQuiz({ topic });
+  const handleGenerateAI = (questionId: string) => {
+    if (!course) {
+      alert("⚠️ Please select a course first!");
+      return;
+    }
+    setCurrentQuestionId(questionId);
+    setAiModalOpen(true);
+  };
+
+  const handleAutofill = (data: { question: string; options: string[] }) => {
+    if (!currentQuestionId) return;
 
     setQuestions((prev) =>
       prev.map((ques) =>
-        ques.id === questionId
+        ques.id === currentQuestionId
           ? {
               ...ques,
-              text: aiData.question,
+              text: data.question,
               options: ques.options.map((opt, i) => ({
                 ...opt,
-                text: aiData.options[i] || "",
-                isCorrect: i === aiData.correctIndex,
+                text: data.options[i] || "",
               })),
             }
           : ques
       )
     );
+
+    setAiModalOpen(false);
   };
 
   // ----------------------------------
@@ -341,6 +354,14 @@ export default function QuizBuilder() {
           </Button>
         </div>
       </div>
+
+      {/* AI Modal (connected to course) */}
+      <AIQuizGeneratorModal
+        open={aiModalOpen}
+        onClose={() => setAiModalOpen(false)}
+        course={course}
+        onAutofill={handleAutofill}
+      />
     </div>
   );
 }
