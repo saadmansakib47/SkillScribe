@@ -14,7 +14,7 @@ import {
 import QuizBuilder from "@/components/quiz/quizBuilder";
 
 interface QuizCreatorProps {
-  onCourseSelect?: (course: string) => void; // optional callback to lift state
+  onCourseSelect?: (course: string) => void;
 }
 
 export default function QuizCreator({ onCourseSelect }: QuizCreatorProps) {
@@ -33,8 +33,9 @@ export default function QuizCreator({ onCourseSelect }: QuizCreatorProps) {
     const { name, value } = e.target;
     setQuizData({ ...quizData, [name]: value });
 
+    // Lift course state if parent wants it
     if (name === "course" && onCourseSelect) {
-      onCourseSelect(value); // lift course state to parent if callback exists
+      onCourseSelect(value);
     }
   };
 
@@ -168,7 +169,7 @@ export default function QuizCreator({ onCourseSelect }: QuizCreatorProps) {
         </CardContent>
       </Card>
 
-      {/* Pass selected course to QuizBuilder */}
+      {/* Pass selected course to QuizBuilder (includes correct/wrong assignment later) */}
       <QuizBuilder course={quizData.course} />
     </div>
   );
