@@ -5,6 +5,7 @@ import { Plus, Trash2, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { generateAIQuiz } from "@/components/quiz/AIQuizGeneratorModal";
 
 interface Option {
   id: string;
@@ -36,9 +37,9 @@ export default function QuizBuilder() {
 
   const [showPreview, setShowPreview] = useState(false);
 
-  // -------------------------------
+  // ----------------------------------
   // Handlers
-  // -------------------------------
+  // ----------------------------------
   const handlePreview = () => setShowPreview(true);
   const handleExitPreview = () => setShowPreview(false);
 
@@ -135,13 +136,39 @@ export default function QuizBuilder() {
     );
   };
 
-  // -------------------------------
+  // ----------------------------------
+  // AI Generation Handler
+  // ----------------------------------
+  const handleGenerateAI = async (questionId: string) => {
+    const topic = "React"; // 🔧 Stubbed topic for now
+    const aiData = await generateAIQuiz({ topic });
+
+    setQuestions((prev) =>
+      prev.map((ques) =>
+        ques.id === questionId
+          ? {
+              ...ques,
+              text: aiData.question,
+              options: ques.options.map((opt, i) => ({
+                ...opt,
+                text: aiData.options[i] || "",
+                isCorrect: i === aiData.correctIndex,
+              })),
+            }
+          : ques
+      )
+    );
+  };
+
+  // ----------------------------------
   // Preview Mode
-  // -------------------------------
+  // ----------------------------------
   if (showPreview) {
     return (
       <div className="mt-10 bg-[#fdfaf7] p-6 rounded-[8px]">
-        <h3 className="text-lg font-semibold mb-4">Preview Mode — {quizTitle}</h3>
+        <h3 className="text-lg font-semibold mb-4">
+          Preview Mode — {quizTitle}
+        </h3>
 
         {questions.map((q, qi) => (
           <div
@@ -179,12 +206,14 @@ export default function QuizBuilder() {
     );
   }
 
-  // -------------------------------
+  // ----------------------------------
   // Builder Mode
-  // -------------------------------
+  // ----------------------------------
   return (
     <div className="mt-10 w-[60%] bg-[#fdfaf7] p-6 rounded-[8px] justify-content-center mx-auto my-8 shadow-md">
-      <h3 className="text-lg font-semibold space-between-characters-[8px] text-center mb-4">Q U I Z E D I T O R</h3>
+      <h3 className="text-lg font-semibold space-between-characters-[8px] text-center mb-4">
+        Q U I Z E D I T O R
+      </h3>
 
       <div className="space-y-6">
         {questions.map((q, qi) => (
@@ -193,7 +222,21 @@ export default function QuizBuilder() {
             className="border-2 border-dashed border-blue-300 rounded-[8px] p-4"
           >
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-medium text-gray-800">Question {qi + 1}</h4>
+              <div className="flex items-center gap-3">
+                <h4 className="font-medium text-gray-800">
+                  Question {qi + 1}
+                </h4>
+
+                {/* 🧠 Generate with AI Button */}
+                <Button
+                  type="button"
+                  className="border border-blue-500 text-blue-600 bg-transparent hover:bg-blue-50 text-sm rounded-[8px] px-3 py-1"
+                  onClick={() => handleGenerateAI(q.id)}
+                >
+                  Generate with AI
+                </Button>
+              </div>
+
               <Button
                 variant="destructive"
                 className="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded-[8px]"
@@ -214,7 +257,9 @@ export default function QuizBuilder() {
             />
 
             <div>
-              <Label className="mb-1 block text-sm text-gray-700">Answer Options</Label>
+              <Label className="mb-1 block text-sm text-gray-700">
+                Answer Options
+              </Label>
               <div className="space-y-3">
                 {q.options.map((opt, oi) => (
                   <div key={opt.id} className="flex items-center gap-3">
@@ -225,7 +270,9 @@ export default function QuizBuilder() {
                     <Input
                       value={opt.text}
                       placeholder="Enter answer option"
-                      onChange={(e) => handleOptionChange(q.id, opt.id, e.target.value)}
+                      onChange={(e) =>
+                        handleOptionChange(q.id, opt.id, e.target.value)
+                      }
                       className="w-[320px] md:w-[400px] border-gray-500"
                       style={{ borderRadius: "8px" }}
                     />
@@ -239,7 +286,11 @@ export default function QuizBuilder() {
                           : "bg-red-100 text-red-600 hover:bg-red-200"
                       }`}
                     >
-                      {opt.isCorrect ? <CheckCircle size={14} /> : <XCircle size={14} />}
+                      {opt.isCorrect ? (
+                        <CheckCircle size={14} />
+                      ) : (
+                        <XCircle size={14} />
+                      )}
                       {opt.isCorrect ? "Correct" : "Wrong"}
                     </Button>
 
