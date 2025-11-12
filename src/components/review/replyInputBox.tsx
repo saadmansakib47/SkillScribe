@@ -25,7 +25,7 @@ export default function ReplyInputBox({ onClose, onSubmit }: ReplyInputBoxProps)
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.3 }}
-      className="mt-3 bg-gray-50 border border-gray-200 rounded-[10px] p-3 shadow-sm"
+      className="mt-3 bg-gray-50 border border-transparent rounded-[10px] p-3 shadow-sm"
     >
       <textarea
         className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
