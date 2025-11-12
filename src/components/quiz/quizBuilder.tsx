@@ -183,8 +183,8 @@ export default function QuizBuilder() {
   // Builder Mode
   // -------------------------------
   return (
-    <div className="mt-10 bg-[#fdfaf7] p-6 rounded-[8px]">
-      <h3 className="text-lg font-semibold mb-4">Quiz Builder</h3>
+    <div className="mt-10 w-[60%] bg-[#fdfaf7] p-6 rounded-[8px] justify-content-center mx-auto my-8 shadow-md">
+      <h3 className="text-lg font-semibold space-between-characters-[8px] text-center mb-4">Q U I Z  E D I T O R</h3>
 
       <div className="space-y-6">
         {questions.map((q, qi) => (

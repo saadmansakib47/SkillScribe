@@ -61,7 +61,7 @@ export default function ReviewCard({ review }: { review: any }) {
           </div>
 
           {/* Review text */}
-          <p className="text-black mt-3 text-sm leading-relaxed">
+          <p className="text- mt-3 text-sm leading-relaxed">
             {review.text}
           </p>
 
