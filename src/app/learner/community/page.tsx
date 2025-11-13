@@ -140,9 +140,9 @@ export default function CommunityPage() {
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Community</h1>
 
         {/* Create Post Card */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 p-8 mb-6">
           <div className="flex gap-4">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+            <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
               <Image
                 src={currentUser.avatar}
                 alt={currentUser.name}
@@ -151,39 +151,45 @@ export default function CommunityPage() {
               />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-gray-900 mb-1">{currentUser.name}</p>
+              <div className="mb-3">
+                <p className="font-bold text-gray-900 text-lg">{currentUser.name}</p>
+                <p className="text-sm text-gray-500">Share with the community</p>
+              </div>
               <textarea
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
-                placeholder="Share your thoughts, ask a question or start a discussion..."
-                className="w-full px-4 py-3 bg-[#FAF7F3] border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#094CA4] focus:border-transparent resize-none text-gray-700 placeholder-gray-500"
+                placeholder="What's on your mind? Share your thoughts, ask a question, or start a discussion..."
+                className="w-full px-5 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#094CA4] focus:border-[#094CA4] focus:bg-white resize-none text-gray-700 placeholder-gray-400 transition-all font-medium"
                 rows={4}
               />
               
               {/* Category Selection and Post Button */}
-              <div className="flex items-center justify-between mt-4">
-                <div className="flex gap-2">
-                  {(['Discussion', 'Question', 'Announcement', 'Resources'] as PostCategory[]).map(category => (
-                    <button
-                      key={category}
-                      type="button"
-                      onClick={() => setSelectedCategory(category)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
-                        selectedCategory === category
-                          ? 'bg-[#094CA4] text-white border-[#094CA4]'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-[#094CA4]'
-                      }`}
-                    >
-                      {category}
-                    </button>
-                  ))}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-5">
+                <div>
+                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Select Category</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(['Discussion', 'Question', 'Announcement', 'Resources'] as PostCategory[]).map(category => (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => setSelectedCategory(category)}
+                        className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                          selectedCategory === category
+                            ? 'bg-[#094CA4] text-white shadow-md'
+                            : 'bg-white text-gray-600 border-2 border-gray-200 hover:border-[#094CA4] hover:text-[#094CA4]'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 <button
                   onClick={handlePost}
                   disabled={!postContent.trim()}
-                  className="px-6 py-2.5 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all font-semibold disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg disabled:hover:shadow-md"
                 >
-                  Post
+                  Publish Post
                 </button>
               </div>
             </div>
@@ -191,13 +197,13 @@ export default function CommunityPage() {
         </div>
 
         {/* Category Tabs */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
-          <div className="flex border-b border-gray-200 overflow-x-auto">
+        <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 mb-6 overflow-hidden">
+          <div className="flex border-b-2 border-gray-100 overflow-x-auto">
             {categories.map(category => (
               <button
                 key={category}
                 onClick={() => setActiveTab(category)}
-                className={`px-6 py-4 text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-all ${
                   activeTab === category
                     ? 'text-[#094CA4] border-b-2 border-[#094CA4] bg-blue-50'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
@@ -212,15 +218,15 @@ export default function CommunityPage() {
         {/* Posts Feed */}
         <div className="space-y-4">
           {filteredPosts.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-              <p className="text-gray-500">No posts in this category yet. Be the first to post!</p>
+            <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 p-12 text-center">
+              <p className="text-gray-500 font-medium">No posts in this category yet. Be the first to post!</p>
             </div>
           ) : (
             filteredPosts.map(post => (
-              <div key={post.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div key={post.id} className="bg-white rounded-2xl shadow-md border-2 border-gray-200 p-6 hover:shadow-lg transition-shadow">
                 {/* Post Header */}
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
                     <Image
                       src={post.authorAvatar}
                       alt={post.authorName}
@@ -230,44 +236,44 @@ export default function CommunityPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="font-semibold text-gray-900">{post.authorName}</p>
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${getCategoryColor(post.category)}`}>
+                      <p className="font-bold text-gray-900">{post.authorName}</p>
+                      <span className={`px-2.5 py-0.5 rounded-lg text-xs font-semibold ${getCategoryColor(post.category)}`}>
                         {post.category}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500">{post.authorRole}</p>
+                    <p className="text-sm text-gray-500 font-medium">{post.authorRole}</p>
                     <p className="text-xs text-gray-400 mt-1" suppressHydrationWarning>{formatTimeAgo(post.createdAt)}</p>
                   </div>
                 </div>
 
                 {/* Post Content */}
-                <p className="text-gray-700 mb-4 leading-relaxed">{post.content}</p>
+                <p className="text-gray-700 mb-4 leading-relaxed font-medium">{post.content}</p>
 
                 {/* Post Actions */}
-                <div className="flex items-center gap-6 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-6 pt-4 border-t-2 border-gray-100">
                   <button
                     onClick={() => toggleLike(post.id)}
-                    className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors"
+                    className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors font-semibold"
                   >
                     <Heart
                       className={`h-5 w-5 ${likedPosts.has(post.id) ? 'fill-red-600 text-red-600' : ''}`}
                     />
-                    <span className="text-sm font-medium">
+                    <span className="text-sm">
                       {post.likes + (likedPosts.has(post.id) ? 1 : 0)}
                     </span>
                   </button>
 
                   <button
                     onClick={() => toggleComments(post.id)}
-                    className="flex items-center gap-2 text-gray-600 hover:text-[#094CA4] transition-colors"
+                    className="flex items-center gap-2 text-gray-600 hover:text-[#094CA4] transition-colors font-semibold"
                   >
                     <MessageCircle className="h-5 w-5" />
-                    <span className="text-sm font-medium">{post.comments.length}</span>
+                    <span className="text-sm">{post.comments.length}</span>
                   </button>
 
                   <button
                     onClick={() => toggleSave(post.id)}
-                    className="flex items-center gap-2 text-gray-600 hover:text-[#094CA4] transition-colors ml-auto"
+                    className="flex items-center gap-2 text-gray-600 hover:text-[#094CA4] transition-colors ml-auto font-semibold"
                   >
                     <Bookmark
                       className={`h-5 w-5 ${savedPosts.has(post.id) ? 'fill-[#094CA4] text-[#094CA4]' : ''}`}
@@ -277,13 +283,13 @@ export default function CommunityPage() {
 
                 {/* Comments Section */}
                 {showComments.has(post.id) && (
-                  <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="mt-4 pt-4 border-t-2 border-gray-100">
                     {/* Existing Comments */}
                     {post.comments.length > 0 && (
-                      <div className="space-y-4 mb-4">
+                      <div className="space-y-3 mb-4">
                         {post.comments.map(comment => (
-                          <div key={comment.id} className="flex gap-3 bg-gray-50 rounded-lg p-4">
-                            <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                          <div key={comment.id} className="flex gap-3 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                            <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
                               <Image
                                 src={comment.authorAvatar}
                                 alt={comment.authorName}
@@ -293,10 +299,10 @@ export default function CommunityPage() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
-                                <p className="font-semibold text-sm text-gray-900">{comment.authorName}</p>
+                                <p className="font-bold text-sm text-gray-900">{comment.authorName}</p>
                                 <span className="text-xs text-gray-400" suppressHydrationWarning>{formatTimeAgo(comment.createdAt)}</span>
                               </div>
-                              <p className="text-sm text-gray-700">{comment.content}</p>
+                              <p className="text-sm text-gray-700 font-medium">{comment.content}</p>
                             </div>
                           </div>
                         ))}
@@ -305,7 +311,7 @@ export default function CommunityPage() {
 
                     {/* Add Comment */}
                     <div className="flex gap-3">
-                      <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
                         <Image
                           src={currentUser.avatar}
                           alt={currentUser.name}
@@ -320,12 +326,12 @@ export default function CommunityPage() {
                           onChange={(e) => setCommentInputs(prev => ({ ...prev, [post.id]: e.target.value }))}
                           onKeyPress={(e) => e.key === 'Enter' && handleComment(post.id)}
                           placeholder="Write a comment..."
-                          className="flex-1 px-4 py-2 bg-white border border-gray-300 rounded-full focus:ring-2 focus:ring-[#094CA4] focus:border-transparent text-sm"
+                          className="flex-1 px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#094CA4] focus:border-[#094CA4] text-sm font-medium transition-all"
                         />
                         <button
                           onClick={() => handleComment(post.id)}
                           disabled={!commentInputs[post.id]?.trim()}
-                          className="p-2 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2.5 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
                         >
                           <Send className="h-4 w-4" />
                         </button>
