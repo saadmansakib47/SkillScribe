@@ -109,9 +109,9 @@ export default function LearnerProfilePage() {
             </div>
             <Link 
               href={`/learner/profile/${learnerId}/edit`}
-              className="flex items-center gap-2 px-6 py-3 bg-white text-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-semibold shadow-lg hover:shadow-xl"
+              className="flex items-center gap-2 px-8 py-3.5 bg-white text-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-bold shadow-lg hover:shadow-xl border-2 border-white hover:border-blue-100"
             >
-              <Edit2 className="h-4 w-4" />
+              <Edit2 className="h-5 w-5" />
               Edit Profile
             </Link>
           </div>
