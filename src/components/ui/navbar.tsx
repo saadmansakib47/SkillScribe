@@ -112,33 +112,36 @@ export default function Navbar() {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
-                className="flex items-center gap-1 hover:text-black"
+                className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all font-medium"
               >
                 Categories
-                <ChevronDown className="h-4 w-4" />
+                <ChevronDown className={`h-4 w-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
               {categoriesOpen && (
-                <div className="absolute left-0 top-full mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg z-50">
-                  <div className="py-2">
+                <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
+                  <div className="p-3">
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-3">
+                      Browse Categories
+                    </p>
                     {categories.map((category) => (
                       <Link
                         key={category}
                         href={`/learner/allcourses?category=${encodeURIComponent(category as string)}`}
                         onClick={() => setCategoriesOpen(false)}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#90B2DE] hover:text-black transition-colors"
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-all font-medium"
                       >
                         {category}
                       </Link>
                     ))}
-                    <div className="border-t border-gray-200 my-2"></div>
+                    <div className="border-t border-gray-200 my-3"></div>
                     <Link
                       href="/learner/allcourses"
                       onClick={() => setCategoriesOpen(false)}
-                      className="block px-4 py-2 text-sm font-medium text-[#094CA4] hover:bg-[#90B2DE] hover:text-black transition-colors"
+                      className="block px-4 py-2.5 text-sm font-semibold text-[#094CA4] hover:bg-blue-50 rounded-lg transition-all"
                     >
-                      View All Courses
+                      View All Courses →
                     </Link>
                   </div>
                 </div>
