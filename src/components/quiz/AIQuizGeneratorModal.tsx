@@ -14,65 +14,44 @@ interface GeneratedQuizData {
   correctIndex: number;
 }
 
-// ------------------------
-// Real AI Integration
-// ------------------------
+// Stubbed AI generation logic
 export async function generateAIQuiz({
   topic,
 }: GenerateAIQuizParams): Promise<GeneratedQuizData> {
-  const apiKey = process.env.NEXT_PUBLIC_AI_API_KEY;
-  if (!apiKey) throw new Error("AI API key is not set in .env");
+  await new Promise((r) => setTimeout(r, 800));
 
-  const prompt = `
-Generate a single quiz question for the topic "${topic}".
-Provide 4 answer options.
-Indicate which option is correct by returning its index (0-3).
-Respond in JSON format:
-{
-  "question": "Your question here",
-  "options": ["Option1", "Option2", "Option3", "Option4"],
-  "correctIndex": 0
-}
-`;
-
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+  const hardcodedQuizzes: Record<string, GeneratedQuizData> = {
+    "React Fundamentals": {
+      question: "Which React hook is used to manage component state?",
+      options: ["useState", "useEffect", "useMemo", "useReducer"],
+      correctIndex: 0,
     },
-    body: JSON.stringify({
-      model: "gpt-4",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.3,
-      max_tokens: 250,
-    }),
-  });
+    "Data Structures": {
+      question: "Which data structure follows the FIFO (First In First Out) principle?",
+      options: ["Stack", "Queue", "Tree", "Graph"],
+      correctIndex: 1,
+    },
+    "Object-Oriented Programming": {
+      question: "Which OOP concept focuses on bundling data and methods together?",
+      options: ["Encapsulation", "Polymorphism", "Abstraction", "Inheritance"],
+      correctIndex: 0,
+    },
+  };
 
-  const data = await res.json();
-
-  // Extract content from OpenAI response
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error("No response from AI");
-
-  try {
-    const parsed: GeneratedQuizData = JSON.parse(content);
-    return parsed;
-  } catch {
-    // fallback in case AI response isn't valid JSON
-    return {
+  return (
+    hardcodedQuizzes[topic] || {
       question: `Sample question about ${topic}?`,
       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
       correctIndex: 0,
-    };
-  }
+    }
+  );
 }
 
 interface AIQuizGeneratorModalProps {
   open: boolean;
   onClose: () => void;
   course: string;
-  onAutofill: (data: { question: string; options: string[]; correctIndex: number }) => void;
+  onAutofill: (data: { question: string; options: string[]; correctIndex: number }) => void; // ✅ now includes correctIndex
 }
 
 export default function AIQuizGeneratorModal({
@@ -84,13 +63,8 @@ export default function AIQuizGeneratorModal({
   useEffect(() => {
     if (open && course) {
       const fetchQuiz = async () => {
-        try {
-          const quiz = await generateAIQuiz({ topic: course });
-          onAutofill(quiz); // passes correctIndex
-        } catch (err) {
-          console.error("AI Quiz generation failed:", err);
-          alert("⚠️ Failed to generate quiz. Try again.");
-        }
+        const quiz = await generateAIQuiz({ topic: course });
+        onAutofill(quiz); // ✅ passes correctIndex
       };
 
       const timer = setTimeout(fetchQuiz, 700);
