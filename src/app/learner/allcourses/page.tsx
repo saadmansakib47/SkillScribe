@@ -178,67 +178,133 @@ export default function CoursesPage() {
 
   <div className="flex gap-8 items-start">
           {/* Desktop Sidebar: Filters */}
-          <div className="hidden lg:block w-1/4 bg-white p-6 rounded-2xl shadow-lg border border-gray-200 ring-1 ring-gray-50 space-y-6 divide-y divide-gray-100">
-            <div className="flex items-center justify-start gap-3 mb-4">
-              <button onClick={applyFilters} className="inline-flex items-center justify-center bg-[#0b4ca6] text-white py-2 px-4 rounded-[8px] border-2 border-black font-medium transition-colors duration-150 ease-in-out hover:bg-[#083a8a] hover:border-[#052a62] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]">Apply</button>
-              <button onClick={clearFilters} className="inline-flex items-center justify-center bg-white text-gray-900 py-2 px-4 rounded-[8px] border-2 border-gray-400">Clear</button>
+          <div className="hidden lg:block w-1/4 bg-white p-6 rounded-2xl shadow-md border-2 border-gray-200 space-y-6">
+            <div className="pb-6 border-b-2 border-gray-100">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Filters</h2>
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={applyFilters} 
+                  className="flex-1 bg-[#0b4ca6] text-white py-2.5 px-4 rounded-xl font-semibold transition-all hover:bg-[#083a8a] shadow-md hover:shadow-lg"
+                >
+                  Apply
+                </button>
+                <button 
+                  onClick={clearFilters} 
+                  className="flex-1 bg-white text-gray-900 py-2.5 px-4 rounded-xl border-2 border-gray-300 font-semibold hover:bg-gray-50 transition-all"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900">Filter</h2>
 
             {/* Ratings */}
-            <div className="py-4">
-              <p className="font-semibold text-gray-800">Ratings</p>
-              <div className="flex flex-col mt-2">
+            <div className="pb-6 border-b-2 border-gray-100">
+              <p className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wide">Ratings</p>
+              <div className="flex flex-col space-y-2">
                 {[5, 4, 3, 2].map((r) => (
-                  <label key={r} className="flex items-center">
-                    <input checked={filters.ratings.includes(r)} onChange={() => handleRatingChange(r)} type="checkbox" className="mr-2" /> {r} Stars
+                  <label key={r} className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                    <input 
+                      checked={filters.ratings.includes(r)} 
+                      onChange={() => handleRatingChange(r)} 
+                      type="checkbox" 
+                      className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                    /> 
+                    <span className="text-gray-700 font-medium">{r} Stars & Up</span>
                   </label>
                 ))}
               </div>
             </div>
 
             {/* Video Duration */}
-            <div className="py-4">
-              <p className="font-semibold text-gray-800">Video Duration</p>
-              <div className="flex flex-col mt-2">
-                <label className="flex items-center">
-                  <input checked={filters.durations.includes('0-1')} onChange={() => handleDurationChange('0-1')} type="checkbox" className="mr-2" /> 0-1 hour
+            <div className="pb-6 border-b-2 border-gray-100">
+              <p className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wide">Video Duration</p>
+              <div className="flex flex-col space-y-2">
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.durations.includes('0-1')} 
+                    onChange={() => handleDurationChange('0-1')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">0-1 hour</span>
                 </label>
-                <label className="flex items-center">
-                  <input checked={filters.durations.includes('1-3')} onChange={() => handleDurationChange('1-3')} type="checkbox" className="mr-2" /> 1-3 hours
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.durations.includes('1-3')} 
+                    onChange={() => handleDurationChange('1-3')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">1-3 hours</span>
                 </label>
-                <label className="flex items-center">
-                  <input checked={filters.durations.includes('3-9')} onChange={() => handleDurationChange('3-9')} type="checkbox" className="mr-2" /> 3-9 hours
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.durations.includes('3-9')} 
+                    onChange={() => handleDurationChange('3-9')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">3-9 hours</span>
                 </label>
-                <label className="flex items-center">
-                  <input checked={filters.durations.includes('9-18')} onChange={() => handleDurationChange('9-18')} type="checkbox" className="mr-2" /> 9-18 hours
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.durations.includes('9-18')} 
+                    onChange={() => handleDurationChange('9-18')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">9-18 hours</span>
                 </label>
-                <label className="flex items-center">
-                  <input checked={filters.durations.includes('18+')} onChange={() => handleDurationChange('18+')} type="checkbox" className="mr-2" /> 18+ hours
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.durations.includes('18+')} 
+                    onChange={() => handleDurationChange('18+')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">18+ hours</span>
                 </label>
               </div>
             </div>
 
             {/* Price */}
-            <div className="py-4">
-              <p className="font-semibold text-gray-800">Price</p>
-              <div className="flex flex-col mt-2">
-                <label className="flex items-center">
-                  <input checked={filters.prices.includes('free')} onChange={() => handlePriceChange('free')} type="checkbox" className="mr-2" /> Free
+            <div className="pb-6 border-b-2 border-gray-100">
+              <p className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wide">Price</p>
+              <div className="flex flex-col space-y-2">
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.prices.includes('free')} 
+                    onChange={() => handlePriceChange('free')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">Free</span>
                 </label>
-                <label className="flex items-center">
-                  <input checked={filters.prices.includes('paid')} onChange={() => handlePriceChange('paid')} type="checkbox" className="mr-2" /> Paid
+                <label className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                  <input 
+                    checked={filters.prices.includes('paid')} 
+                    onChange={() => handlePriceChange('paid')} 
+                    type="checkbox" 
+                    className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                  /> 
+                  <span className="text-gray-700 font-medium">Paid</span>
                 </label>
               </div>
             </div>
 
             {/* Level */}
-            <div className="py-4">
-              <p className="font-semibold text-gray-800">Level</p>
-              <div className="flex flex-col mt-2">
+            <div>
+              <p className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wide">Level</p>
+              <div className="flex flex-col space-y-2">
                 {['Beginner', 'Intermediate', 'Advanced'].map((l) => (
-                  <label key={l} className="flex items-center">
-                    <input checked={filters.levels.includes(l)} onChange={() => handleLevelChange(l)} type="checkbox" className="mr-2" /> {l}
+                  <label key={l} className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                    <input 
+                      checked={filters.levels.includes(l)} 
+                      onChange={() => handleLevelChange(l)} 
+                      type="checkbox" 
+                      className="mr-3 w-4 h-4 accent-[#094CA4]" 
+                    /> 
+                    <span className="text-gray-700 font-medium">{l}</span>
                   </label>
                 ))}
               </div>
@@ -365,32 +431,45 @@ export default function CoursesPage() {
             {displayed.map((course) => (
               <div key={course.id} className="relative">
                 <Link href={`/learner/course/${course.id}`} className="no-underline">
-                  <div className="rounded-2xl border border-[#e6ded9] overflow-hidden bg-white shadow-sm flex flex-col h-full hover:shadow-md transition-shadow">
-                    <div className="h-44 overflow-hidden rounded-t-lg">
-                      <Image src={course.image} alt={course.title} width={800} height={400} className="w-full h-full object-cover" />
+                  <div className="rounded-2xl border-2 border-gray-200 overflow-hidden bg-white shadow-md flex flex-col h-full hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div className="h-44 overflow-hidden">
+                      <Image src={course.image} alt={course.title} width={800} height={400} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                     </div>
                     <div className="p-5 bg-[#fffaf8] flex flex-col flex-1">
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900">{course.title}</h3>
-                        <p className="mt-2 text-sm text-gray-700">{course.shortDescription ?? course.description}</p>
+                        <h3 className="text-xl font-bold text-gray-900 line-clamp-2 min-h-[3.5rem]">{course.title}</h3>
+                        <p className="mt-2 text-sm text-gray-700 font-medium line-clamp-2">{course.shortDescription ?? course.description}</p>
                       </div>
 
                       <div className="mt-3 flex items-center justify-between">
                         <div className="flex items-center gap-2 text-yellow-400">
                           {Array.from({ length: 5 }).map((_, i) => (i < Math.round(course.rating) ? <FaStar key={i} /> : <FaRegStar key={i} />))}
                         </div>
-                        <div className="text-sm text-gray-700">{course.rating} ({course.reviews.toLocaleString()})</div>
+                        <div className="text-sm font-semibold text-gray-700">{course.rating} ({course.reviews.toLocaleString()})</div>
                       </div>
 
-                      <div className="mt-3 flex items-center gap-6 text-sm text-gray-700">
-                        <div>Duration: {course.durationHours} hr</div>
-                        <div>Price: {course.price === 0 ? 'Free' : `$${course.price}`}</div>
-                        <div>Total Videos: {course.totalVideos}</div>
+                      <div className="mt-3 flex items-center flex-wrap gap-4 text-sm text-gray-700 font-medium">
+                        <div className="flex items-center gap-1">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                            <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          </svg>
+                          {course.durationHours}h
+                        </div>
+                        <div className="flex items-center gap-1 font-bold text-[#094CA4]">
+                          {course.price === 0 ? 'Free' : `$${course.price}`}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          {course.totalVideos}
+                        </div>
                       </div>
 
-                      <div className="border-t pt-4 flex items-center gap-3 mt-auto">
-                        <Image src={course.instructorImage} alt={course.instructorName} width={36} height={36} className="rounded-full" />
-                        <div className="text-sm font-medium text-gray-800">{course.instructorName}</div>
+                      <div className="border-t-2 border-gray-100 pt-4 mt-4 flex items-center gap-3">
+                        <Image src={course.instructorImage} alt={course.instructorName} width={36} height={36} className="rounded-full ring-2 ring-gray-200" />
+                        <div className="text-sm font-semibold text-gray-800">{course.instructorName}</div>
                       </div>
                     </div>
                   </div>
