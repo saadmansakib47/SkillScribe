@@ -1,75 +1,68 @@
+import { COURSES } from "./courses";
+
 export type Instructor = {
   id: number;
   name: string;
-  image: string;        // Image path (from /public/Asset/)
-  courseIds: number[];  // Courses taught by this instructor
+  image: string;        // Image path from /public/Asset/
+  courseIds: number[];  // All courses taught by this instructor
 };
 
-export const INSTRUCTORS: Instructor[] = [
-  {
-    id: 1,
-    name: "Karim Kabir",
-    image: "/Asset/karim.jpg",
-    courseIds: [15, 6],
-  },
-  {
-    id: 2,
-    name: "Daniel Park",
-    image: "/Asset/daniel.jpg",
-    courseIds: [14, 9],
-  },
-  {
-    id: 3,
-    name: "Rohan Patel",
-    image: "/Asset/rohan patel.jpg",
-    courseIds: [13],
-  },
-  {
-    id: 4,
-    name: "Karan Sharma",
-    image: "/Asset/karan.jpg",
-    courseIds: [18, 8],
-  },
-  {
-    id: 5,
-    name: "Morgan Lee",
-    image: "/Asset/morgan lee.jpg",
-    courseIds: [17, 16, 7],
-  },
-  {
-    id: 6,
-    name: "Jashim Uddin",
-    image: "/Asset/jashim uddin.jpg",
-    courseIds: [21, 4],
-  },
-  {
-    id: 7,
-    name: "Emily Rose",
-    image: "/Asset/emily rose.jpg",
-    courseIds: [20, 3],
-  },
-  {
-    id: 8,
-    name: "Samira Khan",
-    image: "/Asset/samira.jpg",
-    courseIds: [19, 11],
-  },
-  {
-    id: 9,
-    name: "Kate Weber",
-    image: "/Asset/kate.jpg",
-    courseIds: [12, 2],
-  },
-  {
-    id: 10,
-    name: "John Hamilton",
-    image: "/Asset/john.jpg",
-    courseIds: [10, 5],
-  },
-  {
-    id: 11,
-    name: "Sadia Islam",
-    image: "/Asset/sadia.jpg",
-    courseIds: [1],
-  },
-];
+/**
+ * Build instructor list dynamically using COURSES as the single source of truth.
+ * --------------------------------------------------------
+ * ✔ No duplicate data
+ * ✔ Automatically updates when COURSES changes
+ * ✔ Never mismatches instructor–course relations
+ */
+const instructorMap: Record<
+  string,
+  { name: string; image: string; courseIds: number[] }
+> = {};
+
+for (const course of COURSES) {
+  const { instructorName: name, instructorImage: image, id: courseId } = course;
+
+  if (!instructorMap[name]) {
+    instructorMap[name] = {
+      name,
+      image,
+      courseIds: [],
+    };
+  }
+
+  instructorMap[name].courseIds.push(courseId);
+}
+
+// Convert map → array & assign stable auto IDs
+export const INSTRUCTORS: Instructor[] = Object.values(instructorMap).map(
+  (inst, index) => ({
+    id: index + 1,
+    ...inst,
+  })
+);
+
+// --------------------------------------------------------
+// Utility Functions
+// --------------------------------------------------------
+
+/** Get instructor by ID */
+export function getInstructorById(id: number): Instructor | undefined {
+  return INSTRUCTORS.find((i) => i.id === id);
+}
+
+/** Get instructor object by name */
+export function getInstructorByName(name: string): Instructor | undefined {
+  return INSTRUCTORS.find((i) => i.name === name);
+}
+
+/** Get all instructors who teach a given course */
+export function getInstructorsForCourse(courseId: number): Instructor[] {
+  return INSTRUCTORS.filter((i) => i.courseIds.includes(courseId));
+}
+
+/** Get all courses taught by a specific instructor */
+export function getCoursesForInstructor(instructorId: number) {
+  const instructor = getInstructorById(instructorId);
+  if (!instructor) return [];
+  return COURSES.filter((course) => instructor.courseIds.includes(course.id));
+}
