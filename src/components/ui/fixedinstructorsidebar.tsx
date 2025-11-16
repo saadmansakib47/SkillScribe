@@ -15,7 +15,7 @@ export default function FixedSidebar() {
     { icon: Star, label: "Review", href: "/instructor/review" },
     { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
     { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
-    { icon: User, label: "My Account", href: "/instructor/account" },
+    { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];
 
   return (

@@ -16,14 +16,14 @@ export default function InstructorSidebar({ isOpen, onClose }: SidebarProps) {
   const isInstructorRoute = pathname.startsWith("/instructor");
 
   const instructorItems = [
-    { label: "Dashboard", href: "/instructor/dashboard", icon: Home },
-    { label: "My Courses", href: "/instructor/courses", icon: BookOpen },
-    { label: "Quizzes", href: "/instructor/quiz", icon: Clipboard },
-    { label: "My Schedule", href: "/instructor/schedule", icon: Calendar },
-    { label: "Review", href: "/instructor/review", icon: Star },
-    { label: "Messages", href: "/instructor/messages", icon: MessageCircle },
-    { label: "Q&A", href: "/instructor/qna", icon: HelpCircle },
-    { label: "My Account", href: "/instructor/account", icon: User },
+    { icon: Home, label: "Dashboard", href: "/instructor/dashboard" },
+    { icon: BookOpen, label: "My Courses", href: "/instructor/mycourses" },
+    { icon: Clipboard, label: "Quizzes", href: "/instructor/quiz" },
+    { icon: Calendar, label: "My Schedule", href: "/instructor/myschedule" },
+    { icon: Star, label: "Review", href: "/instructor/review" },
+    { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
+    { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
+    { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];
 
   return (
