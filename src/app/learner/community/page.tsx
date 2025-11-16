@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { getCurrentLearner } from '../../../lib/learners';
-import { POSTS, PostCategory, formatTimeAgo, Post, Comment } from '../../../lib/posts';
-import { Heart, MessageCircle, Bookmark, Send } from 'lucide-react';
+import { POSTS, PostCategory, Post, Comment } from '../../../lib/posts';
+import PostCreationCard from '@/components/learner/community/PostCreationCard';
+import CategoryTabs from '@/components/learner/community/CategoryTabs';
+import PostCard from '@/components/learner/community/PostCard';
+import CommentSection from '@/components/learner/community/CommentSection';
+import PageHeader from '@/components/learner/common/PageHeader';
 
 const categories: (PostCategory | 'All')[] = ['All', 'Discussion', 'Question', 'Announcement', 'Resources'];
 
@@ -119,101 +122,27 @@ export default function CommunityPage() {
     }
   };
 
-  const getCategoryColor = (category: PostCategory) => {
-    switch (category) {
-      case 'Discussion':
-        return 'bg-blue-100 text-blue-700';
-      case 'Question':
-        return 'bg-purple-100 text-purple-700';
-      case 'Announcement':
-        return 'bg-green-100 text-green-700';
-      case 'Resources':
-        return 'bg-orange-100 text-orange-700';
-      default:
-        return 'bg-gray-100 text-gray-700';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#FAF7F3] py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Community</h1>
+        <PageHeader title="Community" />
 
         {/* Create Post Card */}
-        <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 p-8 mb-6">
-          <div className="flex gap-4">
-            <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
-              <Image
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="flex-1">
-              <div className="mb-3">
-                <p className="font-bold text-gray-900 text-lg">{currentUser.name}</p>
-                <p className="text-sm text-gray-500">Share with the community</p>
-              </div>
-              <textarea
-                value={postContent}
-                onChange={(e) => setPostContent(e.target.value)}
-                placeholder="What's on your mind? Share your thoughts, ask a question, or start a discussion..."
-                className="w-full px-5 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#094CA4] focus:border-[#094CA4] focus:bg-white resize-none text-gray-700 placeholder-gray-400 transition-all font-medium"
-                rows={4}
-              />
-              
-              {/* Category Selection and Post Button */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-5">
-                <div>
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Select Category</p>
-                  <div className="flex flex-wrap gap-2">
-                    {(['Discussion', 'Question', 'Announcement', 'Resources'] as PostCategory[]).map(category => (
-                      <button
-                        key={category}
-                        type="button"
-                        onClick={() => setSelectedCategory(category)}
-                        className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                          selectedCategory === category
-                            ? 'bg-[#094CA4] text-white shadow-md'
-                            : 'bg-white text-gray-600 border-2 border-gray-200 hover:border-[#094CA4] hover:text-[#094CA4]'
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <button
-                  onClick={handlePost}
-                  disabled={!postContent.trim()}
-                  className="px-8 py-3 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all font-semibold disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg disabled:hover:shadow-md"
-                >
-                  Publish Post
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PostCreationCard
+          currentUser={currentUser}
+          postContent={postContent}
+          onPostContentChange={setPostContent}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          onPublish={handlePost}
+        />
 
         {/* Category Tabs */}
-        <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 mb-6 overflow-hidden">
-          <div className="flex border-b-2 border-gray-100 overflow-x-auto">
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setActiveTab(category)}
-                className={`px-6 py-4 text-sm font-bold whitespace-nowrap transition-all ${
-                  activeTab === category
-                    ? 'text-[#094CA4] border-b-2 border-[#094CA4] bg-blue-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
+        <CategoryTabs
+          categories={categories}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
 
         {/* Posts Feed */}
         <div className="space-y-4">
@@ -223,123 +152,28 @@ export default function CommunityPage() {
             </div>
           ) : (
             filteredPosts.map(post => (
-              <div key={post.id} className="bg-white rounded-2xl shadow-md border-2 border-gray-200 p-6 hover:shadow-lg transition-shadow">
-                {/* Post Header */}
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
-                    <Image
-                      src={post.authorAvatar}
-                      alt={post.authorName}
-                      fill
-                      className="object-cover"
+              <PostCard
+                key={post.id}
+                post={post}
+                isLiked={likedPosts.has(post.id)}
+                isSaved={savedPosts.has(post.id)}
+                showComments={showComments.has(post.id)}
+                onToggleLike={() => toggleLike(post.id)}
+                onToggleSave={() => toggleSave(post.id)}
+                onToggleComments={() => toggleComments(post.id)}
+                commentSection={
+                  showComments.has(post.id) ? (
+                    <CommentSection
+                      postId={post.id}
+                      comments={post.comments}
+                      currentUser={currentUser}
+                      commentValue={commentInputs[post.id] || ''}
+                      onCommentChange={(value) => setCommentInputs(prev => ({ ...prev, [post.id]: value }))}
+                      onCommentSubmit={() => handleComment(post.id)}
                     />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <p className="font-bold text-gray-900">{post.authorName}</p>
-                      <span className={`px-2.5 py-0.5 rounded-lg text-xs font-semibold ${getCategoryColor(post.category)}`}>
-                        {post.category}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-500 font-medium">{post.authorRole}</p>
-                    <p className="text-xs text-gray-400 mt-1" suppressHydrationWarning>{formatTimeAgo(post.createdAt)}</p>
-                  </div>
-                </div>
-
-                {/* Post Content */}
-                <p className="text-gray-700 mb-4 leading-relaxed font-medium">{post.content}</p>
-
-                {/* Post Actions */}
-                <div className="flex items-center gap-6 pt-4 border-t-2 border-gray-100">
-                  <button
-                    onClick={() => toggleLike(post.id)}
-                    className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors font-semibold"
-                  >
-                    <Heart
-                      className={`h-5 w-5 ${likedPosts.has(post.id) ? 'fill-red-600 text-red-600' : ''}`}
-                    />
-                    <span className="text-sm">
-                      {post.likes + (likedPosts.has(post.id) ? 1 : 0)}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => toggleComments(post.id)}
-                    className="flex items-center gap-2 text-gray-600 hover:text-[#094CA4] transition-colors font-semibold"
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    <span className="text-sm">{post.comments.length}</span>
-                  </button>
-
-                  <button
-                    onClick={() => toggleSave(post.id)}
-                    className="flex items-center gap-2 text-gray-600 hover:text-[#094CA4] transition-colors ml-auto font-semibold"
-                  >
-                    <Bookmark
-                      className={`h-5 w-5 ${savedPosts.has(post.id) ? 'fill-[#094CA4] text-[#094CA4]' : ''}`}
-                    />
-                  </button>
-                </div>
-
-                {/* Comments Section */}
-                {showComments.has(post.id) && (
-                  <div className="mt-4 pt-4 border-t-2 border-gray-100">
-                    {/* Existing Comments */}
-                    {post.comments.length > 0 && (
-                      <div className="space-y-3 mb-4">
-                        {post.comments.map(comment => (
-                          <div key={comment.id} className="flex gap-3 bg-gray-50 rounded-xl p-4 border border-gray-200">
-                            <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
-                              <Image
-                                src={comment.authorAvatar}
-                                alt={comment.authorName}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1">
-                                <p className="font-bold text-sm text-gray-900">{comment.authorName}</p>
-                                <span className="text-xs text-gray-400" suppressHydrationWarning>{formatTimeAgo(comment.createdAt)}</span>
-                              </div>
-                              <p className="text-sm text-gray-700 font-medium">{comment.content}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Add Comment */}
-                    <div className="flex gap-3">
-                      <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gray-200">
-                        <Image
-                          src={currentUser.avatar}
-                          alt={currentUser.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 flex gap-2">
-                        <input
-                          type="text"
-                          value={commentInputs[post.id] || ''}
-                          onChange={(e) => setCommentInputs(prev => ({ ...prev, [post.id]: e.target.value }))}
-                          onKeyPress={(e) => e.key === 'Enter' && handleComment(post.id)}
-                          placeholder="Write a comment..."
-                          className="flex-1 px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#094CA4] focus:border-[#094CA4] text-sm font-medium transition-all"
-                        />
-                        <button
-                          onClick={() => handleComment(post.id)}
-                          disabled={!commentInputs[post.id]?.trim()}
-                          className="p-2.5 bg-[#094CA4] text-white rounded-xl hover:bg-[#073a85] transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-                        >
-                          <Send className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+                  ) : undefined
+                }
+              />
             ))
           )}
         </div>
