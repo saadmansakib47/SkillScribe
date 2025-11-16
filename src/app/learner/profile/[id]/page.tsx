@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getLearnerById } from '../../../../lib/learners';
 import { COURSES } from '../../../../lib/courses';
-import { Award, Clock, BookOpen, Target, Edit2, TrendingUp, Flame, Trophy, PlayCircle, ChevronRight } from 'lucide-react';
+import { Award, Clock, BookOpen, Target, TrendingUp, Flame, Trophy, PlayCircle, ChevronRight } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ProfileHero, StatCard, ContinueLearningCard, PersonalInfoCard, SkillsCard, InterestsCard } from '@/components/learner/profile';
 
 export default function LearnerProfilePage() {
   const params = useParams();
@@ -73,49 +74,14 @@ export default function LearnerProfilePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Welcome Hero Section */}
-        <div className="bg-gradient-to-r from-[#094CA4] to-[#1E88E5] rounded-2xl p-8 mb-6 text-white shadow-lg">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-6">
-              <div className="relative flex-shrink-0">
-                <div className="w-24 h-24 rounded-full overflow-hidden bg-white border-4 border-white shadow-xl">
-                  <Image
-                    src={learner.avatar}
-                    alt={learner.name}
-                    width={96}
-                    height={96}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                {learningStreak >= 3 && (
-                  <div className="absolute -bottom-1 -right-1 bg-orange-500 rounded-full p-1.5 shadow-lg">
-                    <Flame className="h-4 w-4 text-white" />
-                  </div>
-                )}
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold mb-2">Welcome back, {learner.name.split(' ')[0]}! 👋</h1>
-                <p className="text-blue-100 mb-2">{learner.bio}</p>
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full">
-                    <Flame className="h-4 w-4" />
-                    {learningStreak} day streak
-                  </span>
-                  <span className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full">
-                    <Clock className="h-4 w-4" />
-                    {weeklyHours}h this week
-                  </span>
-                </div>
-              </div>
-            </div>
-            <Link 
-              href={`/learner/profile/${learnerId}/edit`}
-              className="flex items-center gap-2 px-8 py-3.5 bg-white text-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-bold shadow-lg hover:shadow-xl border-2 border-white hover:border-blue-100"
-            >
-              <Edit2 className="h-5 w-5" />
-              Edit Profile
-            </Link>
-          </div>
-        </div>
+        <ProfileHero
+          learnerId={learnerId}
+          name={learner.name}
+          bio={learner.bio}
+          avatar={learner.avatar}
+          learningStreak={learningStreak}
+          weeklyHours={weeklyHours}
+        />
 
         {/* Tab Navigation */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
@@ -163,90 +129,54 @@ export default function LearnerProfilePage() {
               transition={{ duration: 0.5 }}
               className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6"
             >
-              <motion.div 
-                whileHover={{ scale: 1.02, y: -4 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 shadow-md">
-                    <BookOpen className="h-6 w-6 text-white" />
-                  </div>
+              <StatCard
+                icon={BookOpen}
+                value={enrolledCourseDetails.length}
+                label="Enrolled Courses"
+                bgGradient="bg-gradient-to-br from-blue-500 to-blue-600"
+                badge={
                   <div className="flex items-center gap-1 text-green-600">
                     <TrendingUp className="h-4 w-4" />
                     <span className="text-xs font-semibold">+{inProgressCourseDetails.length}</span>
                   </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-900 mb-1">{enrolledCourseDetails.length}</p>
-                <p className="text-sm text-gray-600 font-medium">Enrolled Courses</p>
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                  <p className="text-xs text-gray-500">
-                    {inProgressCourseDetails.length} in progress
-                  </p>
-                </div>
-              </motion.div>
+                }
+                footer={`${inProgressCourseDetails.length} in progress`}
+                delay={0}
+              />
 
-              <motion.div 
-                whileHover={{ scale: 1.02, y: -4 }}
-                transition={{ type: "spring", stiffness: 300, delay: 0.05 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600 shadow-md">
-                    <Award className="h-6 w-6 text-white" />
-                  </div>
-                  <Trophy className="h-5 w-5 text-yellow-500" />
-                </div>
-                <p className="text-3xl font-bold text-gray-900 mb-1">{completedCourseDetails.length}</p>
-                <p className="text-sm text-gray-600 font-medium">Completed</p>
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                  <p className="text-xs text-gray-500">
-                    {completionRate}% completion rate
-                  </p>
-                </div>
-              </motion.div>
+              <StatCard
+                icon={Award}
+                value={completedCourseDetails.length}
+                label="Completed"
+                bgGradient="bg-gradient-to-br from-green-500 to-emerald-600"
+                badge={<Trophy className="h-5 w-5 text-yellow-500" />}
+                footer={`${completionRate}% completion rate`}
+                delay={0.05}
+              />
 
-              <motion.div 
-                whileHover={{ scale: 1.02, y: -4 }}
-                transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-orange-500 to-red-500 shadow-md">
-                    <Clock className="h-6 w-6 text-white" />
-                  </div>
+              <StatCard
+                icon={Clock}
+                value={`${learner.totalLearningHours}h`}
+                label="Learning Time"
+                bgGradient="bg-gradient-to-br from-orange-500 to-red-500"
+                badge={
                   <div className="flex items-center gap-1 text-orange-600">
                     <span className="text-xs font-semibold">+{weeklyHours}h</span>
                   </div>
-                </div>
-                <p className="text-3xl font-bold text-gray-900 mb-1">{learner.totalLearningHours}h</p>
-                <p className="text-sm text-gray-600 font-medium">Learning Time</p>
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                  <p className="text-xs text-gray-500">
-                    {weeklyHours}h this week
-                  </p>
-                </div>
-              </motion.div>
+                }
+                footer={`${weeklyHours}h this week`}
+                delay={0.1}
+              />
 
-              <motion.div 
-                whileHover={{ scale: 1.02, y: -4 }}
-                transition={{ type: "spring", stiffness: 300, delay: 0.15 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-600 shadow-md">
-                    <Target className="h-6 w-6 text-white" />
-                  </div>
-                  <span className="text-2xl">🏆</span>
-                </div>
-                <p className="text-3xl font-bold text-gray-900 mb-1">{learner.certificatesEarned}</p>
-                <p className="text-sm text-gray-600 font-medium">Certificates</p>
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                  <p className="text-xs text-gray-500">
-                    {learner.achievements.length} achievements
-                  </p>
-                </div>
-              </motion.div>
+              <StatCard
+                icon={Target}
+                value={learner.certificatesEarned}
+                label="Certificates"
+                bgGradient="bg-gradient-to-br from-purple-500 to-pink-600"
+                badge={<span className="text-2xl">🏆</span>}
+                footer={`${learner.achievements.length} achievements`}
+                delay={0.15}
+              />
             </motion.div>
 
             {/* Continue Learning Section */}
@@ -284,50 +214,12 @@ export default function LearnerProfilePage() {
                   {inProgressCourseDetails.slice(0, 3).map((course, index) => {
                     const progress = learner.courseProgress[course.id] || 0;
                     return (
-                      <motion.div
+                      <ContinueLearningCard
                         key={course.id}
-                        variants={{
-                          hidden: { opacity: 0, x: -20 },
-                          visible: { opacity: 1, x: 0 }
-                        }}
-                      >
-                        <Link
-                          href={`/learner/course/${course.id}/player`}
-                          className="flex items-center gap-4 p-4 rounded-xl border-2 border-gray-200 hover:border-[#094CA4] hover:shadow-md transition-all group"
-                        >
-                          <div className="relative w-28 h-20 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
-                            <Image
-                              src={course.image}
-                              alt={course.title}
-                              fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                                <PlayCircle className="h-7 w-7 text-[#094CA4]" />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-bold text-gray-900 text-base mb-1 truncate group-hover:text-[#094CA4] transition-colors">
-                              {course.title}
-                            </h3>
-                            <p className="text-xs text-gray-500 mb-3">{course.instructorName}</p>
-                            <div className="flex items-center gap-3">
-                              <div className="flex-1 bg-gray-200 rounded-full h-2.5 max-w-xs shadow-inner">
-                                <motion.div 
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${progress}%` }}
-                                  transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                                  className="h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-sm"
-                                ></motion.div>
-                              </div>
-                              <span className="text-sm font-bold text-[#094CA4] min-w-[3rem] text-right">{progress}%</span>
-                            </div>
-                          </div>
-                          <ChevronRight className="h-6 w-6 text-gray-400 group-hover:text-[#094CA4] group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </motion.div>
+                        course={course}
+                        progress={progress}
+                        index={index}
+                      />
                     );
                   })}
                 </motion.div>
@@ -419,54 +311,18 @@ export default function LearnerProfilePage() {
               {/* Right Column - Sidebar */}
               <div className="space-y-6">
                 {/* Personal Info Card */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h2 className="text-lg font-bold text-gray-900 mb-4">Personal Info</h2>
-                  <div className="space-y-3">
-                    <div>
-                      <p className="text-xs text-gray-500 mb-1">Email</p>
-                      <p className="text-sm font-medium text-gray-900 truncate">{learner.email}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500 mb-1">Location</p>
-                      <p className="text-sm font-medium text-gray-900">{learner.location}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500 mb-1">Member Since</p>
-                      <p className="text-sm font-medium text-gray-900">{formatDate(learner.joinedDate)}</p>
-                    </div>
-                  </div>
-                </div>
+                <PersonalInfoCard
+                  email={learner.email}
+                  location={learner.location}
+                  joinedDate={learner.joinedDate}
+                  formatDate={formatDate}
+                />
 
                 {/* Skills */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h2 className="text-lg font-bold text-gray-900 mb-4">Skills</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {learner.skills.map((skill, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-300 bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <SkillsCard skills={learner.skills} />
 
                 {/* Interests */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                  <h2 className="text-lg font-bold text-gray-900 mb-4">Interests</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {learner.interests.map((interest, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 rounded-lg text-xs font-medium text-white hover:opacity-90 transition-opacity"
-                        style={{ backgroundColor: '#094CA4' }}
-                      >
-                        {interest}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <InterestsCard interests={learner.interests} />
               </div>
             </div>
           </>
