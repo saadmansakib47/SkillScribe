@@ -13,20 +13,20 @@ export default function CourseStatsTable() {
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-const courses = [
-  { title: "Artificial Intelligence", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/ai.jpg" },
-  { title: "Robotics", category: "Computer Science", rating: 4.3, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/robo.jpg" },
-  { title: "Cyber Security", category: "Computer Science", rating: 3.5, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/cyber.jpg" },
-  { title: "Laravel", category: "Computer Science", rating: 4.9, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/laravel.jpg" },
-];
+  const courses = [
+    { title: "Artificial Intelligence", category: "Computer Science", rating: 4.7, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/ai.jpg" },
+    { title: "Robotics", category: "Computer Science", rating: 4.3, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/robo.jpg" },
+    { title: "Cyber Security", category: "Computer Science", rating: 3.5, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/cyber.jpg" },
+    { title: "Laravel", category: "Computer Science", rating: 4.9, visit: "25,300", sale: 6, earnings: "$170.00", img: "/Asset/laravel.jpg" },
+  ];
 
 
   const filteredCourses =
     selectedCategory === "all"
       ? courses
       : courses.filter(
-          (c) => c.category === options.find((o) => o.value === selectedCategory)?.label
-        );
+        (c) => c.category === options.find((o) => o.value === selectedCategory)?.label
+      );
 
   const handleSelectCategory = (value: string) => {
     setSelectedCategory(value);
@@ -35,26 +35,35 @@ const courses = [
 
   // Renders fractional stars using two layered SVGs
   const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }).map((_, i) => {
-      const fill = Math.min(Math.max(rating - i, 0), 1) * 100; // % of the star to fill
-      return (
-        <div key={i} className="relative w-4 h-4 inline-block">
-          {/* Gray star background */}
-          <svg viewBox="0 0 20 20" className="absolute top-0 left-0 w-full h-full text-gray-300">
-            <path d="M10 1.5l2.95 6 6.55.95-4.75 4.63 1.12 6.53L10 16.27l-5.87 3.08L5.25 13.1 0.5 8.47l6.55-.95L10 1.5z" fill="currentColor"/>
-          </svg>
-          {/* Yellow filled part */}
-          <svg
-            viewBox="0 0 20 20"
-            className="absolute top-0 left-0 h-full"
-            style={{ width: `${fill}%`, overflow: "hidden" }}
-          >
-            <path d="M10 1.5l2.95 6 6.55.95-4.75 4.63 1.12 6.53L10 16.27l-5.87 3.08L5.25 13.1 0.5 8.47l6.55-.95L10 1.5z" fill="#facc15" />
+  return Array.from({ length: 5 }).map((_, i) => {
+    const fill = Math.min(Math.max(rating - i, 0), 1) * 100; // % of the star to fill
+
+    return (
+      <div key={i} className="relative w-4 h-4 inline-block">
+        {/* Gray star background */}
+        <svg
+          viewBox="0 0 20 20"
+          className="absolute top-0 left-0 w-4 h-4 text-gray-300"
+          fill="currentColor"
+        >
+          <path d="M10 1.5l2.95 6 6.55.95-4.75 4.63 1.12 6.53L10 16.27l-5.87 3.08L5.25 13.1 0.5 8.47l6.55-.95L10 1.5z" />
+        </svg>
+
+        {/* Yellow filled part */}
+        <div
+          className="absolute top-0 left-0 h-4 overflow-hidden"
+          style={{ width: `${fill}%` }}
+        >
+          <svg viewBox="0 0 20 20" className="w-4 h-4" fill="#facc15">
+            <path d="M10 1.5l2.95 6 6.55.95-4.75 4.63 1.12 6.53L10 16.27l-5.87 3.08L5.25 13.1 0.5 8.47l6.55-.95L10 1.5z" />
           </svg>
         </div>
-      );
-    });
-  };
+      </div>
+    );
+  });
+};
+
+
 
   return (
     <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-4">
@@ -87,9 +96,8 @@ const courses = [
                           <button
                             key={opt.value}
                             onClick={() => handleSelectCategory(opt.value)}
-                            className={`block w-full text-left text-sm px-3 py-2 hover:bg-blue-50 hover:text-blue-600 ${
-                              selectedCategory === opt.value ? "text-blue-600 font-medium" : "text-gray-700"
-                            }`}
+                            className={`block w-full text-left text-sm px-3 py-2 hover:bg-blue-50 hover:text-blue-600 ${selectedCategory === opt.value ? "text-blue-600 font-medium" : "text-gray-700"
+                              }`}
                           >
                             {opt.label}
                           </button>
