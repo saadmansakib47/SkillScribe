@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { getLearnerById } from '@/lib/learners';
 import { ArrowLeft, User, Bell, Lock, Palette, Save, Shield } from 'lucide-react';
+import { SettingsSection, ToggleSetting, SettingItem } from '@/components/learner/settings';
 
 type SettingsType = {
   emailNotifications: boolean;
@@ -125,229 +126,173 @@ export default function SettingsPage() {
         </div>
 
         {/* Account Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-              <User className="h-5 w-5 text-[#094CA4]" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">Account Information</h3>
-              <p className="text-sm text-gray-600">Manage your personal information</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="flex items-center justify-between py-3 border-b border-gray-100">
-              <div>
-                <p className="font-medium text-gray-900">Name</p>
-                <p className="text-sm text-gray-600">{currentUser.name}</p>
-              </div>
-              <Link
-                href={`/learner/profile/${currentUser.id}/edit`}
-                className="text-sm text-[#094CA4] hover:underline font-medium"
-              >
-                Edit
-              </Link>
-            </div>
-            <div className="flex items-center justify-between py-3 border-b border-gray-100">
-              <div>
-                <p className="font-medium text-gray-900">Email</p>
-                <p className="text-sm text-gray-600">{currentUser.email}</p>
-              </div>
-              <Link
-                href={`/learner/profile/${currentUser.id}/edit`}
-                className="text-sm text-[#094CA4] hover:underline font-medium"
-              >
-                Edit
-              </Link>
-            </div>
-            <div className="flex items-center justify-between py-3">
-              <div>
-                <p className="font-medium text-gray-900">Location</p>
-                <p className="text-sm text-gray-600">{currentUser.location}</p>
-              </div>
-              <Link
-                href={`/learner/profile/${currentUser.id}/edit`}
-                className="text-sm text-[#094CA4] hover:underline font-medium"
-              >
-                Edit
-              </Link>
-            </div>
-          </div>
-        </div>
+        <SettingsSection
+          icon={User}
+          iconBgColor="bg-blue-100"
+          iconColor="text-[#094CA4]"
+          title="Account Information"
+          subtitle="Manage your personal information"
+        >
+          <SettingItem
+            label="Name"
+            value={currentUser.name}
+            actionLabel="Edit"
+            actionHref={`/learner/profile/${currentUser.id}/edit`}
+          />
+          <SettingItem
+            label="Email"
+            value={currentUser.email}
+            actionLabel="Edit"
+            actionHref={`/learner/profile/${currentUser.id}/edit`}
+          />
+          <SettingItem
+            label="Location"
+            value={currentUser.location}
+            actionLabel="Edit"
+            actionHref={`/learner/profile/${currentUser.id}/edit`}
+          />
+        </SettingsSection>
 
         {/* Email Preferences */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-              <Bell className="h-5 w-5 text-purple-600" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">Email Preferences</h3>
-              <p className="text-sm text-gray-600">Control what emails you receive</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <ToggleSetting
-              label="Email Notifications"
-              description="Receive notifications about your account activity"
-              checked={settings.emailNotifications}
-              onChange={() => handleToggle('emailNotifications')}
-            />
-            <ToggleSetting
-              label="Course Updates"
-              description="Get notified when instructors add new content"
-              checked={settings.courseUpdates}
-              onChange={() => handleToggle('courseUpdates')}
-            />
-            <ToggleSetting
-              label="Community Replies"
-              description="Receive notifications when someone replies to your posts"
-              checked={settings.communityReplies}
-              onChange={() => handleToggle('communityReplies')}
-            />
-            <ToggleSetting
-              label="Marketing Emails"
-              description="Receive promotional offers and course recommendations"
-              checked={settings.marketingEmails}
-              onChange={() => handleToggle('marketingEmails')}
-            />
-            <ToggleSetting
-              label="Weekly Digest"
-              description="Get a summary of your learning progress every week"
-              checked={settings.weeklyDigest}
-              onChange={() => handleToggle('weeklyDigest')}
-            />
-          </div>
-        </div>
+        <SettingsSection
+          icon={Bell}
+          iconBgColor="bg-purple-100"
+          iconColor="text-purple-600"
+          title="Email Preferences"
+          subtitle="Control what emails you receive"
+        >
+          <ToggleSetting
+            label="Email Notifications"
+            description="Receive notifications about your account activity"
+            checked={settings.emailNotifications}
+            onChange={() => handleToggle('emailNotifications')}
+          />
+          <ToggleSetting
+            label="Course Updates"
+            description="Get notified when instructors add new content"
+            checked={settings.courseUpdates}
+            onChange={() => handleToggle('courseUpdates')}
+          />
+          <ToggleSetting
+            label="Community Replies"
+            description="Receive notifications when someone replies to your posts"
+            checked={settings.communityReplies}
+            onChange={() => handleToggle('communityReplies')}
+          />
+          <ToggleSetting
+            label="Marketing Emails"
+            description="Receive promotional offers and course recommendations"
+            checked={settings.marketingEmails}
+            onChange={() => handleToggle('marketingEmails')}
+          />
+          <ToggleSetting
+            label="Weekly Digest"
+            description="Get a summary of your learning progress every week"
+            checked={settings.weeklyDigest}
+            onChange={() => handleToggle('weeklyDigest')}
+          />
+        </SettingsSection>
 
         {/* Privacy Settings */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-              <Shield className="h-5 w-5 text-green-600" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">Privacy</h3>
-              <p className="text-sm text-gray-600">Manage your privacy preferences</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <ToggleSetting
-              label="Public Profile"
-              description="Allow others to view your profile and learning activity"
-              checked={settings.showProfile}
-              onChange={() => handleToggle('showProfile')}
-            />
-            <ToggleSetting
-              label="Share Learning Progress"
-              description="Show your course progress on your profile"
-              checked={settings.shareProgress}
-              onChange={() => handleToggle('shareProgress')}
-            />
-            <ToggleSetting
-              label="Show Achievements"
-              description="Display your achievements and certificates publicly"
-              checked={settings.showAchievements}
-              onChange={() => handleToggle('showAchievements')}
-            />
-          </div>
-        </div>
+        <SettingsSection
+          icon={Shield}
+          iconBgColor="bg-green-100"
+          iconColor="text-green-600"
+          title="Privacy"
+          subtitle="Manage your privacy preferences"
+        >
+          <ToggleSetting
+            label="Public Profile"
+            description="Allow others to view your profile and learning activity"
+            checked={settings.showProfile}
+            onChange={() => handleToggle('showProfile')}
+          />
+          <ToggleSetting
+            label="Share Learning Progress"
+            description="Show your course progress on your profile"
+            checked={settings.shareProgress}
+            onChange={() => handleToggle('shareProgress')}
+          />
+          <ToggleSetting
+            label="Show Achievements"
+            description="Display your achievements and certificates publicly"
+            checked={settings.showAchievements}
+            onChange={() => handleToggle('showAchievements')}
+          />
+        </SettingsSection>
 
         {/* Learning Preferences */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
-              <Palette className="h-5 w-5 text-orange-600" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">Learning Preferences</h3>
-              <p className="text-sm text-gray-600">Customize your learning experience</p>
-            </div>
+        <SettingsSection
+          icon={Palette}
+          iconBgColor="bg-orange-100"
+          iconColor="text-orange-600"
+          title="Learning Preferences"
+          subtitle="Customize your learning experience"
+        >
+          {/* Language */}
+          <div>
+            <label className="block font-medium text-gray-900 mb-2">Language</label>
+            <select
+              value={settings.language}
+              onChange={(e) => handleSelectChange('language', e.target.value)}
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#094CA4] focus:border-transparent text-gray-700"
+            >
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="zh">中文</option>
+            </select>
           </div>
-          
-          <div className="space-y-6">
-            {/* Language */}
-            <div>
-              <label className="block font-medium text-gray-900 mb-2">Language</label>
-              <select
-                value={settings.language}
-                onChange={(e) => handleSelectChange('language', e.target.value)}
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#094CA4] focus:border-transparent text-gray-700"
-              >
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="zh">中文</option>
-              </select>
-            </div>
 
-            {/* Theme */}
-            <div>
-              <label className="block font-medium text-gray-900 mb-2">Theme</label>
-              <select
-                value={settings.theme}
-                onChange={(e) => handleSelectChange('theme', e.target.value)}
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#094CA4] focus:border-transparent text-gray-700"
-              >
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="auto">Auto (System)</option>
-              </select>
-            </div>
-
-            {/* Video Settings */}
-            <ToggleSetting
-              label="Autoplay Videos"
-              description="Automatically play the next video in a course"
-              checked={settings.autoplay}
-              onChange={() => handleToggle('autoplay')}
-            />
-            <ToggleSetting
-              label="Enable Subtitles"
-              description="Show subtitles by default when available"
-              checked={settings.subtitles}
-              onChange={() => handleToggle('subtitles')}
-            />
+          {/* Theme */}
+          <div>
+            <label className="block font-medium text-gray-900 mb-2">Theme</label>
+            <select
+              value={settings.theme}
+              onChange={(e) => handleSelectChange('theme', e.target.value)}
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#094CA4] focus:border-transparent text-gray-700"
+            >
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+              <option value="auto">Auto (System)</option>
+            </select>
           </div>
-        </div>
+
+          {/* Video Settings */}
+          <ToggleSetting
+            label="Autoplay Videos"
+            description="Automatically play the next video in a course"
+            checked={settings.autoplay}
+            onChange={() => handleToggle('autoplay')}
+          />
+          <ToggleSetting
+            label="Enable Subtitles"
+            description="Show subtitles by default when available"
+            checked={settings.subtitles}
+            onChange={() => handleToggle('subtitles')}
+          />
+        </SettingsSection>
 
         {/* Security */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center">
-              <Lock className="h-5 w-5 text-red-600" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">Security</h3>
-              <p className="text-sm text-gray-600">Manage your account security</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="flex items-center justify-between py-3 border-b border-gray-100">
-              <div>
-                <p className="font-medium text-gray-900">Password</p>
-                <p className="text-sm text-gray-600">Last changed 3 months ago</p>
-              </div>
-              <button className="text-sm text-[#094CA4] hover:underline font-medium">
-                Change Password
-              </button>
-            </div>
-            <div className="flex items-center justify-between py-3">
-              <div>
-                <p className="font-medium text-gray-900">Two-Factor Authentication</p>
-                <p className="text-sm text-gray-600">Add an extra layer of security</p>
-              </div>
-              <button className="text-sm text-[#094CA4] hover:underline font-medium">
-                Enable
-              </button>
-            </div>
-          </div>
-        </div>
+        <SettingsSection
+          icon={Lock}
+          iconBgColor="bg-red-100"
+          iconColor="text-red-600"
+          title="Security"
+          subtitle="Manage your account security"
+        >
+          <SettingItem
+            label="Password"
+            value="Last changed 3 months ago"
+            actionLabel="Change Password"
+          />
+          <SettingItem
+            label="Two-Factor Authentication"
+            value="Add an extra layer of security"
+            actionLabel="Enable"
+          />
+        </SettingsSection>
 
         {/* Save Button */}
         <div className="flex items-center justify-between bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -369,40 +314,6 @@ export default function SettingsPage() {
           </button>
         </div>
       </div>
-    </div>
-  );
-}
-
-// Toggle Setting Component
-function ToggleSetting({ 
-  label, 
-  description, 
-  checked, 
-  onChange 
-}: { 
-  label: string; 
-  description: string; 
-  checked: boolean; 
-  onChange: () => void;
-}) {
-  return (
-    <div className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0">
-      <div className="flex-1">
-        <p className="font-medium text-gray-900">{label}</p>
-        <p className="text-sm text-gray-600 mt-0.5">{description}</p>
-      </div>
-      <button
-        onClick={onChange}
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#094CA4] focus:ring-offset-2 ${
-          checked ? 'bg-[#094CA4]' : 'bg-gray-300'
-        }`}
-      >
-        <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            checked ? 'translate-x-6' : 'translate-x-1'
-          }`}
-        />
-      </button>
     </div>
   );
 }
