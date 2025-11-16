@@ -12,6 +12,11 @@ import {
 } from "@/components/ui/select";
 import { getReviewsForCourse } from "@/lib/reviews";
 
+const courses = [
+  { id: "21", name: "Machine Learning with Python" },
+  { id: "all", name: "All Courses" },
+];
+
 export default function ReviewFilterBar({
   courseId,
   onFilteredReviews,
@@ -19,8 +24,10 @@ export default function ReviewFilterBar({
   courseId: number;
   onFilteredReviews: (filtered: any[]) => void;
 }) {
-  const [courseFilter, setCourseFilter] = useState("all");
-  const [ratingFilter, setRatingFilter] = useState("all");
+  // Dual state: ID for logic, name for display
+  const [courseFilter, setCourseFilter] = useState<string>("all");
+  const [courseName, setCourseName] = useState<string>("All Courses"); // Display name
+  const [ratingFilter, setRatingFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [allReviews, setAllReviews] = useState<any[]>([]);
 
@@ -35,7 +42,7 @@ export default function ReviewFilterBar({
   useEffect(() => {
     const query = searchQuery.trim().toLowerCase();
 
-    let filtered = allReviews.filter((r) => {
+    const filtered = allReviews.filter((r) => {
       const matchesSearch =
         r.userName.toLowerCase().includes(query) ||
         r.text.toLowerCase().includes(query) ||
@@ -43,15 +50,22 @@ export default function ReviewFilterBar({
 
       const matchesRating =
         ratingFilter === "all" || r.rating === Number(ratingFilter);
-
       const matchesCourse =
-        courseFilter === "all" || r.courseId === Number(courseFilter);
+        courseFilter === "all" || r.courseId.toString() === courseFilter;
+
 
       return matchesSearch && matchesRating && matchesCourse;
     });
 
     onFilteredReviews(filtered);
   }, [searchQuery, ratingFilter, courseFilter, allReviews]);
+
+  // Handle course selection
+  const handleCourseChange = (id: string) => {
+    setCourseFilter(id);
+    const course = courses.find((c) => c.id === id);
+    setCourseName(course?.name ?? "All Courses");
+  };
 
   return (
     <div className="flex flex-wrap items-center gap-4 bg-white border border-gray-200 rounded-[8px] p-4 shadow-sm">
@@ -62,13 +76,19 @@ export default function ReviewFilterBar({
         </label>
         <Select value={courseFilter} onValueChange={setCourseFilter}>
           <SelectTrigger className="w-[180px]">
+            {/* Only use placeholder */}
             <SelectValue placeholder="All Courses" />
           </SelectTrigger>
+
           <SelectContent>
-            <SelectItem value="all">All Courses</SelectItem>
-            <SelectItem value="21">Machine Learning with Python</SelectItem>
+            {courses.map((course) => (
+              <SelectItem key={course.id} value={course.id}>
+                {course.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
+
       </div>
 
       {/* Filter by Rating */}
