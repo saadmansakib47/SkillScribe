@@ -86,12 +86,6 @@ export default function CourseContentManager() {
           <Plus className="w-4 h-4" /> Add Module
         </Button>
         <div className="flex gap-3">
-          <Button
-            variant="outline"
-            className="text-sm border border-black/90 rounded-[8px] hover:bg-gray-100"
-          >
-            Create Quiz
-          </Button>
           <Button className="bg-[#4C6FFF] hover:bg-[#3b58d8] text-white text-sm rounded-[8px]">
             Submit for Review
           </Button>

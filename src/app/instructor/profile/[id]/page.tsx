@@ -1,5 +1,5 @@
 import { INSTRUCTORS, getInstructorById, getCoursesForInstructor } from "@/lib/instructors";
-import InstructorHeader from "@/components/instructor/instructorHeader";
+import InstructorHeader from "@/components/instructor/instructorProfileHeader";
 import InstructorStats from "@/components/instructor/instructorStats";
 import CourseListByInstructor from "@/components/instructor/courseListbyInstructor"
 import InstructorLayout from "../../instructorlayout";
