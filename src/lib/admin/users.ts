@@ -83,7 +83,7 @@ const additionalUsers: User[] = [
     lastLogin: undefined
   },
   {
-    id: 201,
+    id: 999,
     name: 'Admin',
     email: 'admin@skillscribe.com',
     role: 'admin',

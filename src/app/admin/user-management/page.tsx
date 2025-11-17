@@ -19,21 +19,21 @@ export default function UserManagementPage() {
     let filtered = [...users];
 
     // Apply search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+    if (searchQuery && searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase().trim();
       filtered = filtered.filter(user =>
         user.name.toLowerCase().includes(query) ||
         user.email.toLowerCase().includes(query)
       );
     }
 
-    // Apply role filter
-    if (roleFilter !== 'all') {
+    // Apply role filter - must be exact match
+    if (roleFilter && roleFilter !== 'all') {
       filtered = filtered.filter(user => user.role === roleFilter);
     }
 
-    // Apply status filter
-    if (statusFilter !== 'all') {
+    // Apply status filter - must be exact match
+    if (statusFilter && statusFilter !== 'all') {
       filtered = filtered.filter(user => user.status === statusFilter);
     }
 
