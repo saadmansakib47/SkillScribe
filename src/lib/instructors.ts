@@ -148,7 +148,7 @@ export const INSTRUCTORS: Instructor[] = [
   {
     id: 9,
     name: 'Kate Weber',
-    image: '/Asset/kate.jpg',
+    image: '/Asset/Kate weber.png',
     courseIds: [12, 2],
     bio: 'Creative designer with extensive experience in digital illustration and branding.',
     expertise: ['Illustration', 'Brand Identity'],
@@ -163,7 +163,7 @@ export const INSTRUCTORS: Instructor[] = [
   {
     id: 10,
     name: 'John Hamilton',
-    image: '/Asset/john.jpg',
+    image: '/Asset/john hamilton.jpg',
     courseIds: [10, 5],
     bio: 'Experienced mobile app developer teaching practical iOS and Android workflows.',
     expertise: ['Flutter', 'Mobile Development'],
@@ -178,7 +178,7 @@ export const INSTRUCTORS: Instructor[] = [
   {
     id: 11,
     name: 'Sadia Islam',
-    image: '/Asset/sadia.jpg',
+    image: '/Asset/sadia islam.jpg',
     courseIds: [1],
     bio: 'Beginner‑friendly programming instructor focusing on strong fundamentals.',
     expertise: ['Python', 'Programming'],
