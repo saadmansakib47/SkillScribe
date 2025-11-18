@@ -56,7 +56,7 @@ const additionalUsers: User[] = [
     id: 201,
     name: 'Lisa Anderson',
     email: 'lisa.anderson@example.com',
-    role: 'learner',
+    role: 'instructor',
     status: 'pending',
     registrationDate: '2024-11-10',
     avatar: '/Asset/lisa.jpeg',
