@@ -1,9 +1,9 @@
-// File: lib/admin/users.ts
 import { LEARNERS } from '../learners';
 import { INSTRUCTORS } from '../instructors';
 
 export type UserRole = 'learner' | 'instructor' | 'admin';
 export type UserStatus = 'active' | 'suspended' | 'pending';
+export type SuspensionDuration = '1day' | '7days' | '15days' | '30days' | 'permanent';
 
 export interface User {
   id: number;
@@ -14,6 +14,10 @@ export interface User {
   registrationDate: string;
   avatar?: string;
   lastLogin?: string;
+  suspensionReason?: string;
+  suspensionDuration?: SuspensionDuration;
+  suspendedDate?: string;
+  reinstateDate?: string;
 }
 
 // Transform learners to users format
@@ -50,7 +54,10 @@ const additionalUsers: User[] = [
     status: 'suspended',
     registrationDate: '2024-02-28',
     avatar: '/Asset/jessica.jpeg',
-    lastLogin: '2024-10-20'
+    lastLogin: '2024-10-20',
+    suspensionReason: 'Violation of community guidelines',
+    suspensionDuration: 'permanent',
+    suspendedDate: '2024-10-20'
   },
   {
     id: 201,
@@ -70,7 +77,11 @@ const additionalUsers: User[] = [
     status: 'suspended',
     registrationDate: '2024-04-18',
     avatar: '/Asset/linda.jpeg',
-    lastLogin: '2024-09-12'
+    lastLogin: '2024-09-12',
+    suspensionReason: 'Inappropriate course content',
+    suspensionDuration: '30days',
+    suspendedDate: '2024-10-15',
+    reinstateDate: '2024-11-14'
   },
   {
     id: 203,
@@ -123,4 +134,32 @@ export function searchUsers(query: string): User[] {
     user.name.toLowerCase().includes(lowerQuery) ||
     user.email.toLowerCase().includes(lowerQuery)
   );
+}
+
+// Suspension helper functions
+export function getDurationLabel(duration: SuspensionDuration): string {
+  switch (duration) {
+    case '1day':
+      return '1 Day';
+    case '7days':
+      return '7 Days';
+    case '15days':
+      return '15 Days';
+    case '30days':
+      return '30 Days';
+    case 'permanent':
+      return 'Permanent';
+    default:
+      return duration;
+  }
+}
+
+export function calculateReinstateDate(suspendedDate: string, duration: SuspensionDuration): string | undefined {
+  if (duration === 'permanent') return undefined;
+  
+  const date = new Date(suspendedDate);
+  const daysToAdd = parseInt(duration.replace('days', '').replace('day', ''));
+  date.setDate(date.getDate() + daysToAdd);
+  
+  return date.toISOString().split('T')[0];
 }
