@@ -88,11 +88,11 @@ export default function SignUp() {
               <input type="checkbox" id="terms" className="mt-1" />
               <label htmlFor="terms" className="text-sm text-gray-600">
                 You agree to the{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <a href="/terms-conditions" className="text-blue-600 hover:underline">
                   Terms And Conditions
                 </a>{" "}
                 and{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <a href="/privacy-policy" className="text-blue-600 hover:underline">
                   Privacy Policy
                 </a>
               </label>
