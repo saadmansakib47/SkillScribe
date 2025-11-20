@@ -18,7 +18,7 @@ const AnimatedLine = ({ x1, y1, x2, y2, delay }: LineProps) => (
     x2={x2}
     y2={y2}
     stroke="#051e84ff"
-    strokeWidth={1}
+    strokeWidth={1.5}
     strokeLinecap="round"
     initial={{ pathLength: 0, opacity: 0 }}
     animate={{ pathLength: 1, opacity: 1 }}
