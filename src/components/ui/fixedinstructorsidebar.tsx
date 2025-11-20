@@ -14,7 +14,7 @@ export default function FixedSidebar() {
     { icon: Calendar, label: "My Schedule", href: "/instructor/myschedule" },
     { icon: Star, label: "Review", href: "/instructor/review" },
     { icon: MessageCircle, label: "Messages", href: "/instructor/message" },
-    { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
+    { icon: HelpCircle, label: "Q&A", href: "/learner/community" },
     { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];
 

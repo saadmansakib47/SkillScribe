@@ -11,6 +11,7 @@ import {
   ApplicationReviewModal,
   ApplicationFilters
 } from '@/components/admin/instructor-verification';
+import AdminLayout from '../adminLayout';
 
 export default function InstructorVerificationPage() {
   // State management
@@ -63,15 +64,11 @@ export default function InstructorVerificationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F3] py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Instructor Verification</h1>
-          <p className="text-gray-600">Review and approve instructor applications</p>
-        </div>
+    <AdminLayout>
+      <div className="min-h-screen bg-[#FAF7F3] py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+<<<<<<< HEAD
         {/* Filters */
         <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
           <ApplicationFilters
@@ -100,7 +97,87 @@ export default function InstructorVerificationPage() {
           onApprove={handleApprove}
           onReject={handleReject}
         />
+=======
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Instructor Verification</h1>
+            <p className="text-gray-600">Review and approve instructor applications</p>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                  <ClipboardCheck className="h-6 w-6 text-blue-600" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total}</p>
+              <p className="text-sm text-gray-600 font-medium">Total Applications</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-12 h-12 rounded-xl bg-yellow-100 flex items-center justify-center">
+                  <Clock className="h-6 w-6 text-yellow-600" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.pending}</p>
+              <p className="text-sm text-gray-600 font-medium">Pending</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+                  <CheckCircle className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.approved}</p>
+              <p className="text-sm text-gray-600 font-medium">Approved</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
+                  <XCircle className="h-6 w-6 text-red-600" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.rejected}</p>
+              <p className="text-sm text-gray-600 font-medium">Rejected</p>
+            </div>
+          </div>
+
+          {/* Filters */}
+          <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
+            <ApplicationFilters
+              statusFilter={statusFilter}
+              onStatusChange={setStatusFilter}
+            />
+          </div>
+
+          {/* Results Info */}
+          <div className="mb-4 text-sm text-gray-600">
+            Showing <span className="font-semibold text-gray-900">{filteredApplications.length}</span> of{' '}
+            <span className="font-semibold text-gray-900">{applications.length}</span> applications
+          </div>
+
+          {/* Application List */}
+          <ApplicationList
+            applications={filteredApplications}
+            onReview={handleReview}
+          />
+
+          {/* Application Review Modal */}
+          <ApplicationReviewModal
+            isOpen={isModalOpen}
+            application={selectedApplication}
+            onClose={handleCloseModal}
+            onApprove={handleApprove}
+            onReject={handleReject}
+          />
+        </div>
+>>>>>>> 4b82a1c0b17ab55c7e5b8e3ab2ffc48c5d5fb617
       </div>
-    </div>
+    </AdminLayout>
   );
 }
