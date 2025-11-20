@@ -130,13 +130,13 @@ export default function ApplicationReviewModal({
           <div className="sticky bottom-0 bg-white border-t-2 border-gray-200 px-6 py-4 flex gap-4 rounded-b-2xl">
             <button
               onClick={() => onApprove(application.id)}
-              className="flex-1 px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition-all font-semibold whitespace-nowrap"
+              className="flex-1 px-6 py-3 bg-[#0B8020] text-white rounded-full hover:bg-[#0a6e1c] transition-all font-semibold whitespace-nowrap"
             >
               Approve and Send Email
             </button>
             <button
               onClick={handleReject}
-              className="flex-1 px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all font-semibold whitespace-nowrap"
+              className="flex-1 px-6 py-3 bg-[#FAB6B6] text-[#A01111] rounded-full hover:bg-[#f9a0a0] transition-all font-semibold whitespace-nowrap"
             >
               Reject and Send Email
             </button>
