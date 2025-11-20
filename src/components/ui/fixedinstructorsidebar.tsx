@@ -13,7 +13,7 @@ export default function FixedSidebar() {
     { icon: Clipboard, label: "Quizzes", href: "/instructor/quiz" },
     { icon: Calendar, label: "My Schedule", href: "/instructor/myschedule" },
     { icon: Star, label: "Review", href: "/instructor/review" },
-    { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
+    { icon: MessageCircle, label: "Messages", href: "/instructor/message" },
     { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
     { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];
