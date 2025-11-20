@@ -1,6 +1,6 @@
 'use client';
 
-import { format, startOfWeek, addDays, subDays, getMonth, getDay } from 'date-fns';
+import { format, startOfWeek, addDays, subDays } from 'date-fns';
 
 interface Day {
   date: string; // YYYY-MM-DD
@@ -12,7 +12,6 @@ interface ActivityBoardProps {
 }
 
 const LEVELS = 4;
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export default function ActivityBoard({ data }: ActivityBoardProps) {
   if (!data || data.length === 0) return null;
@@ -76,13 +75,15 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
       </div>
 
       <div className="flex gap-1">
-        {/* Weekday labels */}
-        <div className="flex flex-col justify-between h-full mr-1 text-xs text-gray-500">
-          {['Mon', 'Wed', 'Fri'].map((day) => (
-            <div key={day} className="h-4 flex items-center">
-              {day}
-            </div>
-          ))}
+        {/* Weekday labels — FIXED */}
+        <div className="flex flex-col text-xs text-gray-500 mr-1">
+          <div className="h-4 flex items-center">Mon</div>
+          <div className="h-4" />
+          <div className="h-4 flex items-center">Wed</div>
+          <div className="h-4" />
+          <div className="h-4 flex items-center">Fri</div>
+          <div className="h-4" />
+          <div className="h-4" />
         </div>
 
         {/* Contribution squares */}
