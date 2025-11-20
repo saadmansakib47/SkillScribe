@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from 'react';
-import { UserX, Users, AlertTriangle } from 'lucide-react';
 import { USERS, User, SuspensionDuration, calculateReinstateDate } from '@/lib/admin/users';
 import {
   UserSearchBar,
@@ -33,15 +32,6 @@ export default function SuspendUserPage() {
       user.email.toLowerCase().includes(query)
     ).slice(0, 10); // Limit to 10 results
   }, [users, searchQuery]);
-
-  // Stats
-  const stats = useMemo(() => {
-    return {
-      total: users.length,
-      suspended: suspendedUsers.length,
-      active: users.filter(u => u.status === 'active').length
-    };
-  }, [users, suspendedUsers]);
 
   // Handlers
   const handleSelectUser = (user: User) => {
@@ -109,40 +99,7 @@ export default function SuspendUserPage() {
           <p className="text-gray-600">Search and suspend users for policy violations</p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                <Users className="h-6 w-6 text-blue-600" />
-              </div>
-            </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total}</p>
-            <p className="text-sm text-gray-600 font-medium">Total Users</p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
-                <UserX className="h-6 w-6 text-red-600" />
-              </div>
-            </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">{stats.suspended}</p>
-            <p className="text-sm text-gray-600 font-medium">Currently Suspended</p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                <AlertTriangle className="h-6 w-6 text-green-600" />
-              </div>
-            </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">{stats.active}</p>
-            <p className="text-sm text-gray-600 font-medium">Active Users</p>
-          </div>
-        </div>
-
-        {/* Search Section */}
+        {/* Search Section */
         <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Search User</h2>
           <div className="relative">
@@ -161,7 +118,7 @@ export default function SuspendUserPage() {
             <p className="mt-4 text-sm text-gray-600">No users found matching &quot;{searchQuery}&quot;</p>
           )}
         </div>
-
+}
         {/* Currently Suspended Users Table */}
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Currently Suspended Users</h2>
