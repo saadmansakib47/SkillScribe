@@ -79,7 +79,7 @@ export default function InstructorVerificationPage() {
         
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Pending Instructor Application</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Instructor Verification</h1>
           <p className="text-gray-600">Review and approve instructor applications</p>
         </div>
 
