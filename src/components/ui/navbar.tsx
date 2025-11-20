@@ -5,7 +5,7 @@ import { Search, Menu, ChevronDown, ShoppingCart, Heart, User, BookOpen, Setting
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import InstructorSidebar from "@/components/ui/instructorsidebar";
+import InstructorSidebar from "@/components/ui/collapsibleinstructorsidebar";
 import { COURSES } from "@/lib/courses";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
