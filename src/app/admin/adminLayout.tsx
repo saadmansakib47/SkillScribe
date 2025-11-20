@@ -9,12 +9,11 @@ interface AdminLayoutProps {
 export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="flex">
-      {/* Fixed Admin Sidebar */}
+      {/* fixed sidebar */}
       <FixedAdminSidebar />
 
-      {/* Main Content */}
       <main className="flex-1 ml-64 p-8">
-        {/* ml-64 = width of sidebar */}
+        {/* ml-64 = same width as sidebar */}
         {children}
       </main>
     </div>
