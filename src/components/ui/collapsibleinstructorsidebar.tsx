@@ -22,7 +22,7 @@ export default function InstructorSidebar({ isOpen, onClose }: SidebarProps) {
     { icon: Calendar, label: "My Schedule", href: "/instructor/myschedule" },
     { icon: Star, label: "Review", href: "/instructor/review" },
     { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
-    { icon: HelpCircle, label: "Q&A", href: "/instructor/qa" },
+    { icon: HelpCircle, label: "Q&A", href: "/learner/community" },
     { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];
 
