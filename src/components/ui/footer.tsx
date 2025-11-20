@@ -91,11 +91,21 @@ export default function Footer() {
           <div className="space-y-3 flex flex-col items-start">
             <h3 className="text-xl font-semibold text-white">Legal</h3>
             <ul className="space-y-3 text-base text-gray-200">
-              <li className="cursor-pointer transition-colors hover:text-white">
-                Terms of Service
+              <li>
+                <a 
+                  href="/terms-conditions" 
+                  className="cursor-pointer transition-colors hover:text-white"
+                >
+                  Terms of Service
+                </a>
               </li>
-              <li className="cursor-pointer transition-colors hover:text-white">
-                Privacy Policy
+              <li>
+                <a 
+                  href="/privacy-policy" 
+                  className="cursor-pointer transition-colors hover:text-white"
+                >
+                  Privacy Policy
+                </a>
               </li>
               <li className="cursor-pointer transition-colors hover:text-white">
                 Cookie Policy
