@@ -52,7 +52,7 @@ export default function LearningGoalPage() {
         </motion.h1>
 
         {/* Scrollable option list */}
-        <div className="flex flex-col gap-3 mb-10 max-h-[470px] overflow-y-auto pl-2 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-gray-100 [direction:rtl] [&>*]:[direction:ltr]">
+        <div className="flex flex-col gap-3 mb-10 max-h-[470px] overflow-y-auto pl-2 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-400 [direction:rtl] [&>*]:[direction:ltr]">
           {goals.map((goal, index) => (
             <motion.button
               key={goal.id}

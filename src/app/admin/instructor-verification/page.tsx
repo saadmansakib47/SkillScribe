@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from 'react';
-import { ClipboardCheck, Clock, CheckCircle, XCircle } from 'lucide-react';
 import {
   INSTRUCTOR_APPLICATIONS,
   InstructorApplication,
@@ -32,16 +31,6 @@ export default function InstructorVerificationPage() {
 
     return filtered;
   }, [applications, statusFilter]);
-
-  // Stats
-  const stats = useMemo(() => {
-    return {
-      total: applications.length,
-      pending: applications.filter(a => a.status === 'pending').length,
-      approved: applications.filter(a => a.status === 'approved').length,
-      rejected: applications.filter(a => a.status === 'rejected').length
-    };
-  }, [applications]);
 
   // Handlers
   const handleReview = (application: InstructorApplication) => {
@@ -79,6 +68,36 @@ export default function InstructorVerificationPage() {
       <div className="min-h-screen bg-[#FAF7F3] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+<<<<<<< HEAD
+        {/* Filters */
+        <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
+          <ApplicationFilters
+            statusFilter={statusFilter}
+            onStatusChange={setStatusFilter}
+          />
+        </div>
+}
+        {/* Results Info */}
+        <div className="mb-4 text-sm text-gray-600">
+          Showing <span className="font-semibold text-gray-900">{filteredApplications.length}</span> of{' '}
+          <span className="font-semibold text-gray-900">{applications.length}</span> applications
+        </div>
+
+        {/* Application List */}
+        <ApplicationList
+          applications={filteredApplications}
+          onReview={handleReview}
+        />
+
+        {/* Application Review Modal */}
+        <ApplicationReviewModal
+          isOpen={isModalOpen}
+          application={selectedApplication}
+          onClose={handleCloseModal}
+          onApprove={handleApprove}
+          onReject={handleReject}
+        />
+=======
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">Instructor Verification</h1>
@@ -157,6 +176,7 @@ export default function InstructorVerificationPage() {
             onReject={handleReject}
           />
         </div>
+>>>>>>> 4b82a1c0b17ab55c7e5b8e3ab2ffc48c5d5fb617
       </div>
     </AdminLayout>
   );

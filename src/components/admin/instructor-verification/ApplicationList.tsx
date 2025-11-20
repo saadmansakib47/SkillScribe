@@ -65,9 +65,9 @@ export default function ApplicationList({ applications, onReview }: ApplicationL
                 <td className="px-6 py-4">
                   <button
                     onClick={() => onReview(application)}
-                    className="px-4 py-2 bg-[#094CA4] text-white rounded-lg hover:bg-[#073a85] transition-all font-semibold text-sm"
+                    className="px-4 py-2 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-all font-semibold text-sm whitespace-nowrap"
                   >
-                    View
+                    Review
                   </button>
                 </td>
               </tr>
