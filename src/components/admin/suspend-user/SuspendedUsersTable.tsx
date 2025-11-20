@@ -65,7 +65,7 @@ export default function SuspendedUsersTable({
                 <td className="px-6 py-4">
                   <button
                     onClick={() => onReinstate(user.id)}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all font-semibold text-sm"
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-all font-semibold text-sm whitespace-nowrap"
                   >
                     <RotateCcw className="h-4 w-4" />
                     Reinstate
