@@ -148,7 +148,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="#" className="hover:text-black">
+            <Link href="/presignup/Question1" className="hover:text-black">
               Instruct
             </Link>
             <Link href="/learner/community" className="hover:text-black">

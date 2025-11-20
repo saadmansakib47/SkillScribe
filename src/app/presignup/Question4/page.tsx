@@ -190,7 +190,7 @@ export default function NotificationPreferencesPage()
               preferences.
             </p>
             <button
-              onClick={() => router.push("/auth/signup")}
+              onClick={() => router.push("/instructor/profile/6")}
               className="px-6 py-2 rounded-[8px] font-semibold bg-blue-700 text-white hover:bg-blue-800 transition-colors"
             >
               Proceed to Sign Up
