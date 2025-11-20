@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import InstructorSidebar from "@/components/ui/collapsibleinstructorsidebar";
+import AdminSidebar from "./collapsibleadminsidebar";
 import { COURSES } from "@/lib/courses";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -13,7 +14,8 @@ import { getCurrentLearner } from "@/lib/learners";
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [instructorSidebarOpen, setInstructorSidebarOpen] = useState(false);
+  const [adminSidebarOpen, setAdminSidebarOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -29,6 +31,9 @@ export default function Navbar() {
 
   // Detect if we're on an instructor page
   const isInstructorPage = pathname.startsWith("/instructor");
+
+  // Detect if we're on an admin page
+  const isAdminPage = pathname.startsWith("/admin");
 
   // Get unique categories from courses
   const categories = Array.from(new Set(COURSES.map(c => c.category).filter(Boolean))).sort();
@@ -55,7 +60,9 @@ export default function Navbar() {
 
   const handleSidebarToggle = () => {
     if (isInstructorPage) {
-      setSidebarOpen((prev) => !prev);
+      setInstructorSidebarOpen((prev) => !prev);
+    } else if (isAdminPage) {
+      setAdminSidebarOpen((prev) => !prev);
     } else {
       // For learner pages, toggle mobile menu
       setMobileMenuOpen((prev) => !prev);
@@ -75,15 +82,15 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-3 lg:gap-4">
-            {/* Hamburger menu - Shows on mobile (md:hidden) OR on instructor pages (always visible when isInstructorPage) */}
-            <button
-              onClick={handleSidebarToggle}
-              className={`p-2 rounded-md hover:bg-gray-200 transition ${
-                isInstructorPage ? 'block' : 'md:hidden'
-              }`}
-            >
-              <Menu className="h-6 w-6 text-gray-800" />
-            </button>
+            {/* Hamburger menu - Shows on instructor/admin pages */}
+            {(isInstructorPage || isAdminPage) && (
+              <button
+                onClick={handleSidebarToggle}
+                className="p-2 rounded-md hover:bg-gray-200 transition block"
+              >
+                <Menu className="h-6 w-6 text-gray-800" />
+              </button>
+            )}
 
             {/* Logo */}
             <Link
@@ -105,6 +112,7 @@ export default function Navbar() {
               />
             </div>
           </div>
+
 
           {/* NAV LINKS */}
           <nav className="hidden items-center gap-4 text-sm text-gray-900 md:flex">
@@ -274,14 +282,12 @@ export default function Navbar() {
             {/* Toggle Button - Hidden on smallest screens */}
             <button
               onClick={() => setEnabled((v) => !v)}
-              className={`hidden sm:flex relative h-5 w-10 items-center rounded-full transition-colors flex-shrink-0 ${
-                enabled ? "bg-[#1d4ed8]" : "bg-gray-400"
-              }`}
+              className={`hidden sm:flex relative h-5 w-10 items-center rounded-full transition-colors flex-shrink-0 ${enabled ? "bg-[#1d4ed8]" : "bg-gray-400"
+                }`}
             >
               <span
-                className={`inline-block h-[14px] w-[14px] transform rounded-full bg-white transition-transform ${
-                  enabled ? "translate-x-[22px]" : "translate-x-[4px]"
-                }`}
+                className={`inline-block h-[14px] w-[14px] transform rounded-full bg-white transition-transform ${enabled ? "translate-x-[22px]" : "translate-x-[4px]"
+                  }`}
               />
             </button>
           </div>
@@ -306,11 +312,11 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           ></div>
-          
+
           {/* Menu Panel */}
           <div className="absolute left-0 top-0 bottom-0 w-80 bg-white shadow-xl overflow-y-auto">
             <div className="p-6">
@@ -448,10 +454,19 @@ export default function Navbar() {
       {/* ✅ INSTRUCTOR SIDEBAR (Animated) */}
       {isInstructorPage && (
         <InstructorSidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
+          isOpen={instructorSidebarOpen}
+          onClose={() => setInstructorSidebarOpen(false)}
         />
       )}
+
+      {/* ✅ ADMIN SIDEBAR (Animated) */}
+      {isAdminPage && (
+        <AdminSidebar
+          isOpen={adminSidebarOpen}
+          onClose={() => setAdminSidebarOpen(false)}
+        />
+      )}
+
     </>
   );
 }
