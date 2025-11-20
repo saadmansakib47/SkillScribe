@@ -51,26 +51,14 @@ export default function UserTable({ users, onEdit, onSuspend, onActivate }: User
     <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b-2 border-gray-200">
+          <thead className="bg-[#EBF3FB] border-b-2 border-gray-200">
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                User
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                Email
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                Role
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                Registration Date
-              </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                Actions
-              </th>
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">User</th>
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Email</th>
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Role</th>
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Status</th>
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Registration Date</th>
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
