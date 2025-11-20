@@ -1,7 +1,8 @@
 "use client";
 
+import PolicyManagementPage from "@/app/admin/policy-management/page";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Home, Users, Shield, UserX } from "lucide-react";
+import { X, Home, Users, Shield, UserX, FileTextIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,6 +19,7 @@ export default function AdminSidebar({ isOpen, onClose }: SidebarProps) {
     { icon: Shield, label: "Instructor Verification", href: "/admin/instructor-verification" },
     { icon: UserX, label: "Suspend User", href: "/admin/suspend-user" },
     { icon: Users, label: "User Management", href: "/admin/user-management" },
+    { icon: FileTextIcon, label: "Policy Management", href: "/admin/policy-management" },
   ];
 
   return (
