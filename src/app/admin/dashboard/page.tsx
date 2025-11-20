@@ -14,7 +14,7 @@ import {
   Search,
 } from "lucide-react";
 
-import AdminLayout from "@/app/admin/layout";
+import AdminLayout from "@/app/admin/adminLayout";
 import AdminLineChart from "@/components/chart/adminChart/adminLineChart";
 import AdminPieChart from "@/components/chart/adminChart/adminPiChart";
 
