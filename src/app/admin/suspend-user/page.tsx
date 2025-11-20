@@ -96,57 +96,10 @@ export default function SuspendUserPage() {
       <div className="min-h-screen bg-[#FAF7F3] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-<<<<<<< HEAD
-        {/* Search Section */
-        <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Search User</h2>
-          <div className="relative">
-            <UserSearchBar
-              searchQuery={searchQuery}
-              onSearchChange={handleSearchChange}
-            />
-            {showResults && (
-              <UserSearchResults
-                users={searchResults}
-                onSelectUser={handleSelectUser}
-=======
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">Suspend User</h1>
             <p className="text-gray-600">Search and suspend users for policy violations</p>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                  <Users className="h-6 w-6 text-blue-600" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total}</p>
-              <p className="text-sm text-gray-600 font-medium">Total Users</p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center">
-                  <UserX className="h-6 w-6 text-red-600" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.suspended}</p>
-              <p className="text-sm text-gray-600 font-medium">Currently Suspended</p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                  <AlertTriangle className="h-6 w-6 text-green-600" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.active}</p>
-              <p className="text-sm text-gray-600 font-medium">Active Users</p>
-            </div>
           </div>
 
           {/* Search Section */}
@@ -156,7 +109,6 @@ export default function SuspendUserPage() {
               <UserSearchBar
                 searchQuery={searchQuery}
                 onSearchChange={handleSearchChange}
->>>>>>> 4b82a1c0b17ab55c7e5b8e3ab2ffc48c5d5fb617
               />
               {showResults && (
                 <UserSearchResults
@@ -169,19 +121,6 @@ export default function SuspendUserPage() {
               <p className="mt-4 text-sm text-gray-600">No users found matching &quot;{searchQuery}&quot;</p>
             )}
           </div>
-<<<<<<< HEAD
-          {searchQuery && searchResults.length === 0 && showResults && (
-            <p className="mt-4 text-sm text-gray-600">No users found matching &quot;{searchQuery}&quot;</p>
-          )}
-        </div>
-}
-        {/* Currently Suspended Users Table */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Currently Suspended Users</h2>
-          <SuspendedUsersTable
-            suspendedUsers={suspendedUsers}
-            onReinstate={handleReinstate}
-=======
 
           {/* Currently Suspended Users Table */}
           <div className="mb-6">
@@ -201,7 +140,6 @@ export default function SuspendUserPage() {
               setSelectedUser(null);
             }}
             onSuspend={handleSuspend}
->>>>>>> 4b82a1c0b17ab55c7e5b8e3ab2ffc48c5d5fb617
           />
         </div>
       </div>
