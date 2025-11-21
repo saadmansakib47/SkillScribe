@@ -140,7 +140,7 @@ export default function AIAssistant() {
             transition={{ type: "spring", stiffness: 260, damping: 18 }}
           >
             <Sparkles className="h-7 w-7" />
-            <span className="absolute inset-0 rounded-full bg-blue-400 opacity-75 "></span>
+            <span className="absolute inset-0 rounded-full bg-blue-400 opacity-20 blur-xl"></span>
           </motion.button>
         )}
       </AnimatePresence>
