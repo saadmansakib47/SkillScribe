@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Upload, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ScheduleSubmissionModal from "./scheduleSubmissionModal";
 
 export default function CourseContentManager() {
   const [modules, setModules] = useState([{ id: 1, title: "", lessons: [] }]);
@@ -85,7 +86,11 @@ export default function CourseContentManager() {
         >
           <Plus className="w-4 h-4" /> Add Module
         </Button>
+
         <div className="flex gap-3">
+          {/* NEW BUTTON */}
+          <ScheduleSubmissionModal />
+
           <Button className="bg-[#4C6FFF] hover:bg-[#3b58d8] text-white text-sm rounded-[8px]">
             Submit for Review
           </Button>

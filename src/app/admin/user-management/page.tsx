@@ -100,45 +100,53 @@ export default function UserManagementPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
-                  <Users className="h-6 w-6 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Total Users</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                </div>
+                <div className="bg-[#E8F4FF] p-3 rounded-xl">
+                  <Users className="w-6 h-6 text-[#094CA4]" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.total}</p>
-              <p className="text-sm text-gray-600 font-medium">Total Users</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                  <UserCheck className="h-6 w-6 text-white" />
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Active Users</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.active}</p>
+                </div>
+                <div className="bg-[#E8F8F0] p-3 rounded-xl">
+                  <UserCheck className="w-6 h-6 text-[#0B8020]" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.active}</p>
-              <p className="text-sm text-gray-600 font-medium">Active Users</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-md">
-                  <UserX className="h-6 w-6 text-white" />
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Suspended</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.suspended}</p>
+                </div>
+                <div className="bg-[#FEE2E2] p-3 rounded-xl">
+                  <UserX className="w-6 h-6 text-[#DC2626]" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.suspended}</p>
-              <p className="text-sm text-gray-600 font-medium">Suspended</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center shadow-md">
-                  <Clock className="h-6 w-6 text-white" />
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Pending</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.pending}</p>
+                </div>
+                <div className="bg-[#FFF8E6] p-3 rounded-xl">
+                  <Clock className="w-6 h-6 text-[#F59E0B]" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-gray-900 mb-1">{stats.pending}</p>
-              <p className="text-sm text-gray-600 font-medium">Pending</p>
             </div>
           </div>
 
