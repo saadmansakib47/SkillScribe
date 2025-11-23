@@ -42,6 +42,9 @@ export default function Navbar() {
   useEffect(() => {
     Promise.resolve().then(() => setMounted(true));
   }, []);
+  
+  // check if we are on landing page, whether to hide sign in/sign up 
+  const isLanding = pathname === "/";
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -263,21 +266,23 @@ export default function Navbar() {
             </Link>
 
             {/* Login/Signup - Hidden on mobile */}
-            <div className="hidden md:flex items-center gap-2 text-sm whitespace-nowrap">
-              <Link
-                href="/auth/signin"
-                className="text-gray-900 hover:text-blue-700"
-              >
-                Sign In
-              </Link>
-              <span>/</span>
-              <Link
-                href="/auth/signup"
-                className="text-gray-900 hover:text-blue-700"
-              >
-                Sign Up
-              </Link>
-            </div>
+            {isLanding && (
+              <div className="hidden md:flex items-center gap-2 text-sm whitespace-nowrap">
+                <Link
+                  href="/auth/signin"
+                  className="text-gray-900 hover:text-blue-700"
+                >
+                  Sign In
+                </Link>
+                <span>/</span>
+                <Link
+                  href="/auth/signup"
+                  className="text-gray-900 hover:text-blue-700"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
 
             {/* Toggle Button - Hidden on smallest screens */}
             <button
