@@ -10,6 +10,17 @@ export default function CourseInfoForm() {
     setMediaFile(file);
   };
 
+  // give categories a Record<string, string[]> type so it can be indexed by a string
+  const categories: Record<string, string[]> = {
+    "Web Development": ["Frontend", "Backend", "Full Stack", "Next.js"],
+    "Data Science": ["Machine Learning", "Deep Learning", "Data Analysis"],
+    "Design": ["UI/UX", "Graphic Design", "Product Design"],
+    "Business": ["Marketing", "Entrepreneurship", "Finance"],
+  };
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedSub, setSelectedSub] = useState<string>("");
+
   return (
     <div className="p-6 rounded-2xl bg-[#FAF7F3] w-full max-w-[600px] border border-[#E5E5E5]">
       {/* Header */}
@@ -57,27 +68,59 @@ export default function CourseInfoForm() {
           </div>
         </div>
 
-        {/* Category & Subcategory */}
+        {/* Category and Subcategory */}
         <div className="grid grid-cols-2 gap-4">
+          {/* Category */}
           <div>
             <label className="block font-semibold text-black mb-1 text-sm">
               Category
             </label>
-            <input
-              type="text"
+
+            <select
               className="w-full border border-black rounded-[8px] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-black"
-            />
+              value={selectedCategory}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setSelectedSub(""); // reset sub-category when category changes
+              }}
+            >
+              <option value="">Select Category</option>
+              {Object.keys(categories).map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
+
+          {/* Subcategory */}
           <div>
             <label className="block font-semibold text-black mb-1 text-sm">
               Sub-Category
             </label>
-            <input
-              type="text"
+
+            <select
               className="w-full border border-black rounded-[8px] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-black"
-            />
+              value={selectedSub}
+              onChange={(e) => setSelectedSub(e.target.value)}
+              disabled={!selectedCategory}
+            >
+              <option value="">Select Sub-Category</option>
+
+              {selectedCategory && (
+                <>
+                  {categories[selectedCategory].map((sub: string) => (
+                    <option key={sub} value={sub}>
+                      {sub}
+                    </option>
+                  ))}
+                </>
+              )}
+
+            </select>
           </div>
         </div>
+
 
         {/* Difficulty & Duration */}
         <div className="grid grid-cols-2 gap-4">
