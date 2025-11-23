@@ -68,20 +68,14 @@ export default function InstructorVerificationPage() {
       <div className="min-h-screen bg-[#FAF7F3] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Instructor Verification</h1>
-            <p className="text-gray-600">Review and approve instructor applications</p>
-          </div>
-
-          {/* Filters */}
+          {/* Filters */
           <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
             <ApplicationFilters
               statusFilter={statusFilter}
               onStatusChange={setStatusFilter}
             />
           </div>
-
+}
           {/* Results Info */}
           <div className="mb-4 text-sm text-gray-600">
             Showing <span className="font-semibold text-gray-900">{filteredApplications.length}</span> of{' '}

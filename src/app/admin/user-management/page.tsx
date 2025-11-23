@@ -99,12 +99,6 @@ export default function UserManagementPage() {
       <div className="min-h-screen bg-[#FAF7F3] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">User Management</h1>
-            <p className="text-gray-600">Manage all users, roles, and permissions</p>
-          </div>
-
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 hover:shadow-md transition-shadow">

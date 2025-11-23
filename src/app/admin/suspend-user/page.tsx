@@ -96,13 +96,7 @@ export default function SuspendUserPage() {
       <div className="min-h-screen bg-[#FAF7F3] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Suspend User</h1>
-            <p className="text-gray-600">Search and suspend users for policy violations</p>
-          </div>
-
-          {/* Search Section */}
+          {/* Search Section */
           <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Search User</h2>
             <div className="relative">
@@ -121,7 +115,7 @@ export default function SuspendUserPage() {
               <p className="mt-4 text-sm text-gray-600">No users found matching &quot;{searchQuery}&quot;</p>
             )}
           </div>
-
+}
           {/* Currently Suspended Users Table */}
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Currently Suspended Users</h2>

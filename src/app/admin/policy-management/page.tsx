@@ -88,20 +88,14 @@ export default function PolicyManagementPage() {
       <div className="min-h-screen bg-[#FAF7F3] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-            <p className="text-gray-600">Manage terms, privacy, and refund policies</p>
-          </div>
-
           {/* Main Content Card */}
           <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 overflow-hidden">
 
-            {/* Tabs */}
+            {/* Tabs */
             <div className="px-6 pt-6">
               <PolicyTabs activeTab={activeTab} onTabChange={setActiveTab} />
             </div>
-
+}
             {/* Policy Editor */}
             {currentPolicy && (
               <div className="p-6">
