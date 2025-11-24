@@ -70,11 +70,12 @@ export default function CourseManagementPage() {
           // When publishing a pending course, generate revenue and student count deterministically
           if (course.status === 'Pending' && newStatus === 'Published') {
             const seed = course.id * 1234;
+            const studentCount = ((seed * 137) % 190) + 10; // Range: 10-199 students
             return {
               ...course,
               status: newStatus,
-              studentCount: ((seed * 137) % 4900) + 100,
-              revenue: ((seed * 251) % 49000) + 1000
+              studentCount,
+              revenue: course.price * studentCount
             };
           }
           // When suspending, keep existing data
