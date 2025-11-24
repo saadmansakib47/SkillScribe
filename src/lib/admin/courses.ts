@@ -14,10 +14,14 @@ export const ADMIN_COURSES: AdminCourse[] = COURSES.map((course, index) => {
   const status: CourseStatus = index % 4 === 0 ? 'Pending' : index % 7 === 0 ? 'Suspended' : 'Published';
   const isPending = status === 'Pending';
   
-  // Generate deterministic values based on course ID to avoid hydration errors
+  // Generate deterministic student count based on course ID to avoid hydration errors
+  // Reduced range to keep revenue within 4 digits (max $9,999)
   const seed = course.id * 1234; // Deterministic seed
-  const studentCount = isPending ? 0 : ((seed * 137) % 4900) + 100;
-  const revenue = isPending ? 0 : ((seed * 251) % 49000) + 1000;
+  const studentCount = isPending ? 0 : ((seed * 137) % 190) + 10; // Range: 10-199 students
+  
+  // Revenue is calculated as: course price × student count
+  // For pending courses, revenue is 0
+  const revenue = isPending ? 0 : course.price * studentCount;
   
   return {
     ...course,
