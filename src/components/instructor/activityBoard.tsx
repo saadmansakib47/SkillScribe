@@ -1,6 +1,7 @@
 'use client';
 
 import { format, startOfWeek, addDays, subDays } from 'date-fns';
+import { motion } from 'framer-motion';
 
 interface Day {
   date: string; // YYYY-MM-DD
@@ -16,7 +17,6 @@ const LEVELS = 4;
 export default function ActivityBoard({ data }: ActivityBoardProps) {
   if (!data || data.length === 0) return null;
 
-  // Sort contributions
   const sortedData = [...data].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
@@ -35,7 +35,7 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
     currentDate = addDays(currentDate, 1);
   }
 
-  // Group by weeks (columns)
+  // Group by weeks
   const weeks: Day[][] = [];
   for (let i = 0; i < paddedData.length; i += 7) {
     const week = paddedData.slice(i, i + 7);
@@ -45,7 +45,7 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
     weeks.push(week);
   }
 
-  // Month labels (first day of month in each week)
+  // Month labels
   const monthLabels: { weekIndex: number; label: string }[] = [];
   const seenMonths: number[] = [];
   weeks.forEach((week, wIndex) => {
@@ -75,7 +75,7 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
       </div>
 
       <div className="flex gap-1">
-        {/* Weekday labels — FIXED */}
+        {/* Weekday labels */}
         <div className="flex flex-col text-xs text-gray-500 mr-1">
           <div className="h-4 flex items-center">Mon</div>
           <div className="h-4" />
@@ -90,7 +90,7 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
         <div className="flex gap-1">
           {weeks.map((week, weekIndex) => (
             <div key={weekIndex} className="flex flex-col gap-1">
-              {week.map((day) => {
+              {week.map((day, dayIndex) => {
                 let level = 0;
                 if (day.count > 0) level = Math.min(day.count, LEVELS);
 
@@ -104,10 +104,14 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
                     : 'bg-blue-600';
 
                 return (
-                  <div
+                  <motion.div
                     key={day.date}
                     title={`${day.date.startsWith('padding-') ? '' : format(new Date(day.date), 'eee, yyyy-MM-dd')} — ${day.count} contributions`}
-                    className={`w-4 h-4 rounded-sm ${color}`}
+                    className={`w-4 h-4 rounded-[3px] ${color}`}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ delay: weekIndex * 0.1 + dayIndex * 0.05, duration: 0.4 }}
                   />
                 );
               })}
@@ -119,7 +123,7 @@ export default function ActivityBoard({ data }: ActivityBoardProps) {
   );
 }
 
-// Helper function for testing/demo
+// Helper function for demo
 export function generateActivityData(days: number = 365): Day[] {
   const today = new Date();
   const data: Day[] = [];
