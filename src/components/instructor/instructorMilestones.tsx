@@ -11,16 +11,24 @@ const milestones = [
     { label: "Reached 10,000 Students" },
 ];
 
+// Month–Year labels (same index as milestones)
+const dates = [
+    "Jan 2021",
+    "Apr 2021",
+    "Oct 2021",
+    "Mar 2022",
+    "Nov 2022",
+    "Jul 2025", // example you mentioned
+];
+
 export default function InstructorMilestones() {
 
-    // timeline width grows automatically with number of milestones
-    const sectionSpacing = 180; // distance between points
+    const sectionSpacing = 180;
     const svgWidth = milestones.length * sectionSpacing + 100;
 
-    // Generate zig-zag points dynamically
     const points = milestones.map((_, i) => ({
         x: 50 + i * sectionSpacing,
-        y: i % 2 === 0 ? 40 : 80, // zigzag pattern
+        y: i % 2 === 0 ? 40 : 80,
     }));
 
     const pathString = points.map(p => `${p.x},${p.y}`).join(" ");
@@ -48,7 +56,21 @@ export default function InstructorMilestones() {
                     const delay = (i + 1) * 0.45;
 
                     return (
-                        <div key={i} className="absolute" style={{ top: p.y - 10, left: p.x - 8 }}>
+                        <div
+                            key={i}
+                            className="absolute"
+                            style={{ top: p.y - 10, left: p.x - 8 }}
+                        >
+
+                            {/* Month-Year Above Dot */}
+                            <motion.div
+                                className="absolute left-1/2 -translate-x-1/2 -top-9 text-xs text-gray-500"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: delay - 0.2, duration: 0.8 }}
+                            >
+                                {dates[i]}
+                            </motion.div>
 
                             {/* Dot */}
                             <motion.div
@@ -58,29 +80,28 @@ export default function InstructorMilestones() {
                                 transition={{ delay, type: "spring", stiffness: 200 }}
                             />
 
-                            {/* Label */}
+                            {/* Milestone Label — now slower fade-in */}
                             <motion.div
                                 className="
-    absolute 
-    left-1/2 
-    -translate-x-1/2 
-    text-sm 
-    text-gray-700 
-    mt-4 
-    px-2 
-    py-1
-    w-24          /* narrower width */
-    text-center
-    leading-snug  /* tighter line height */
-    break-words   /* allows word wrapping */
-  "
-                                initial={{ opacity: 0, y: 5 }}
+                                    absolute 
+                                    left-1/2 
+                                    -translate-x-1/2 
+                                    text-sm 
+                                    text-gray-700 
+                                    mt-4 
+                                    px-2 
+                                    py-1
+                                    w-24
+                                    text-center
+                                    leading-snug
+                                    break-words
+                                "
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: delay + 0.2 }}
+                                transition={{ delay: delay + 0.3, duration: 1.0 }} 
                             >
                                 {milestones[i].label}
                             </motion.div>
-
 
                         </div>
                     );

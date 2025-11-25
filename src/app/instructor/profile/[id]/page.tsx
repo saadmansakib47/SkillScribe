@@ -46,7 +46,7 @@ export default function InstructorProfilePage() {
                         {/* NEW – Instructor Milestones Timeline */}
                         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm mb-6">
                             <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                                Instructor Milestones
+                                Milestones
                             </h3>
                             <InstructorMilestones />
                         </div>
