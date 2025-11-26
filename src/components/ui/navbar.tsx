@@ -309,16 +309,11 @@ export default function Navbar() {
 
               {/* Toggle Knob */}
               <span
-                className={`inline-block h-[14px] w-[14px] transform rounded-full bg-white transition-transform duration-300 ease-in-out
-      ${enabled ? "translate-x-[22px] border-white shadow-md" : "translate-x-[4px] border-black shadow-md"}
-    `}
+                className={`inline-block h-[14px] w-[14px] transform rounded-full bg-white transition-transform duration-300 ease-in-out ${enabled ? "translate-x-[22px] border-white shadow-md" : "translate-x-[4px] border-black shadow-md"}`}
               />
 
               {/* Optional: subtle overlay for mechanical effect */}
-              <span
-                className="absolute inset-0 rounded-full pointer-events-none
-      bg-gradient-to-b from-transparent to-black/5 opacity-20"
-              />
+              <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-b from-transparent to-black/5 opacity-20" />
             </button>
 
 
