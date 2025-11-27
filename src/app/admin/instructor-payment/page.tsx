@@ -3,7 +3,6 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { StatCard } from "@/components/admin/instructor-payment/statCard";
-import { FilterButtons } from "@/components/admin/instructor-payment/filterButtons";
 import { SortDropdown } from "@/components/admin/instructor-payment/sortDropDown";
 import { InstructorTable } from "@/components/admin/instructor-payment/instructorTable";
 import AdminLayout from "../adminLayout";
