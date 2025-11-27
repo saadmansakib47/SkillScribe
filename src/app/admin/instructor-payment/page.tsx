@@ -13,9 +13,10 @@ import { INSTRUCTORS, Instructor } from "@/lib/instructors";
 export default function InstructorDashboardPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortedInstructors, setSortedInstructors] = useState<Instructor[]>(INSTRUCTORS);
+  const [paymentFilteredInstructors, setPaymentFilteredInstructors] = useState<Instructor[]>(INSTRUCTORS);
 
-  // Filter instructors based on search term
-  const filteredInstructors = sortedInstructors.filter(
+  // Apply search on top of payment-filtered instructors
+  const filteredInstructors = paymentFilteredInstructors.filter(
     (instructor) =>
       instructor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       instructor.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -41,8 +42,14 @@ export default function InstructorDashboardPage() {
           />
 
           <div className="flex gap-4 items-center">
-            <PaymentDropdown />
-            <SortDropdown instructors={INSTRUCTORS} onSorted={setSortedInstructors} />
+            <PaymentDropdown
+              instructors={sortedInstructors}
+              onFiltered={setPaymentFilteredInstructors}
+            />
+            <SortDropdown
+              instructors={INSTRUCTORS}
+              onSorted={setSortedInstructors}
+            />
           </div>
         </div>
 
