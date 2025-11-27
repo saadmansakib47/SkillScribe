@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
+import { SearchBar } from "../ui/searchBar";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -112,19 +113,12 @@ export default function ReviewFilterBar({
       </div>
 
       {/* Search */}
-      <div className="flex flex-col flex-1 min-w-[220px]">
-        <label className="text-sm font-medium text-gray-700 mb-1">Search</label>
-        <div className="relative">
-          <Search className="absolute left-2 top-2.5 w-4 h-4 text-gray-500" />
-          <Input
-            type="text"
-            placeholder="Search Reviews"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8 rounded-[8px] h-9"
-          />
-        </div>
-      </div>
+      <SearchBar
+        label="Search"
+        placeholder="Search Reviews"
+        value={searchQuery}
+        onChange={setSearchQuery}
+      />
     </div>
   );
 }
