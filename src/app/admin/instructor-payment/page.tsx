@@ -1,3 +1,5 @@
+"use client" ;
+
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { StatCard } from "@/components/admin/instructor-payment/statCard";
@@ -5,6 +7,7 @@ import { FilterButtons } from "@/components/admin/instructor-payment/filterButto
 import { SortDropdown } from "@/components/admin/instructor-payment/sortDropDown";
 import { InstructorTable } from "@/components/admin/instructor-payment/instructorTable";
 import AdminLayout from "../adminLayout";
+import { PaymentDropdown } from "@/components/admin/instructor-payment/paymentDropDown";
 
 
 const instructors = Array.from({ length: 10 }).map((_, i) => ({
@@ -40,8 +43,9 @@ export default function InstructorDashboardPage() {
 
 
                     <div className="flex gap-4 items-center">
-                        <FilterButtons />
-                        <SortDropdown />
+                        <PaymentDropdown/>
+
+                        <SortDropdown/>
                     </div>
                 </div>
 
