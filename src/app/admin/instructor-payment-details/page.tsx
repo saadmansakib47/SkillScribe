@@ -1,97 +1,18 @@
+// src/app/payments/page.tsx
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { UserHeader } from "@/components/admin/instructor-payment-details/userHeader" ;
+import { SummaryItem } from "@/components/admin/instructor-payment-details/summaryItem" ;
+import { CourseCard } from "@/components/admin/instructor-payment-details/courseCard" ;
+import { HistoryRow } from "@/components/admin/instructor-payment-details/historyRow" ;
 
-// Avatar section
-function UserHeader() {
-  return (
-    <div className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-gray-200">
-      <img
-        src="/avatar.png"
-        alt="User Avatar"
-        className="w-14 h-14 rounded-full object-cover"
-      />
-      <div>
-        <h2 className="text-lg font-semibold text-gray-800">Karim Kabir</h2>
-        <p className="text-sm text-gray-500">ID: 125-101</p>
-      </div>
-      <div className="ml-auto text-sm text-gray-600">
-        <p>karimkabir@skillscribe.com</p>
-        <p>+01725698799</p>
-      </div>
-    </div>
-  );
-}
-
-// Summary box row item
-function SummaryItem({ label, value, note }: any) {
-  return (
-    <div className="flex justify-between p-3 bg-white rounded-lg border border-gray-200 shadow-sm">
-      <span className="text-gray-600 text-sm font-medium">{label}</span>
-      <div className="text-right">
-        <p className="font-semibold text-gray-800">{value}</p>
-        {note && <p className="text-xs text-gray-500">{note}</p>}
-      </div>
-    </div>
-  );
-}
-
-// Course Card
-function CourseCard({ title, students, rating, earned, paid, due }: any) {
-  return (
-    <Card className="border border-gray-300 rounded-xl shadow-sm bg-white">
-      <CardContent className="p-4">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-gray-200 rounded-md" />
-          <div>
-            <h3 className="font-semibold text-gray-800">{title}</h3>
-            <p className="text-xs text-gray-500">
-              Students: {students} · Rating: {rating} · Started in Jan 24, 2024
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-3 gap-3">
-          <div className="p-3 bg-blue-50 rounded-lg text-center">
-            <p className="text-xs text-gray-500">Total Earned</p>
-            <p className="font-semibold text-gray-700">{earned}</p>
-          </div>
-          <div className="p-3 bg-blue-50 rounded-lg text-center">
-            <p className="text-xs text-gray-500">Total Paid</p>
-            <p className="font-semibold text-gray-700">{paid}</p>
-          </div>
-          <div className="p-3 bg-blue-50 rounded-lg text-center">
-            <p className="text-xs text-gray-500">Amount Due</p>
-            <p className="font-semibold text-gray-700">{due}</p>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-// Payment History Item
-function HistoryRow({ title, date, amount, status }: any) {
-  return (
-    <div className="flex justify-between py-2 border-b border-gray-200 text-sm">
-      <div>
-        <p className="font-medium text-gray-700">{title}</p>
-        <p className="text-xs text-gray-500">{date}</p>
-      </div>
-      <p className="font-semibold text-gray-700">{amount}</p>
-      <p className={`text-xs ${status === "Pending" ? "text-red-500" : "text-green-600"}`}>
-        {status}
-      </p>
-    </div>
-  );
-}
-
-export default function PaymentsPage() {
+export default function PaymentsPage() 
+{
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
       <UserHeader />
 
-      {/* Payment Summary */}
       <Card className="rounded-xl border border-gray-300 shadow-sm">
         <CardContent className="p-4 space-y-3">
           <h2 className="text-lg font-semibold text-gray-800 mb-2">Payment Summary</h2>
@@ -102,7 +23,6 @@ export default function PaymentsPage() {
         </CardContent>
       </Card>
 
-      {/* Course Earnings */}
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-gray-800">Course-wise Earnings</h2>
         <CourseCard
@@ -131,7 +51,6 @@ export default function PaymentsPage() {
         />
       </div>
 
-      {/* Payment History */}
       <Card className="rounded-xl border border-gray-300 shadow-sm">
         <CardContent className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-3">Payment History</h2>
