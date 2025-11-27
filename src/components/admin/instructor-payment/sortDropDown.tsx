@@ -1,11 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function SortDropdown({ onChange }: { onChange?: (val: string) => void }) {
+import { Instructor } from "@/lib/instructors";
+
+type SortDropdownProps = {
+  instructors: Instructor[];
+  onSorted: (sorted: Instructor[]) => void;
+};
+
+export function SortDropdown({ instructors, onSorted }: SortDropdownProps) {
   const options = [
     "Highest Due",
     "Lowest Due",
@@ -13,17 +20,48 @@ export function SortDropdown({ onChange }: { onChange?: (val: string) => void })
     "Lowest Paid",
     "Name A-Z",
     "Name Z-A",
-    "Recently Joined",
   ];
 
   const [selected, setSelected] = useState(options[0]);
   const [open, setOpen] = useState(false);
 
+  // Helper to parse currency strings like "$205,000" → 205000
+  const parseCurrency = (value: string) => parseFloat(value.replace(/[^0-9.-]+/g, ""));
+
+  // Sorting logic
+  const sortInstructors = (list: Instructor[], option: string) => {
+    return [...list].sort((a, b) => {
+      switch (option) {
+        case "Highest Due":
+          return parseCurrency(b.totalDue) - parseCurrency(a.totalDue);
+        case "Lowest Due":
+          return parseCurrency(a.totalDue) - parseCurrency(b.totalDue);
+        case "Highest Paid":
+          return parseCurrency(b.totalPaid) - parseCurrency(a.totalPaid);
+        case "Lowest Paid":
+          return parseCurrency(a.totalPaid) - parseCurrency(b.totalPaid);
+        case "Name A-Z":
+          return a.name.localeCompare(b.name);
+        case "Name Z-A":
+          return b.name.localeCompare(a.name);
+        default:
+          return 0;
+      }
+    });
+  };
+
+  // Handle selection
   const handleSelect = (opt: string) => {
     setSelected(opt);
     setOpen(false);
-    onChange?.(opt);
+    const sorted = sortInstructors(instructors, opt);
+    onSorted(sorted);
   };
+
+  // Re-sort when instructors prop changes
+  useEffect(() => {
+    onSorted(sortInstructors(instructors, selected));
+  }, [instructors]);
 
   return (
     <div className="relative flex items-center gap-2">
@@ -35,10 +73,7 @@ export function SortDropdown({ onChange }: { onChange?: (val: string) => void })
         className="rounded-xl border border-black/20 flex items-center gap-1 text-sm"
       >
         {selected}
-        <motion.div
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.15 }}
-        >
+        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.15 }}>
           <ChevronDown size={16} />
         </motion.div>
       </Button>
