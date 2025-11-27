@@ -46,7 +46,7 @@ export const INSTRUCTORS: Instructor[] = [
     social: {},
     location: 'Bangladesh',
     totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalDue: "$0",
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2019-11-20',
     social: {},
     location: 'South Korea',
-    totalPaid: "$9,200",
+    totalPaid: "$7,600",
     totalDue: "$3,420",
   },
   {
@@ -83,8 +83,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2021-01-15',
     social: {},
     location: 'India',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$4,800",
+    totalDue: "$3,000",
   },
   {
     id: 4,
@@ -103,7 +103,7 @@ export const INSTRUCTORS: Instructor[] = [
     social: {},
     location: 'India',
     totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalDue: "$1,200",
   },
   {
     id: 5,
@@ -121,8 +121,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2018-06-12',
     social: {},
     location: 'USA',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$1,000",
+    totalDue: "$1,000",
   },
   {
     id: 6,
@@ -140,8 +140,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2017-09-03',
     social: {},
     location: 'Bangladesh',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$6,400",
+    totalDue: "$0",
   },
   {
     id: 7,
@@ -159,8 +159,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2019-03-18',
     social: {},
     location: 'UK',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$2,800",
+    totalDue: "$2,800",
   },
   {
     id: 8,
@@ -178,8 +178,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2020-10-09',
     social: {},
     location: 'Pakistan',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$2,300",
+    totalDue: "$600",
   },
   {
     id: 9,
@@ -197,8 +197,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2018-09-30',
     social: {},
     location: 'Germany',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$3,100",
+    totalDue: "$1,900",
   },
   {
     id: 10,
@@ -217,7 +217,7 @@ export const INSTRUCTORS: Instructor[] = [
     social: {},
     location: 'Canada',
     totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalDue: "$2,000",
   },
   {
     id: 11,
@@ -235,8 +235,8 @@ export const INSTRUCTORS: Instructor[] = [
     joinedDate: '2021-05-11',
     social: {},
     location: 'Bangladesh',
-    totalPaid: "$9,200",
-    totalDue: "$3,420",
+    totalPaid: "$6,200",
+    totalDue: "$4,420",
   },
 ];
 
