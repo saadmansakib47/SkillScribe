@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Shield, DollarSign, UserX, Users, FileTextIcon, HelpCircle, BookOpen, FolderOpen, Flag } from "lucide-react";
+import { Home, Shield, DollarSign, UserX, Users, FileTextIcon, HelpCircle, BookOpen, FolderOpen, Flag, TrendingUp } from "lucide-react";
 
 export default function FixedAdminSidebar() {
   const pathname = usePathname();
@@ -11,6 +11,7 @@ export default function FixedAdminSidebar() {
     { icon: Home, label: "Dashboard", href: "/admin/dashboard" },
     { icon: Shield, label: "Instructor Verification", href: "/admin/instructor-verification" },
     { icon: DollarSign, label : "Instructor Payment", href: "/admin/instructor-payment"},
+    { icon: TrendingUp, label: "Financial Report", href: "/admin/financial-report" },
     { icon: UserX, label: "Suspend User", href: "/admin/suspend-user" },
     { icon: Users, label: "User Management", href: "/admin/user-management" },
     { icon: Flag, label: "User Report", href: "/admin/user-report" },
