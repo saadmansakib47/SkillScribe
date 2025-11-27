@@ -9,8 +9,6 @@ interface FilterSidebarProps {
   onDurationChange: (duration: string) => void;
   onPriceChange: (price: string) => void;
   onLevelChange: (level: string) => void;
-  onApply: () => void;
-  onClear: () => void;
 }
 
 export default function FilterSidebar({
@@ -19,27 +17,11 @@ export default function FilterSidebar({
   onDurationChange,
   onPriceChange,
   onLevelChange,
-  onApply,
-  onClear
 }: FilterSidebarProps) {
   return (
     <div className="hidden lg:block w-1/4 bg-white p-6 rounded-2xl shadow-md border-2 border-gray-200 space-y-6">
       <div className="pb-6 border-b-2 border-gray-100">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Filters</h2>
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={onApply} 
-            className="flex-1 bg-[#0b4ca6] text-white py-2.5 px-4 rounded-xl font-semibold transition-all hover:bg-[#083a8a] shadow-md hover:shadow-lg"
-          >
-            Apply
-          </button>
-          <button 
-            onClick={onClear} 
-            className="flex-1 bg-white text-gray-900 py-2.5 px-4 rounded-xl border-2 border-gray-300 font-semibold hover:bg-gray-50 transition-all"
-          >
-            Clear
-          </button>
-        </div>
+        <h2 className="text-2xl font-bold text-gray-900">Filters</h2>
       </div>
 
       {/* Ratings */}

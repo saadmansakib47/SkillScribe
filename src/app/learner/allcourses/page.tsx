@@ -18,9 +18,6 @@ export default function CoursesPage() {
     levels: [] as string[],
   });
 
-  // applied filters (used to compute displayed list) — updated when user clicks Filter
-  const [applied, setApplied] = useState(filters);
-
   const toggleArray = <T,>(arr: T[], value: T) => {
     return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value];
   };
@@ -41,17 +38,6 @@ export default function CoursesPage() {
     setFilters((prev) => ({ ...prev, levels: toggleArray(prev.levels, l) }));
   };
 
-  const applyFilters = () => {
-    setApplied(filters);
-    setFiltersOpen(false); // Close mobile modal after applying
-  };
-
-  const clearFilters = () => {
-    const empty = { ratings: [], durations: [], prices: [], levels: [] };
-    setFilters(empty);
-    setApplied(empty);
-  };
-
   // ref to courses grid so we can auto-scroll into view on filter/sort changes
   const gridRef = useRef<HTMLDivElement | null>(null);
 
@@ -70,29 +56,29 @@ export default function CoursesPage() {
         // schedule async to avoid synchronous setState in effect
         setTimeout(() => setFilters(freeFilters), 0);
       }
-      const currentApplied = JSON.stringify(applied);
+      const currentApplied = JSON.stringify(filters);
       if (currentApplied !== target) {
-        setTimeout(() => setApplied(freeFilters), 0);
+        setTimeout(() => setFilters(freeFilters), 0);
       }
     }
-  }, [searchParams, filters, applied]);
+  }, [searchParams, filters]);
 
   const qParam = searchParams ? (searchParams.get('q') || '') : '';
   const q = qParam.toLowerCase();
   const categoryParam = searchParams ? (searchParams.get('category') || '') : '';
 
-  // auto-scroll to courses when applied filters or sort change
+  // auto-scroll to courses when filters or sort change
   useEffect(() => {
     if (gridRef.current) {
       gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [applied, sort, q, categoryParam]);
+  }, [filters, sort, q, categoryParam]);
 
   const displayed = useMemo(() => {
     let list = [...COURSES];
 
     // apply filters
-    const { ratings, durations, prices, levels } = applied;
+    const { ratings, durations, prices, levels } = filters;
 
     if (ratings.length > 0) {
       list = list.filter((c) => ratings.some((r) => c.rating >= r));
@@ -141,7 +127,7 @@ export default function CoursesPage() {
     if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
 
     return list;
-  }, [applied, sort, q, categoryParam]);
+  }, [filters, sort, q, categoryParam]);
 
   return (
     <section className="bg-[#FAF7F3] py-16">
@@ -181,8 +167,6 @@ export default function CoursesPage() {
             onDurationChange={handleDurationChange}
             onPriceChange={handlePriceChange}
             onLevelChange={handleLevelChange}
-            onApply={applyFilters}
-            onClear={clearFilters}
           />
 
           {/* Mobile Filter Modal */}
@@ -194,8 +178,8 @@ export default function CoursesPage() {
             onDurationChange={handleDurationChange}
             onPriceChange={handlePriceChange}
             onLevelChange={handleLevelChange}
-            onApply={applyFilters}
-            onClear={clearFilters}
+            onApply={() => setFiltersOpen(false)}
+            onClear={() => setFilters({ ratings: [], durations: [], prices: [], levels: [] })}
           />
 
           {/* Courses Grid */}
