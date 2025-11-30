@@ -2,7 +2,7 @@
 
 import PolicyManagementPage from "@/app/admin/policy-management/page";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Home, Users, Shield, UserX, FileTextIcon, DollarSign, BookOpen, FolderOpen, HelpCircle, Flag, TrendingUp } from "lucide-react";
+import { X, Home, Users, Shield, UserX, FileTextIcon, DollarSign, BookOpen, FolderOpen, HelpCircle, Flag, TrendingUp, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -22,6 +22,7 @@ export default function AdminSidebar({ isOpen, onClose }: SidebarProps) {
     { icon: UserX, label: "Suspend User", href: "/admin/suspend-user" },
     { icon: Users, label: "User Management", href: "/admin/user-management" },
     { icon: Flag, label: "User Report", href: "/admin/user-report" },
+    { icon: MessageSquare, label: "Chatbot History", href: "/admin/chatbot-history" },
     { icon: BookOpen, label: "Course Management", href: "/admin/course-management" },
     { icon: FolderOpen, label: "Category Management", href: "/admin/category-management" },
     { icon: FileTextIcon, label: "Policy Management", href: "/admin/policy-management" },
