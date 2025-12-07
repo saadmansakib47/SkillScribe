@@ -2,6 +2,7 @@ import { COURSES } from '../../../../lib/courses';
 import CourseModules from '../../../../components/course/CourseModules';
 import CourseActions from '../../../../components/course/CourseActions';
 import { InstructorCard, CourseHero, RelatedCourses } from '@/components/learner/course-detail';
+import Link from "next/link";
 
 type Props = {
   params: { id: string } | Promise<{ id: string }>;
