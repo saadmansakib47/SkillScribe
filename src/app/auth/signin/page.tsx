@@ -4,13 +4,48 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
+    const router = useRouter();
+
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    // This function will be called when user clicks Login
+    async function handleLogin(e: any) {
+        e.preventDefault();
+
+        const res = await fetch("http://127.0.0.1:3658/m1/1140687-1132995-default/auth/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            // store token + user
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // redirect to dashboard
+            router.push("/dashboard");
+        } else {
+            alert("Invalid email or password");
+        }
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 font-['Droid Sans']">
             <div className="flex w-[900px] bg-white shadow-lg rounded-2xl overflow-hidden">
+                
                 {/* Left Side */}
                 <div className="w-1/2 relative bg-[#f9f9f9]">
                     <Image
@@ -31,7 +66,9 @@ export default function SignIn() {
                         To log into your account enter your email and password
                     </p>
 
-                    <form className="space-y-5">
+                    {/* ⭐ Login Form with API connected */}
+                    <form className="space-y-5" onSubmit={handleLogin}>
+                        
                         {/* Email */}
                         <div>
                             <label className="block text-sm mb-1">Email</label>
@@ -39,6 +76,9 @@ export default function SignIn() {
                                 type="email"
                                 className="w-full border border-gray-300 rounded-[8px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                         </div>
 
@@ -50,6 +90,9 @@ export default function SignIn() {
                                     type={showPassword ? "text" : "password"}
                                     className="w-full border border-gray-300 rounded-[8px] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="Enter your password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
                                 />
                                 <button
                                     type="button"
