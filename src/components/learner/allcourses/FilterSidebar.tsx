@@ -1,3 +1,5 @@
+"use client";
+
 interface FilterSidebarProps {
   filters: {
     ratings: number[];
