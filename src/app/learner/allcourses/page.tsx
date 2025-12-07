@@ -2,14 +2,14 @@
 
 export const dynamic = "force-dynamic";
 
-import { useMemo, useState, useRef, useEffect, ChangeEvent } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { COURSES } from '../../../lib/courses';
-import { FilterSidebar, MobileFilterModal, CourseCard } from '@/components/learner/allcourses';
+import { useMemo, useState, useRef, useEffect, ChangeEvent } from "react";
+import { useSearchParams } from "next/navigation";
+import { COURSES } from "../../../lib/courses";
+import { FilterSidebar, MobileFilterModal, CourseCard } from "@/components/learner/allcourses";
 
 export default function CoursesPage() {
   // UI state
-  const [sort, setSort] = useState<'newest' | 'price' | 'rating'>('newest');
+  const [sort, setSort] = useState<"newest" | "price" | "rating">("newest");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   // transient filter checkboxes
@@ -23,99 +23,71 @@ export default function CoursesPage() {
   const toggleArray = <T,>(arr: T[], value: T) =>
     arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value];
 
-  const handleRatingChange = (r: number) => {
-    setFilters((prev) => ({ ...prev, ratings: toggleArray(prev.ratings, r) }));
-  };
-
-  const handleDurationChange = (d: string) => {
-    setFilters((prev) => ({ ...prev, durations: toggleArray(prev.durations, d) }));
-  };
-
-  const handlePriceChange = (p: string) => {
-    setFilters((prev) => ({ ...prev, prices: toggleArray(prev.prices, p) }));
-  };
-
-  const handleLevelChange = (l: string) => {
-    setFilters((prev) => ({ ...prev, levels: toggleArray(prev.levels, l) }));
-  };
+  const handleRatingChange = (r: number) => setFilters((prev) => ({ ...prev, ratings: toggleArray(prev.ratings, r) }));
+  const handleDurationChange = (d: string) => setFilters((prev) => ({ ...prev, durations: toggleArray(prev.durations, d) }));
+  const handlePriceChange = (p: string) => setFilters((prev) => ({ ...prev, prices: toggleArray(prev.prices, p) }));
+  const handleLevelChange = (l: string) => setFilters((prev) => ({ ...prev, levels: toggleArray(prev.levels, l) }));
 
   // ref for scrolling
   const gridRef = useRef<HTMLDivElement | null>(null);
 
   // --------------------------
-  // FIXED SEARCH PARAM ISSUE
+  // SEARCH PARAMS
   // --------------------------
   const searchParams = useSearchParams();
 
-  // Extract primitives — DO NOT use searchParams inside useEffect deps
-  const priceParam = searchParams.get('price') || '';
-  const qParam = searchParams.get('q') || '';
-  const categoryParam = searchParams.get('category') || '';
+  const priceParam = searchParams.get("price") || "";
+  const qParam = searchParams.get("q") || "";
+  const categoryParam = searchParams.get("category") || "";
 
   const q = qParam.toLowerCase();
 
   // Apply price=free from URL
   useEffect(() => {
-    if (priceParam === 'free') {
+    if (priceParam === "free") {
       const freeFilters = {
         ratings: [],
         durations: [],
-        prices: ['free'],
+        prices: ["free"],
         levels: [],
       };
 
-      const current = JSON.stringify(filters);
-      const target = JSON.stringify(freeFilters);
-
-      if (current !== target) {
+      if (JSON.stringify(filters) !== JSON.stringify(freeFilters)) {
         setTimeout(() => setFilters(freeFilters), 0);
       }
     }
-  }, [priceParam]); // ONLY depend on primitive value
+  }, [priceParam]);
 
   // Auto-scroll to courses when filters/sort/search change
   useEffect(() => {
     if (gridRef.current) {
-      gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      gridRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [filters, sort, q, categoryParam]);
 
   // Compute displayed courses
   const displayed = useMemo(() => {
     let list = [...COURSES];
-
     const { ratings, durations, prices, levels } = filters;
 
-    if (ratings.length > 0) {
-      list = list.filter((c) => ratings.some((r) => c.rating >= r));
-    }
+    if (ratings.length > 0) list = list.filter((c) => ratings.some((r) => c.rating >= r));
 
     if (durations.length > 0) {
       list = list.filter((c) =>
         durations.some((d) => {
-          if (d === '0-1') return c.durationHours <= 1;
-          if (d === '1-3') return c.durationHours > 1 && c.durationHours <= 3;
-          if (d === '3-9') return c.durationHours > 3 && c.durationHours <= 9;
-          if (d === '9-18') return c.durationHours > 9 && c.durationHours <= 18;
-          if (d === '18+') return c.durationHours > 18;
+          if (d === "0-1") return c.durationHours <= 1;
+          if (d === "1-3") return c.durationHours > 1 && c.durationHours <= 3;
+          if (d === "3-9") return c.durationHours > 3 && c.durationHours <= 9;
+          if (d === "9-18") return c.durationHours > 9 && c.durationHours <= 18;
+          if (d === "18+") return c.durationHours > 18;
           return true;
         })
       );
     }
 
-    if (prices.length > 0) {
-      list = list.filter((c) =>
-        prices.some((p) => (p === 'free' ? c.price === 0 : c.price > 0))
-      );
-    }
-
-    if (levels.length > 0) {
-      list = list.filter((c) => levels.includes(c.level || ''));
-    }
-
-    if (categoryParam) {
-      list = list.filter((c) => c.category === categoryParam);
-    }
+    if (prices.length > 0) list = list.filter((c) => prices.some((p) => (p === "free" ? c.price === 0 : c.price > 0)));
+    if (levels.length > 0) list = list.filter((c) => levels.includes(c.level || ""));
+    if (categoryParam) list = list.filter((c) => c.category === categoryParam);
 
     if (q) {
       list = list.filter(
@@ -126,9 +98,9 @@ export default function CoursesPage() {
       );
     }
 
-    if (sort === 'newest') list.sort((a, b) => b.id - a.id);
-    if (sort === 'price') list.sort((a, b) => a.price - b.price);
-    if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
+    if (sort === "newest") list.sort((a, b) => b.id - a.id);
+    if (sort === "price") list.sort((a, b) => a.price - b.price);
+    if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
 
     return list;
   }, [filters, sort, q, categoryParam]);
@@ -136,7 +108,6 @@ export default function CoursesPage() {
   return (
     <section className="bg-[#FAF7F3] py-16">
       <div className="mx-auto max-w-7xl px-4">
-
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Courses</h1>
@@ -145,7 +116,7 @@ export default function CoursesPage() {
             <select
               value={sort}
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setSort(e.target.value as 'newest' | 'price' | 'rating')
+                setSort(e.target.value as "newest" | "price" | "rating")
               }
               className="w-full sm:w-auto border-2 border-gray-400 rounded-[8px] px-4 py-2 text-gray-900"
             >
@@ -193,9 +164,7 @@ export default function CoursesPage() {
             onPriceChange={handlePriceChange}
             onLevelChange={handleLevelChange}
             onApply={() => setFiltersOpen(false)}
-            onClear={() =>
-              setFilters({ ratings: [], durations: [], prices: [], levels: [] })
-            }
+            onClear={() => setFilters({ ratings: [], durations: [], prices: [], levels: [] })}
           />
 
           {/* Courses Grid */}
@@ -208,7 +177,6 @@ export default function CoursesPage() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
