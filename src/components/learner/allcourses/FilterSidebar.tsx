@@ -32,7 +32,7 @@ export default function FilterSidebar({
       <div className="pb-6 border-b-2 border-gray-100">
         <p className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wide">Ratings</p>
         <div className="flex flex-col space-y-2">
-          {[5, 4, 3, 2].map((r) => (
+          {[5, 4, 3, 2, 1].map((r) => (
             <label key={r} className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
               <input 
                 checked={filters.ratings.includes(r)} 
@@ -40,7 +40,7 @@ export default function FilterSidebar({
                 type="checkbox" 
                 className="mr-3 w-4 h-4 accent-[#094CA4]" 
               /> 
-              <span className="text-gray-700 font-medium">{r} Stars & Up</span>
+              <span className="text-gray-700 font-medium">{r} {r === 1 ? 'Star' : 'Stars'}</span>
             </label>
           ))}
         </div>

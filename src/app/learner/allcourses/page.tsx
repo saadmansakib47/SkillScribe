@@ -85,7 +85,7 @@ function CoursesPageContent() {
     const { ratings, durations, prices, levels } = filters;
 
     if (ratings.length > 0) {
-      list = list.filter((c) => ratings.some((r) => c.rating >= r));
+      list = list.filter((c) => ratings.some((r) => Math.floor(c.rating) === r));
     }
 
     if (durations.length > 0) {
