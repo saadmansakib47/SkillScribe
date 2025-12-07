@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState, useRef, useEffect, ChangeEvent } from 'react';
+import { useMemo, useState, useRef, useEffect, ChangeEvent, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { COURSES } from '../../../lib/courses';
 import { FilterSidebar, MobileFilterModal, CourseCard } from '@/components/learner/allcourses';
 
-export default function CoursesPage() {
+function CoursesPageContent() {
   // UI state
   const [sort, setSort] = useState<'newest' | 'price' | 'rating'>('newest');
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -209,5 +209,22 @@ export default function CoursesPage() {
 
       </div>
     </section>
+  );
+}
+
+export default function CoursesPage() {
+  return (
+    <Suspense fallback={
+      <div className="bg-[#FAF7F3] min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+          </div>
+          <p className="mt-4 text-gray-600">Loading courses...</p>
+        </div>
+      </div>
+    }>
+      <CoursesPageContent />
+    </Suspense>
   );
 }
