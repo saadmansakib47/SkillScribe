@@ -1,3 +1,5 @@
+"use client";
+
 interface MobileFilterModalProps {
   isOpen: boolean;
   filters: {

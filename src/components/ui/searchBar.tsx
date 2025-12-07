@@ -9,7 +9,7 @@ type SearchBarProps = {
   placeholder?: string;
   value: string;
   onChange: (v: string) => void;
-  className?: string;        // optional for extra styling
+  className?: string;       
 };
 
 export function SearchBar({
