@@ -62,10 +62,10 @@ export default function MobileFilterModal({
           <div>
             <p className="font-semibold text-gray-800 mb-3">Ratings</p>
             <div className="flex flex-col space-y-2">
-              {[5, 4, 3, 2].map((r) => (
+              {[5, 4, 3, 2, 1].map((r) => (
                 <label key={r} className="flex items-center">
                   <input checked={filters.ratings.includes(r)} onChange={() => onRatingChange(r)} type="checkbox" className="mr-3 w-5 h-5" /> 
-                  <span className="text-gray-700">{r} Stars</span>
+                  <span className="text-gray-700">{r} {r === 1 ? 'Star' : 'Stars'}</span>
                 </label>
               ))}
             </div>
