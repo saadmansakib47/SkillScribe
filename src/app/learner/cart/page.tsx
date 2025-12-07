@@ -24,7 +24,6 @@ export default function ShoppingCartPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-  // Get some recommended courses (courses not in cart)
   const recommendedCourses = COURSES.filter(
     course => !items.some(item => item.course.id === course.id)
   ).slice(0, 3);
@@ -37,9 +36,8 @@ export default function ShoppingCartPage() {
     securityCode: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Open payment confirmation modal
+  // ✅ FIXED: no event argument — matches OrderSummary type
+  const handleSubmit = () => {
     setShowPaymentModal(true);
   };
 
@@ -49,13 +47,11 @@ export default function ShoppingCartPage() {
       return;
     }
 
-    // Simulate payment processing
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
       setPaymentSuccess(true);
-      
-      // After showing success, clear cart and close modal
+
       setTimeout(() => {
         clearCart();
         setShowPaymentModal(false);
@@ -74,7 +70,6 @@ export default function ShoppingCartPage() {
     }
   };
 
-  // Check if all form fields are filled
   const isFormValid = formData.name.trim() !== '' && 
                       formData.country !== '' && 
                       formData.cardNumber.trim() !== '' && 
@@ -84,7 +79,7 @@ export default function ShoppingCartPage() {
   if (activeTab === 'billing' as TabType) {
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#FAF7F3' }}>
-        {/* Tab Navigation */}
+        
         <div style={{ backgroundColor: '#FAF7F3' }} className="border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex gap-8">
@@ -101,10 +96,9 @@ export default function ShoppingCartPage() {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Checkout Form */}
+            
             <div>
               <BillingForm
                 formData={formData}
@@ -112,7 +106,6 @@ export default function ShoppingCartPage() {
               />
             </div>
 
-            {/* Order Details */}
             <div>
               <OrderDetails items={items} />
               <OrderSummary
@@ -120,13 +113,13 @@ export default function ShoppingCartPage() {
                 discount={discount}
                 total={total}
                 isFormValid={isFormValid}
-                onProceed={handleSubmit}
+                onProceed={handleSubmit}  
               />
             </div>
+
           </div>
         </div>
 
-        {/* Payment Confirmation Modal */}
         {showPaymentModal && (
           <PaymentModal
             total={total}
@@ -145,10 +138,11 @@ export default function ShoppingCartPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FAF7F3' }}>
-      {/* Tab Navigation */}
+      
       <div style={{ backgroundColor: '#FAF7F3' }} className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-8">
+            
             <button
               onClick={() => setActiveTab('cart')}
               className={`py-4 px-2 border-b-2 font-medium transition-colors ${
@@ -159,6 +153,7 @@ export default function ShoppingCartPage() {
             >
               Shopping Cart
             </button>
+
             <button
               onClick={() => setActiveTab('billing')}
               className={`py-4 px-2 border-b-2 font-medium transition-colors ${
@@ -169,15 +164,15 @@ export default function ShoppingCartPage() {
             >
               Billing Information
             </button>
+
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" suppressHydrationWarning>
+        
         {items.length === 0 ? (
           <>
-            {/* Empty Cart State */}
             <EmptyState
               icon={Search}
               title="Your shopping cart is empty"
@@ -189,14 +184,12 @@ export default function ShoppingCartPage() {
               }}
             />
 
-            {/* Recommended Courses */}
             <div className="mt-8">
               <RecommendedCourses courses={recommendedCourses} />
             </div>
           </>
         ) : (
           <>
-            {/* Cart Items */}
             <div className="bg-white rounded-2xl shadow-sm border p-6 mb-6">
               <div className="flex items-center justify-between mb-4 pb-4 border-b">
                 <h2 className="text-xl font-semibold">Course & Instructor</h2>
@@ -214,7 +207,6 @@ export default function ShoppingCartPage() {
               </div>
             </div>
 
-            {/* Recommendations */}
             <div className="mb-6">
               <RecommendedCourses
                 courses={recommendedCourses}
@@ -223,7 +215,6 @@ export default function ShoppingCartPage() {
               />
             </div>
 
-            {/* Cart Totals */}
             <CartSummary
               subtotal={subtotal}
               discount={discount}
@@ -232,6 +223,7 @@ export default function ShoppingCartPage() {
             />
           </>
         )}
+
       </div>
     </div>
   );
