@@ -31,6 +31,7 @@ export default function CourseModules({
 }) {
   const m = useMemo(() => modules || [], [modules]);
   const [selectedId, setSelectedId] = useState<number | null>(m.length > 0 ? m[0].id : null);
+  const [showAllModules, setShowAllModules] = useState(false);
 
   const selected = useMemo(() => m.find((mod) => mod.id === selectedId) ?? null, [m, selectedId]);
 
@@ -172,12 +173,15 @@ export default function CourseModules({
   }
 
   // Default two-column layout: modules + resources/outcomes
+  const displayedModules = showAllModules ? m : m.slice(0, 3);
+  const hasMoreModules = m.length > 3;
+
   return (
     <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div>
         <h3 className="text-xl font-semibold mb-4">Modules</h3>
         <div className="space-y-3">
-          {m.map((mod) => (
+          {displayedModules.map((mod) => (
             <button
               key={mod.id}
               onClick={() => setSelectedId(mod.id)}
@@ -197,6 +201,24 @@ export default function CourseModules({
               )}
             </button>
           ))}
+
+          {hasMoreModules && !showAllModules && (
+            <button
+              onClick={() => setShowAllModules(true)}
+              className="w-full text-center p-3 rounded-xl border border-[#094CA4] bg-white text-[#094CA4] font-medium hover:bg-[#094CA4] hover:text-white transition-colors"
+            >
+              Show More ({m.length - 3} more {m.length - 3 === 1 ? 'module' : 'modules'})
+            </button>
+          )}
+
+          {hasMoreModules && showAllModules && (
+            <button
+              onClick={() => setShowAllModules(false)}
+              className="w-full text-center p-3 rounded-xl border border-gray-300 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+            >
+              Show Less
+            </button>
+          )}
         </div>
       </div>
 
