@@ -7,7 +7,7 @@ import { FilterSidebar, MobileFilterModal, CourseCard } from '@/components/learn
 
 function CoursesPageContent() {
   // UI state
-  const [sort, setSort] = useState<'newest' | 'price' | 'rating'>('newest');
+  const [sort, setSort] = useState<'newest' | 'price-low' | 'price-high' | 'rating'>('newest');
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   // transient filter checkboxes
@@ -125,7 +125,8 @@ function CoursesPageContent() {
     }
 
     if (sort === 'newest') list.sort((a, b) => b.id - a.id);
-    if (sort === 'price') list.sort((a, b) => a.price - b.price);
+    if (sort === 'price-low') list.sort((a, b) => a.price - b.price);
+    if (sort === 'price-high') list.sort((a, b) => b.price - a.price);
     if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
 
     return list;
@@ -143,12 +144,13 @@ function CoursesPageContent() {
             <select
               value={sort}
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setSort(e.target.value as 'newest' | 'price' | 'rating')
+                setSort(e.target.value as 'newest' | 'price-low' | 'price-high' | 'rating')
               }
               className="w-full sm:w-auto border-2 border-gray-400 rounded-[8px] px-4 py-2 text-gray-900"
             >
               <option value="newest">Sort by: Newest</option>
-              <option value="price">Sort by: Price</option>
+              <option value="price-low">Sort by: Price (Low to High)</option>
+              <option value="price-high">Sort by: Price (High to Low)</option>
               <option value="rating">Sort by: Rating</option>
             </select>
           </div>
@@ -226,7 +228,7 @@ function CoursesPageContent() {
                   </svg>
                   <h3 className="text-2xl font-semibold text-gray-900 mb-3">No Courses Found</h3>
                   <p className="text-gray-600 mb-6">
-                    We couldn't find any courses matching your current filters. Try adjusting your search criteria or clearing some filters.
+                    We couldn&apos;t find any courses matching your current filters. Try adjusting your search criteria or clearing some filters.
                   </p>
                   <button
                     onClick={() => setFilters({ ratings: [], durations: [], prices: [], levels: [] })}
