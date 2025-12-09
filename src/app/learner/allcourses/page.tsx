@@ -199,11 +199,44 @@ function CoursesPageContent() {
           {/* Courses Grid */}
           <div
             ref={gridRef}
-            className="w-full lg:w-3/4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch pr-2"
+            className="w-full lg:w-3/4 pr-2"
           >
-            {displayed.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
+            {displayed.length > 0 ? (
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 items-stretch">
+                {displayed.map((course) => (
+                  <CourseCard key={course.id} course={course} />
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-2xl shadow-md border-2 border-gray-200 p-12 text-center">
+                <div className="max-w-md mx-auto">
+                  <svg
+                    className="mx-auto h-24 w-24 text-gray-400 mb-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">No Courses Found</h3>
+                  <p className="text-gray-600 mb-6">
+                    We couldn't find any courses matching your current filters. Try adjusting your search criteria or clearing some filters.
+                  </p>
+                  <button
+                    onClick={() => setFilters({ ratings: [], durations: [], prices: [], levels: [] })}
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-[#094CA4] hover:bg-[#083d85] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#094CA4] transition-colors"
+                  >
+                    Clear All Filters
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
