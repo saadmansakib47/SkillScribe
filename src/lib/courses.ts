@@ -1154,7 +1154,7 @@ export const COURSES: Course[] = [
   price: 14,
   totalVideos: 14,
   instructorName: 'John Hamilton',
-  instructorImage: '/Asset/john hamilton.jpg',
+  instructorImage: '/Asset/John hamilton.jpg',
   level: 'Beginner',
   category: 'Design',
   modules: [
