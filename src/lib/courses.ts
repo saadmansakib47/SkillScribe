@@ -822,8 +822,8 @@ export const COURSES: Course[] = [
     durationHours: 6,
     price: 0,
     totalVideos: 12,
-    instructorName: 'John Hamilton',
-    instructorImage: '/Asset/john hamilton.jpg',
+    instructorName: 'Karim Kabir',
+  instructorImage: '/Asset/karim.jpg',
     level: 'Intermediate',
     category: 'Design',
     modules: [
@@ -1153,8 +1153,8 @@ export const COURSES: Course[] = [
   durationHours: 5,
   price: 14,
   totalVideos: 14,
-  instructorName: 'John Hamilton',
-  instructorImage: '/Asset/John hamilton.jpg',
+  instructorName: 'Karim Kabir',
+  instructorImage: '/Asset/karim.jpg',
   level: 'Beginner',
   category: 'Design',
   modules: [
