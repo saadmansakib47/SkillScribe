@@ -160,16 +160,16 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/presignup/Question1" className="hover:text-black">
+            <Link href="/presignup/Question1" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname.startsWith('/presignup') ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
               Instruct
             </Link>
-            <Link href="/learner/community" className="hover:text-black">
+            <Link href="/learner/community" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/learner/community' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
               Community
             </Link>
-            <Link href="/about" className="hover:text-black">
+            <Link href="/about" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/about' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
               About
             </Link>
-            <Link href="/contact" className="hover:text-black">
+            <Link href="/contact" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/contact' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
               Contact
             </Link>
           </nav>
@@ -241,10 +241,10 @@ export default function Navbar() {
             {/* Cart Icon */}
             <Link
               href="/learner/cart"
-              className="relative p-2 rounded-md hover:bg-gray-200 transition"
+              className={`relative p-2 rounded-md transition ${pathname === '/learner/cart' ? 'bg-blue-100' : 'hover:bg-gray-200'}`}
               title="Shopping Cart"
             >
-              <ShoppingCart className="h-5 w-5 text-gray-800" />
+              <ShoppingCart className={`h-5 w-5 ${pathname === '/learner/cart' ? 'text-[#094CA4]' : 'text-gray-800'}`} />
               {mounted && cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {cartCount}
@@ -255,10 +255,10 @@ export default function Navbar() {
             {/* Wishlist Icon */}
             <Link
               href="/learner/wishlist"
-              className="relative p-2 rounded-md hover:bg-gray-200 transition hidden sm:block"
+              className={`relative p-2 rounded-md transition hidden sm:block ${pathname === '/learner/wishlist' ? 'bg-blue-100' : 'hover:bg-gray-200'}`}
               title="Wishlist"
             >
-              <Heart className="h-5 w-5 text-gray-800" />
+              <Heart className={`h-5 w-5 ${pathname === '/learner/wishlist' ? 'text-[#094CA4]' : 'text-gray-800'}`} />
               {mounted && wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {wishlistCount}
@@ -413,7 +413,7 @@ export default function Navbar() {
                 <Link
                   href="/learner/community"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${pathname === '/learner/community' ? 'bg-blue-100 text-[#094CA4]' : 'text-gray-700 hover:bg-blue-50 hover:text-[#094CA4]'}`}
                 >
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -423,14 +423,14 @@ export default function Navbar() {
                 <Link
                   href="/about"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${pathname === '/about' ? 'bg-blue-100 text-[#094CA4]' : 'text-gray-700 hover:bg-blue-50 hover:text-[#094CA4]'}`}
                 >
                   About
                 </Link>
                 <Link
                   href="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-colors"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${pathname === '/contact' ? 'bg-blue-100 text-[#094CA4]' : 'text-gray-700 hover:bg-blue-50 hover:text-[#094CA4]'}`}
                 >
                   Contact
                 </Link>
