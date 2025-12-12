@@ -2,7 +2,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Clock, Award, ChevronRight } from 'lucide-react';
+import { Clock, Award } from 'lucide-react';
 
 
 type Props = {

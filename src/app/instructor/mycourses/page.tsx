@@ -1,15 +1,5 @@
 "use client";
 
-import {
-  Home,
-  BookOpen,
-  Calendar,
-  Star,
-  MessageCircle,
-  HelpCircle,
-  User,
-} from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import CourseInfoForm from "@/components/course/CourseInfoForm";

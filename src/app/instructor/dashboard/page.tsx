@@ -1,17 +1,7 @@
 "use client";
 
-import {
-  Home,
-  BookOpen,
-  Calendar,
-  Star,
-  MessageCircle,
-  HelpCircle,
-  User,
-  Bell,
-} from "lucide-react";
+import {Bell} from "lucide-react";
 import { useState } from "react";
-import Link from "next/link";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
 import CourseStatsTable from "@/components/course/CourseStatsTable";
