@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import InstructorLayout from "@/app/instructor/instructorlayout";
 
 import ConversationList from "@/components/messages/conversationList";
 import ChatHeader from "@/components/messages/chatHeader";

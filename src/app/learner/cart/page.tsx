@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { useCart } from '../../../contexts/CartContext';
 import { COURSES } from '../../../lib/courses';
 import CartItem from '@/components/learner/cart/CartItem';

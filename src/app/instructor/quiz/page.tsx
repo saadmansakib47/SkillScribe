@@ -2,7 +2,6 @@
 
 import InstructorLayout from "@/app/instructor/instructorlayout";
 import QuizCreator from "@/components/quiz/quizCreator";
-import QuizBuilder from "@/components/quiz/quizBuilder";
 
 export default function CreateQuizPage() 
 {
