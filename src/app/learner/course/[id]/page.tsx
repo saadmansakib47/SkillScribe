@@ -120,6 +120,16 @@ export default async function CourseDetailPage({ params }: Props) {
               {/* Modules (left) + Resources (right) — client component handles selection and aggregation */}
               <CourseModules modules={modules} topResources={resources} outcomes={outcomes} />
 
+              {/* Start Course Button */}
+              <div className="mt-8 flex justify-center">
+                <Link
+                  href={`/learner/course/${course.id}/player`}
+                  className="inline-flex items-center px-8 py-3 bg-[#094CA4] text-white font-semibold text-lg rounded-xl hover:bg-[#083d85] transition-colors shadow-md hover:shadow-lg"
+                >
+                  Start Course
+                </Link>
+              </div>
+
               {/* Related courses */}
               <RelatedCourses courses={related} />
             </div>
