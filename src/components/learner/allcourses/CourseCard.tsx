@@ -82,7 +82,7 @@ export default function CourseCard({ course }: CourseCardProps) {
                 alt={course.instructorName} 
                 width={36} 
                 height={36} 
-                className="rounded-full ring-2 ring-gray-200" 
+                className="rounded-full ring-2 ring-gray-200 object-cover w-9 h-9" 
               />
               <div className="text-sm font-semibold text-gray-800">{course.instructorName}</div>
             </div>
