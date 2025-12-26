@@ -40,7 +40,7 @@ export default function ProfileHero({
             )}
           </div>
           <div>
-            <h1 className="text-3xl font-bold mb-2">Welcome back, {name.split(' ')[0]}! 👋</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, {name.split(' ')[0]}!</h1>
             <p className="text-blue-100 mb-2">{bio}</p>
             <div className="flex items-center gap-4 text-sm">
               <span className="flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full">
@@ -56,9 +56,9 @@ export default function ProfileHero({
         </div>
         <Link 
           href={`/learner/profile/${learnerId}/edit`}
-          className="flex items-center gap-2 px-8 py-3.5 bg-white text-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-bold shadow-lg hover:shadow-xl border-2 border-white hover:border-blue-100"
+          className="flex items-center gap-2 px-4 py-2 bg-white text-[#094CA4] rounded-xl hover:bg-blue-50 transition-all font-semibold text-sm shadow-lg hover:shadow-xl border-2 border-white hover:border-blue-100"
         >
-          <Edit2 className="h-5 w-5" />
+          <Edit2 className="h-4 w-4" />
           Edit Profile
         </Link>
       </div>

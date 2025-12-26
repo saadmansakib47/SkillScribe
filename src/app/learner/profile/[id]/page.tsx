@@ -134,12 +134,6 @@ export default function LearnerProfilePage() {
                 value={enrolledCourseDetails.length}
                 label="Enrolled Courses"
                 bgGradient="bg-gradient-to-br from-blue-500 to-blue-600"
-                badge={
-                  <div className="flex items-center gap-1 text-green-600">
-                    <TrendingUp className="h-4 w-4" />
-                    <span className="text-xs font-semibold">+{inProgressCourseDetails.length}</span>
-                  </div>
-                }
                 footer={`${inProgressCourseDetails.length} in progress`}
                 delay={0}
               />
@@ -149,7 +143,6 @@ export default function LearnerProfilePage() {
                 value={completedCourseDetails.length}
                 label="Completed"
                 bgGradient="bg-gradient-to-br from-green-500 to-emerald-600"
-                badge={<Trophy className="h-5 w-5 text-yellow-500" />}
                 footer={`${completionRate}% completion rate`}
                 delay={0.05}
               />
@@ -159,11 +152,6 @@ export default function LearnerProfilePage() {
                 value={`${learner.totalLearningHours}h`}
                 label="Learning Time"
                 bgGradient="bg-gradient-to-br from-orange-500 to-red-500"
-                badge={
-                  <div className="flex items-center gap-1 text-orange-600">
-                    <span className="text-xs font-semibold">+{weeklyHours}h</span>
-                  </div>
-                }
                 footer={`${weeklyHours}h this week`}
                 delay={0.1}
               />
@@ -173,7 +161,6 @@ export default function LearnerProfilePage() {
                 value={learner.certificatesEarned}
                 label="Certificates"
                 bgGradient="bg-gradient-to-br from-purple-500 to-pink-600"
-                badge={<span className="text-2xl">🏆</span>}
                 footer={`${learner.achievements.length} achievements`}
                 delay={0.15}
               />
@@ -296,7 +283,6 @@ export default function LearnerProfilePage() {
                         key={achievement.id}
                         className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 hover:shadow-md transition-all"
                       >
-                        <span className="text-3xl">{achievement.icon}</span>
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-gray-900 text-sm mb-1">{achievement.title}</h3>
                           <p className="text-xs text-gray-600 line-clamp-2">{achievement.description}</p>
@@ -439,7 +425,6 @@ export default function LearnerProfilePage() {
               <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-sm border border-yellow-200 p-6">
                 <div className="flex items-center justify-between mb-3">
                   <Trophy className="h-8 w-8 text-yellow-600" />
-                  <span className="text-3xl">🏆</span>
                 </div>
                 <p className="text-3xl font-bold text-gray-900 mb-1">{learner.achievements.length}</p>
                 <p className="text-sm text-gray-700">Total Achievements</p>
@@ -448,7 +433,6 @@ export default function LearnerProfilePage() {
               <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-sm border border-purple-200 p-6">
                 <div className="flex items-center justify-between mb-3">
                   <Award className="h-8 w-8 text-purple-600" />
-                  <span className="text-3xl">📜</span>
                 </div>
                 <p className="text-3xl font-bold text-gray-900 mb-1">{learner.certificatesEarned}</p>
                 <p className="text-sm text-gray-700">Certificates</p>
@@ -457,7 +441,6 @@ export default function LearnerProfilePage() {
               <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl shadow-sm border border-orange-200 p-6">
                 <div className="flex items-center justify-between mb-3">
                   <Flame className="h-8 w-8 text-orange-600" />
-                  <span className="text-3xl">🔥</span>
                 </div>
                 <p className="text-3xl font-bold text-gray-900 mb-1">{learningStreak}</p>
                 <p className="text-sm text-gray-700">Day Streak</p>
@@ -474,9 +457,6 @@ export default function LearnerProfilePage() {
                     className="group p-5 rounded-xl bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-50 border-2 border-yellow-200 hover:border-yellow-400 hover:shadow-lg transition-all"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-4xl shadow-sm group-hover:scale-110 transition-transform">
-                        {achievement.icon}
-                      </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-bold text-gray-900 text-base mb-1">{achievement.title}</h3>
                         <p className="text-sm text-gray-700 mb-2 line-clamp-2">{achievement.description}</p>
@@ -485,7 +465,7 @@ export default function LearnerProfilePage() {
                             Earned {formatDate(achievement.earnedDate)}
                           </p>
                           <span className="px-2 py-1 bg-yellow-200 text-yellow-800 rounded-full text-xs font-bold">
-                            🏆 Achievement
+                            Achievement
                           </span>
                         </div>
                       </div>
