@@ -64,23 +64,21 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Total Reviews */}
       <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50 overflow-hidden">
-        <CornerBorders />
         <CardContent className="p-6 text-center">
           <p className="text-black text-sm uppercase tracking-wide">
             Total Reviews
           </p>
-          <h2 className="text-4xl font-extrabold mt-2 text-gray-800">{total}</h2>
+          <h2 className="text-4xl font-extrabold mt-2 text-blue-700">{total}</h2>
         </CardContent>
       </Card>
 
       {/* Average Rating */}
       <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-yellow-50 text-center overflow-hidden">
-        <CornerBorders />
         <CardContent className="p-6">
           <p className="text-black text-sm uppercase tracking-wide">
             Average Rating
           </p>
-          <h2 className="text-4xl font-extrabold mt-2 text-black-600">
+          <h2 className="text-4xl font-extrabold mt-2 text-blue-700">
             {avgRating.toFixed(1)}
           </h2>
           {renderStars(avgRating)}
@@ -89,7 +87,6 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
 
       {/* Rating Distribution */}
       <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50 overflow-hidden">
-        <CornerBorders />
         <CardContent className="p-6">
           <p className="text-black text-sm uppercase tracking-wide">
             Rating Distribution
@@ -97,7 +94,7 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
           <div className="mt-3 space-y-2">
             {distribution.map((d) => (
               <div key={d.star} className="flex items-center gap-2 text-sm">
-                <span className="w-5 text-gray-600">{d.star}★</span>
+                <span className="w-5 text-blue-700">{d.star}</span>
                 <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-blue-400 h-2 rounded-full transition-all duration-700 ease-out"
