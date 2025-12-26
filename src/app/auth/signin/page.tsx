@@ -17,35 +17,21 @@ export default function SignIn() {
     async function handleLogin(e: any) {
         e.preventDefault();
 
-        const res = await fetch("http://127.0.0.1:3658/m1/1140687-1132995-default/auth/signin", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
+        // simple simulated auth check
+        if (email.trim() && password.trim()) {
+            // fake persistence for prototype feel
+            localStorage.setItem("user", JSON.stringify({ email }));
 
-        const data = await res.json();
-
-        if (data.success) {
-            // store token + user
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
-
-            // redirect to dashboard
-            router.push("/dashboard");
+            router.push("/");
         } else {
-            alert("Invalid email or password");
+            alert("Please enter both email and password");
         }
     }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 font-['Droid Sans']">
             <div className="flex w-[900px] bg-white shadow-lg rounded-2xl overflow-hidden">
-                
+
                 {/* Left Side */}
                 <div className="w-1/2 relative bg-[#f9f9f9]">
                     <Image
@@ -68,7 +54,7 @@ export default function SignIn() {
 
                     {/* ⭐ Login Form with API connected */}
                     <form className="space-y-5" onSubmit={handleLogin}>
-                        
+
                         {/* Email */}
                         <div>
                             <label className="block text-sm mb-1">Email</label>

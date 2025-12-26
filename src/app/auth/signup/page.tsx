@@ -11,6 +11,7 @@ export default function SignUp() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   // Form state
   const [form, setForm] = useState({
@@ -31,6 +32,16 @@ export default function SignUp() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!form.email.trim() || !form.password.trim() || !form.confirmPassword.trim()) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    if (!agreed) {
+      alert("You must agree to the Terms and Conditions");
+      return;
+    }
+
     if (form.password !== form.confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -38,30 +49,18 @@ export default function SignUp() {
 
     setLoading(true);
 
-    try {
-      const res = await fetch("http://127.0.0.1:3658/m1/1140687-1132995-default/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-        }),
-      });
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ email: form.email })
+    );
 
-      const data = await res.json();
-
-      if (!data.success) {
-        alert(data.message || "Signup failed");
-      } else {
-        alert("Account created successfully!");
-        router.push("/auth/signin"); // redirect
-      }
-    } catch (error) {
-      alert("Something went wrong!");
-    }
-
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/");
+    }, 500);
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 font-['Droid Sans']">
@@ -146,7 +145,14 @@ export default function SignUp() {
 
             {/* Terms */}
             <div className="flex items-start space-x-2">
-              <input type="checkbox" id="terms" className="mt-1" />
+              <input
+                type="checkbox"
+                id="terms"
+                className="mt-1"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+              />
+
               <label htmlFor="terms" className="text-sm text-gray-600">
                 You agree to the{" "}
                 <a href="/terms-conditions" className="text-blue-600 hover:underline">
