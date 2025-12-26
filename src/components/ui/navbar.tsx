@@ -22,6 +22,7 @@ export default function Navbar() {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,6 +30,10 @@ export default function Navbar() {
   const { itemCount: cartCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
   const currentLearner = getCurrentLearner();
+
+  const checkAuth = () => {
+    setIsLoggedIn(!!localStorage.getItem("user"));
+  };
 
   // Detect if we're on an instructor page
   const isInstructorPage = pathname.startsWith("/instructor");
@@ -43,6 +48,19 @@ export default function Navbar() {
   useEffect(() => {
     Promise.resolve().then(() => setMounted(true));
   }, []);
+
+  // check auth state on pathname change
+  useEffect(() => {
+    checkAuth();
+  }, [pathname]);
+
+
+  // hydrate user state to prevent flash of unauthenticated state (ensures smooth SSR)
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    setIsLoggedIn(!!user);
+  }, []);
+
 
   // check if we are on landing page, whether to hide sign in/sign up 
   const isLanding = pathname === "/";
@@ -61,6 +79,7 @@ export default function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
 
   const handleSidebarToggle = () => {
     if (isInstructorPage) {
@@ -177,97 +196,108 @@ export default function Navbar() {
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3 flex-shrink-0">
             {/* User Avatar Dropdown - Hidden on mobile */}
-            <div className="hidden md:block relative" ref={userDropdownRef}>
-              <button
-                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="flex items-center gap-2 p-1.5 rounded-full hover:bg-gray-200 transition"
-                title="Account"
-              >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#094CA4] to-[#0d6fd9] flex items-center justify-center border-2 border-gray-300">
-                  <User className="h-4 w-4 text-white" />
-                </div>
-                <ChevronDown className="h-4 w-4 text-gray-600" />
-              </button>
-
-              {/* Dropdown Menu */}
-              {userDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
-                  {/* User Info Header */}
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="font-semibold text-gray-900 truncate">{currentLearner.name}</p>
-                    <p className="text-sm text-gray-600 truncate">{currentLearner.email}</p>
+            {isLoggedIn && (
+              <div className="hidden md:block relative" ref={userDropdownRef}>
+                <button
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="flex items-center gap-2 p-1.5 rounded-full hover:bg-gray-200 transition"
+                  title="Account"
+                >
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#094CA4] to-[#0d6fd9] flex items-center justify-center border-2 border-gray-300">
+                    <User className="h-4 w-4 text-white" />
                   </div>
+                  <ChevronDown className="h-4 w-4 text-gray-600" />
+                </button>
 
-                  {/* Menu Items */}
-                  <div className="py-2">
-                    <Link
-                      href={`/learner/my-learning/${currentLearner.id}`}
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
-                    >
-                      <BookOpen className="h-4 w-4" />
-                      My Learning
-                    </Link>
-                    <Link
-                      href={`/learner/profile/${currentLearner.id}`}
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
-                    >
-                      <User className="h-4 w-4" />
-                      My Profile
-                    </Link>
-                    <Link
-                      href={`/learner/settings/${currentLearner.id}`}
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
-                    >
-                      <Settings className="h-4 w-4" />
-                      Settings
-                    </Link>
-                    <div className="border-t border-gray-100 my-2"></div>
-                    <Link
-                      href="/learner/switch-user"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Logout
-                    </Link>
+                {/* Dropdown Menu */}
+                {userDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
+                    {/* User Info Header */}
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="font-semibold text-gray-900 truncate">{currentLearner.name}</p>
+                      <p className="text-sm text-gray-600 truncate">{currentLearner.email}</p>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="py-2">
+                      <Link
+                        href={`/learner/my-learning/${currentLearner.id}`}
+                        onClick={() => setUserDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                      >
+                        <BookOpen className="h-4 w-4" />
+                        My Learning
+                      </Link>
+                      <Link
+                        href={`/learner/profile/${currentLearner.id}`}
+                        onClick={() => setUserDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                      >
+                        <User className="h-4 w-4" />
+                        My Profile
+                      </Link>
+                      <Link
+                        href={`/learner/settings/${currentLearner.id}`}
+                        onClick={() => setUserDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                      >
+                        <Settings className="h-4 w-4" />
+                        Settings
+                      </Link>
+                      <div className="border-t border-gray-100 my-2"></div>
+                      <button
+                        onClick={() => {
+                          localStorage.removeItem("user");
+                          setIsLoggedIn(false);
+                          setUserDropdownOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      >
+
+                        <LogOut className="h-4 w-4" />
+                        Logout
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
-            {/* Cart Icon */}
-            <Link
-              href="/learner/cart"
-              className={`relative p-2 rounded-md transition ${pathname === '/learner/cart' ? 'bg-blue-100' : 'hover:bg-gray-200'}`}
-              title="Shopping Cart"
-            >
-              <ShoppingCart className={`h-5 w-5 ${pathname === '/learner/cart' ? 'text-[#094CA4]' : 'text-gray-800'}`} />
-              {mounted && cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
+            {isLoggedIn && (
+              <>
+                {/* Cart Icon */}
+                <Link
+                  href="/learner/cart"
+                  className={`relative p-2 rounded-md transition ${pathname === '/learner/cart' ? 'bg-blue-100' : 'hover:bg-gray-200'}`}
+                  title="Shopping Cart"
+                >
+                  <ShoppingCart className={`h-5 w-5 ${pathname === '/learner/cart' ? 'text-[#094CA4]' : 'text-gray-800'}`} />
+                  {mounted && cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
 
-            {/* Wishlist Icon */}
-            <Link
-              href="/learner/wishlist"
-              className={`relative p-2 rounded-md transition hidden sm:block ${pathname === '/learner/wishlist' ? 'bg-blue-100' : 'hover:bg-gray-200'}`}
-              title="Wishlist"
-            >
-              <Heart className={`h-5 w-5 ${pathname === '/learner/wishlist' ? 'text-[#094CA4]' : 'text-gray-800'}`} />
-              {mounted && wishlistCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  {wishlistCount}
-                </span>
-              )}
-            </Link>
+                {/* Wishlist Icon */}
+                <Link
+                  href="/learner/wishlist"
+                  className={`relative p-2 rounded-md transition hidden sm:block ${pathname === '/learner/wishlist' ? 'bg-blue-100' : 'hover:bg-gray-200'}`}
+                  title="Wishlist"
+                >
+                  <Heart className={`h-5 w-5 ${pathname === '/learner/wishlist' ? 'text-[#094CA4]' : 'text-gray-800'}`} />
+                  {mounted && wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </Link>
+              </>
+            )}
 
             {/* Login/Signup - Hidden on mobile */}
-            {isLanding && (
+            {!isLoggedIn && isLanding && (
+
               <div className="hidden md:flex items-center gap-2 text-sm whitespace-nowrap">
                 <Link
                   href="/auth/signin"
