@@ -193,21 +193,33 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <Link href="/presignup/Question1" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname.startsWith('/presignup') ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-                  Instruct
+                <Link href="/presignup/Question1" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                  <span className="relative">
+                    Instruct
+                    <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname.startsWith('/presignup') ? 'w-full' : 'w-0'}`} />
+                  </span>
                 </Link>
-                <Link href="/learner/community" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/learner/community' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-                  Community
+                <Link href="/learner/community" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                  <span className="relative">
+                    Community
+                    <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/learner/community' ? 'w-full' : 'w-0'}`} />
+                  </span>
                 </Link>
-                <Link href="/about" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/about' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-                  About
+                <Link href="/about" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                  <span className="relative">
+                    About
+                    <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/about' ? 'w-full' : 'w-0'}`} />
+                  </span>
                 </Link>
               </>
             )}
 
             {isInstructorPage || isAdminPage ? null : (
-              <Link href="/contact" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/contact' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-                Contact
+              <Link href="/contact" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                <span className="relative">
+                  Contact
+                  <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/contact' ? 'w-full' : 'w-0'}`} />
+                </span>
               </Link>
             )}
           </nav>
