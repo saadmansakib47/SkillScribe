@@ -1,6 +1,6 @@
 "use client";
 
-import {Bell} from "lucide-react";
+import { Bell } from "lucide-react";
 import { useState } from "react";
 import InstructorLineChart from "@/components/chart/instructorChart/instructorLineChart";
 import InstructorPieChart from "@/components/chart/instructorChart/instructorPieChart";
@@ -18,7 +18,7 @@ export default function InstructorDashboard() {
 
   return (
     <InstructorLayout>
-      <div className="flex min-h-screen bg-[#F9FAFB]">
+      <div className="flex min-h-screen bg-[#FAF7F3]">
         {/* Main Content */}
         <main className="flex-1 p-8">
           {/* Top Bar */}
