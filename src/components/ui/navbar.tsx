@@ -12,6 +12,7 @@ import { COURSES } from "@/lib/courses";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { getCurrentLearner } from "@/lib/learners";
+import { Bell } from "lucide-react";
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
@@ -27,9 +28,11 @@ export default function Navbar() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const userDropdownRef = useRef<HTMLDivElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const { itemCount: cartCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
   const currentLearner = getCurrentLearner();
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const checkAuth = () => {
     setIsLoggedIn(!!localStorage.getItem("user"));
@@ -61,6 +64,12 @@ export default function Navbar() {
     setIsLoggedIn(!!user);
   }, []);
 
+  // Close notification dropdown when pathname changes
+  useEffect(() => {
+    setNotificationOpen(false);
+  }, [pathname]);
+
+
 
   // check if we are on landing page, whether to hide sign in/sign up 
   const isLanding = pathname === "/";
@@ -73,6 +82,9 @@ export default function Navbar() {
       }
       if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
         setUserDropdownOpen(false);
+      }
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setNotificationOpen(false);
       }
     };
 
@@ -139,62 +151,91 @@ export default function Navbar() {
 
           {/* NAV LINKS */}
           <nav className="hidden items-center gap-4 text-sm text-gray-900 md:flex">
-            {/* Categories Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setCategoriesOpen(!categoriesOpen)}
-                className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all font-medium"
-              >
-                Categories
-                <ChevronDown className={`h-4 w-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} />
-              </button>
+            {!isInstructorPage && !isAdminPage && (
+              <>
+                {/* Categories Dropdown */}
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setCategoriesOpen(!categoriesOpen)}
+                    className="flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all font-medium"
+                  >
+                    Categories
+                    <ChevronDown className={`h-4 w-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} />
+                  </button>
 
-              {/* Dropdown Menu */}
-              {categoriesOpen && (
-                <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
-                  <div className="p-3">
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-3">
-                      Browse Categories
-                    </p>
-                    {categories.map((category) => (
-                      <Link
-                        key={category}
-                        href={`/learner/allcourses?category=${encodeURIComponent(category as string)}`}
-                        onClick={() => setCategoriesOpen(false)}
-                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-all font-medium"
-                      >
-                        {category}
-                      </Link>
-                    ))}
-                    <div className="border-t border-gray-200 my-3"></div>
-                    <Link
-                      href="/learner/allcourses"
-                      onClick={() => setCategoriesOpen(false)}
-                      className="block px-4 py-2.5 text-sm font-semibold text-[#094CA4] hover:bg-blue-50 rounded-lg transition-all"
-                    >
-                      View All Courses →
-                    </Link>
-                  </div>
+                  {/* Dropdown Menu */}
+                  {categoriesOpen && (
+                    <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
+                      <div className="p-3">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3 px-3">
+                          Browse Categories
+                        </p>
+                        {categories.map((category) => (
+                          <Link
+                            key={category}
+                            href={`/learner/allcourses?category=${encodeURIComponent(category as string)}`}
+                            onClick={() => setCategoriesOpen(false)}
+                            className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] rounded-lg transition-all font-medium"
+                          >
+                            {category}
+                          </Link>
+                        ))}
+                        <div className="border-t border-gray-200 my-3"></div>
+                        <Link
+                          href="/learner/allcourses"
+                          onClick={() => setCategoriesOpen(false)}
+                          className="block px-4 py-2.5 text-sm font-semibold text-[#094CA4] hover:bg-blue-50 rounded-lg transition-all"
+                        >
+                          View All Courses →
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            <Link href="/presignup/Question1" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname.startsWith('/presignup') ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-              Instruct
-            </Link>
-            <Link href="/learner/community" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/learner/community' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-              Community
-            </Link>
-            <Link href="/about" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/about' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-              About
-            </Link>
-            <Link href="/contact" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/contact' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
-              Contact
-            </Link>
+                <Link href="/presignup/Question1" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname.startsWith('/presignup') ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
+                  Instruct
+                </Link>
+                <Link href="/learner/community" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/learner/community' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
+                  Community
+                </Link>
+                <Link href="/about" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/about' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
+                  About
+                </Link>
+              </>
+            )}
+
+            {isInstructorPage || isAdminPage ? null : (
+              <Link href="/contact" className={`hover:text-black px-3 py-2 rounded-lg transition-all font-medium ${pathname === '/contact' ? 'bg-blue-100 text-[#094CA4]' : ''}`}>
+                Contact
+              </Link>
+            )}
           </nav>
+
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3 flex-shrink-0">
+            {/* Notification Bell - Shows for instructors */}
+            {isLoggedIn && (isInstructorPage || isAdminPage) && (
+              <div className="hidden md:block relative" ref={notificationRef}>
+                <button
+                  onClick={() => setNotificationOpen(!notificationOpen)}
+                  className="p-2 rounded-full hover:bg-gray-200 transition text-gray-800"
+                  title="Notifications"
+                >
+                  <Bell className="h-5 w-5" />
+                </button>
+
+                {notificationOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-72 rounded-xl border border-gray-200 bg-white shadow-xl z-50">
+                    <div className="px-4 py-3 text-sm text-gray-600">
+                      You have no new notifications!
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* User Avatar Dropdown - Hidden on mobile */}
             {isLoggedIn && (
               <div className="hidden md:block relative" ref={userDropdownRef}>
@@ -263,7 +304,7 @@ export default function Navbar() {
               </div>
             )}
 
-            {isLoggedIn && (
+            {isLoggedIn && !isInstructorPage && !isAdminPage && (
               <>
                 {/* Cart Icon */}
                 <Link
@@ -457,13 +498,37 @@ export default function Navbar() {
                 >
                   About
                 </Link>
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${pathname === '/contact' ? 'bg-blue-100 text-[#094CA4]' : 'text-gray-700 hover:bg-blue-50 hover:text-[#094CA4]'}`}
-                >
-                  Contact
-                </Link>
+                {isInstructorPage ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => setNotificationOpen(!notificationOpen)}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-[#094CA4] transition-colors"
+                      title="Notifications"
+                    >
+                      <Bell className="h-5 w-5" />
+                    </button>
+
+                    {notificationOpen && (
+                      <div className="absolute right-0 mt-2 w-72 rounded-xl border border-gray-200 bg-white shadow-lg z-50">
+                        <div className="px-4 py-3 text-sm text-gray-600">
+                          You have no new notifications!
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${pathname === '/contact'
+                      ? 'bg-blue-100 text-[#094CA4]'
+                      : 'text-gray-700 hover:bg-blue-50 hover:text-[#094CA4]'
+                      }`}
+                  >
+                    Contact
+                  </Link>
+                )}
+
               </nav>
 
               {/* Categories Section */}
