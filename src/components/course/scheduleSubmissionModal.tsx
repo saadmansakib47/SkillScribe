@@ -103,7 +103,7 @@ export default function ScheduleSubmissionModal() {
 
               <Button
                 onClick={handleSchedule}
-                className="bg-[#4C6FFF] hover:bg-[#3b58d8] text-white rounded-[8px]"
+                className="bg-[#094ca4] hover:bg-[#3b58d8] text-white rounded-[8px]"
               >
                 Schedule
               </Button>
