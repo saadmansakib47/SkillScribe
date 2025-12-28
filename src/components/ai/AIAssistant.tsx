@@ -175,11 +175,10 @@ export default function AIAssistant() {
               borderRadius: "50%",
               transition: { duration: 0.25 }
             }}
-            className={`fixed z-50 ${isMinimized
-                ? "bottom-6 right-6 w-80"
-                : "bottom-6 right-6 w-96 h-[600px] sm:w-[400px] sm:h-[650px]"
+            className={`fixed z-50 overflow-hidden ${isMinimized
+              ? "bottom-6 right-6 w-80 shadow-lg"
+              : "bottom-6 right-6 w-96 max-h-[85vh] sm:w-[400px] h-[600px] sm:h-[650px]"
               }`}
-            style={{ overflow: "hidden" }}
           >
             {/* Inner container with smooth height animation */}
             <motion.div
@@ -191,10 +190,10 @@ export default function AIAssistant() {
                   duration: 0.45
                 }
               }}
-              className="bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col h-full"
+              className="bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col h-full overflow-hidden"
             >
-              {/* Header */}
-              <div className="bg-gradient-to-r from-[#094CA4] to-[#0d6fd9] text-white p-4 flex items-center justify-between">
+              {/* Header - Truly fixed at top */}
+              <div className="bg-gradient-to-r from-[#094CA4] to-[#0d6fd9] text-white p-4 flex items-center justify-between shrink-0 z-10">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                     <Sparkles className="h-5 w-5" />
@@ -241,7 +240,7 @@ export default function AIAssistant() {
               {!isMinimized && (
                 <motion.div
                   layout
-                  className="flex flex-col h-full"
+                  className="flex flex-col flex-1 min-h-0"
                   transition={{ layout: { duration: 0.45, type: "spring" } }}
                 >
                   {/* Messages Area */}
@@ -257,8 +256,8 @@ export default function AIAssistant() {
                       >
                         <div
                           className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.role === "user"
-                              ? "bg-[#094CA4] text-white rounded-br-sm"
-                              : "bg-white text-gray-800 shadow-sm border border-gray-200 rounded-bl-sm"
+                            ? "bg-[#094CA4] text-white rounded-br-sm"
+                            : "bg-white text-gray-800 shadow-sm border border-gray-200 rounded-bl-sm"
                             }`}
                         >
                           <p className="text-sm whitespace-pre-wrap break-words">
@@ -266,8 +265,8 @@ export default function AIAssistant() {
                           </p>
                           <span
                             className={`text-xs mt-1 block ${message.role === "user"
-                                ? "text-blue-200"
-                                : "text-gray-400"
+                              ? "text-blue-200"
+                              : "text-gray-400"
                               }`}
                           >
                             {message.timestamp.toLocaleTimeString([], {
@@ -323,8 +322,8 @@ export default function AIAssistant() {
                     </motion.div>
                   )}
 
-                  {/* Input Area */}
-                  <div className="p-4 border-t bg-white">
+                  {/* Input Area - Fixed at bottom */}
+                  <div className="p-4 border-t bg-white shrink-0">
                     <div className="flex gap-2 items-end">
                       <textarea
                         ref={inputRef}

@@ -12,7 +12,7 @@ export default function InstructorLayout({ children, className }: InstructorLayo
     <div className="flex">
       <FixedSidebar /> {/* fixed sidebar */}
 
-      <main className={`flex-1 ml-64 ${className || "p-8"}`}>
+      <main className={`flex-1 ml-64 ${className || "p-8 bg-[#FAF7F3] min-h-screen"}`}>
         {/* ml-64 = same width as sidebar */}
         {children}
       </main>

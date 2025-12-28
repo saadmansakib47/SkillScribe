@@ -21,22 +21,13 @@ export default function InstructorDashboard() {
       <div className="flex min-h-screen bg-[#FAF7F3]">
         {/* Main Content */}
         <main className="flex-1 p-8">
-          {/* Top Bar */}
-          <div className="flex justify-between items-center mb-6">
-            <input
-              placeholder="Search for courses"
-              className="w-1/2 px-4 py-2 border rounded-full focus:outline-none"
-            />
-            <Bell className="w-5 h-5" />
-          </div>
-
-          {/* --- Timespan Buttons --- */}
+          {/* Timespan Buttons */}
           <RangeSelector
             selectedRange={selectedRange}
             setSelectedRange={setSelectedRange}
           />
 
-          {/* Stats Cards (clickable) */}
+          {/* Stats Cards */}
           <StatCards
             selectedMetric={selectedMetric}
             setSelectedMetric={setSelectedMetricState}
@@ -48,7 +39,7 @@ export default function InstructorDashboard() {
             selectedRange={selectedRange}
           />
 
-          {/* Bottom Section (Courses in Progress + Pie Chart side by side) */}
+          {/* Bottom Section */}
           <div className="grid grid-cols-3 gap-6">
             {/* Courses in Progress */}
             <CoursesInProgress />
