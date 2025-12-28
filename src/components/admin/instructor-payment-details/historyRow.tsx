@@ -3,7 +3,7 @@ export function HistoryRow({ title, date, amount, status }: any) {
     const isPending = status === "Pending" || title.includes("Scheduled");
 
     return (
-        <div className="flex justify-between items-start py-4 border-b border-gray-200 last:border-0">
+        <div className="flex justify-between items-start py-4 px-6 border-b border-gray-200 last:border-0">
             <div>
                 <p className={`font-semibold text-base ${isPending ? 'text-[#F59E0B]' : 'text-black'}`}>
                     {title}

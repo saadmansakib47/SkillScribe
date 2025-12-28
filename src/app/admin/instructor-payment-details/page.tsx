@@ -24,18 +24,18 @@ function PaymentDetailsContent() {
         <div className="max-w-5xl mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
             <UserHeader instructor={instructor} />
 
-            <Card className="rounded-xl border border-gray-300 shadow-sm">
-                <CardContent className="p-4 space-y-3">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-2">Payment Summary</h2>
+            <h2 className="text-[18px] font-bold text-[#094CA4] underline underline-offset-4 mb-3">Payment Summary</h2>
+            <Card className="rounded-xl border border-gray-300 shadow-sm bg-white overflow-hidden">
+                <CardContent className="p-0">
                     <SummaryItem label="Total Earned" value={instructor?.totalPaid || "$0.00"} note="3 Courses" />
                     <SummaryItem label="Total Paid" value={instructor?.totalPaid || "$0.00"} note="6 payments" />
-                    <SummaryItem label="Pending" value={instructor?.totalDue || "$0.00"} />
-                    <SummaryItem label="Next Payment" value="15 Dec, 2025" note="In 28 days" />
+                    <SummaryItem label="Amount Due" value={instructor?.totalDue || "$0.00"} note="Pending" />
+                    <SummaryItem label="Next Payment" value="15 Dec, 2025" note="In 20 days" />
                 </CardContent>
             </Card>
 
             <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-gray-800">Course-wise Earnings</h2>
+                <h2 className="text-[18px] font-bold text-[#094CA4] underline underline-offset-4 mb-3">Course-wise Earnings</h2>
                 <CourseCard
                     title="Web Development Bootcamp"
                     students={120}
@@ -62,9 +62,9 @@ function PaymentDetailsContent() {
                 />
             </div>
 
-            <Card className="rounded-xl border border-gray-300 shadow-sm">
-                <CardContent className="p-4">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-3">Payment History</h2>
+            <h2 className="text-[18px] font-bold text-[#094CA4] underline underline-offset-4 mb-3">Payment History</h2>
+            <Card className="rounded-xl border border-gray-300 shadow-sm bg-white overflow-hidden">
+                <CardContent className="p-0">
 
                     <HistoryRow
                         title="Payment Completed"
