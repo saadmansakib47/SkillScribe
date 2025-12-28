@@ -28,7 +28,7 @@ export default function ReplyInputBox({ onClose, onSubmit }: ReplyInputBoxProps)
       className="mt-3 bg-gray-50 border border-transparent rounded-[10px] p-3 shadow-sm"
     >
       <textarea
-        className="w-full border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
+        className="w-full border border-gray-300 rounded-[8px] p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
         rows={3}
         placeholder="Write your reply..."
         value={replyText}
