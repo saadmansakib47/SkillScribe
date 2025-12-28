@@ -30,7 +30,7 @@ export default function ScheduleSubmissionModal() {
       <Button
         variant="outline"
         onClick={() => setOpen(true)}
-        className="text-sm border border-black/80 rounded-[8px] hover:bg-gray-100"
+        className="text-sm border border-black/80 rounded-[14px] hover:bg-gray-100"
       >
         Schedule Submission
       </Button>

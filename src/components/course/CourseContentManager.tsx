@@ -64,13 +64,13 @@ export default function CourseContentManager() {
             <Button
               variant="outline"
               onClick={handleFilePick}
-              className="text-sm flex items-center gap-1 border border-black/90 rounded-[8px] hover:bg-gray-100"
+              className="text-sm flex items-center gap-1 border border-[#094ca4] rounded-[8px] bg-[#094ca4] text-white hover:bg-gray-100"
             >
               <Upload className="w-4 h-4" /> Upload Video
             </Button>
             <Button
               variant="outline"
-              className="text-sm flex items-center gap-1 border border-black/90 rounded-[8px] hover:bg-gray-100"
+              className="text-sm flex items-center gap-1 border border-[#094ca4] rounded-[8px] bg-[#094ca4] text-white hover:bg-gray-100"
             >
               <Plus className="w-4 h-4" /> New Lesson
             </Button>
@@ -82,7 +82,7 @@ export default function CourseContentManager() {
         <Button
           variant="outline"
           onClick={addModule}
-          className="flex items-center gap-1 text-sm border border-black/90 rounded-[8px] hover:bg-gray-100"
+          className="flex items-center gap-1 text-sm border border-black/90 rounded-[14px] hover:bg-gray-100"
         >
           <Plus className="w-4 h-4" /> Add Module
         </Button>
@@ -91,7 +91,7 @@ export default function CourseContentManager() {
           {/* NEW BUTTON */}
           <ScheduleSubmissionModal />
 
-          <Button className="bg-[#4C6FFF] hover:bg-[#3b58d8] text-white text-sm rounded-[8px]">
+          <Button className="bg-[#094ca4] hover:bg-[#3b58d8] text-white text-sm rounded-[14px]">
             Submit for Review
           </Button>
         </div>
