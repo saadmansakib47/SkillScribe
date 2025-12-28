@@ -27,21 +27,19 @@ export default function InstructorReviewPage() {
   const [filteredReviews, setFilteredReviews] = useState(instructorReviews);
 
   return (
-    <InstructorLayout>
-      <div className="bg-[#f8f9fb] min-h-screen p-8">
-        <div className="max-w-5xl mx-auto space-y-8">
-          {/* Summary cards */}
-          <ReviewSummary reviews={filteredReviews} />
+    <InstructorLayout className="bg-[#FAF7F3] min-h-screen p-8">
+      <div className="max-w-5xl mx-auto space-y-8">
+        {/* Summary cards */}
+        <ReviewSummary reviews={filteredReviews} />
 
-          {/* Filter bar (pass props here) */}
-          <ReviewFilterBar
-            courseId={21}
-            onFilteredReviews={setFilteredReviews}
-          />
+        {/* Filter bar (pass props here) */}
+        <ReviewFilterBar
+          courseId={21}
+          onFilteredReviews={setFilteredReviews}
+        />
 
-          {/* Review list (shows filtered reviews dynamically) */}
-          <ReviewList reviews={filteredReviews} />
-        </div>
+        {/* Review list (shows filtered reviews dynamically) */}
+        <ReviewList reviews={filteredReviews} />
       </div>
     </InstructorLayout>
   );
