@@ -15,9 +15,9 @@ export default function LatestCoursesList() {
   ] as const;
 
   return (
-    <div className="bg-[#F8FAFF] border border-gray-200 rounded-2xl p-6">
-      <h3 className="font-semibold mb-4 text-gray-800">Latest Uploaded Courses</h3>
-      <div className="space-y-3">
+    <div className="space-y-6">
+      <h3 className="text-xl font-bold text-gray-900">Latest Uploaded Courses</h3>
+      <div className="space-y-4">
         {courses.map((course, i) => (
           <CourseCard key={i} {...course} />
         ))}

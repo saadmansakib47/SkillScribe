@@ -62,7 +62,7 @@ export default function ReviewFilterBar({
           Select Course
         </label>
         <Select value={courseFilter} onValueChange={setCourseFilter}>
-          <SelectTrigger className="w-full h-10 border-gray-300 rounded-lg">
+          <SelectTrigger className="w-full h-10 border-gray-300 rounded-[10px]">
             <SelectValue placeholder="All Courses" />
           </SelectTrigger>
           <SelectContent>
@@ -81,7 +81,7 @@ export default function ReviewFilterBar({
           Filter by Rating
         </label>
         <Select value={ratingFilter} onValueChange={setRatingFilter}>
-          <SelectTrigger className="w-full h-10 border-gray-300 rounded-lg">
+          <SelectTrigger className="w-full h-10 border-gray-300 rounded-[10px]">
             <SelectValue placeholder="All Ratings" />
           </SelectTrigger>
           <SelectContent>
@@ -110,7 +110,7 @@ export default function ReviewFilterBar({
           placeholder="Search Reviews"
           value={searchQuery}
           onChange={setSearchQuery}
-          className="w-full border-gray-300 rounded-lg"
+          className="w-full border-gray-300 rounded-[10px]"
         />
       </div>
     </div>
