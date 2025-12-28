@@ -93,11 +93,11 @@ function PaymentDetailsContent() {
                 </CardContent>
             </Card>
 
-            <div className="flex justify-center gap-4 pt-4">
-                <Button className="px-6 py-2 rounded-xl text-sm bg-slate-800 text-white">
+            <div className="flex justify-center gap-16 pt-4">
+                <Button className="px-6 py-2 rounded-xl text-sm bg-white text-black border border-black">
                     Process Payment
                 </Button>
-                <Button className="px-6 py-2 rounded-xl text-sm bg-gray-200 text-gray-700 border border-gray-300">
+                <Button className="px-6 py-2 rounded-xl text-sm bg-white text-black border border-black">
                     Download Invoice
                 </Button>
             </div>
