@@ -16,7 +16,7 @@ export default function CourseMediaUpload() {
           <div className="w-56 h-24 border border-black rounded-[4px] bg-gray-50 mb-3 flex items-center justify-center text-gray-400 text-sm">
             400×320 pixel
           </div>
-          <Button className="bg-[#4C6FFF] hover:bg-[#3b58d8] rounded-[8px] text-white flex items-center gap-2">
+          <Button className="bg-[#094CA4] hover:bg-[#3b58d8] rounded-[8px] text-white flex items-center gap-2">
             <Upload className="w-4 h-4" /> Upload Photo
           </Button>
           <p className="text-xs text-gray-500 mt-2">
