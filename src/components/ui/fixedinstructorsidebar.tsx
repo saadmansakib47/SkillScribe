@@ -19,19 +19,18 @@ export default function FixedSidebar() {
   ];
 
   return (
-    <aside className="w-64 z-10 bg-white border-r flex flex-col p-4 fixed h-screen">
-      <h1 className="text-2xl font-semibold mb-8">Ready to Teach?</h1>
+    <aside className="w-64 z-10 bg-[#EEF6FF] border-r flex flex-col p-4 fixed h-screen">
+      <h1 className="text-2xl font-semibold mb-8 text-black">Ready to Teach?</h1>
 
       <nav className="space-y-4">
         {links.map(({ icon: Icon, label, href }) => (
           <Link
             key={label}
             href={href}
-            className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl transition-all ${
-              pathname === href
-                ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
-                : "hover:bg-gray-100 text-gray-700"
-            }`}
+            className={`flex items-center gap-3 w-full px-3 py-2 rounded-xl transition-all ${pathname === href
+              ? "bg-white text-black font-medium"
+              : "hover:bg-white/20 text-black"
+              }`}
           >
             <Icon className="w-5 h-5" />
             {label}
