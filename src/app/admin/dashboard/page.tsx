@@ -37,17 +37,17 @@ export default function AdminDashboard() {
   // ---------------------------------------
   const pieMetric =
     selectedMetric === "New Users" ||
-    selectedMetric === "Active Users" ||
-    selectedMetric === "Suspended Users"
+      selectedMetric === "Active Users" ||
+      selectedMetric === "Suspended Users"
       ? "users"
       : selectedMetric === "New Applications" ||
         selectedMetric === "Approved" ||
         selectedMetric === "Rejected"
-      ? "instructors"
-      : "categories"; // fallback
+        ? "instructors"
+        : "categories"; // fallback
 
 
-      
+
   return (
     <AdminLayout>
       <div className="flex min-h-screen bg-[#F9FAFB]">
