@@ -41,7 +41,7 @@ export default function QuizCreator({ onCourseSelect }: QuizCreatorProps) {
 
   return (
     <div>
-      <Card className="bg-[#FAF7F3] border border-gray-200 w-[60%] mx-auto my-8 shadow-md">
+      <Card className="bg-[#FAF7F3] border border-gray-200 w-[70%] mx-auto my-8 shadow-md">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">Add Quiz</CardTitle>
           <Button variant="outline" className="flex items-center gap-2 rounded-[8px]">
