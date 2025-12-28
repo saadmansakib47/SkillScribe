@@ -4,6 +4,33 @@ import { Instructor } from "@/lib/instructors";
 export function UserHeader({ instructor }: { instructor: Instructor | undefined }) {
   if (!instructor) return null;
 
+  const handleGenerateReport = () => {
+    const dummyContent = `
+      SkillScribe Payment Report
+      --------------------------
+      Instructor: ${instructor.name}
+      ID: ${instructor.id}
+      Email: ${instructor.email}
+      Date: ${new Date().toLocaleDateString()}
+      
+      Summary:
+      Total Paid: ${instructor.totalPaid}
+      Total Due: ${instructor.totalDue}
+      
+      (This is a dummy report generated for demonstration purposes)
+    `;
+
+    const blob = new Blob([dummyContent], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `Report_${instructor.name.replace(/\s+/g, "_")}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-gray-200">
       <img
@@ -24,11 +51,11 @@ export function UserHeader({ instructor }: { instructor: Instructor | undefined 
 
       {/* Buttons on the right */}
       <div className="ml-auto flex gap-2">
-        <button className="px-4 py-2 bg-white border border-black rounded-[8px] hover:bg-gray-50">
+        <button
+          onClick={handleGenerateReport}
+          className="px-4 py-2 bg-white border border-black rounded-[8px] hover:bg-gray-50"
+        >
           Generate Report
-        </button>
-        <button className="px-4 py-2 bg-white border border-black rounded-[8px] hover:bg-gray-50">
-          Make Payment
         </button>
       </div>
     </div>

@@ -17,6 +17,7 @@ export default function InstructorVerificationPage() {
   // State management
   const [applications, setApplications] = useState<InstructorApplication[]>(INSTRUCTOR_APPLICATIONS);
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus | 'all'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedApplication, setSelectedApplication] = useState<InstructorApplication | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,8 +30,17 @@ export default function InstructorVerificationPage() {
       filtered = filtered.filter(app => app.status === statusFilter);
     }
 
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(app => 
+        app.name.toLowerCase().includes(query) ||
+        app.email.toLowerCase().includes(query)
+      );
+    }
+
     return filtered;
-  }, [applications, statusFilter]);
+  }, [applications, statusFilter, searchQuery]);
 
   // Handlers
   const handleReview = (application: InstructorApplication) => {
@@ -73,6 +83,8 @@ export default function InstructorVerificationPage() {
             <ApplicationFilters
               statusFilter={statusFilter}
               onStatusChange={setStatusFilter}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
             />
           </div>
 }
