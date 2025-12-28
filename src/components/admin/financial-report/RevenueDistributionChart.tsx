@@ -28,6 +28,8 @@ export default function RevenueDistributionChart({ data }: RevenueDistributionCh
             outerRadius={100}
             paddingAngle={2}
             dataKey="value"
+            startAngle={90}
+            endAngle={-270}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
