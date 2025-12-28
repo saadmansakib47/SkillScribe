@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { Plus, Users, UserCheck, UserX, Clock } from 'lucide-react';
 import { USERS, User, UserRole, UserStatus } from '@/lib/admin/users';
-import { UserSearchBar, UserFilters, UserTable, AddUserModal } from '@/components/admin/user-management';
+import { UserSearchBar, UserFilters, UserTable, AddUserModal, SuspendUserModal } from '@/components/admin/user-management';
 import AdminLayout from '../adminLayout';
 
 export default function UserManagementPage() {
@@ -14,6 +14,8 @@ export default function UserManagementPage() {
   const [statusFilter, setStatusFilter] = useState<UserStatus | 'all'>('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [isSuspendModalOpen, setIsSuspendModalOpen] = useState(false);
+  const [userToSuspend, setUserToSuspend] = useState<User | null>(null);
 
   // Filter and search logic
   const filteredUsers = useMemo(() => {
@@ -78,9 +80,21 @@ export default function UserManagementPage() {
   };
 
   const handleSuspendUser = (userId: number) => {
+    const user = users.find(u => u.id === userId);
+    if (user) {
+      setUserToSuspend(user);
+      setIsSuspendModalOpen(true);
+    }
+  };
+
+  const handleConfirmSuspend = (userId: number, reason: string) => {
     setUsers(prev => prev.map(user =>
-      user.id === userId ? { ...user, status: 'suspended' as UserStatus } : user
+      user.id === userId ? { ...user, status: 'suspended' as UserStatus, suspensionReason: reason } : user
     ));
+    setIsSuspendModalOpen(false);
+    setUserToSuspend(null);
+    // In production, this would send a notification email
+    alert(`User suspended. Reason: ${reason}`);
   };
 
   const handleActivateUser = (userId: number) => {
@@ -196,6 +210,17 @@ export default function UserManagementPage() {
             onClose={handleCloseModal}
             onSave={handleAddUser}
             editingUser={editingUser}
+          />
+
+          {/* Suspend User Modal */}
+          <SuspendUserModal
+            isOpen={isSuspendModalOpen}
+            user={userToSuspend}
+            onClose={() => {
+              setIsSuspendModalOpen(false);
+              setUserToSuspend(null);
+            }}
+            onConfirm={handleConfirmSuspend}
           />
         </div>
       </div>
