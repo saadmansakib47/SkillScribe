@@ -1,5 +1,7 @@
-// src/app/payments/page.tsx
+"use client";
+
 import React from "react";
+import { useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UserHeader } from "@/components/admin/instructor-payment-details/userHeader";
@@ -7,19 +9,32 @@ import { SummaryItem } from "@/components/admin/instructor-payment-details/summa
 import { CourseCard } from "@/components/admin/instructor-payment-details/courseCard";
 import { HistoryRow } from "@/components/admin/instructor-payment-details/historyRow";
 import AdminLayout from "../adminLayout";
+import { getInstructorById } from "@/lib/instructors";
 
 export default function PaymentsPage() {
+    const searchParams = useSearchParams();
+    const insId = searchParams.get("insId");
+    const instructor = insId ? getInstructorById(Number(insId)) : undefined;
+
+    if (!instructor && insId) {
+        return (
+            <AdminLayout>
+                <div className="p-6">Instructor not found</div>
+            </AdminLayout>
+        );
+    }
+
     return (
         <AdminLayout>
             <div className="max-w-5xl mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
-                <UserHeader />
+                <UserHeader instructor={instructor} />
 
                 <Card className="rounded-xl border border-gray-300 shadow-sm">
                     <CardContent className="p-4 space-y-3">
                         <h2 className="text-lg font-semibold text-gray-800 mb-2">Payment Summary</h2>
-                        <SummaryItem label="Total Earned" value="$12,450.00" note="3 Courses" />
-                        <SummaryItem label="Total Paid" value="$9,200.00" note="6 payments" />
-                        <SummaryItem label="Pending" value="$3,240.00" />
+                        <SummaryItem label="Total Earned" value={instructor?.totalPaid || "$0.00"} note="3 Courses" />
+                        <SummaryItem label="Total Paid" value={instructor?.totalPaid || "$0.00"} note="6 payments" />
+                        <SummaryItem label="Pending" value={instructor?.totalDue || "$0.00"} />
                         <SummaryItem label="Next Payment" value="15 Dec, 2025" note="In 28 days" />
                     </CardContent>
                 </Card>

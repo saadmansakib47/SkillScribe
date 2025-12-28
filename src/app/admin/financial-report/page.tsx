@@ -35,8 +35,8 @@ export default function FinancialReportPage() {
 
   // Pie chart data for revenue distribution
   const revenueDistributionData = [
-    { name: "Instructor Share (60%)", value: 60, color: "#FF9F59" },
     { name: "Platform Share (40%)", value: 40, color: "#0047AB" },
+    { name: "Instructor Share (60%)", value: 60, color: "#FF9F59" },
   ];
 
   return (
