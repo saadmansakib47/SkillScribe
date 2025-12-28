@@ -10,7 +10,6 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Bell,
   Search,
 } from "lucide-react";
 
@@ -63,7 +62,6 @@ export default function AdminDashboard() {
                 className="w-full px-10 py-2 border rounded-full focus:outline-none"
               />
             </div>
-            <Bell className="w-5 h-5" />
           </div>
 
           {/* ---------------------------------- */}
