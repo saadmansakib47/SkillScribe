@@ -1,3 +1,4 @@
+// src/components/review/reviewSummary.tsx
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
@@ -28,82 +29,65 @@ export default function ReviewSummary({ reviews }: { reviews: Review[] }) {
             : 0;
 
       stars.push(
-        <div key={i} className="relative w-7 h-7">
-          <Star className="absolute w-7 h-7 text-gray-300" strokeWidth={1.5} />
+        <div key={i} className="relative w-5 h-5">
+          <Star className="absolute w-5 h-5 text-gray-300" strokeWidth={1.5} />
           <div
-            className="absolute top-0 left-0 overflow-hidden transition-all duration-500 ease-out"
+            className="absolute top-0 left-0 overflow-hidden"
             style={{ width: `${fill}%`, height: "100%" }}
           >
             <Star
-              className="w-7 h-7 text-blue-600 fill-blue-400"
+              className="w-5 h-5 text-blue-700 fill-blue-600"
               strokeWidth={1.5}
             />
           </div>
         </div>
       );
     }
-    return <div className="flex justify-center mt-2">{stars}</div>;
+    return <div className="flex justify-center mt-2 gap-1">{stars}</div>;
   };
-
-  // Shared corner border element
-  const CornerBorders = () => (
-    <>
-      {/* Top-left corner */}
-      <div className="absolute top-0 left-0 w-20 h-[4px] bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500 rounded-tl-xl rounded-tr-md"></div>
-      <div className="absolute top-0 left-0 w-[4px] h-20 bg-gradient-to-b from-blue-500 via-blue-300 to-blue-500 rounded-tl-xl rounded-bl-md"></div>
-
-      {/* Bottom-right corner */}
-      <div className="absolute bottom-0 right-0 w-20 h-[4px] bg-gradient-to-l from-blue-500 via-blue-300 to-blue-500 rounded-br-xl rounded-bl-md"></div>
-      <div className="absolute bottom-0 right-0 w-[4px] h-20 bg-gradient-to-t from-blue-500 via-blue-300 to-blue-500 rounded-br-xl rounded-tr-md"></div>
-    </>
-
-
-  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Total Reviews */}
-      <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50 overflow-hidden">
-        <CardContent className="p-6 text-center">
-          <p className="text-black text-sm uppercase tracking-wide">
-            Total Reviews
-          </p>
-          <h2 className="text-4xl font-extrabold mt-2 text-blue-700">{total}</h2>
+      <Card className="bg-white border border-gray-200 shadow-sm rounded-xl">
+        <CardContent className="p-6 flex flex-col h-40">
+          <p className="font-bold text-gray-900 text-sm">Total Reviews</p>
+          <div className="flex-1 flex items-center justify-center">
+            <h2 className="text-5xl font-bold text-blue-600">{total}</h2>
+          </div>
         </CardContent>
       </Card>
 
       {/* Average Rating */}
-      <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-yellow-50 text-center overflow-hidden">
-        <CardContent className="p-6">
-          <p className="text-black text-sm uppercase tracking-wide">
-            Average Rating
-          </p>
-          <h2 className="text-4xl font-extrabold mt-2 text-blue-700">
-            {avgRating.toFixed(1)}
-          </h2>
-          {renderStars(avgRating)}
+      <Card className="bg-white border border-gray-200 shadow-sm rounded-xl">
+        <CardContent className="p-6 flex flex-col h-40">
+          <p className="font-bold text-gray-900 text-sm">Average Ratings</p>
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <h2 className="text-5xl font-bold text-blue-600">
+              {avgRating.toFixed(1)}
+            </h2>
+            {renderStars(avgRating)}
+          </div>
         </CardContent>
       </Card>
 
       {/* Rating Distribution */}
-      <Card className="relative rounded-xl shadow-lg transform transition-transform hover:scale-105 hover:shadow-2xl duration-300 bg-gradient-to-br from-white to-gray-50 overflow-hidden">
-        <CardContent className="p-6">
-          <p className="text-black text-sm uppercase tracking-wide">
-            Rating Distribution
-          </p>
-          <div className="mt-3 space-y-2">
+      <Card className="bg-white border border-gray-200 shadow-sm rounded-xl">
+        <CardContent className="p-6 h-40 flex flex-col justify-center">
+          <p className="font-bold text-gray-900 text-sm mb-2">Rating Distributions</p>
+          <div className="space-y-1 w-full">
             {distribution.map((d) => (
-              <div key={d.star} className="flex items-center gap-2 text-sm">
-                <span className="w-5 text-blue-700">{d.star}</span>
-                <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div key={d.star} className="flex items-center gap-2 text-xs">
+                <span className="w-3 text-blue-700 font-medium">{d.star}</span>
+                <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
                   <div
-                    className="bg-blue-400 h-2 rounded-full transition-all duration-700 ease-out"
+                    className="bg-blue-600 h-1.5 rounded-full"
                     style={{
                       width: `${(d.count / total) * 100 || 0}%`,
                     }}
                   />
                 </div>
-                <span className="w-6 text-gray-700 font-medium">{d.count}</span>
+                <span className="w-3 text-gray-500 text-right">{d.count}</span>
               </div>
             ))}
           </div>

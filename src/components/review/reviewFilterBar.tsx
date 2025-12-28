@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search } from "lucide-react";
 import { SearchBar } from "../ui/searchBar";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectTrigger,
@@ -25,21 +23,17 @@ export default function ReviewFilterBar({
   courseId: number;
   onFilteredReviews: (filtered: any[]) => void;
 }) {
-  // Dual state: ID for logic, name for display
   const [courseFilter, setCourseFilter] = useState<string>("all");
-  const [courseName, setCourseName] = useState<string>("All Courses"); // Display name
   const [ratingFilter, setRatingFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [allReviews, setAllReviews] = useState<any[]>([]);
 
-  // Fetch reviews once
   useEffect(() => {
     const fetched = getReviewsForCourse(courseId);
     setAllReviews(fetched);
     onFilteredReviews(fetched);
   }, [courseId]);
 
-  // Re-filter when any filter changes
   useEffect(() => {
     const query = searchQuery.trim().toLowerCase();
 
@@ -54,33 +48,23 @@ export default function ReviewFilterBar({
       const matchesCourse =
         courseFilter === "all" || r.courseId.toString() === courseFilter;
 
-
       return matchesSearch && matchesRating && matchesCourse;
     });
 
     onFilteredReviews(filtered);
   }, [searchQuery, ratingFilter, courseFilter, allReviews]);
 
-  // Handle course selection
-  const handleCourseChange = (id: string) => {
-    setCourseFilter(id);
-    const course = courses.find((c) => c.id === id);
-    setCourseName(course?.name ?? "All Courses");
-  };
-
   return (
-    <div className="flex flex-wrap items-center gap-4 bg-white border border-gray-200 rounded-[8px] p-4 shadow-sm">
+    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
       {/* Select Course */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
+        <label className="text-sm font-bold text-gray-900 mb-1">
           Select Course
         </label>
         <Select value={courseFilter} onValueChange={setCourseFilter}>
-          <SelectTrigger className="w-[180px]">
-            {/* Only use placeholder */}
+          <SelectTrigger className="w-full h-10 border-gray-300 rounded-lg">
             <SelectValue placeholder="All Courses" />
           </SelectTrigger>
-
           <SelectContent>
             {courses.map((course) => (
               <SelectItem key={course.id} value={course.id}>
@@ -89,20 +73,19 @@ export default function ReviewFilterBar({
             ))}
           </SelectContent>
         </Select>
-
       </div>
 
       {/* Filter by Rating */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
+        <label className="text-sm font-bold text-gray-900 mb-1">
           Filter by Rating
         </label>
         <Select value={ratingFilter} onValueChange={setRatingFilter}>
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger className="w-full h-10 border-gray-300 rounded-lg">
             <SelectValue placeholder="All Ratings" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Ratings</SelectItem>
+            <SelectItem value="all">All Courses</SelectItem>
             {[5, 4, 3, 2, 1].map((r) => (
               <SelectItem key={r} value={r.toString()}>
                 {r} Stars
@@ -113,12 +96,23 @@ export default function ReviewFilterBar({
       </div>
 
       {/* Search */}
-      <SearchBar
-        label="Search"
-        placeholder="Search Reviews"
-        value={searchQuery}
-        onChange={setSearchQuery}
-      />
+      <div className="flex flex-col">
+        {/* Helper label for search since SearchBar component might wrap label differently, checking SearchBar usage first... 
+            ReviewFilterBar line 116 used SearchBar. let's assume it accepts label. 
+            However, I want full control to match "Select Course" style. 
+            I'll use the SearchBar but pass specific props if needed, or wrap it. 
+            Actually, the original SearchBar component handles the label? 
+            Looking at line 117 of original file: `label="Search"`. 
+            I will use that, but ensure it renders nicely stacked.
+        */}
+        <SearchBar
+          label="Search"
+          placeholder="Search Reviews"
+          value={searchQuery}
+          onChange={setSearchQuery}
+          className="w-full border-gray-300 rounded-lg"
+        />
+      </div>
     </div>
   );
 }
