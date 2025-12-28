@@ -1,9 +1,10 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { UserHeader } from "@/components/admin/instructor-payment-details/userHeader";
 import { SummaryItem } from "@/components/admin/instructor-payment-details/summaryItem";
 import { CourseCard } from "@/components/admin/instructor-payment-details/courseCard";
@@ -15,6 +16,7 @@ function PaymentDetailsContent() {
     const searchParams = useSearchParams();
     const insId = searchParams.get("insId");
     const instructor = insId ? getInstructorById(Number(insId)) : undefined;
+    const [processing, setProcessing] = useState(false);
 
     if (!instructor && insId) {
         return <div className="p-6">Instructor not found</div>;
@@ -94,13 +96,60 @@ function PaymentDetailsContent() {
             </Card>
 
             <div className="flex justify-center gap-16 pt-4">
-                <Button className="px-6 py-2 rounded-xl text-sm bg-white text-black border border-black">
+                <Button className="px-6 py-2 rounded-xl text-sm bg-white text-black border border-black" onClick={() => {
+                    setProcessing(true);
+                    setTimeout(() => setProcessing(false), 3000);
+                }}>
                     Process Payment
                 </Button>
-                <Button className="px-6 py-2 rounded-xl text-sm bg-white text-black border border-black">
+                <Button className="px-6 py-2 rounded-xl text-sm bg-white text-black border border-black" onClick={() => {
+                    const pdfContent = `%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 44 >>
+stream
+BT /F1 24 Tf 100 700 Td (Dummy Invoice) Tj ET
+endstream
+endobj
+xref
+0 5
+0000000000 65535 f 
+0000000010 00000 n 
+0000000060 00000 n 
+0000000117 00000 n 
+0000000210 00000 n 
+trailer
+<< /Root 1 0 R /Size 5 >>
+startxref
+277
+%%EOF`;
+                    const blob = new Blob([pdfContent], { type: "application/pdf" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "invoice.pdf";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }}>
                     Download Invoice
                 </Button>
             </div>
+            {processing && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/30">
+                    <div className="bg-white p-6 rounded-lg flex items-center gap-2">
+                        <Loader2 className="animate-spin" />
+                        <span>Processing...</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
