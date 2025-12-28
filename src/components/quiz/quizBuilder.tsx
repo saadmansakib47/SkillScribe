@@ -98,12 +98,12 @@ export default function QuizBuilder({ course }: QuizBuilderProps) {
       prev.map((q) =>
         q.id === qid
           ? {
-              ...q,
-              options: [
-                ...q.options,
-                { id: String.fromCharCode(97 + q.options.length), text: "", isCorrect: false },
-              ],
-            }
+            ...q,
+            options: [
+              ...q.options,
+              { id: String.fromCharCode(97 + q.options.length), text: "", isCorrect: false },
+            ],
+          }
           : q
       )
     );
@@ -131,14 +131,14 @@ export default function QuizBuilder({ course }: QuizBuilderProps) {
       prev.map((q) =>
         q.id === currentQuestionId
           ? {
-              ...q,
-              text: data.question,
-              options: q.options.map((opt, i) => ({
-                ...opt,
-                text: data.options[i] || "",
-                isCorrect: i === data.correctIndex, // ✅ AI sets the correct option
-              })),
-            }
+            ...q,
+            text: data.question,
+            options: q.options.map((opt, i) => ({
+              ...opt,
+              text: data.options[i] || "",
+              isCorrect: i === data.correctIndex, // ✅ AI sets the correct option
+            })),
+          }
           : q
       )
     );
@@ -162,9 +162,8 @@ export default function QuizBuilder({ course }: QuizBuilderProps) {
               {q.options.map((opt, oi) => (
                 <div
                   key={opt.id}
-                  className={`flex items-center gap-2 bg-white border ${
-                    opt.isCorrect ? "border-green-400" : "border-gray-300"
-                  } rounded-[8px] px-3 py-2 hover:bg-gray-50 cursor-pointer`}
+                  className={`flex items-center gap-2 bg-white border ${opt.isCorrect ? "border-green-400" : "border-gray-300"
+                    } rounded-[8px] px-3 py-2 hover:bg-gray-50 cursor-pointer`}
                 >
                   <div className="w-5 h-5 flex items-center justify-center border border-gray-400 rounded-full text-xs text-gray-700">
                     {String.fromCharCode(65 + oi)}
@@ -188,7 +187,7 @@ export default function QuizBuilder({ course }: QuizBuilderProps) {
   // Builder Mode
   // -----------------------------
   return (
-    <div className="mt-10 w-[60%] bg-[#fdfaf7] p-6 rounded-[8px] mx-auto my-8 shadow-md">
+    <div className="mt-10 w-[70%] bg-[#fdfaf7] p-6 rounded-[8px] mx-auto my-8 shadow-md">
       <h3 className="text-lg font-semibold text-center mb-4">Q U I Z E D I T O R</h3>
       <div className="space-y-6">
         {questions.map((q, qi) => (
@@ -243,11 +242,10 @@ export default function QuizBuilder({ course }: QuizBuilderProps) {
                     <Button
                       type="button"
                       onClick={() => toggleCorrect(q.id, opt.id)}
-                      className={`flex items-center gap-1 text-sm rounded-[8px] px-2 py-1 ${
-                        opt.isCorrect
+                      className={`flex items-center gap-1 text-sm rounded-[8px] px-2 py-1 ${opt.isCorrect
                           ? "bg-green-100 text-green-700 hover:bg-green-200"
                           : "bg-red-100 text-red-600 hover:bg-red-200"
-                      }`}
+                        }`}
                     >
                       {opt.isCorrect ? <CheckCircle size={14} /> : <XCircle size={14} />}
                       {opt.isCorrect ? "Correct" : "Wrong"}

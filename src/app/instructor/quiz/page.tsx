@@ -3,8 +3,7 @@
 import InstructorLayout from "@/app/instructor/instructorlayout";
 import QuizCreator from "@/components/quiz/quizCreator";
 
-export default function CreateQuizPage() 
-{
+export default function CreateQuizPage() {
   return (
     <InstructorLayout>
       <div className="flex min-h-screen bg-[#f8f9fb]">
