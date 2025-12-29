@@ -28,7 +28,7 @@ export default function HeroSection() {
           <div className="mt-8 flex justify-start gap-4">
             <a
               href="/auth/signin"
-              className="inline-flex items-center justify-center bg-[#0b4ca6] text-white py-3 px-7 rounded-[8px] border-2 border-black shadow-sm font-medium transition-colors duration-150 ease-in-out hover:bg-[#083a8a] hover:border-[#052a62] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
+              className="inline-flex items-center justify-center bg-[#0b4ca6] text-white py-3 px-7 rounded-[8px] shadow-sm font-medium transition-colors duration-150 ease-in-out hover:bg-[#083a8a] hover:border-[#052a62] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#90B2DE]"
             >
               Start learning for free
             </a>
