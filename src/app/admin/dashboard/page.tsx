@@ -79,28 +79,28 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-4 gap-4">
           <StatCard
             title="Total Users"
-            value="0"
+            value="1000"
             icon={<Users className="w-6 h-6" />}
             href="/admin/user-management"
             onClick={() => setSelectedMetric("New Users")}
           />
           <StatCard
             title="Active Users"
-            value="0"
+            value="887"
             icon={<UserCheck className="w-6 h-6" />}
             href="/admin/user-management"
             onClick={() => setSelectedMetric("Active Users")}
           />
           <StatCard
             title="Suspended"
-            value="0"
+            value="12"
             icon={<UserX className="w-6 h-6" />}
             href="/admin/user-management"
             onClick={() => setSelectedMetric("Suspended Users")}
           />
           <StatCard
             title="Pending Accounts"
-            value="0"
+            value="12"
             icon={<UserPlus className="w-6 h-6" />}
             href="/admin/user-management"
           />
@@ -116,27 +116,27 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-4 gap-4">
           <StatCard
             title="Total Applications"
-            value="0"
+            value="100"
             icon={<Shield className="w-6 h-6" />}
             href="/admin/instructor-verification"
             onClick={() => setSelectedMetric("New Applications")}
           />
           <StatCard
             title="Pending"
-            value="0"
+            value="52"
             icon={<Clock className="w-6 h-6" />}
             href="/admin/instructor-verification"
           />
           <StatCard
             title="Approved"
-            value="0"
+            value="88"
             icon={<CheckCircle className="w-6 h-6" />}
             href="/admin/instructor-verification"
             onClick={() => setSelectedMetric("Approved")}
           />
           <StatCard
             title="Rejected"
-            value="0"
+            value="3"
             icon={<XCircle className="w-6 h-6" />}
             href="/admin/instructor-verification"
             onClick={() => setSelectedMetric("Rejected")}
@@ -180,7 +180,7 @@ function StatCard({ title, value, icon, href, onClick }: any) {
     <a
       href={href}
       onClick={onClick}
-      className="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition cursor-pointer flex items-center gap-4"
+      className="p-4 bg-white rounded-[8px] shadow-sm hover:shadow-md transition cursor-pointer flex items-center gap-4 border border-gray-100"
     >
       <div className="p-3 bg-blue-50 rounded-full">{icon}</div>
       <div>

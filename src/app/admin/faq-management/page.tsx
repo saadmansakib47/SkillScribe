@@ -87,70 +87,67 @@ export default function FAQManagementPage() {
 
   return (
     <AdminLayout>
-      <div className="min-h-screen bg-[#FAF7F3] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6 flex justify-end">
+          <button
+            onClick={handleCreateClick}
+            className="flex items-center gap-2 px-6 py-3 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-all font-semibold whitespace-nowrap"
+          >
+            <Plus className="h-5 w-5" />
+            Create FAQ
+          </button>
+        </div>
 
-          <div className="mb-6 flex justify-end">
-            <button
-              onClick={handleCreateClick}
-              className="flex items-center gap-2 px-6 py-3 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-all font-semibold whitespace-nowrap"
-            >
-              <Plus className="h-5 w-5" />
-              Create FAQ
-            </button>
-          </div>
-
-          <div className="mb-6">
-            <FAQFilters
-              categoryFilter={categoryFilter}
-              onCategoryChange={setCategoryFilter}
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-            />
-          </div>
-
-          <div className="mb-4 text-sm text-gray-600">
-            Showing <span className="font-semibold text-gray-900">{filteredFaqs.length}</span> of{' '}
-            <span className="font-semibold text-gray-900">{faqs.length}</span> FAQs
-          </div>
-
-          {filteredFaqs.length > 0 ? (
-            <div className="space-y-4">
-              {filteredFaqs.map((faq) => (
-                <FAQAccordion
-                  key={faq.id}
-                  faq={faq}
-                  onEdit={handleEditClick}
-                  onDelete={handleDeleteFaq}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-12 text-center">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No FAQs Found</h3>
-              <p className="text-gray-600 mb-4">
-                {searchQuery || categoryFilter !== 'all'
-                  ? 'Try adjusting your filters to find what you are looking for.'
-                  : 'Get started by creating your first FAQ.'}
-              </p>
-              {!searchQuery && categoryFilter === 'all' && (
-                <button
-                  onClick={handleCreateClick}
-                  className="px-6 py-3 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-all font-semibold"
-                >
-                  Create Your First FAQ
-                </button>
-              )}
-            </div>
-          )}
-
-          <FAQModal
-            isOpen={isModalOpen}
-            faq={editingFaq}
-            onClose={handleCloseModal}
-            onSave={handleSaveFaq}
+        <div className="mb-6">
+          <FAQFilters
+            categoryFilter={categoryFilter}
+            onCategoryChange={setCategoryFilter}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
         </div>
+
+        <div className="mb-4 text-sm text-gray-600">
+          Showing <span className="font-semibold text-gray-900">{filteredFaqs.length}</span> of{' '}
+          <span className="font-semibold text-gray-900">{faqs.length}</span> FAQs
+        </div>
+
+        {filteredFaqs.length > 0 ? (
+          <div className="space-y-4">
+            {filteredFaqs.map((faq) => (
+              <FAQAccordion
+                key={faq.id}
+                faq={faq}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteFaq}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-12 text-center">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">No FAQs Found</h3>
+            <p className="text-gray-600 mb-4">
+              {searchQuery || categoryFilter !== 'all'
+                ? 'Try adjusting your filters to find what you are looking for.'
+                : 'Get started by creating your first FAQ.'}
+            </p>
+            {!searchQuery && categoryFilter === 'all' && (
+              <button
+                onClick={handleCreateClick}
+                className="px-6 py-3 bg-[#094CA4] text-white rounded-full hover:bg-[#073a85] transition-all font-semibold"
+              >
+                Create Your First FAQ
+              </button>
+            )}
+          </div>
+        )}
+
+        <FAQModal
+          isOpen={isModalOpen}
+          faq={editingFaq}
+          onClose={handleCloseModal}
+          onSave={handleSaveFaq}
+        />
       </div>
     </AdminLayout>
   );

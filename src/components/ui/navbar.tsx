@@ -136,16 +136,6 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           {/* LEFT SIDE */}
           <div className="flex items-center gap-3 lg:gap-4">
-            {/* Hamburger menu - Shows on instructor/admin pages */}
-            {(isInstructorPage || isAdminPage) && (
-              <button
-                onClick={handleSidebarToggle}
-                className="p-2 rounded-md hover:bg-gray-200 transition block"
-              >
-                <Menu className="h-6 w-6 text-gray-800" />
-              </button>
-            )}
-
             {/* Logo */}
             <Link
               href="/"

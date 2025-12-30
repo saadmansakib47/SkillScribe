@@ -79,47 +79,44 @@ export default function CourseManagementPage() {
 
   return (
     <AdminLayout>
-      <div className="min-h-screen bg-[#FAF7F3] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Search Bar */}
-          <div className="mb-6">
-            <CourseSearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-          </div>
-
-          {/* Stats Cards */}
-          <CourseStatsCards
-            total={stats.total}
-            published={stats.published}
-            pending={stats.pending}
-            suspended={stats.suspended}
-          />
-
-          {/* Filters */}
-          <CourseFilters
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            categoryFilter={categoryFilter}
-            onCategoryChange={setCategoryFilter}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            categories={categories}
-          />
-
-          {/* Results Count */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-600">
-              Showing <span className="font-semibold">{filteredCourses.length}</span> of{' '}
-              <span className="font-semibold">{courses.length}</span> courses
-            </p>
-          </div>
-
-          {/* Course Table */}
-          <CourseTable 
-            courses={filteredCourses} 
-            onStatusChange={handleStatusChange}
-          />
+      <div className="max-w-7xl mx-auto">
+        {/* Search Bar */}
+        <div className="mb-6">
+          <CourseSearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
         </div>
+
+        {/* Stats Cards */}
+        <CourseStatsCards
+          total={stats.total}
+          published={stats.published}
+          pending={stats.pending}
+          suspended={stats.suspended}
+        />
+
+        {/* Filters */}
+        <CourseFilters
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          categoryFilter={categoryFilter}
+          onCategoryChange={setCategoryFilter}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          categories={categories}
+        />
+
+        {/* Results Count */}
+        <div className="mb-4">
+          <p className="text-sm text-gray-600">
+            Showing <span className="font-semibold">{filteredCourses.length}</span> of{' '}
+            <span className="font-semibold">{courses.length}</span> courses
+          </p>
+        </div>
+
+        {/* Course Table */}
+        <CourseTable
+          courses={filteredCourses}
+          onStatusChange={handleStatusChange}
+        />
       </div>
     </AdminLayout>
   );
