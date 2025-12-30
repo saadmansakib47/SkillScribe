@@ -380,7 +380,7 @@ export default function Navbar() {
             )}
 
             {/* Login/Signup - Hidden on mobile */}
-            {!isLoggedIn && (
+            {!isLoggedIn && !isInstructorPage && !isAdminPage && (
 
               <div className="hidden md:flex items-center gap-2 text-sm whitespace-nowrap">
                 <Link
