@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
-import { Search, Menu, ChevronDown, ShoppingCart, Heart, User, BookOpen, Settings, LogOut } from "lucide-react";
+import { Search, Menu, ChevronDown, ShoppingCart, Heart, User, BookOpen, Settings, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Sun, Moon } from "lucide-react";
@@ -257,7 +257,22 @@ export default function Navbar() {
 
 
           {/* RIGHT SIDE */}
+
           <div className="flex items-center gap-3 flex-shrink-0">
+            {/* Message Icon - Shows for instructors */}
+            {isLoggedIn && isInstructorPage && (
+              <Link
+                href="/instructor/message"
+                className={`hidden md:block p-2 rounded-full transition ${pathname === '/instructor/message'
+                  ? 'bg-blue-100 text-[#094CA4]'
+                  : 'text-gray-800 hover:bg-gray-200'
+                  }`}
+                title="Messages"
+              >
+                <Mail className="h-5 w-5" />
+              </Link>
+            )}
+
             {/* Notification Bell - Shows for instructors */}
             {isLoggedIn && (isInstructorPage || isAdminPage) && (
               <div className="hidden md:block relative" ref={notificationRef}>
