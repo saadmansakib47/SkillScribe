@@ -8,6 +8,8 @@ import MessageList from "@/components/messages/messageList";
 import MessageComposer from "@/components/messages/messageComposer";
 import UserDetailsPanel from "@/components/messages/userDetailsPanel";
 import BlockUserModal from "@/components/messages/blockUserModal";
+import ReportUserModal from "@/components/messages/reportUserModal";
+import ReportSuccessModal from "@/components/messages/reportSuccessModal";
 
 import { Conversation, Message } from "@/components/messages/types";
 
@@ -15,6 +17,8 @@ export default function InstructorMessages() {
   const [selectedChat, setSelectedChat] = useState<number | null>(1);
   const [isUserBlocked, setIsUserBlocked] = useState(false);
   const [showBlockModal, setShowBlockModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [showReportSuccess, setShowReportSuccess] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, text: "Hello instructor!", sender: "them", timestamp: "10:21 AM", reactions: [] },
     { id: 2, text: "Hi, how can I help?", sender: "me", timestamp: "10:22 AM", reactions: [] },
@@ -72,12 +76,18 @@ export default function InstructorMessages() {
     const systemMessage: Message = {
       id: messages.length + 1,
       text: "You blocked this user.",
-      sender: "system" as any, // We'll handle this as a special type
+      sender: "system",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       reactions: [],
     };
 
     setMessages((prev) => [...prev, systemMessage]);
+  };
+
+  const handleReportUser = () => {
+    // Show success modal
+    setShowReportSuccess(true);
+    // Note: This doesn't affect the conversation - user can still send/receive messages
   };
 
   return (
@@ -117,6 +127,7 @@ export default function InstructorMessages() {
         avatar="https://i.pravatar.cc/150?img=12"
         role="Student"
         onBlockUser={() => setShowBlockModal(true)}
+        onReportUser={() => setShowReportModal(true)}
         isBlocked={isUserBlocked}
       />
 
@@ -125,6 +136,18 @@ export default function InstructorMessages() {
         onClose={() => setShowBlockModal(false)}
         onConfirm={handleBlockUser}
         userName="John Doe"
+      />
+
+      <ReportUserModal
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        onConfirm={handleReportUser}
+        userName="John Doe"
+      />
+
+      <ReportSuccessModal
+        isOpen={showReportSuccess}
+        onClose={() => setShowReportSuccess(false)}
       />
     </div>
   );
