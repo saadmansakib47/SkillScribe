@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Clipboard, Calendar, Star, MessageCircle, HelpCircle, User } from "lucide-react";
+import { Home, BookOpen, Clipboard, Calendar, Star, HelpCircle, User } from "lucide-react";
 
 export default function FixedSidebar() {
   const pathname = usePathname();
@@ -13,7 +13,6 @@ export default function FixedSidebar() {
     { icon: Clipboard, label: "Quizzes", href: "/instructor/quiz" },
     { icon: Calendar, label: "My Schedule", href: "/instructor/myschedule" },
     { icon: Star, label: "Review", href: "/instructor/review" },
-    { icon: MessageCircle, label: "Messages", href: "/instructor/message" },
     { icon: HelpCircle, label: "Q&A", href: "/learner/community" },
     { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];

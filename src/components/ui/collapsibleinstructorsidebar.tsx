@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Home, BookOpen, Calendar, Clipboard, Star, MessageCircle, HelpCircle, User } from "lucide-react";
+import { X, Home, BookOpen, Calendar, Clipboard, Star, HelpCircle, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -21,7 +21,6 @@ export default function InstructorSidebar({ isOpen, onClose }: SidebarProps) {
     { icon: Clipboard, label: "Quizzes", href: "/instructor/quiz" },
     { icon: Calendar, label: "My Schedule", href: "/instructor/myschedule" },
     { icon: Star, label: "Review", href: "/instructor/review" },
-    { icon: MessageCircle, label: "Messages", href: "/instructor/messages" },
     { icon: HelpCircle, label: "Q&A", href: "/learner/community" },
     { icon: User, label: "My Account", href: "/instructor/profile/6" },
   ];
@@ -69,8 +68,8 @@ export default function InstructorSidebar({ isOpen, onClose }: SidebarProps) {
                       href={href}
                       onClick={onClose}
                       className={`flex items-center gap-3 px-3 py-2 rounded-xl text-gray-700 transition-colors ${isActive
-                          ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
-                          : "hover:bg-gray-100"
+                        ? "bg-[#F0F4FF] text-[#4C6FFF] font-medium"
+                        : "hover:bg-gray-100"
                         }`}
                     >
                       <Icon className={`w-5 h-5 ${isActive ? "text-[#4C6FFF]" : "text-gray-600"}`} />
