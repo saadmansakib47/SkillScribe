@@ -10,7 +10,7 @@ export interface Conversation {
 export interface Message {
   id: number;
   text: string;
-  sender: "me" | "them";
+  sender: "me" | "them" | "system";  // Added "system" here
   timestamp: string;
   attachments?: string[];
   reactions?: string[];

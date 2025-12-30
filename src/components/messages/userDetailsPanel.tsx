@@ -7,13 +7,12 @@ interface Props {
   name: string;
   avatar: string;
   role: string;
+  onBlockUser: () => void;
+  isBlocked?: boolean;
 }
 
-export default function UserDetailsPanel({ name, avatar, role }: Props) {
-  const sharedFiles: any[] = [
-    // You can add some mock files here if needed
-    // { name: "Assignment.pdf", date: "2 days ago", size: "2.4 MB" }
-  ];
+export default function UserDetailsPanel({ name, avatar, role, onBlockUser, isBlocked }: Props) {
+  const sharedFiles: any[] = [];
 
   const userInfo = [
     { icon: Mail, label: "Email", value: "student@example.com" },
@@ -40,7 +39,7 @@ export default function UserDetailsPanel({ name, avatar, role }: Props) {
               alt={name}
               className="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
             />
-            <span className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-3 border-white rounded-full"></span>
+            <span className={`absolute bottom-1 right-1 w-5 h-5 ${isBlocked ? 'bg-red-500' : 'bg-green-500'} border-3 border-white rounded-full`}></span>
           </motion.div>
 
           <h3 className="text-xl font-bold text-gray-800 mb-1">{name}</h3>
@@ -48,6 +47,12 @@ export default function UserDetailsPanel({ name, avatar, role }: Props) {
             <User className="w-3.5 h-3.5" />
             {role}
           </span>
+          {isBlocked && (
+            <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+              <Shield className="w-3 h-3" />
+              Blocked
+            </span>
+          )}
         </div>
       </motion.div>
 
@@ -65,10 +70,15 @@ export default function UserDetailsPanel({ name, avatar, role }: Props) {
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full py-2.5 rounded-lg bg-red-50 text-red-600 font-medium hover:bg-red-100 transition-colors flex items-center justify-center gap-2"
+          onClick={onBlockUser}
+          disabled={isBlocked}
+          className={`w-full py-2.5 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 ${isBlocked
+            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            : 'bg-red-50 text-red-600 hover:bg-red-100'
+            }`}
         >
           <Shield className="w-4 h-4" />
-          Block User
+          {isBlocked ? 'User Blocked' : 'Block User'}
         </motion.button>
 
         <motion.button
