@@ -3,7 +3,7 @@ import { RotateCcw } from 'lucide-react';
 
 interface SuspendedUsersTableProps {
   suspendedUsers: User[];
-  onReinstate: (userId: number) => void;
+  onReinstate: (user: User) => void;
 }
 
 export default function SuspendedUsersTable({
@@ -64,7 +64,7 @@ export default function SuspendedUsersTable({
                 <td className="px-6 py-4 text-gray-700">{user.suspendedDate ? formatDate(user.suspendedDate) : 'N/A'}</td>
                 <td className="px-6 py-4">
                   <button
-                    onClick={() => onReinstate(user.id)}
+                    onClick={() => onReinstate(user)}
                     className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-all font-semibold text-sm whitespace-nowrap"
                   >
                     <RotateCcw className="h-4 w-4" />

@@ -6,6 +6,7 @@ import {
   UserSearchBar,
   UserSearchResults,
   SuspendUserForm,
+  ReinstateUserForm,
   SuspendedUsersTable
 } from '@/components/admin/suspend-user';
 
@@ -17,6 +18,8 @@ export default function SuspendUserPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isReinstateFormOpen, setIsReinstateFormOpen] = useState(false);
+  const [selectedUserForReinstate, setSelectedUserForReinstate] = useState<User | null>(null);
   const [showResults, setShowResults] = useState(false);
 
   // Get suspended users
@@ -65,25 +68,28 @@ export default function SuspendUserPage() {
     alert(`User ${user?.name} has been suspended successfully.`);
   };
 
-  const handleReinstate = (userId: number) => {
+  const handleReinstate = (userId: number, reason: string) => {
     const user = users.find(u => u.id === userId);
     if (!user) return;
 
-    if (confirm(`Are you sure you want to reinstate ${user.name}?`)) {
-      setUsers(prev => prev.map(u =>
-        u.id === userId
-          ? {
-            ...u,
-            status: 'active' as const,
-            suspensionReason: undefined,
-            suspensionDuration: undefined,
-            suspendedDate: undefined,
-            reinstateDate: undefined
-          }
-          : u
-      ));
-      alert(`User ${user.name} has been reinstated successfully.`);
-    }
+    setUsers(prev => prev.map(u =>
+      u.id === userId
+        ? {
+          ...u,
+          status: 'active' as const,
+          suspensionReason: undefined,
+          suspensionDuration: undefined,
+          suspendedDate: undefined,
+          reinstateDate: undefined
+        }
+        : u
+    ));
+    alert(`User ${user.name} has been reinstated successfully.\nReason: ${reason}`);
+  };
+
+  const handleOpenReinstateModal = (user: User) => {
+    setSelectedUserForReinstate(user);
+    setIsReinstateFormOpen(true);
   };
 
   const handleSearchChange = (query: string) => {
@@ -121,7 +127,7 @@ export default function SuspendUserPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Currently Suspended Users</h2>
             <SuspendedUsersTable
               suspendedUsers={suspendedUsers}
-              onReinstate={handleReinstate}
+              onReinstate={handleOpenReinstateModal}
             />
           </div>
 
@@ -134,6 +140,17 @@ export default function SuspendUserPage() {
               setSelectedUser(null);
             }}
             onSuspend={handleSuspend}
+          />
+
+          {/* Reinstate User Form Modal */}
+          <ReinstateUserForm
+            isOpen={isReinstateFormOpen}
+            selectedUser={selectedUserForReinstate}
+            onClose={() => {
+              setIsReinstateFormOpen(false);
+              setSelectedUserForReinstate(null);
+            }}
+            onReinstate={handleReinstate}
           />
         </div>
       </div>
