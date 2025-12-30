@@ -52,7 +52,7 @@ export default function UserStatsTable() {
       <h2 className="text-lg font-semibold mb-3">Latest User Activity</h2>
 
       <table className="min-w-full border rounded-lg bg-white">
-        <thead className="bg-[#97BCED] text-black text-sm">
+        <thead className="bg-[#F1F5F9] text-black text-sm">
           <tr>
             <th className="p-3 text-left font-semibold">Name</th>
             <th className="p-3 text-left font-semibold">Email</th>
