@@ -247,10 +247,10 @@ export default function PlayerClient({ course }: Props) {
   const initialLesson = useMemo(() => {
     const m = course.modules && course.modules.length > 0 ? course.modules[0] : undefined;
     const t = m && m.topics && m.topics.length > 0 ? m.topics[0] : undefined;
-    return t ? { moduleId: m!.id, topicId: t.id, title: t.title } : null;
+    return t ? { moduleId: m!.id, topicId: t.id, title: t.title, videoUrl: t.videoUrl } : null;
   }, [course]);
 
-  const [currentLesson, setCurrentLesson] = useState<{ moduleId: number; topicId: number; title: string } | null>(initialLesson);
+  const [currentLesson, setCurrentLesson] = useState<{ moduleId: number; topicId: number; title: string; videoUrl?: string } | null>(initialLesson);
 
   return (
     <div>
@@ -262,8 +262,16 @@ export default function PlayerClient({ course }: Props) {
         }`}>
           {/* 16:9 container */}
           <div className="w-full" style={{ paddingTop: '56.25%' }}>
-            <div className="absolute inset-0 flex flex-col">
-              <div className="flex-1 relative">
+            <div className="absolute inset-0">
+              {currentLesson?.videoUrl ? (
+                <iframe
+                  src={currentLesson.videoUrl}
+                  className="absolute inset-0 w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title={currentLesson.title}
+                />
+              ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-36 h-36 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900">
@@ -271,29 +279,7 @@ export default function PlayerClient({ course }: Props) {
                     </svg>
                   </div>
                 </div>
-
-                {/* lesson title badge */}
-                {currentLesson && (
-                  <div className="absolute left-6 bottom-16 bg-white/90 px-3 py-1 rounded-md text-sm font-medium shadow">{currentLesson.title}</div>
-                )}
-              </div>
-
-              {/* fake control bar */}
-              <div className="h-14 bg-gradient-to-t from-black/60 to-transparent flex items-center px-4 gap-4">
-                <button className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white">
-                  ►
-                </button>
-                <div className="text-xs text-white bg-white/10 px-2 py-1 rounded">0:00 / 0:00</div>
-                <div className="flex-1">
-                  <div className="h-2 bg-white/20 rounded overflow-hidden">
-                    <div className="h-2 bg-blue-400" style={{ width: '0%' }} />
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <button className="text-white/90">CC</button>
-                  <button className="text-white/90">⤢</button>
-                </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -356,7 +342,7 @@ export default function PlayerClient({ course }: Props) {
                                 <button
                                   key={t.id}
                                   onClick={() => {
-                                    setCurrentLesson({ moduleId: mod.id, topicId: t.id, title: t.title });
+                                    setCurrentLesson({ moduleId: mod.id, topicId: t.id, title: t.title, videoUrl: t.videoUrl });
                                   }}
                                   className="w-full text-left flex items-start gap-3 p-2 rounded hover:bg-blue-50 transition-colors group"
                                 >
@@ -457,7 +443,7 @@ export default function PlayerClient({ course }: Props) {
                               <button
                                 key={t.id}
                                 onClick={() => {
-                                  setCurrentLesson({ moduleId: mod.id, topicId: t.id, title: t.title });
+                                  setCurrentLesson({ moduleId: mod.id, topicId: t.id, title: t.title, videoUrl: t.videoUrl });
                                   setSidebarOpen(false); // Close on mobile after selection
                                 }}
                                 className="w-full text-left flex items-start gap-3 p-2 rounded hover:bg-blue-50 transition-colors group"
