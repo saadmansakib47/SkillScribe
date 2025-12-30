@@ -462,7 +462,7 @@ export const COURSES: Course[] = [
         lectures: 5,
         duration: '4 hr',
         topics: [
-          { id: 1, title: 'ES6+ syntax', videoUrl: 'https://www.youtube.com/embed/IJ6EgdiI_wU', resources: [{ title: 'ES6 features', size: '180 KB', file: '/Asset/resources/js/es6.pdf' }] },
+          { id: 1, title: 'ES6+ syntax', videoUrl: 'https://www.youtube.com/embed/NCwa_xi0Uuc', resources: [{ title: 'ES6 features', size: '180 KB', file: '/Asset/resources/js/es6.pdf' }] },
           { id: 2, title: 'Arrow functions', videoUrl: 'https://www.youtube.com/embed/h33Srr5J9nY', resources: [{ title: 'Arrow functions', size: '140 KB', file: '/Asset/resources/js/arrows.pdf' }] },
           { id: 3, title: 'Destructuring', videoUrl: 'https://www.youtube.com/embed/NIq3qLaHCIs', resources: [{ title: 'Destructuring guide', size: '150 KB', file: '/Asset/resources/js/destructuring.pdf' }] },
           { id: 4, title: 'Spread & rest', videoUrl: 'https://www.youtube.com/embed/1INe_jCWq1Q', resources: [{ title: 'Spread operator', size: '130 KB', file: '/Asset/resources/js/spread.pdf' }] },
@@ -890,11 +890,11 @@ export const COURSES: Course[] = [
       lectures: 5,
       duration: '2 hr',
       topics: [
-        { id: 1, title: 'ER modeling', resources: [{ title: 'ER guide', size: '200 KB', file: '/Asset/resources/db/er-guide.pdf' }] },
-        { id: 2, title: 'Normalization', resources: [{ title: 'Normalization notes', size: '120 KB', file: '/Asset/resources/db/normalization.pdf' }] },
-        { id: 3, title: 'Relationships', resources: [{ title: 'Relationship types', size: '90 KB', file: '/Asset/resources/db/relationships.pdf' }] },
-        { id: 4, title: 'Design tradeoffs', resources: [{ title: 'Design tradeoffs', size: '80 KB', file: '/Asset/resources/db/tradeoffs.pdf' }] },
-        { id: 5, title: 'Schema Design', resources: [{ title: 'Schema design principles', size: '150 KB', file: '/Asset/resources/db/schema-design.pdf' }] }  // Added topic
+        { id: 1, title: 'ER modeling', videoUrl: 'https://www.youtube.com/embed/QpdhBUYk7Kk', resources: [{ title: 'ER guide', size: '200 KB', file: '/Asset/resources/db/er-guide.pdf' }] },
+        { id: 2, title: 'Normalization', videoUrl: 'https://www.youtube.com/embed/ABwD8IYByfk', resources: [{ title: 'Normalization notes', size: '120 KB', file: '/Asset/resources/db/normalization.pdf' }] },
+        { id: 3, title: 'Relationships', videoUrl: 'https://www.youtube.com/embed/N0cXy_LD0TY', resources: [{ title: 'Relationship types', size: '90 KB', file: '/Asset/resources/db/relationships.pdf' }] },
+        { id: 4, title: 'Design tradeoffs', videoUrl: 'https://www.youtube.com/embed/W2Z7fbCLSTw', resources: [{ title: 'Design tradeoffs', size: '80 KB', file: '/Asset/resources/db/tradeoffs.pdf' }] },
+        { id: 5, title: 'Schema Design', videoUrl: 'https://www.youtube.com/embed/3BZz8R7mqu0', resources: [{ title: 'Schema design principles', size: '150 KB', file: '/Asset/resources/db/schema-design.pdf' }] }  // Added topic
       ]
     },
     { 
@@ -903,11 +903,11 @@ export const COURSES: Course[] = [
       lectures: 5,
       duration: '3 hr',
       topics: [
-        { id: 1, title: 'SELECT & JOINs', resources: [{ title: 'Query cheatsheet', size: '150 KB', file: '/Asset/resources/db/queries.pdf' }] },
-        { id: 2, title: 'Aggregation', resources: [{ title: 'Aggregation examples', size: '120 KB', file: '/Asset/resources/db/aggregation.pdf' }] },
-        { id: 3, title: 'Indexes', resources: [{ title: 'Index guide', size: '110 KB', file: '/Asset/resources/db/indexes.pdf' }] },
-        { id: 4, title: 'Transactions', resources: [{ title: 'Transactions notes', size: '90 KB', file: '/Asset/resources/db/transactions.pdf' }] },
-        { id: 5, title: 'Subqueries', resources: [{ title: 'Subqueries tutorial', size: '130 KB', file: '/Asset/resources/db/subqueries.pdf' }] }  // Added topic
+        { id: 1, title: 'SELECT & JOINs', videoUrl: 'https://www.youtube.com/embed/9yeOJ0ZMUYw', resources: [{ title: 'Query cheatsheet', size: '150 KB', file: '/Asset/resources/db/queries.pdf' }] },
+        { id: 2, title: 'Aggregation', videoUrl: 'https://www.youtube.com/embed/3-jwsaGvD8k', resources: [{ title: 'Aggregation examples', size: '120 KB', file: '/Asset/resources/db/aggregation.pdf' }] },
+        { id: 3, title: 'Indexes', videoUrl: 'https://www.youtube.com/embed/-qNSXK7s7_w', resources: [{ title: 'Index guide', size: '110 KB', file: '/Asset/resources/db/indexes.pdf' }] },
+        { id: 4, title: 'Transactions', videoUrl: 'https://www.youtube.com/embed/P80Js_qClUE', resources: [{ title: 'Transactions notes', size: '90 KB', file: '/Asset/resources/db/transactions.pdf' }] },
+        { id: 5, title: 'Subqueries', videoUrl: 'https://www.youtube.com/embed/m1KcNV-Zhzs', resources: [{ title: 'Subqueries tutorial', size: '130 KB', file: '/Asset/resources/db/subqueries.pdf' }] }  // Added topic
       ]
     },
     { 
@@ -916,11 +916,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '1.5 hr',
       topics: [
-        { id: 1, title: 'Document stores', resources: [{ title: 'Docs primer', size: '140 KB', file: '/Asset/resources/db/document-stores.pdf' }] },
-        { id: 2, title: 'Key-value', resources: [{ title: 'KV patterns', size: '100 KB', file: '/Asset/resources/db/kv.pdf' }] },
-        { id: 3, title: 'When to choose NoSQL', resources: [{ title: 'Decision guide', size: '120 KB', file: '/Asset/resources/db/when-nosql.pdf' }] },
-        { id: 4, title: 'CAP theorem', resources: [{ title: 'CAP summary', size: '80 KB', file: '/Asset/resources/db/cap.pdf' }] },
-        { id: 5, title: 'Column-family stores', resources: [{ title: 'Column-family stores overview', size: '110 KB', file: '/Asset/resources/db/column-family.pdf' }] }  // Added topic
+        { id: 1, title: 'Document stores', videoUrl: 'https://www.youtube.com/embed/0buKQHokLK8', resources: [{ title: 'Docs primer', size: '140 KB', file: '/Asset/resources/db/document-stores.pdf' }] },
+        { id: 2, title: 'Key-value', videoUrl: 'https://www.youtube.com/embed/ruz-vK8IesE', resources: [{ title: 'KV patterns', size: '100 KB', file: '/Asset/resources/db/kv.pdf' }] },
+        { id: 3, title: 'When to choose NoSQL', videoUrl: 'https://www.youtube.com/embed/qI_g07C_Q5I', resources: [{ title: 'Decision guide', size: '120 KB', file: '/Asset/resources/db/when-nosql.pdf' }] },
+        { id: 4, title: 'CAP theorem', videoUrl: 'https://www.youtube.com/embed/k-Yaq8AHlFA', resources: [{ title: 'CAP summary', size: '80 KB', file: '/Asset/resources/db/cap.pdf' }] },
+        { id: 5, title: 'Column-family stores', videoUrl: 'https://www.youtube.com/embed/RqvBfK33RqM', resources: [{ title: 'Column-family stores overview', size: '110 KB', file: '/Asset/resources/db/column-family.pdf' }] }  // Added topic
       ]
     }
   ],
@@ -955,11 +955,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '2.5 hr', 
       topics: [
-        { id: 1, title: 'Syntax & variables', resources: [{ title: 'Syntax cheatsheet', size: '80 KB', file: '/Asset/resources/python/syntax.pdf' }] },
-        { id: 2, title: 'Control flow', resources: [{ title: 'Flow examples', size: '90 KB', file: '/Asset/resources/python/flow.pdf' }] },
-        { id: 3, title: 'Functions', resources: [{ title: 'Functions guide', size: '110 KB', file: '/Asset/resources/python/functions.pdf' }] },
-        { id: 4, title: 'Modules & packages', resources: [{ title: 'Packaging', size: '120 KB', file: '/Asset/resources/python/packages.pdf' }] },
-        { id: 5, title: 'Error handling', resources: [{ title: 'Error handling tutorial', size: '90 KB', file: '/Asset/resources/python/errors.pdf' }] } // Added 5th topic
+        { id: 1, title: 'Syntax & variables', videoUrl: 'https://www.youtube.com/embed/kqtD5dpn9C8', resources: [{ title: 'Syntax cheatsheet', size: '80 KB', file: '/Asset/resources/python/syntax.pdf' }] },
+        { id: 2, title: 'Control flow', videoUrl: 'https://www.youtube.com/embed/PqFKRqpHrjw', resources: [{ title: 'Flow examples', size: '90 KB', file: '/Asset/resources/python/flow.pdf' }] },
+        { id: 3, title: 'Functions', videoUrl: 'https://www.youtube.com/embed/9Os0o3wzS_I', resources: [{ title: 'Functions guide', size: '110 KB', file: '/Asset/resources/python/functions.pdf' }] },
+        { id: 4, title: 'Modules & packages', videoUrl: 'https://www.youtube.com/embed/CqvZ3vGoGs0', resources: [{ title: 'Packaging', size: '120 KB', file: '/Asset/resources/python/packages.pdf' }] },
+        { id: 5, title: 'Error handling', videoUrl: 'https://www.youtube.com/embed/NIWwJbo-9_8', resources: [{ title: 'Error handling tutorial', size: '90 KB', file: '/Asset/resources/python/errors.pdf' }] } // Added 5th topic
       ]
     },
     { 
@@ -968,11 +968,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '2 hr', 
       topics: [
-        { id: 1, title: 'Lists & tuples', resources: [{ title: 'Lists examples', size: '100 KB', file: '/Asset/resources/python/lists.pdf' }] },
-        { id: 2, title: 'Dictionaries', resources: [{ title: 'Dicts guide', size: '90 KB', file: '/Asset/resources/python/dicts.pdf' }] },
-        { id: 3, title: 'Sets', resources: [{ title: 'Sets notes', size: '60 KB', file: '/Asset/resources/python/sets.pdf' }] },
-        { id: 4, title: 'Comprehensions', resources: [{ title: 'Comprehensions', size: '80 KB', file: '/Asset/resources/python/comprehensions.pdf' }] },
-        { id: 5, title: 'Queues & Stacks', resources: [{ title: 'Queues & Stacks notes', size: '110 KB', file: '/Asset/resources/python/queues-stacks.pdf' }] } // Added 5th topic
+        { id: 1, title: 'Lists & tuples', videoUrl: 'https://www.youtube.com/embed/tw7ror9x32s', resources: [{ title: 'Lists examples', size: '100 KB', file: '/Asset/resources/python/lists.pdf' }] },
+        { id: 2, title: 'Dictionaries', videoUrl: 'https://www.youtube.com/embed/XCcpzWs-CI4', resources: [{ title: 'Dicts guide', size: '90 KB', file: '/Asset/resources/python/dicts.pdf' }] },
+        { id: 3, title: 'Sets', videoUrl: 'https://www.youtube.com/embed/sBvaPopWOmQ', resources: [{ title: 'Sets notes', size: '60 KB', file: '/Asset/resources/python/sets.pdf' }] },
+        { id: 4, title: 'Comprehensions', videoUrl: 'https://www.youtube.com/embed/AhSvKGTh28Q', resources: [{ title: 'Comprehensions', size: '80 KB', file: '/Asset/resources/python/comprehensions.pdf' }] },
+        { id: 5, title: 'Queues & Stacks', videoUrl: 'https://www.youtube.com/embed/L3ud3rXpIxA', resources: [{ title: 'Queues & Stacks notes', size: '110 KB', file: '/Asset/resources/python/queues-stacks.pdf' }] } // Added 5th topic
       ]
     },
     { 
@@ -981,11 +981,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '2 hr', 
       topics: [
-        { id: 1, title: 'File I/O', resources: [{ title: 'File examples', size: '70 KB', file: '/Asset/resources/python/file-io.pdf' }] },
-        { id: 2, title: 'Virtualenv & pip', resources: [{ title: 'Env guide', size: '60 KB', file: '/Asset/resources/python/env.pdf' }] },
-        { id: 3, title: 'argparse', resources: [{ title: 'Argparse cheat', size: '50 KB', file: '/Asset/resources/python/argparse.pdf' }] },
-        { id: 4, title: 'Working with libs', resources: [{ title: 'Libraries list', size: '120 KB', file: '/Asset/resources/python/libs.pdf' }] },
-        { id: 5, title: 'Debugging Tools', resources: [{ title: 'Debugger guide', size: '80 KB', file: '/Asset/resources/python/debugger.pdf' }] } // Added 5th topic
+        { id: 1, title: 'File I/O', videoUrl: 'https://www.youtube.com/embed/Uh2ebFW8OYM', resources: [{ title: 'File examples', size: '70 KB', file: '/Asset/resources/python/file-io.pdf' }] },
+        { id: 2, title: 'Virtualenv & pip', videoUrl: 'https://www.youtube.com/embed/APOPm01BVrk', resources: [{ title: 'Env guide', size: '60 KB', file: '/Asset/resources/python/env.pdf' }] },
+        { id: 3, title: 'argparse', videoUrl: 'https://www.youtube.com/embed/88pl8TuuKz0', resources: [{ title: 'Argparse cheat', size: '50 KB', file: '/Asset/resources/python/argparse.pdf' }] },
+        { id: 4, title: 'Working with libs', videoUrl: 'https://www.youtube.com/embed/KSiRzuSx120', resources: [{ title: 'Libraries list', size: '120 KB', file: '/Asset/resources/python/libs.pdf' }] },
+        { id: 5, title: 'Debugging Tools', videoUrl: 'https://www.youtube.com/embed/5AYIe-3cD-s', resources: [{ title: 'Debugger guide', size: '80 KB', file: '/Asset/resources/python/debugger.pdf' }] } // Added 5th topic
       ]
     },
     { 
@@ -994,11 +994,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '2 hr', 
       topics: [
-        { id: 1, title: 'Decorators', resources: [{ title: 'Decorators tutorial', size: '130 KB', file: '/Asset/resources/python/decorators.pdf' }] },
-        { id: 2, title: 'Generators', resources: [{ title: 'Generators guide', size: '120 KB', file: '/Asset/resources/python/generators.pdf' }] },
-        { id: 3, title: 'Context Managers', resources: [{ title: 'Context manager notes', size: '110 KB', file: '/Asset/resources/python/context-managers.pdf' }] },
-        { id: 4, title: 'Metaprogramming', resources: [{ title: 'Metaprogramming intro', size: '140 KB', file: '/Asset/resources/python/metaprogramming.pdf' }] },
-        { id: 5, title: 'Concurrency', resources: [{ title: 'Concurrency in Python', size: '150 KB', file: '/Asset/resources/python/concurrency.pdf' }] } // Added 5th topic
+        { id: 1, title: 'Decorators', videoUrl: 'https://www.youtube.com/embed/r7Dtus7N4pI', resources: [{ title: 'Decorators tutorial', size: '130 KB', file: '/Asset/resources/python/decorators.pdf' }] },
+        { id: 2, title: 'Generators', videoUrl: 'https://www.youtube.com/embed/bD05uGo_sVI', resources: [{ title: 'Generators guide', size: '120 KB', file: '/Asset/resources/python/generators.pdf' }] },
+        { id: 3, title: 'Context Managers', videoUrl: 'https://www.youtube.com/embed/iba-I4CrmyA', resources: [{ title: 'Context manager notes', size: '110 KB', file: '/Asset/resources/python/context-managers.pdf' }] },
+        { id: 4, title: 'Metaprogramming', videoUrl: 'https://www.youtube.com/embed/htEECzKJBXk', resources: [{ title: 'Metaprogramming intro', size: '140 KB', file: '/Asset/resources/python/metaprogramming.pdf' }] },
+        { id: 5, title: 'Concurrency', videoUrl: 'https://www.youtube.com/embed/9zinZmE3Ogk', resources: [{ title: 'Concurrency in Python', size: '150 KB', file: '/Asset/resources/python/concurrency.pdf' }] } // Added 5th topic
       ]
     },
   ],
@@ -1033,30 +1033,30 @@ export const COURSES: Course[] = [
         lectures: 4,
         duration: '2.5 hr',
         topics: [
-          { id: 1, title: 'useEffect & timing', resources: [{ title: 'useEffect notes', size: '80 KB', file: '/Asset/resources/react/useeffect.pdf' }] },
-          { id: 2, title: 'useMemo & useCallback', resources: [{ title: 'Memo patterns', size: '90 KB', file: '/Asset/resources/react/memo.pdf' }] },
-          { id: 3, title: 'Custom hooks', resources: [{ title: 'Custom hooks guide', size: '110 KB', file: '/Asset/resources/react/custom-hooks.pdf' }] },
-          { id: 4, title: 'Testing hooks', resources: [{ title: 'Testing hooks', size: '100 KB', file: '/Asset/resources/react/test-hooks.pdf' }] },
+          { id: 1, title: 'useEffect & timing', videoUrl: 'https://www.youtube.com/embed/0ZJgIjIuY7U', resources: [{ title: 'useEffect notes', size: '80 KB', file: '/Asset/resources/react/useeffect.pdf' }] },
+          { id: 2, title: 'useMemo & useCallback', videoUrl: 'https://www.youtube.com/embed/THL1OPn72vo', resources: [{ title: 'Memo patterns', size: '90 KB', file: '/Asset/resources/react/memo.pdf' }] },
+          { id: 3, title: 'Custom hooks', videoUrl: 'https://www.youtube.com/embed/J-g9ZJha8FE', resources: [{ title: 'Custom hooks guide', size: '110 KB', file: '/Asset/resources/react/custom-hooks.pdf' }] },
+          { id: 4, title: 'Testing hooks', videoUrl: 'https://www.youtube.com/embed/TBZy-Rc-xX0', resources: [{ title: 'Testing hooks', size: '100 KB', file: '/Asset/resources/react/test-hooks.pdf' }] },
         ] },
       { id: 2,
         title: 'Context & Patterns',
         lectures: 4,
         duration: '2 hr',
         topics: [
-          { id: 1, title: 'Context usage', resources: [{ title: 'Context examples', size: '90 KB', file: '/Asset/resources/react/context.pdf' }] },
-          { id: 2, title: 'State colocation', resources: [{ title: 'State strategies', size: '80 KB', file: '/Asset/resources/react/state.pdf' }] },
-          { id: 3, title: 'Composition patterns', resources: [{ title: 'Composition', size: '70 KB', file: '/Asset/resources/react/composition.pdf' }] },
-          { id: 4, title: 'Render props vs hooks', resources: [{ title: 'Patterns compare', size: '60 KB', file: '/Asset/resources/react/pattern-compare.pdf' }] },
+          { id: 1, title: 'Context usage', videoUrl: 'https://www.youtube.com/embed/5LrDIWkK_Bc', resources: [{ title: 'Context examples', size: '90 KB', file: '/Asset/resources/react/context.pdf' }] },
+          { id: 2, title: 'State colocation', videoUrl: 'https://www.youtube.com/embed/wmQ8jAYUVSQ', resources: [{ title: 'State strategies', size: '80 KB', file: '/Asset/resources/react/state.pdf' }] },
+          { id: 3, title: 'Composition patterns', videoUrl: 'https://www.youtube.com/embed/w6fodPZknPw', resources: [{ title: 'Composition', size: '70 KB', file: '/Asset/resources/react/composition.pdf' }] },
+          { id: 4, title: 'Render props vs hooks', videoUrl: 'https://www.youtube.com/embed/PrXh5rmJIQQ', resources: [{ title: 'Patterns compare', size: '60 KB', file: '/Asset/resources/react/pattern-compare.pdf' }] },
         ] },
       { id: 3,
         title: 'Performance',
         lectures: 4,
         duration: '2 hr',
         topics: [
-          { id: 1, title: 'Profiling', resources: [{ title: 'Profiler guide', size: '120 KB', file: '/Asset/resources/react/profiler.pdf' }] },
-          { id: 2, title: 'Code-splitting', resources: [{ title: 'Code-splitting', size: '90 KB', file: '/Asset/resources/react/code-split.pdf' }] },
-          { id: 3, title: 'Optimizing renders', resources: [{ title: 'Render tips', size: '80 KB', file: '/Asset/resources/react/optimize.pdf' }] },
-          { id: 4, title: 'Memoization', resources: [{ title: 'Memo guide', size: '70 KB', file: '/Asset/resources/react/memoization.pdf' }] },
+          { id: 1, title: 'Profiling', videoUrl: 'https://www.youtube.com/embed/00RoZflFE34', resources: [{ title: 'Profiler guide', size: '120 KB', file: '/Asset/resources/react/profiler.pdf' }] },
+          { id: 2, title: 'Code-splitting', videoUrl: 'https://www.youtube.com/embed/JU6sl_yyZqs', resources: [{ title: 'Code-splitting', size: '90 KB', file: '/Asset/resources/react/code-split.pdf' }] },
+          { id: 3, title: 'Optimizing renders', videoUrl: 'https://www.youtube.com/embed/qOQClO3g8-Y', resources: [{ title: 'Render tips', size: '80 KB', file: '/Asset/resources/react/optimize.pdf' }] },
+          { id: 4, title: 'Memoization', videoUrl: 'https://www.youtube.com/embed/DEPwA3mv_R8', resources: [{ title: 'Memo guide', size: '70 KB', file: '/Asset/resources/react/memoization.pdf' }] },
         ] },
     ],
     whatYouWillLearn: [
@@ -1090,10 +1090,10 @@ export const COURSES: Course[] = [
       lectures: 4, 
       duration: '3 hr', 
       topics: [
-        { id: 1, title: 'HTML semantics', resources: [{ title: 'HTML checklist', size: '80 KB', file: '/Asset/resources/web/html.pdf' }] },
-        { id: 2, title: 'CSS basics', resources: [{ title: 'CSS guide', size: '120 KB', file: '/Asset/resources/web/css.pdf' }] },
-        { id: 3, title: 'Flexbox & Grid', resources: [{ title: 'Layout cheatsheet', size: '140 KB', file: '/Asset/resources/web/layout.pdf' }] },
-        { id: 4, title: 'Responsive design', resources: [{ title: 'Responsive tips', size: '90 KB', file: '/Asset/resources/web/responsive.pdf' }] },
+        { id: 1, title: 'HTML semantics', videoUrl: 'https://www.youtube.com/embed/UB1O30fR-EE', resources: [{ title: 'HTML checklist', size: '80 KB', file: '/Asset/resources/web/html.pdf' }] },
+        { id: 2, title: 'CSS basics', videoUrl: 'https://www.youtube.com/embed/1PnVor36_40', resources: [{ title: 'CSS guide', size: '120 KB', file: '/Asset/resources/web/css.pdf' }] },
+        { id: 3, title: 'Flexbox & Grid', videoUrl: 'https://www.youtube.com/embed/3YW65K6LcIA', resources: [{ title: 'Layout cheatsheet', size: '140 KB', file: '/Asset/resources/web/layout.pdf' }] },
+        { id: 4, title: 'Responsive design', videoUrl: 'https://www.youtube.com/embed/srvUrASNj0s', resources: [{ title: 'Responsive tips', size: '90 KB', file: '/Asset/resources/web/responsive.pdf' }] },
       ] 
     },
     { 
@@ -1102,10 +1102,10 @@ export const COURSES: Course[] = [
       lectures: 4, 
       duration: '4 hr', 
       topics: [
-        { id: 1, title: 'DOM manipulation', resources: [{ title: 'DOM guide', size: '110 KB', file: '/Asset/resources/web/dom.pdf' }] },
-        { id: 2, title: 'ES6+', resources: [{ title: 'ES6 features', size: '130 KB', file: '/Asset/resources/web/es6.pdf' }] },
-        { id: 3, title: 'Async patterns', resources: [{ title: 'Async patterns', size: '120 KB', file: '/Asset/resources/web/async.pdf' }] },
-        { id: 4, title: 'Fetch & AJAX', resources: [{ title: 'Network guide', size: '90 KB', file: '/Asset/resources/web/fetch.pdf' }] },
+        { id: 1, title: 'DOM manipulation', videoUrl: 'https://www.youtube.com/embed/y17RuWkWdn8', resources: [{ title: 'DOM guide', size: '110 KB', file: '/Asset/resources/web/dom.pdf' }] },
+        { id: 2, title: 'ES6+', videoUrl: 'https://www.youtube.com/embed/nZ1DMMsyVyI', resources: [{ title: 'ES6 features', size: '130 KB', file: '/Asset/resources/web/es6.pdf' }] },
+        { id: 3, title: 'Async patterns', videoUrl: 'https://www.youtube.com/embed/PoRJizFvM7s', resources: [{ title: 'Async patterns', size: '120 KB', file: '/Asset/resources/web/async.pdf' }] },
+        { id: 4, title: 'Fetch & AJAX', videoUrl: 'https://www.youtube.com/embed/cuEtnrL9-H0', resources: [{ title: 'Network guide', size: '90 KB', file: '/Asset/resources/web/fetch.pdf' }] },
       ] 
     },
     { 
@@ -1114,10 +1114,10 @@ export const COURSES: Course[] = [
       lectures: 4, 
       duration: '4 hr', 
       topics: [
-        { id: 1, title: 'Intro to Node', resources: [{ title: 'Node primer', size: '100 KB', file: '/Asset/resources/web/node-primer.pdf' }] },
-        { id: 2, title: 'Express basics', resources: [{ title: 'Express cheatsheet', size: '110 KB', file: '/Asset/resources/web/express.pdf' }] },
-        { id: 3, title: 'Routing & APIs', resources: [{ title: 'APIs guide', size: '120 KB', file: '/Asset/resources/web/apis.pdf' }] },
-        { id: 4, title: 'Deployment', resources: [{ title: 'Deploy notes', size: '150 KB', file: '/Asset/resources/web/deploy.pdf' }] },
+        { id: 1, title: 'Intro to Node', videoUrl: 'https://www.youtube.com/embed/TlB_eWDSMt4', resources: [{ title: 'Node primer', size: '100 KB', file: '/Asset/resources/web/node-primer.pdf' }] },
+        { id: 2, title: 'Express basics', videoUrl: 'https://www.youtube.com/embed/L72fhGm1tfE', resources: [{ title: 'Express cheatsheet', size: '110 KB', file: '/Asset/resources/web/express.pdf' }] },
+        { id: 3, title: 'Routing & APIs', videoUrl: 'https://www.youtube.com/embed/pKd0Rpw7O48', resources: [{ title: 'APIs guide', size: '120 KB', file: '/Asset/resources/web/apis.pdf' }] },
+        { id: 4, title: 'Deployment', videoUrl: 'https://www.youtube.com/embed/l134cBAJCuc', resources: [{ title: 'Deploy notes', size: '150 KB', file: '/Asset/resources/web/deploy.pdf' }] },
       ] 
     },
     { 
@@ -1126,10 +1126,10 @@ export const COURSES: Course[] = [
       lectures: 4, 
       duration: '3 hr', 
       topics: [
-        { id: 1, title: 'Event Handling', resources: [{ title: 'Event Handling Guide', size: '110 KB', file: '/Asset/resources/web/events.pdf' }] },
-        { id: 2, title: 'Asynchronous JS', resources: [{ title: 'Async JS Concepts', size: '120 KB', file: '/Asset/resources/web/asyncjs.pdf' }] },
-        { id: 3, title: 'Promises & Callbacks', resources: [{ title: 'Promises and Callbacks', size: '140 KB', file: '/Asset/resources/web/promises.pdf' }] },
-        { id: 4, title: 'JavaScript ES6+', resources: [{ title: 'ES6+ Features', size: '130 KB', file: '/Asset/resources/web/es6plus.pdf' }] },
+        { id: 1, title: 'Event Handling', videoUrl: 'https://www.youtube.com/embed/XF1_MlZ5l6M', resources: [{ title: 'Event Handling Guide', size: '110 KB', file: '/Asset/resources/web/events.pdf' }] },
+        { id: 2, title: 'Asynchronous JS', videoUrl: 'https://www.youtube.com/embed/ZYb_ZU8LNxs', resources: [{ title: 'Async JS Concepts', size: '120 KB', file: '/Asset/resources/web/asyncjs.pdf' }] },
+        { id: 3, title: 'Promises & Callbacks', videoUrl: 'https://www.youtube.com/embed/DHvZLI7Db8E', resources: [{ title: 'Promises and Callbacks', size: '140 KB', file: '/Asset/resources/web/promises.pdf' }] },
+        { id: 4, title: 'JavaScript ES6+', videoUrl: 'https://www.youtube.com/embed/NCwa_xi0Uuc', resources: [{ title: 'ES6+ Features', size: '130 KB', file: '/Asset/resources/web/es6plus.pdf' }] },
       ] 
     },
   ],
@@ -1165,11 +1165,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '2 hr', 
       topics: [
-        { id: 1, title: 'Principles', resources: [{ title: 'Design principles', size: '90 KB', file: '/Asset/resources/ui/principles.pdf' }] },
-        { id: 2, title: 'Color theory', resources: [{ title: 'Color guide', size: '80 KB', file: '/Asset/resources/ui/color.pdf' }] },
-        { id: 3, title: 'Typography', resources: [{ title: 'Typography notes', size: '60 KB', file: '/Asset/resources/ui/typography.pdf' }] },
-        { id: 4, title: 'Layout', resources: [{ title: 'Layout tips', size: '70 KB', file: '/Asset/resources/ui/layout.pdf' }] },
-        { id: 5, title: 'Design tools overview', resources: [{ title: 'Tools guide', size: '100 KB', file: '/Asset/resources/ui/tools.pdf' }] },
+        { id: 1, title: 'Principles', videoUrl: 'https://www.youtube.com/embed/YqQx75OPRa0', resources: [{ title: 'Design principles', size: '90 KB', file: '/Asset/resources/ui/principles.pdf' }] },
+        { id: 2, title: 'Color theory', videoUrl: 'https://www.youtube.com/embed/_2LLXnUdUIc', resources: [{ title: 'Color guide', size: '80 KB', file: '/Asset/resources/ui/color.pdf' }] },
+        { id: 3, title: 'Typography', videoUrl: 'https://www.youtube.com/embed/sByzHoiYFX0', resources: [{ title: 'Typography notes', size: '60 KB', file: '/Asset/resources/ui/typography.pdf' }] },
+        { id: 4, title: 'Layout', videoUrl: 'https://www.youtube.com/embed/3C_22eBWpjg', resources: [{ title: 'Layout tips', size: '70 KB', file: '/Asset/resources/ui/layout.pdf' }] },
+        { id: 5, title: 'Design tools overview', videoUrl: 'https://www.youtube.com/embed/c9Wg6Cb_YlU', resources: [{ title: 'Tools guide', size: '100 KB', file: '/Asset/resources/ui/tools.pdf' }] },
       ] 
     },
     { 
@@ -1178,11 +1178,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '1.5 hr', 
       topics: [
-        { id: 1, title: 'Low-fi patterns', resources: [{ title: 'Lo-fi templates', size: '250 KB', file: '/Asset/resources/ui/lofi.zip' }] },
-        { id: 2, title: 'Flow mapping', resources: [{ title: 'Flow samples', size: '120 KB', file: '/Asset/resources/ui/flow.pdf' }] },
-        { id: 3, title: 'Annotations', resources: [{ title: 'Annotation guide', size: '60 KB', file: '/Asset/resources/ui/annotations.pdf' }] },
-        { id: 4, title: 'Wireframe checklist', resources: [{ title: 'Checklist', size: '40 KB', file: '/Asset/resources/ui/checklist.pdf' }] },
-        { id: 5, title: 'Interactive wireframes', resources: [{ title: 'Interactive wireframes guide', size: '150 KB', file: '/Asset/resources/ui/interactives.pdf' }] },
+        { id: 1, title: 'Low-fi patterns', videoUrl: 'https://www.youtube.com/embed/qpH7-KFWZRI', resources: [{ title: 'Lo-fi templates', size: '250 KB', file: '/Asset/resources/ui/lofi.zip' }] },
+        { id: 2, title: 'Flow mapping', videoUrl: 'https://www.youtube.com/embed/Tvu3SXFdzqU', resources: [{ title: 'Flow samples', size: '120 KB', file: '/Asset/resources/ui/flow.pdf' }] },
+        { id: 3, title: 'Annotations', videoUrl: 'https://www.youtube.com/embed/LMFJjKhICFw', resources: [{ title: 'Annotation guide', size: '60 KB', file: '/Asset/resources/ui/annotations.pdf' }] },
+        { id: 4, title: 'Wireframe checklist', videoUrl: 'https://www.youtube.com/embed/KnZrypOaVCg', resources: [{ title: 'Checklist', size: '40 KB', file: '/Asset/resources/ui/checklist.pdf' }] },
+        { id: 5, title: 'Interactive wireframes', videoUrl: 'https://www.youtube.com/embed/eN4iCAAf-gY', resources: [{ title: 'Interactive wireframes guide', size: '150 KB', file: '/Asset/resources/ui/interactives.pdf' }] },
       ] 
     },
     { 
@@ -1191,10 +1191,10 @@ export const COURSES: Course[] = [
       lectures: 4, 
       duration: '1 hr', 
       topics: [
-        { id: 1, title: 'Figma basics', resources: [{ title: 'Figma cheats', size: '200 KB', file: '/Asset/resources/ui/figma.pdf' }] },
-        { id: 2, title: 'Prototype interactions', resources: [{ title: 'Interactions guide', size: '120 KB', file: '/Asset/resources/ui/interactions.pdf' }] },
-        { id: 3, title: 'Exporting assets', resources: [{ title: 'Export guide', size: '80 KB', file: '/Asset/resources/ui/export.pdf' }] },
-        { id: 4, title: 'Design tokens', resources: [{ title: 'Tokens primer', size: '60 KB', file: '/Asset/resources/ui/tokens.pdf' }] },
+        { id: 1, title: 'Figma basics', videoUrl: 'https://www.youtube.com/embed/FTFaQWZBqQ8', resources: [{ title: 'Figma cheats', size: '200 KB', file: '/Asset/resources/ui/figma.pdf' }] },
+        { id: 2, title: 'Prototype interactions', videoUrl: 'https://www.youtube.com/embed/X5qiBwqptek', resources: [{ title: 'Interactions guide', size: '120 KB', file: '/Asset/resources/ui/interactions.pdf' }] },
+        { id: 3, title: 'Exporting assets', videoUrl: 'https://www.youtube.com/embed/vCvtgr0zF-o', resources: [{ title: 'Export guide', size: '80 KB', file: '/Asset/resources/ui/export.pdf' }] },
+        { id: 4, title: 'Design tokens', videoUrl: 'https://www.youtube.com/embed/wtTstdiBuUk', resources: [{ title: 'Tokens primer', size: '60 KB', file: '/Asset/resources/ui/tokens.pdf' }] },
       ] 
     },
   ],
