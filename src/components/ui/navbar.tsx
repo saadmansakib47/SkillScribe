@@ -13,6 +13,7 @@ import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { getCurrentLearner } from "@/lib/learners";
 import { Bell } from "lucide-react";
+import AuthRequiredModal from "@/components/auth/authRequiredModal";
 
 export default function Navbar() {
   const [enabled, setEnabled] = useState(true);
@@ -33,6 +34,7 @@ export default function Navbar() {
   const { itemCount: wishlistCount } = useWishlist();
   const currentLearner = getCurrentLearner();
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const checkAuth = () => {
     setIsLoggedIn(!!localStorage.getItem("user"));
@@ -110,6 +112,15 @@ export default function Navbar() {
     setIsLoggedIn(false);
     setUserDropdownOpen(false);
     router.push("/"); // Redirect to homepage
+  };
+
+  //prevent navigation to instruct and communities if not logged in
+  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isLoggedIn) {
+      e.preventDefault(); // Prevent navigation
+      setShowAuthModal(true); // Show the modal
+    }
+    // If logged in, the Link will work normally
   };
 
   const onSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -201,22 +212,25 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <Link href="/presignup/Question1" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                <Link
+                  href="/presignup/Question1"
+                  onClick={handleProtectedNavigation}
+                  className="group hover:text-black px-4 py-3 font-medium transition-colors"
+                >
                   <span className="relative">
                     Instruct
                     <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname.startsWith('/presignup') ? 'w-full' : 'w-0'}`} />
                   </span>
                 </Link>
-                <Link href="/learner/community" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+
+                <Link
+                  href="/learner/community"
+                  onClick={handleProtectedNavigation}
+                  className="group hover:text-black px-4 py-3 font-medium transition-colors"
+                >
                   <span className="relative">
                     Community
                     <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/learner/community' ? 'w-full' : 'w-0'}`} />
-                  </span>
-                </Link>
-                <Link href="/about" className="group hover:text-black px-4 py-3 font-medium transition-colors">
-                  <span className="relative">
-                    About
-                    <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/about' ? 'w-full' : 'w-0'}`} />
                   </span>
                 </Link>
               </>
@@ -588,7 +602,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* ✅ INSTRUCTOR SIDEBAR (Animated) */}
+      {/* INSTRUCTOR SIDEBAR (Animated) */}
       {isInstructorPage && (
         <InstructorSidebar
           isOpen={instructorSidebarOpen}
@@ -596,13 +610,18 @@ export default function Navbar() {
         />
       )}
 
-      {/* ✅ ADMIN SIDEBAR (Animated) */}
+      {/* ADMIN SIDEBAR (Animated) */}
       {isAdminPage && (
         <AdminSidebar
           isOpen={adminSidebarOpen}
           onClose={() => setAdminSidebarOpen(false)}
         />
       )}
+
+      <AuthRequiredModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
 
     </>
   );
