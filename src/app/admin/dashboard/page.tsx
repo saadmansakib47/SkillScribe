@@ -49,128 +49,124 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <div className="flex min-h-screen bg-[#F9FAFB]">
-        <main className="flex-1 p-8">
-          {/* ---------------------------------- */}
-          {/*          TOP SEARCH BAR            */}
-          {/* ---------------------------------- */}
-          <div className="flex justify-between items-center mb-8">
-            <div className="relative w-1/2">
-              <Search className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
-              <input
-                placeholder="Search users, instructors, reports..."
-                className="w-full px-10 py-2 border rounded-full focus:outline-none"
-              />
-            </div>
-          </div>
-
-          {/* ---------------------------------- */}
-          {/*          RANGE SELECTOR            */}
-          {/* ---------------------------------- */}
-          <RangeSelector
-            selectedRange={selectedRange}
-            setSelectedRange={setSelectedRange}
+      {/* ---------------------------------- */}
+      {/*          TOP SEARCH BAR            */}
+      {/* ---------------------------------- */}
+      <div className="flex justify-between items-center mb-8">
+        <div className="relative w-1/2">
+          <Search className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
+          <input
+            placeholder="Search users, instructors, reports..."
+            className="w-full px-10 py-2 border rounded-full focus:outline-none"
           />
+        </div>
+      </div>
 
-          {/* ---------------------------------- */}
-          {/*      USER MANAGEMENT STAT CARDS    */}
-          {/* ---------------------------------- */}
-          <section className="mt-6">
-            <h2 className="text-lg font-semibold mb-3">User Overview</h2>
+      {/* ---------------------------------- */}
+      {/*          RANGE SELECTOR            */}
+      {/* ---------------------------------- */}
+      <RangeSelector
+        selectedRange={selectedRange}
+        setSelectedRange={setSelectedRange}
+      />
 
-            <div className="grid grid-cols-4 gap-4">
-              <StatCard
-                title="Total Users"
-                value="0"
-                icon={<Users className="w-6 h-6" />}
-                href="/admin/user-management"
-                onClick={() => setSelectedMetric("New Users")}
-              />
-              <StatCard
-                title="Active Users"
-                value="0"
-                icon={<UserCheck className="w-6 h-6" />}
-                href="/admin/user-management"
-                onClick={() => setSelectedMetric("Active Users")}
-              />
-              <StatCard
-                title="Suspended"
-                value="0"
-                icon={<UserX className="w-6 h-6" />}
-                href="/admin/user-management"
-                onClick={() => setSelectedMetric("Suspended Users")}
-              />
-              <StatCard
-                title="Pending Accounts"
-                value="0"
-                icon={<UserPlus className="w-6 h-6" />}
-                href="/admin/user-management"
-              />
-            </div>
-          </section>
+      {/* ---------------------------------- */}
+      {/*      USER MANAGEMENT STAT CARDS    */}
+      {/* ---------------------------------- */}
+      <section className="mt-6">
+        <h2 className="text-lg font-semibold mb-3">User Overview</h2>
 
-          {/* ---------------------------------- */}
-          {/*   INSTRUCTOR APPLICATION STAT CARDS  */}
-          {/* ---------------------------------- */}
-          <section className="mt-10">
-            <h2 className="text-lg font-semibold mb-3">Instructor Applications</h2>
+        <div className="grid grid-cols-4 gap-4">
+          <StatCard
+            title="Total Users"
+            value="0"
+            icon={<Users className="w-6 h-6" />}
+            href="/admin/user-management"
+            onClick={() => setSelectedMetric("New Users")}
+          />
+          <StatCard
+            title="Active Users"
+            value="0"
+            icon={<UserCheck className="w-6 h-6" />}
+            href="/admin/user-management"
+            onClick={() => setSelectedMetric("Active Users")}
+          />
+          <StatCard
+            title="Suspended"
+            value="0"
+            icon={<UserX className="w-6 h-6" />}
+            href="/admin/user-management"
+            onClick={() => setSelectedMetric("Suspended Users")}
+          />
+          <StatCard
+            title="Pending Accounts"
+            value="0"
+            icon={<UserPlus className="w-6 h-6" />}
+            href="/admin/user-management"
+          />
+        </div>
+      </section>
 
-            <div className="grid grid-cols-4 gap-4">
-              <StatCard
-                title="Total Applications"
-                value="0"
-                icon={<Shield className="w-6 h-6" />}
-                href="/admin/instructor-verification"
-                onClick={() => setSelectedMetric("New Applications")}
-              />
-              <StatCard
-                title="Pending"
-                value="0"
-                icon={<Clock className="w-6 h-6" />}
-                href="/admin/instructor-verification"
-              />
-              <StatCard
-                title="Approved"
-                value="0"
-                icon={<CheckCircle className="w-6 h-6" />}
-                href="/admin/instructor-verification"
-                onClick={() => setSelectedMetric("Approved")}
-              />
-              <StatCard
-                title="Rejected"
-                value="0"
-                icon={<XCircle className="w-6 h-6" />}
-                href="/admin/instructor-verification"
-                onClick={() => setSelectedMetric("Rejected")}
-              />
-            </div>
-          </section>
+      {/* ---------------------------------- */}
+      {/*   INSTRUCTOR APPLICATION STAT CARDS  */}
+      {/* ---------------------------------- */}
+      <section className="mt-10">
+        <h2 className="text-lg font-semibold mb-3">Instructor Applications</h2>
 
-          {/* ---------------------------------- */}
-          {/*             LINE CHART             */}
-          {/* ---------------------------------- */}
-          <div className="mt-10">
-            <AdminLineChart
-              selectedMetric={selectedMetric}
-              selectedRange={selectedRange}
-            />
-          </div>
+        <div className="grid grid-cols-4 gap-4">
+          <StatCard
+            title="Total Applications"
+            value="0"
+            icon={<Shield className="w-6 h-6" />}
+            href="/admin/instructor-verification"
+            onClick={() => setSelectedMetric("New Applications")}
+          />
+          <StatCard
+            title="Pending"
+            value="0"
+            icon={<Clock className="w-6 h-6" />}
+            href="/admin/instructor-verification"
+          />
+          <StatCard
+            title="Approved"
+            value="0"
+            icon={<CheckCircle className="w-6 h-6" />}
+            href="/admin/instructor-verification"
+            onClick={() => setSelectedMetric("Approved")}
+          />
+          <StatCard
+            title="Rejected"
+            value="0"
+            icon={<XCircle className="w-6 h-6" />}
+            href="/admin/instructor-verification"
+            onClick={() => setSelectedMetric("Rejected")}
+          />
+        </div>
+      </section>
 
-          {/* ---------------------------------- */}
-          {/*        BOTTOM GRID (PIE + QUEUE)   */}
-          {/* ---------------------------------- */}
-          <div className="grid grid-cols-3 gap-6 mt-6">
-            <AdminPieChart type="traffic" />
+      {/* ---------------------------------- */}
+      {/*             LINE CHART             */}
+      {/* ---------------------------------- */}
+      <div className="mt-10">
+        <AdminLineChart
+          selectedMetric={selectedMetric}
+          selectedRange={selectedRange}
+        />
+      </div>
 
-          </div>
+      {/* ---------------------------------- */}
+      {/*        BOTTOM GRID (PIE + QUEUE)   */}
+      {/* ---------------------------------- */}
+      <div className="grid grid-cols-3 gap-6 mt-6">
+        <AdminPieChart type="traffic" />
 
-          {/* ---------------------------------- */}
-          {/*      USER STATS TABLE (LATEST)     */}
-          {/* ---------------------------------- */}
-          <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-6">
-            <UserStatsTable />
-          </div>
-        </main>
+      </div>
+
+      {/* ---------------------------------- */}
+      {/*      USER STATS TABLE (LATEST)     */}
+      {/* ---------------------------------- */}
+      <div className="col-span-2 bg-white rounded-lg shadow-sm p-4 mt-6">
+        <UserStatsTable />
       </div>
     </AdminLayout>
   );

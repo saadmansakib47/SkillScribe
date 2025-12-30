@@ -54,15 +54,6 @@ export default function CourseManagementPage() {
     };
   }, [courses]);
 
-  const handleEdit = (course: AdminCourse) => {
-    console.log('Edit course:', course);
-    // TODO: Implement edit functionality with modal
-  };
-
-  const handleDelete = (courseId: number) => {
-    setCourses((prev) => prev.filter((course) => course.id !== courseId));
-  };
-
   const handleStatusChange = (courseId: number, newStatus: CourseStatus) => {
     setCourses((prev) =>
       prev.map((course) => {
@@ -126,8 +117,6 @@ export default function CourseManagementPage() {
           {/* Course Table */}
           <CourseTable 
             courses={filteredCourses} 
-            onEdit={handleEdit} 
-            onDelete={handleDelete}
             onStatusChange={handleStatusChange}
           />
         </div>

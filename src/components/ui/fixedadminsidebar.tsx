@@ -23,7 +23,7 @@ export default function FixedAdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 z-10 bg-[#EEF6FF] border-r flex flex-col p-4 pb-20 fixed h-screen overflow-y-auto scrollbar-hide">
+    <aside className="w-64 z-[5] bg-[#EEF6FF] border-r flex flex-col p-4 pb-10 fixed h-screen overflow-y-auto scrollbar-hide">
       <h1 className="text-2xl font-semibold mb-8 text-black">Admin Panel</h1>
 
       <nav className="space-y-4">

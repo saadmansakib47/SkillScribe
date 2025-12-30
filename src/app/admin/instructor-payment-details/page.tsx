@@ -23,7 +23,7 @@ function PaymentDetailsContent() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto p-6 space-y-6 bg-gray-50 min-h-screen">
+        <div className="max-w-5xl mx-auto p-6 space-y-6">
             <UserHeader instructor={instructor} />
 
             <h2 className="text-[18px] font-bold text-[#094CA4] underline underline-offset-4 mb-3">Payment Summary</h2>

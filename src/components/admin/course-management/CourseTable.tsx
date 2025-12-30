@@ -1,17 +1,14 @@
 "use client";
 
-import { Edit2, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { AdminCourse, getStatusColor, CourseStatus } from '@/lib/admin/courses';
 
 interface CourseTableProps {
   courses: AdminCourse[];
-  onEdit: (course: AdminCourse) => void;
-  onDelete: (courseId: number) => void;
   onStatusChange: (courseId: number, newStatus: CourseStatus) => void;
 }
 
-export default function CourseTable({ courses, onEdit, onDelete, onStatusChange }: CourseTableProps) {
+export default function CourseTable({ courses, onStatusChange }: CourseTableProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -174,26 +171,6 @@ export default function CourseTable({ courses, onEdit, onDelete, onStatusChange 
                         Publish
                       </button>
                     )}
-                    
-                    {/* Common actions */}
-                    <button
-                      onClick={() => onEdit(course)}
-                      className="p-2 hover:bg-blue-50 rounded-lg text-blue-600 transition-colors"
-                      title="Edit course"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (confirm(`Are you sure you want to delete "${course.title}"?`)) {
-                          onDelete(course.id);
-                        }
-                      }}
-                      className="p-2 hover:bg-red-50 rounded-lg text-red-600 transition-colors"
-                      title="Delete course"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   </div>
                 </td>
               </tr>
