@@ -33,7 +33,7 @@ export default function InstructorVerificationPage() {
     // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(app => 
+      filtered = filtered.filter(app =>
         app.name.toLowerCase().includes(query) ||
         app.email.toLowerCase().includes(query)
       );
@@ -75,40 +75,37 @@ export default function InstructorVerificationPage() {
 
   return (
     <AdminLayout>
-      <div className="min-h-screen bg-[#FAF7F3] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Filters */
-          <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
-            <ApplicationFilters
-              statusFilter={statusFilter}
-              onStatusChange={setStatusFilter}
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-            />
-          </div>
-}
-          {/* Results Info */}
-          <div className="mb-4 text-sm text-gray-600">
-            Showing <span className="font-semibold text-gray-900">{filteredApplications.length}</span> of{' '}
-            <span className="font-semibold text-gray-900">{applications.length}</span> applications
-          </div>
-
-          {/* Application List */}
-          <ApplicationList
-            applications={filteredApplications}
-            onReview={handleReview}
-          />
-
-          {/* Application Review Modal */}
-          <ApplicationReviewModal
-            isOpen={isModalOpen}
-            application={selectedApplication}
-            onClose={handleCloseModal}
-            onApprove={handleApprove}
-            onReject={handleReject}
+      <div className="max-w-7xl mx-auto">
+        {/* Filters */}
+        <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 p-6 mb-6">
+          <ApplicationFilters
+            statusFilter={statusFilter}
+            onStatusChange={setStatusFilter}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
         </div>
+
+        {/* Results Info */}
+        <div className="mb-4 text-sm text-gray-600">
+          Showing <span className="font-semibold text-gray-900">{filteredApplications.length}</span> of{' '}
+          <span className="font-semibold text-gray-900">{applications.length}</span> applications
+        </div>
+
+        {/* Application List */}
+        <ApplicationList
+          applications={filteredApplications}
+          onReview={handleReview}
+        />
+
+        {/* Application Review Modal */}
+        <ApplicationReviewModal
+          isOpen={isModalOpen}
+          application={selectedApplication}
+          onClose={handleCloseModal}
+          onApprove={handleApprove}
+          onReject={handleReject}
+        />
       </div>
     </AdminLayout>
   );
