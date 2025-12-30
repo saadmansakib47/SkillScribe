@@ -4,7 +4,6 @@ import { useState, KeyboardEvent, useEffect, useRef } from "react";
 import { Search, Menu, ChevronDown, ShoppingCart, Heart, User, BookOpen, Settings, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Sun, Moon } from "lucide-react";
 
 import InstructorSidebar from "@/components/ui/collapsibleinstructorsidebar";
 import AdminSidebar from "./collapsibleadminsidebar";
@@ -16,7 +15,6 @@ import { Bell } from "lucide-react";
 import AuthRequiredModal from "@/components/auth/authRequiredModal";
 
 export default function Navbar() {
-  const [enabled, setEnabled] = useState(true);
   const [instructorSidebarOpen, setInstructorSidebarOpen] = useState(false);
   const [adminSidebarOpen, setAdminSidebarOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -398,38 +396,6 @@ export default function Navbar() {
                 </Link>
               </div>
             )}
-
-            {/* Toggle Button - Hidden on smallest screens */}
-
-            <button
-              onClick={() => setEnabled((v) => !v)}
-              className={`hidden sm:flex relative h-5 w-10 items-center rounded-full transition-colors flex-shrink-0 border overflow-hidden
-    ${enabled ? "bg-black border-white shadow-inner" : "bg-white border-blue-800 shadow-inner"}
-    `}
-            >
-              {/* Sun Icon */}
-              <Sun
-                className={`absolute left-1 top-1/2 -translate-y-1/2 h-3 w-3 transition-opacity duration-300 ease-in-out
-      ${enabled ? "opacity-100 text-white" : "opacity-0 text-black"}
-    `}
-              />
-
-              {/* Moon Icon */}
-              <Moon
-                className={`absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 transition-opacity duration-300 ease-in-out
-      ${enabled ? "opacity-0 text-black" : "opacity-50 text-blue"}
-    `}
-              />
-
-              {/* Toggle Knob */}
-              <span
-                className={`inline-block h-[14px] w-[14px] transform rounded-full bg-white transition-transform duration-300 ease-in-out ${enabled ? "translate-x-[22px] border-white shadow-md" : "translate-x-[4px] border-black shadow-md"}`}
-              />
-
-              {/* Optional: subtle overlay for mechanical effect */}
-              <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-b from-transparent to-black/5 opacity-20" />
-            </button>
-
 
           </div>
         </div>
