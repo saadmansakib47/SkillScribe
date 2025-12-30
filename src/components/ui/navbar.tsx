@@ -104,6 +104,14 @@ export default function Navbar() {
     }
   };
 
+  //heads user back to homepage
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    setUserDropdownOpen(false);
+    router.push("/"); // Redirect to homepage
+  };
+
   const onSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       router.push(`/learner/allcourses?q=${encodeURIComponent(query)}`);
@@ -299,14 +307,9 @@ export default function Navbar() {
                       </Link>
                       <div className="border-t border-gray-100 my-2"></div>
                       <button
-                        onClick={() => {
-                          localStorage.removeItem("user");
-                          setIsLoggedIn(false);
-                          setUserDropdownOpen(false);
-                        }}
+                        onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
                       >
-
                         <LogOut className="h-4 w-4" />
                         Logout
                       </button>
