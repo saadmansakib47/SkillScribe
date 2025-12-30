@@ -13,4 +13,5 @@ export interface Message {
   sender: "me" | "them";
   timestamp: string;
   attachments?: string[];
+  reactions?: string[];
 }
