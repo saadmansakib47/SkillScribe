@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, CheckCheck, FileText, Download } from "lucide-react";
+import { CheckCheck, FileText, Download, Smile } from "lucide-react";
 import { Message } from "./types";
 
 interface Props {
   messages: Message[];
+  onAddReaction: (messageId: number, emoji: string) => void;
 }
 
-export default function MessageList({ messages }: Props) {
+export default function MessageList({ messages, onAddReaction }: Props) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [showReactionPicker, setShowReactionPicker] = useState<number | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,12 +26,37 @@ export default function MessageList({ messages }: Props) {
     return timestamp;
   };
 
+  const availableReactions = [
+    { emoji: "👍", label: "Like" },
+    { emoji: "❤️", label: "Love" },
+    { emoji: "😂", label: "Haha" },
+    { emoji: "😮", label: "Wow" },
+    { emoji: "😢", label: "Sad" },
+    { emoji: "🎉", label: "Celebrate" },
+  ];
+
+  const handleReaction = (messageId: number, emoji: string) => {
+    onAddReaction(messageId, emoji);
+    setShowReactionPicker(null);
+  };
+
+  // Count reactions
+  const getReactionCounts = (reactions?: string[]) => {
+    if (!reactions || reactions.length === 0) return {};
+
+    return reactions.reduce((acc, emoji) => {
+      acc[emoji] = (acc[emoji] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  };
+
   return (
     <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-50 to-white">
       <AnimatePresence initial={false}>
         {messages.map((message, index) => {
           const isMe = message.sender === "me";
           const showAvatar = index === 0 || messages[index - 1].sender !== message.sender;
+          const reactionCounts = getReactionCounts(message.reactions);
 
           return (
             <motion.div
@@ -55,11 +82,11 @@ export default function MessageList({ messages }: Props) {
                 </div>
               )}
 
-              {/* Message Bubble */}
-              <div className={`max-w-[70%] ${isMe ? "items-end" : "items-start"} flex flex-col`}>
+              {/* Message Bubble Container */}
+              <div className={`max-w-[70%] ${isMe ? "items-end" : "items-start"} flex flex-col relative group`}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className={`rounded-2xl px-4 py-3 shadow-sm ${isMe
+                  className={`rounded-2xl px-4 py-3 shadow-sm relative ${isMe
                     ? "bg-blue-600 text-white rounded-br-md"
                     : "bg-white text-gray-800 border border-gray-200 rounded-bl-md"
                     }`}
@@ -107,7 +134,62 @@ export default function MessageList({ messages }: Props) {
                       </motion.div>
                     )}
                   </div>
+
+                  {/* React Button (appears on hover) */}
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ scale: 1.1 }}
+                    className={`absolute ${isMe ? "-left-8" : "-right-8"} top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-white border border-gray-200 rounded-full shadow-md hover:shadow-lg`}
+                    onClick={() => setShowReactionPicker(showReactionPicker === message.id ? null : message.id)}
+                  >
+                    <Smile className="w-4 h-4 text-gray-600" />
+                  </motion.button>
+
+                  {/* Reaction Picker */}
+                  <AnimatePresence>
+                    {showReactionPicker === message.id && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                        className={`absolute ${isMe ? "left-0" : "right-0"} top-full mt-2 bg-white border border-gray-200 rounded-full shadow-lg p-2 flex gap-1 z-10`}
+                      >
+                        {availableReactions.map((reaction) => (
+                          <motion.button
+                            key={reaction.emoji}
+                            whileHover={{ scale: 1.3 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => handleReaction(message.id, reaction.emoji)}
+                            className="text-xl hover:bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+                            title={reaction.label}
+                          >
+                            {reaction.emoji}
+                          </motion.button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
+
+                {/* Display Reactions */}
+                {Object.keys(reactionCounts).length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className={`flex gap-1 mt-1 flex-wrap ${isMe ? "justify-end" : "justify-start"}`}
+                  >
+                    {Object.entries(reactionCounts).map(([emoji, count]) => (
+                      <motion.div
+                        key={emoji}
+                        whileHover={{ scale: 1.1 }}
+                        className="flex items-center gap-1 bg-white border border-gray-200 rounded-full px-2 py-0.5 shadow-sm"
+                      >
+                        <span className="text-sm">{emoji}</span>
+                        <span className="text-xs text-gray-600 font-medium">{count}</span>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
               </div>
 
               {/* Spacer for "me" messages */}
