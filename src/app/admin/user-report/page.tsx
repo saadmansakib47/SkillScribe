@@ -15,6 +15,12 @@ export default function UserReportPage() {
   const [categoryFilter, setCategoryFilter] = useState<ReportCategory | 'All'>('All');
   const [priorityFilter, setPriorityFilter] = useState<ReportPriority | 'All'>('All');
   const [selectedReport, setSelectedReport] = useState<UserReport | null>(null);
+  
+  // Collapse states for filter sections
+  const [isStatusOpen, setIsStatusOpen] = useState(true);
+  const [isDateRangeOpen, setIsDateRangeOpen] = useState(true);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(true);
+  const [isPriorityOpen, setIsPriorityOpen] = useState(true);
 
   // Filter reports
   const filteredReports = useMemo(() => {
@@ -78,92 +84,112 @@ export default function UserReportPage() {
         <div className="w-64 bg-[#FAF7F3] border-r border-gray-200 p-6 space-y-6">
           {/* Status */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between">
+            <h3 
+              className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer hover:text-[#094CA4] transition-colors"
+              onClick={() => setIsStatusOpen(!isStatusOpen)}
+            >
               Status
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isStatusOpen ? '' : '-rotate-90'}`} />
             </h3>
-            <div className="space-y-2">
-              {['All', 'New', 'Pending Review', 'Under Review', 'Resolved'].map((status) => (
-                <label key={status} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={statusFilter === status || (status === 'All' && statusFilter === 'All')}
-                    onChange={() => setStatusFilter(status as ReportStatus | 'All')}
-                    className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
-                  />
-                  <span className="text-sm text-gray-700">{status}</span>
-                </label>
-              ))}
-            </div>
+            {isStatusOpen && (
+              <div className="space-y-2">
+                {['All', 'New', 'Pending Review', 'Under Review', 'Resolved'].map((status) => (
+                  <label key={status} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={statusFilter === status || (status === 'All' && statusFilter === 'All')}
+                      onChange={() => setStatusFilter(status as ReportStatus | 'All')}
+                      className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
+                    />
+                    <span className="text-sm text-gray-700">{status}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Date Range */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between">
+            <h3 
+              className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer hover:text-[#094CA4] transition-colors"
+              onClick={() => setIsDateRangeOpen(!isDateRangeOpen)}
+            >
               Date Range
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDateRangeOpen ? '' : '-rotate-90'}`} />
             </h3>
-            <div className="space-y-2">
-              {(['Last 7 days', 'Last 14 days', 'Last 3 Months', 'All times'] as DateRange[]).map((range) => (
-                <label key={range} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={dateRange === range}
-                    onChange={() => setDateRange(range)}
-                    className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
-                  />
-                  <span className="text-sm text-gray-700">{range}</span>
-                </label>
-              ))}
-            </div>
+            {isDateRangeOpen && (
+              <div className="space-y-2">
+                {(['Last 7 days', 'Last 14 days', 'Last 3 Months', 'All times'] as DateRange[]).map((range) => (
+                  <label key={range} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={dateRange === range}
+                      onChange={() => setDateRange(range)}
+                      className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
+                    />
+                    <span className="text-sm text-gray-700">{range}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Category */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between">
+            <h3 
+              className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer hover:text-[#094CA4] transition-colors"
+              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+            >
               Category
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isCategoryOpen ? '' : '-rotate-90'}`} />
             </h3>
-            <div className="space-y-2">
-              {['All', 'Course Issues', 'Instructor', 'Resources', 'Platform', 'Payment', 'Certificate', 'Technical Issues'].map((cat) => {
-                const mappedCategory = cat === 'Course Issues' ? 'Course Issue' : 
-                                      cat === 'Instructor' ? 'Instructor Issue' :
-                                      cat === 'Technical Issues' ? 'Technical Issue' :
-                                      cat === 'Certificate' ? 'Certificate Issue' : cat;
-                return (
-                  <label key={cat} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={categoryFilter === mappedCategory || (cat === 'All' && categoryFilter === 'All')}
-                      onChange={() => setCategoryFilter(mappedCategory as ReportCategory | 'All')}
-                      className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
-                    />
-                    <span className="text-sm text-gray-700">{cat}</span>
-                  </label>
-                );
-              })}
-            </div>
+            {isCategoryOpen && (
+              <div className="space-y-2">
+                {['All', 'Course Issues', 'Instructor', 'Resources', 'Platform', 'Payment', 'Certificate', 'Technical Issues'].map((cat) => {
+                  const mappedCategory = cat === 'Course Issues' ? 'Course Issue' : 
+                                        cat === 'Instructor' ? 'Instructor Issue' :
+                                        cat === 'Technical Issues' ? 'Technical Issue' :
+                                        cat === 'Certificate' ? 'Certificate Issue' : cat;
+                  return (
+                    <label key={cat} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={categoryFilter === mappedCategory || (cat === 'All' && categoryFilter === 'All')}
+                        onChange={() => setCategoryFilter(mappedCategory as ReportCategory | 'All')}
+                        className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
+                      />
+                      <span className="text-sm text-gray-700">{cat}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Priority */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between">
+            <h3 
+              className="text-sm font-semibold text-gray-900 mb-3 flex items-center justify-between cursor-pointer hover:text-[#094CA4] transition-colors"
+              onClick={() => setIsPriorityOpen(!isPriorityOpen)}
+            >
               Priority
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isPriorityOpen ? '' : '-rotate-90'}`} />
             </h3>
-            <div className="space-y-2">
-              {['Urgent', 'High', 'Medium', 'Low'].map((priority) => (
-                <label key={priority} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={priorityFilter === priority}
-                    onChange={() => setPriorityFilter(priority as ReportPriority)}
-                    className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
-                  />
-                  <span className="text-sm text-gray-700">{priority}</span>
-                </label>
-              ))}
-            </div>
+            {isPriorityOpen && (
+              <div className="space-y-2">
+                {['Urgent', 'High', 'Medium', 'Low'].map((priority) => (
+                  <label key={priority} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={priorityFilter === priority}
+                      onChange={() => setPriorityFilter(priority as ReportPriority)}
+                      className="w-4 h-4 rounded border-gray-300 text-[#094CA4] focus:ring-[#094CA4]"
+                    />
+                    <span className="text-sm text-gray-700">{priority}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
