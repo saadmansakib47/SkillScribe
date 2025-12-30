@@ -1230,11 +1230,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '5 hr', 
       topics: [
-        { id: 1, title: 'Jupyter & tooling', resources: [{ title: 'Jupyter tips', size: '120 KB', file: '/Asset/resources/ds/jupyter.pdf' }] },
-        { id: 2, title: 'Data cleaning', resources: [{ title: 'Cleaning checklist', size: '140 KB', file: '/Asset/resources/ds/cleaning.pdf' }] },
-        { id: 3, title: 'Exploration', resources: [{ title: 'EDA notes', size: '160 KB', file: '/Asset/resources/ds/eda.pdf' }] },
-        { id: 4, title: 'Visualization', resources: [{ title: 'Viz examples', size: '200 KB', file: '/Asset/resources/ds/viz.pdf' }] },
-        { id: 5, title: 'Advanced Jupyter features', resources: [{ title: 'Advanced Jupyter', size: '180 KB', file: '/Asset/resources/ds/advanced-jupyter.pdf' }] },
+        { id: 1, title: 'Jupyter & tooling', videoUrl: 'https://www.youtube.com/embed/HW29067qVWk', resources: [{ title: 'Jupyter tips', size: '120 KB', file: '/Asset/resources/ds/jupyter.pdf' }] },
+        { id: 2, title: 'Data cleaning', videoUrl: 'https://www.youtube.com/embed/bDhvCp3_lYw', resources: [{ title: 'Cleaning checklist', size: '140 KB', file: '/Asset/resources/ds/cleaning.pdf' }] },
+        { id: 3, title: 'Exploration', videoUrl: 'https://www.youtube.com/embed/xi0vhXFPegw', resources: [{ title: 'EDA notes', size: '160 KB', file: '/Asset/resources/ds/eda.pdf' }] },
+        { id: 4, title: 'Visualization', videoUrl: 'https://www.youtube.com/embed/UO98lJQ3QGI', resources: [{ title: 'Viz examples', size: '200 KB', file: '/Asset/resources/ds/viz.pdf' }] },
+        { id: 5, title: 'Advanced Jupyter features', videoUrl: 'https://www.youtube.com/embed/A5YyoCKxEOU', resources: [{ title: 'Advanced Jupyter', size: '180 KB', file: '/Asset/resources/ds/advanced-jupyter.pdf' }] },
       ] 
     },
     { 
@@ -1243,11 +1243,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '5 hr', 
       topics: [
-        { id: 1, title: 'NumPy basics', resources: [{ title: 'NumPy primer', size: '200 KB', file: '/Asset/resources/ds/numpy.pdf' }] },
-        { id: 2, title: 'Pandas Series/DataFrame', resources: [{ title: 'Pandas guide', size: '300 KB', file: '/Asset/resources/ds/pandas.pdf' }] },
-        { id: 3, title: 'Grouping & joins', resources: [{ title: 'Grouping notes', size: '120 KB', file: '/Asset/resources/ds/grouping.pdf' }] },
-        { id: 4, title: 'Performance tips', resources: [{ title: 'Performance', size: '100 KB', file: '/Asset/resources/ds/performance.pdf' }] },
-        { id: 5, title: 'Pandas advanced functions', resources: [{ title: 'Advanced pandas', size: '180 KB', file: '/Asset/resources/ds/advanced-pandas.pdf' }] },
+        { id: 1, title: 'NumPy basics', videoUrl: 'https://www.youtube.com/embed/QUT1VHiLmmI', resources: [{ title: 'NumPy primer', size: '200 KB', file: '/Asset/resources/ds/numpy.pdf' }] },
+        { id: 2, title: 'Pandas Series/DataFrame', videoUrl: 'https://www.youtube.com/embed/vmEHCJofslg', resources: [{ title: 'Pandas guide', size: '300 KB', file: '/Asset/resources/ds/pandas.pdf' }] },
+        { id: 3, title: 'Grouping & joins', videoUrl: 'https://www.youtube.com/embed/txMdrV1Ut64', resources: [{ title: 'Grouping notes', size: '120 KB', file: '/Asset/resources/ds/grouping.pdf' }] },
+        { id: 4, title: 'Performance tips', videoUrl: 'https://www.youtube.com/embed/u4_c2LDi4b8', resources: [{ title: 'Performance', size: '100 KB', file: '/Asset/resources/ds/performance.pdf' }] },
+        { id: 5, title: 'Pandas advanced functions', videoUrl: 'https://www.youtube.com/embed/zN2Hua6oII0', resources: [{ title: 'Advanced pandas', size: '180 KB', file: '/Asset/resources/ds/advanced-pandas.pdf' }] },
       ] 
     },
     { 
@@ -1256,11 +1256,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '5 hr', 
       topics: [
-        { id: 1, title: 'Supervised learning', resources: [{ title: 'Supervised primer', size: '220 KB', file: '/Asset/resources/ds/supervised.pdf' }] },
-        { id: 2, title: 'Model evaluation', resources: [{ title: 'Evaluation guide', size: '150 KB', file: '/Asset/resources/ds/evaluation.pdf' }] },
-        { id: 3, title: 'Feature engineering', resources: [{ title: 'Feature tips', size: '130 KB', file: '/Asset/resources/ds/feature.pdf' }] },
-        { id: 4, title: 'Model deployment', resources: [{ title: 'Deploy notes', size: '200 KB', file: '/Asset/resources/ds/deploy.pdf' }] },
-        { id: 5, title: 'Unsupervised learning basics', resources: [{ title: 'Unsupervised primer', size: '180 KB', file: '/Asset/resources/ds/unsupervised.pdf' }] },
+        { id: 1, title: 'Supervised learning', videoUrl: 'https://www.youtube.com/embed/aircAruvnKk', resources: [{ title: 'Supervised primer', size: '220 KB', file: '/Asset/resources/ds/supervised.pdf' }] },
+        { id: 2, title: 'Model evaluation', videoUrl: 'https://www.youtube.com/embed/LbX4X71-TFI', resources: [{ title: 'Evaluation guide', size: '150 KB', file: '/Asset/resources/ds/evaluation.pdf' }] },
+        { id: 3, title: 'Feature engineering', videoUrl: 'https://www.youtube.com/embed/6WDFfaYtN6s', resources: [{ title: 'Feature tips', size: '130 KB', file: '/Asset/resources/ds/feature.pdf' }] },
+        { id: 4, title: 'Model deployment', videoUrl: 'https://www.youtube.com/embed/fw6NMQrYc6w', resources: [{ title: 'Deploy notes', size: '200 KB', file: '/Asset/resources/ds/deploy.pdf' }] },
+        { id: 5, title: 'Unsupervised learning basics', videoUrl: 'https://www.youtube.com/embed/IUn8k5zSI6g', resources: [{ title: 'Unsupervised primer', size: '180 KB', file: '/Asset/resources/ds/unsupervised.pdf' }] },
       ] 
     },
   ],
@@ -1296,11 +1296,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '4 hr', 
       topics: [
-        { id: 1, title: 'Tags & semantics', resources: [{ title: 'Tags reference', size: '110 KB', file: '/Asset/resources/frontend/tags.pdf' }] },
-        { id: 2, title: 'Forms', resources: [{ title: 'Forms guide', size: '90 KB', file: '/Asset/resources/frontend/forms.pdf' }] },
-        { id: 3, title: 'Accessibility basics', resources: [{ title: 'A11y checklist', size: '80 KB', file: '/Asset/resources/frontend/a11y.pdf' }] },
-        { id: 4, title: 'SEO basics', resources: [{ title: 'SEO notes', size: '70 KB', file: '/Asset/resources/frontend/seo.pdf' }] },
-        { id: 5, title: 'HTML5 APIs', resources: [{ title: 'HTML5 API overview', size: '100 KB', file: '/Asset/resources/frontend/html5-api.pdf' }] }
+        { id: 1, title: 'Tags & semantics', videoUrl: 'https://www.youtube.com/embed/UB1O30fR-EE', resources: [{ title: 'Tags reference', size: '110 KB', file: '/Asset/resources/frontend/tags.pdf' }] },
+        { id: 2, title: 'Forms', videoUrl: 'https://www.youtube.com/embed/fNcJuPIZ2WE', resources: [{ title: 'Forms guide', size: '90 KB', file: '/Asset/resources/frontend/forms.pdf' }] },
+        { id: 3, title: 'Accessibility basics', videoUrl: 'https://www.youtube.com/embed/e2nkq3h1P68', resources: [{ title: 'A11y checklist', size: '80 KB', file: '/Asset/resources/frontend/a11y.pdf' }] },
+        { id: 4, title: 'SEO basics', videoUrl: 'https://www.youtube.com/embed/VRThbD5pRHE', resources: [{ title: 'SEO notes', size: '70 KB', file: '/Asset/resources/frontend/seo.pdf' }] },
+        { id: 5, title: 'HTML5 APIs', videoUrl: 'https://www.youtube.com/embed/JfQkk4NiJXA', resources: [{ title: 'HTML5 API overview', size: '100 KB', file: '/Asset/resources/frontend/html5-api.pdf' }] }
       ] 
     },
     { 
@@ -1309,11 +1309,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '4.5 hr', 
       topics: [
-        { id: 1, title: 'Flexbox', resources: [{ title: 'Flexbox cheatsheet', size: '100 KB', file: '/Asset/resources/frontend/flexbox.pdf' }] },
-        { id: 2, title: 'Grid', resources: [{ title: 'Grid examples', size: '120 KB', file: '/Asset/resources/frontend/grid.pdf' }] },
-        { id: 3, title: 'Responsive patterns', resources: [{ title: 'Responsive examples', size: '140 KB', file: '/Asset/resources/frontend/responsive.pdf' }] },
-        { id: 4, title: 'Utilities', resources: [{ title: 'Utility classes', size: '80 KB', file: '/Asset/resources/frontend/utilities.pdf' }] },
-        { id: 5, title: 'Flexbox vs Grid', resources: [{ title: 'Flex vs Grid guide', size: '130 KB', file: '/Asset/resources/frontend/flex-vs-grid.pdf' }] }
+        { id: 1, title: 'Flexbox', videoUrl: 'https://www.youtube.com/embed/fYq5PXgSsbE', resources: [{ title: 'Flexbox cheatsheet', size: '100 KB', file: '/Asset/resources/frontend/flexbox.pdf' }] },
+        { id: 2, title: 'Grid', videoUrl: 'https://www.youtube.com/embed/9zBsdzdE4sM', resources: [{ title: 'Grid examples', size: '120 KB', file: '/Asset/resources/frontend/grid.pdf' }] },
+        { id: 3, title: 'Responsive patterns', videoUrl: 'https://www.youtube.com/embed/srvUrASNj0s', resources: [{ title: 'Responsive examples', size: '140 KB', file: '/Asset/resources/frontend/responsive.pdf' }] },
+        { id: 4, title: 'Utilities', videoUrl: 'https://www.youtube.com/embed/UB2H4_jYmDk', resources: [{ title: 'Utility classes', size: '80 KB', file: '/Asset/resources/frontend/utilities.pdf' }] },
+        { id: 5, title: 'Flexbox vs Grid', videoUrl: 'https://www.youtube.com/embed/EiNiSFIPIQE', resources: [{ title: 'Flex vs Grid guide', size: '130 KB', file: '/Asset/resources/frontend/flex-vs-grid.pdf' }] }
       ] 
     },
     { 
@@ -1322,11 +1322,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '4.5 hr', 
       topics: [
-        { id: 1, title: 'Variables & types', resources: [{ title: 'Types guide', size: '60 KB', file: '/Asset/resources/frontend/types.pdf' }] },
-        { id: 2, title: 'Functions & scope', resources: [{ title: 'Scope notes', size: '70 KB', file: '/Asset/resources/frontend/scope.pdf' }] },
-        { id: 3, title: 'Events', resources: [{ title: 'Events guide', size: '90 KB', file: '/Asset/resources/frontend/events.pdf' }] },
-        { id: 4, title: 'DOM APIs', resources: [{ title: 'DOM API examples', size: '100 KB', file: '/Asset/resources/frontend/dom-api.pdf' }] },
-        { id: 5, title: 'ES6 features', resources: [{ title: 'ES6 syntax', size: '120 KB', file: '/Asset/resources/frontend/es6.pdf' }] }
+        { id: 1, title: 'Variables & types', videoUrl: 'https://www.youtube.com/embed/W6NZfCO5SIk', resources: [{ title: 'Types guide', size: '60 KB', file: '/Asset/resources/frontend/types.pdf' }] },
+        { id: 2, title: 'Functions & scope', videoUrl: 'https://www.youtube.com/embed/iLWTnMzWtj4', resources: [{ title: 'Scope notes', size: '70 KB', file: '/Asset/resources/frontend/scope.pdf' }] },
+        { id: 3, title: 'Events', videoUrl: 'https://www.youtube.com/embed/XF1_MlZ5l6M', resources: [{ title: 'Events guide', size: '90 KB', file: '/Asset/resources/frontend/events.pdf' }] },
+        { id: 4, title: 'DOM APIs', videoUrl: 'https://www.youtube.com/embed/y17RuWkWdn8', resources: [{ title: 'DOM API examples', size: '100 KB', file: '/Asset/resources/frontend/dom-api.pdf' }] },
+        { id: 5, title: 'ES6 features', videoUrl: 'https://www.youtube.com/embed/nZ1DMMsyVyI', resources: [{ title: 'ES6 syntax', size: '120 KB', file: '/Asset/resources/frontend/es6.pdf' }] }
       ] 
     },
     { 
@@ -1335,11 +1335,11 @@ export const COURSES: Course[] = [
       lectures: 5, 
       duration: '4.5 hr', 
       topics: [
-        { id: 1, title: 'Closures', resources: [{ title: 'Closures guide', size: '150 KB', file: '/Asset/resources/frontend/closures.pdf' }] },
-        { id: 2, title: 'Asynchronous JS', resources: [{ title: 'Async JS notes', size: '160 KB', file: '/Asset/resources/frontend/async.pdf' }] },
-        { id: 3, title: 'Prototypal Inheritance', resources: [{ title: 'Inheritance notes', size: '170 KB', file: '/Asset/resources/frontend/inheritance.pdf' }] },
-        { id: 4, title: 'ES6 Classes', resources: [{ title: 'ES6 class overview', size: '140 KB', file: '/Asset/resources/frontend/es6-classes.pdf' }] },
-        { id: 5, title: 'JavaScript Design Patterns', resources: [{ title: 'Design patterns', size: '180 KB', file: '/Asset/resources/frontend/design-patterns.pdf' }] }
+        { id: 1, title: 'Closures', videoUrl: 'https://www.youtube.com/embed/3a0I8ICR1Vg', resources: [{ title: 'Closures guide', size: '150 KB', file: '/Asset/resources/frontend/closures.pdf' }] },
+        { id: 2, title: 'Asynchronous JS', videoUrl: 'https://www.youtube.com/embed/ZYb_ZU8LNxs', resources: [{ title: 'Async JS notes', size: '160 KB', file: '/Asset/resources/frontend/async.pdf' }] },
+        { id: 3, title: 'Prototypal Inheritance', videoUrl: 'https://www.youtube.com/embed/riDVvXZ_Kb4', resources: [{ title: 'Inheritance notes', size: '170 KB', file: '/Asset/resources/frontend/inheritance.pdf' }] },
+        { id: 4, title: 'ES6 Classes', videoUrl: 'https://www.youtube.com/embed/2ZphE5HcQPQ', resources: [{ title: 'ES6 class overview', size: '140 KB', file: '/Asset/resources/frontend/es6-classes.pdf' }] },
+        { id: 5, title: 'JavaScript Design Patterns', videoUrl: 'https://www.youtube.com/embed/tv-_1er1mWI', resources: [{ title: 'Design patterns', size: '180 KB', file: '/Asset/resources/frontend/design-patterns.pdf' }] }
       ] 
     },
   ],
@@ -1374,30 +1374,30 @@ export const COURSES: Course[] = [
     lectures: 4,
     duration: '1.5 hr',
     topics: [
-          { id: 1, title: 'Testing tools', resources: [{ title: 'Tools list', size: '120 KB', file: '/Asset/resources/testing/tools-list.pdf' }] },
-          { id: 2, title: 'Setting up', resources: [{ title: 'Setup guide', size: '150 KB', file: '/Asset/resources/testing/setup.pdf' }] },
-          { id: 3, title: 'Test environments', resources: [{ title: 'Env notes', size: '90 KB', file: '/Asset/resources/testing/env.pdf' }] },
-          { id: 4, title: 'Local workflow', resources: [{ title: 'Workflow', size: '80 KB', file: '/Asset/resources/testing/workflow-local.pdf' }] },
+          { id: 1, title: 'Testing tools', videoUrl: 'https://www.youtube.com/embed/r9HdJ8P6GQI', resources: [{ title: 'Tools list', size: '120 KB', file: '/Asset/resources/testing/tools-list.pdf' }] },
+          { id: 2, title: 'Setting up', videoUrl: 'https://www.youtube.com/embed/Gebs86UOpDQ', resources: [{ title: 'Setup guide', size: '150 KB', file: '/Asset/resources/testing/setup.pdf' }] },
+          { id: 3, title: 'Test environments', videoUrl: 'https://www.youtube.com/embed/1l8BLBJ5nKc', resources: [{ title: 'Env notes', size: '90 KB', file: '/Asset/resources/testing/env.pdf' }] },
+          { id: 4, title: 'Local workflow', videoUrl: 'https://www.youtube.com/embed/fzJcFV3yb_w', resources: [{ title: 'Workflow', size: '80 KB', file: '/Asset/resources/testing/workflow-local.pdf' }] },
         ] },
   { id: 2,
     title: 'Manual Testing',
     lectures: 4,
     duration: '3 hr',
     topics: [
-          { id: 1, title: 'Test scenarios', resources: [{ title: 'Scenario templates', size: '110 KB', file: '/Asset/resources/testing/scenarios.pdf' }] },
-          { id: 2, title: 'Test data', resources: [{ title: 'Data examples', size: '90 KB', file: '/Asset/resources/testing/test-data.pdf' }] },
-          { id: 3, title: 'Reporting', resources: [{ title: 'Reporting template', size: '70 KB', file: '/Asset/resources/testing/reporting.pdf' }] },
-          { id: 4, title: 'Review process', resources: [{ title: 'Review checklist', size: '60 KB', file: '/Asset/resources/testing/review.pdf' }] },
+          { id: 1, title: 'Test scenarios', videoUrl: 'https://www.youtube.com/embed/ji2v5r-JK6E', resources: [{ title: 'Scenario templates', size: '110 KB', file: '/Asset/resources/testing/scenarios.pdf' }] },
+          { id: 2, title: 'Test data', videoUrl: 'https://www.youtube.com/embed/d06PG7r82iA', resources: [{ title: 'Data examples', size: '90 KB', file: '/Asset/resources/testing/test-data.pdf' }] },
+          { id: 3, title: 'Reporting', videoUrl: 'https://www.youtube.com/embed/PfwdaHqgMfg', resources: [{ title: 'Reporting template', size: '70 KB', file: '/Asset/resources/testing/reporting.pdf' }] },
+          { id: 4, title: 'Review process', videoUrl: 'https://www.youtube.com/embed/T14xpVM-6Oo', resources: [{ title: 'Review checklist', size: '60 KB', file: '/Asset/resources/testing/review.pdf' }] },
         ] },
   { id: 3,
     title: 'Test Automation',
     lectures: 4,
     duration: '4 hr',
     topics: [
-          { id: 1, title: 'Automation basics', resources: [{ title: 'Automation intro', size: '130 KB', file: '/Asset/resources/testing/auto-intro.pdf' }] },
-          { id: 2, title: 'Scripting', resources: [{ title: 'Scripting guide', size: '140 KB', file: '/Asset/resources/testing/scripting.pdf' }] },
-          { id: 3, title: 'Frameworks', resources: [{ title: 'Framework list', size: '160 KB', file: '/Asset/resources/testing/frameworks.pdf' }] },
-          { id: 4, title: 'CI pipelines', resources: [{ title: 'CI examples', size: '180 KB', file: '/Asset/resources/testing/ci-examples.pdf' }] },
+          { id: 1, title: 'Automation basics', videoUrl: 'https://www.youtube.com/embed/RVqz5pCVCxY', resources: [{ title: 'Automation intro', size: '130 KB', file: '/Asset/resources/testing/auto-intro.pdf' }] },
+          { id: 2, title: 'Scripting', videoUrl: 'https://www.youtube.com/embed/DLTZctTG6cE', resources: [{ title: 'Scripting guide', size: '140 KB', file: '/Asset/resources/testing/scripting.pdf' }] },
+          { id: 3, title: 'Frameworks', videoUrl: 'https://www.youtube.com/embed/MLTRHc5dk6s', resources: [{ title: 'Framework list', size: '160 KB', file: '/Asset/resources/testing/frameworks.pdf' }] },
+          { id: 4, title: 'CI pipelines', videoUrl: 'https://www.youtube.com/embed/scEDHsr3APg', resources: [{ title: 'CI examples', size: '180 KB', file: '/Asset/resources/testing/ci-examples.pdf' }] },
         ] },
     ],
     whatYouWillLearn: [
@@ -1430,40 +1430,40 @@ export const COURSES: Course[] = [
         lectures: 4,
         duration: '2 hr',
         topics: [
-          { id: 1, title: 'Stack intro', resources: [{ title: 'MERN overview', size: '200 KB', file: '/Asset/resources/mern/overview.pdf' }] },
-          { id: 2, title: 'Project structure', resources: [{ title: 'Structure examples', size: '180 KB', file: '/Asset/resources/mern/structure.pdf' }] },
-          { id: 3, title: 'Tooling', resources: [{ title: 'Tooling list', size: '120 KB', file: '/Asset/resources/mern/tooling.pdf' }] },
-          { id: 4, title: 'Deployment options', resources: [{ title: 'Deploy options', size: '150 KB', file: '/Asset/resources/mern/deploy.pdf' }] },
+          { id: 1, title: 'Stack intro', videoUrl: 'https://www.youtube.com/embed/-0exw-9YJBo', resources: [{ title: 'MERN overview', size: '200 KB', file: '/Asset/resources/mern/overview.pdf' }] },
+          { id: 2, title: 'Project structure', videoUrl: 'https://www.youtube.com/embed/7CqJlxBYj-M', resources: [{ title: 'Structure examples', size: '180 KB', file: '/Asset/resources/mern/structure.pdf' }] },
+          { id: 3, title: 'Tooling', videoUrl: 'https://www.youtube.com/embed/fnpmR6Q5lEc', resources: [{ title: 'Tooling list', size: '120 KB', file: '/Asset/resources/mern/tooling.pdf' }] },
+          { id: 4, title: 'Deployment options', videoUrl: 'https://www.youtube.com/embed/l134cBAJCuc', resources: [{ title: 'Deploy options', size: '150 KB', file: '/Asset/resources/mern/deploy.pdf' }] },
         ] },
       { id: 2,
         title: 'React Frontend',
         lectures: 4,
         duration: '6 hr',
         topics: [
-          { id: 1, title: 'Component model', resources: [{ title: 'Components guide', size: '200 KB', file: '/Asset/resources/mern/components.pdf' }] },
-          { id: 2, title: 'State management', resources: [{ title: 'State patterns', size: '220 KB', file: '/Asset/resources/mern/state.pdf' }] },
-          { id: 3, title: 'Routing', resources: [{ title: 'Routing examples', size: '130 KB', file: '/Asset/resources/mern/routing.pdf' }] },
-          { id: 4, title: 'Forms & validation', resources: [{ title: 'Forms guide', size: '120 KB', file: '/Asset/resources/mern/forms.pdf' }] },
+          { id: 1, title: 'Component model', videoUrl: 'https://www.youtube.com/embed/Rh3tobg7hEo', resources: [{ title: 'Components guide', size: '200 KB', file: '/Asset/resources/mern/components.pdf' }] },
+          { id: 2, title: 'State management', videoUrl: 'https://www.youtube.com/embed/35lXWvCuM8o', resources: [{ title: 'State patterns', size: '220 KB', file: '/Asset/resources/mern/state.pdf' }] },
+          { id: 3, title: 'Routing', videoUrl: 'https://www.youtube.com/embed/Ul3y1LXxzdU', resources: [{ title: 'Routing examples', size: '130 KB', file: '/Asset/resources/mern/routing.pdf' }] },
+          { id: 4, title: 'Forms & validation', videoUrl: 'https://www.youtube.com/embed/SdzMBWT2CDQ', resources: [{ title: 'Forms guide', size: '120 KB', file: '/Asset/resources/mern/forms.pdf' }] },
         ] },
       { id: 3,
         title: 'Node & Express Backend',
         lectures: 4,
         duration: '5 hr',
         topics: [
-          { id: 1, title: 'API design', resources: [{ title: 'API design', size: '140 KB', file: '/Asset/resources/mern/api-design.pdf' }] },
-          { id: 2, title: 'Database integration', resources: [{ title: 'DB integration', size: '160 KB', file: '/Asset/resources/mern/db-integration.pdf' }] },
-          { id: 3, title: 'Auth & security', resources: [{ title: 'Auth guide', size: '150 KB', file: '/Asset/resources/mern/auth.pdf' }] },
-          { id: 4, title: 'Testing backend', resources: [{ title: 'Backend tests', size: '130 KB', file: '/Asset/resources/mern/backend-tests.pdf' }] },
+          { id: 1, title: 'API design', videoUrl: 'https://www.youtube.com/embed/0oXYLzuucwE', resources: [{ title: 'API design', size: '140 KB', file: '/Asset/resources/mern/api-design.pdf' }] },
+          { id: 2, title: 'Database integration', videoUrl: 'https://www.youtube.com/embed/DZBGEVgL2eE', resources: [{ title: 'DB integration', size: '160 KB', file: '/Asset/resources/mern/db-integration.pdf' }] },
+          { id: 3, title: 'Auth & security', videoUrl: 'https://www.youtube.com/embed/mbsmsi7l3r4', resources: [{ title: 'Auth guide', size: '150 KB', file: '/Asset/resources/mern/auth.pdf' }] },
+          { id: 4, title: 'Testing backend', videoUrl: 'https://www.youtube.com/embed/FKnzS_icp20', resources: [{ title: 'Backend tests', size: '130 KB', file: '/Asset/resources/mern/backend-tests.pdf' }] },
         ] },
       { id: 4,
         title: 'MongoDB & Deployment',
         lectures: 4,
         duration: '3.5 hr',
         topics: [
-          { id: 1, title: 'Mongo basics', resources: [{ title: 'Mongo primer', size: '120 KB', file: '/Asset/resources/mern/mongo.pdf' }] },
-          { id: 2, title: 'Indexes & performance', resources: [{ title: 'Indexes note', size: '110 KB', file: '/Asset/resources/mern/indexes.pdf' }] },
-          { id: 3, title: 'Scaling', resources: [{ title: 'Scaling guide', size: '150 KB', file: '/Asset/resources/mern/scaling.pdf' }] },
-          { id: 4, title: 'Deploy to cloud', resources: [{ title: 'Cloud deploy', size: '200 KB', file: '/Asset/resources/mern/cloud-deploy.pdf' }] },
+          { id: 1, title: 'Mongo basics', videoUrl: 'https://www.youtube.com/embed/-56x56UppqQ', resources: [{ title: 'Mongo primer', size: '120 KB', file: '/Asset/resources/mern/mongo.pdf' }] },
+          { id: 2, title: 'Indexes & performance', videoUrl: 'https://www.youtube.com/embed/fsG1XaZEa78', resources: [{ title: 'Indexes note', size: '110 KB', file: '/Asset/resources/mern/indexes.pdf' }] },
+          { id: 3, title: 'Scaling', videoUrl: 'https://www.youtube.com/embed/kkBR8TouR-8', resources: [{ title: 'Scaling guide', size: '150 KB', file: '/Asset/resources/mern/scaling.pdf' }] },
+          { id: 4, title: 'Deploy to cloud', videoUrl: 'https://www.youtube.com/embed/x_iqWJOPY-c', resources: [{ title: 'Cloud deploy', size: '200 KB', file: '/Asset/resources/mern/cloud-deploy.pdf' }] },
         ] },
     ],
     whatYouWillLearn: [
