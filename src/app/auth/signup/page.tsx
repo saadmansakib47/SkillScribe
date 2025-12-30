@@ -61,6 +61,15 @@ export default function SignUp() {
   };
 
 
+  // Handle Google Sign Up
+  const handleGoogleSignup = () => {
+    const mockGoogleUser = {
+      email: "user@gmail.com",
+      provider: "google",
+    };
+    localStorage.setItem("user", JSON.stringify(mockGoogleUser));
+    router.push("/");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 font-['Droid Sans']">
@@ -183,7 +192,11 @@ export default function SignUp() {
           </div>
 
           {/* Google Sign Up */}
-          <button className="w-full border border-gray-300 rounded-[8px] py-2 flex items-center justify-center gap-2 hover:bg-gray-100 transition">
+          <button
+            type="button"
+            onClick={handleGoogleSignup}
+            className="w-full border border-gray-300 rounded-[8px] py-2 flex items-center justify-center gap-2 hover:bg-gray-100 transition"
+          >
             <FcGoogle size={20} />
             Continue with Google
           </button>
