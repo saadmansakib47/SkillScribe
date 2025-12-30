@@ -27,30 +27,30 @@ export default function CourseTable({ courses, onStatusChange }: CourseTableProp
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border-2 border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
+          <thead className="bg-[#EBF3FB] border-b-2 border-gray-200">
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Course Name
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Instructor
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Category
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Students
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Revenue
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Status
               </th>
-              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">
                 Actions
               </th>
             </tr>
