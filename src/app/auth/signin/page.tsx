@@ -28,6 +28,21 @@ export default function SignIn() {
         }
     }
 
+    // This function will be called when user clicks Google Sign In
+    function handleLoginWithGoogle() {
+        // Simulate Google login by creating a mock user
+        const mockGoogleUser = {
+            email: "user@gmail.com",
+            provider: "google"
+        };
+
+        // Store mock user data in localStorage
+        localStorage.setItem("user", JSON.stringify(mockGoogleUser));
+
+        // Redirect to homepage
+        router.push("/");
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 font-['Droid Sans']">
             <div className="flex w-[900px] bg-white shadow-lg rounded-2xl overflow-hidden">
@@ -52,7 +67,7 @@ export default function SignIn() {
                         To log into your account enter your email and password
                     </p>
 
-                    {/* ⭐ Login Form with API connected */}
+                    {/* Login Form with API connected */}
                     <form className="space-y-5" onSubmit={handleLogin}>
 
                         {/* Email */}
@@ -121,7 +136,10 @@ export default function SignIn() {
                     </div>
 
                     {/* Google Login */}
-                    <button className="w-full border border-gray-300 rounded-[8px] py-2 flex items-center justify-center gap-2 hover:bg-gray-100 transition">
+                    <button
+                        onClick={handleLoginWithGoogle}
+                        className="w-full border border-gray-300 rounded-[8px] py-2 flex items-center justify-center gap-2 hover:bg-gray-100 transition"
+                    >
                         <FcGoogle size={20} />
                         Continue with Google
                     </button>
