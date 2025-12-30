@@ -2,15 +2,16 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCheck, FileText, Download, Smile } from "lucide-react";
+import { CheckCheck, FileText, Download, Smile, Shield } from "lucide-react";
 import { Message } from "./types";
 
 interface Props {
   messages: Message[];
   onAddReaction: (messageId: number, emoji: string) => void;
+  isUserBlocked?: boolean;
 }
 
-export default function MessageList({ messages, onAddReaction }: Props) {
+export default function MessageList({ messages, onAddReaction, isUserBlocked }: Props) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [showReactionPicker, setShowReactionPicker] = useState<number | null>(null);
 
@@ -55,8 +56,27 @@ export default function MessageList({ messages, onAddReaction }: Props) {
       <AnimatePresence initial={false}>
         {messages.map((message, index) => {
           const isMe = message.sender === "me";
+          const isSystem = message.sender === "system";
           const showAvatar = index === 0 || messages[index - 1].sender !== message.sender;
           const reactionCounts = getReactionCounts(message.reactions);
+
+          // System message rendering
+          if (isSystem) {
+            return (
+              <motion.div
+                key={message.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="flex justify-center my-4"
+              >
+                <div className="bg-red-100 text-red-700 px-4 py-2.5 rounded-full text-sm font-medium flex items-center gap-2 shadow-sm">
+                  <Shield className="w-4 h-4" />
+                  {message.text}
+                </div>
+              </motion.div>
+            );
+          }
 
           return (
             <motion.div
@@ -119,8 +139,7 @@ export default function MessageList({ messages, onAddReaction }: Props) {
                   {/* Timestamp and Status */}
                   <div className={`flex items-center gap-1 mt-1 ${isMe ? "justify-end" : "justify-start"}`}>
                     <span
-                      className={`text-xs ${isMe ? "text-blue-100" : "text-gray-500"
-                        }`}
+                      className={`text-xs ${isMe ? "text-blue-100" : "text-gray-500"}`}
                     >
                       {formatTime(message.timestamp)}
                     </span>
@@ -135,19 +154,21 @@ export default function MessageList({ messages, onAddReaction }: Props) {
                     )}
                   </div>
 
-                  {/* React Button (appears on hover) */}
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileHover={{ scale: 1.1 }}
-                    className={`absolute ${isMe ? "-left-8" : "-right-8"} top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-white border border-gray-200 rounded-full shadow-md hover:shadow-lg`}
-                    onClick={() => setShowReactionPicker(showReactionPicker === message.id ? null : message.id)}
-                  >
-                    <Smile className="w-4 h-4 text-gray-600" />
-                  </motion.button>
+                  {/* React Button (appears on hover) - Disabled if blocked */}
+                  {!isUserBlocked && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileHover={{ scale: 1.1 }}
+                      className={`absolute ${isMe ? "-left-8" : "-right-8"} top-2 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 bg-white border border-gray-200 rounded-full shadow-md hover:shadow-lg`}
+                      onClick={() => setShowReactionPicker(showReactionPicker === message.id ? null : message.id)}
+                    >
+                      <Smile className="w-4 h-4 text-gray-600" />
+                    </motion.button>
+                  )}
 
                   {/* Reaction Picker */}
                   <AnimatePresence>
-                    {showReactionPicker === message.id && (
+                    {showReactionPicker === message.id && !isUserBlocked && (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.8, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
