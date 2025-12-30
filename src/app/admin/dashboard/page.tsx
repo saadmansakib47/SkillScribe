@@ -116,20 +116,20 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-4 gap-4">
           <StatCard
             title="Total Applications"
-            value="100"
+            value="202"
             icon={<Shield className="w-6 h-6" />}
             href="/admin/instructor-verification"
             onClick={() => setSelectedMetric("New Applications")}
           />
           <StatCard
             title="Pending"
-            value="52"
+            value="49"
             icon={<Clock className="w-6 h-6" />}
             href="/admin/instructor-verification"
           />
           <StatCard
             title="Approved"
-            value="88"
+            value="150"
             icon={<CheckCircle className="w-6 h-6" />}
             href="/admin/instructor-verification"
             onClick={() => setSelectedMetric("Approved")}
