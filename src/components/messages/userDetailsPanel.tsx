@@ -8,10 +8,11 @@ interface Props {
   avatar: string;
   role: string;
   onBlockUser: () => void;
+  onReportUser: () => void;
   isBlocked?: boolean;
 }
 
-export default function UserDetailsPanel({ name, avatar, role, onBlockUser, isBlocked }: Props) {
+export default function UserDetailsPanel({ name, avatar, role, onBlockUser, onReportUser, isBlocked }: Props) {
   const sharedFiles: any[] = [];
 
   const userInfo = [
@@ -84,7 +85,8 @@ export default function UserDetailsPanel({ name, avatar, role, onBlockUser, isBl
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full py-2.5 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+          onClick={onReportUser}
+          className="w-full py-2.5 rounded-lg bg-orange-50 text-orange-600 font-medium hover:bg-orange-100 transition-colors flex items-center justify-center gap-2"
         >
           <Flag className="w-4 h-4" />
           Report
