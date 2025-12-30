@@ -135,7 +135,6 @@ function CoursesPageContent() {
   return (
     <section className="bg-[#FAF7F3] py-16">
       <div className="mx-auto max-w-7xl px-4">
-
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Courses</h1>
