@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import {
   FaFacebookF,
   FaTwitter,
@@ -6,8 +9,11 @@ import {
 } from "react-icons/fa";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isSidebarPage = pathname.startsWith("/instructor") || pathname.startsWith("/admin");
+
   return (
-    <footer className="w-full bg-[#454343] text-white">
+    <footer className={`w-full bg-[#454343] text-white relative z-[40] ${isSidebarPage ? "md:ml-64 md:w-[calc(100%-16rem)]" : ""}`}>
       <div className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid gap-10 md:grid-cols-4 md:gap-6">
           {/* Brand  */}
@@ -92,16 +98,16 @@ export default function Footer() {
             <h3 className="text-xl font-semibold text-white">Legal</h3>
             <ul className="space-y-3 text-base text-gray-200">
               <li>
-                <a 
-                  href="/terms-conditions" 
+                <a
+                  href="/terms-conditions"
                   className="cursor-pointer transition-colors hover:text-white"
                 >
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a 
-                  href="/privacy-policy" 
+                <a
+                  href="/privacy-policy"
                   className="cursor-pointer transition-colors hover:text-white"
                 >
                   Privacy Policy

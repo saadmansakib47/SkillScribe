@@ -30,7 +30,7 @@ export default function RootLayout({
         <CartProvider>
           <WishlistProvider>
             {/* Sticky Navbar */}
-            <div className="fixed top-0 left-0 w-full z-50">
+            <div className="fixed top-0 left-0 w-full z-[100]">
               <Navbar />
             </div>
 
