@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 interface AdminPieChartProps {
-  type: "traffic" | "sales" | "categories";
+  type: "traffic" | "sales" | "categories" | "userRatio" | "regional";
 }
 
 const VARIANT_DATA = {
@@ -26,15 +26,30 @@ const VARIANT_DATA = {
     { name: "Marketing", value: 160 },
     { name: "Business", value: 130 },
   ],
+  userRatio: [
+    { name: "Learners", value: 850 },
+    { name: "Instructors", value: 150 },
+  ],
+  regional: [
+    { name: "Asia", value: 450 },
+    { name: "Europe", value: 320 },
+    { name: "America", value: 280 },
+    { name: "Australia", value: 120 },
+    { name: "Others", value: 80 },
+  ],
+};
+
+const COLOR_PALETTES = {
+  traffic: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444"],
+  sales: ["#10B981", "#F59E0B", "#EF4444"],
+  categories: ["#8B5CF6", "#EC4899", "#F97316", "#06B6D4"],
+  userRatio: ["#094CA4", "#97BCED"],
+  regional: ["#094CA4", "#3B82F6", "#60A5FA", "#93C5FD", "#BFDBFE"],
 };
 
 export default function AdminPieChart({ type }: AdminPieChartProps) {
   const data = VARIANT_DATA[type];
-
-  // Dynamic colors generated from HSL
-  const COLORS = useMemo(() => {
-    return data.map((_, i) => `hsl(${(i * 65) % 360} 80% 60%)`);
-  }, [type]);
+  const COLORS = COLOR_PALETTES[type];
 
   return (
     <motion.div
@@ -43,8 +58,8 @@ export default function AdminPieChart({ type }: AdminPieChartProps) {
       transition={{ duration: 0.4 }}
       className="bg-white p-6 rounded-2xl border shadow-sm"
     >
-      <h2 className="text-gray-700 font-medium capitalize mb-4">
-        {type} analysis
+      <h2 className="text-[#094CA4] font-bold text-lg mb-4">
+        {type === "userRatio" ? "User Distribution" : type === "regional" ? "Regional Distribution" : `${type} Analysis`}
       </h2>
 
       <div className="flex gap-6 items-center">

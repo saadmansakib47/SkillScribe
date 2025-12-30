@@ -155,11 +155,11 @@ export default function AdminDashboard() {
       </div>
 
       {/* ---------------------------------- */}
-      {/*        BOTTOM GRID (PIE + QUEUE)   */}
+      {/*        BOTTOM GRID (PIE CHARTS)    */}
       {/* ---------------------------------- */}
-      <div className="grid grid-cols-3 gap-6 mt-6">
-        <AdminPieChart type="traffic" />
-
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <AdminPieChart type="userRatio" />
+        <AdminPieChart type="regional" />
       </div>
 
       {/* ---------------------------------- */}
