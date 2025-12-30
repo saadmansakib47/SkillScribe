@@ -7,7 +7,7 @@ export function InstructorTable({ instructors }: any) {
             <div className="p-4 border-b border-black/10 text-lg font-semibold">Instructor List</div>
             <table className="w-full text-left text-sm">
                 <thead>
-                    <tr className="bg-[#F1F5F9] text-gray-700">
+                    <tr className="bg-[#EEF6FF] text-gray-700">
                         <th className="p-3">Instructor Name</th>
                         <th className="p-3">Email</th>
                         <th className="p-3">Courses</th>
