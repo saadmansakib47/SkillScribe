@@ -44,7 +44,7 @@ const COLOR_PALETTES = {
   sales: ["#10B981", "#F59E0B", "#EF4444"],
   categories: ["#8B5CF6", "#EC4899", "#F97316", "#06B6D4"],
   userRatio: ["#094CA4", "#93C5FD"],
-  regional: ["#EF4444", "#3B82F6", "#FBBF24", "#10B981", "#111827"],
+  regional: ["#EF4444", "#3B82F6", "#FBBF24", "#10B981", "#9aa1b1ff"],
 };
 
 export default function AdminPieChart({ type }: AdminPieChartProps) {

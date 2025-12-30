@@ -77,53 +77,50 @@ export default function CategoryManagementPage() {
 
   return (
     <AdminLayout>
-      <div className="min-h-screen bg-[#FAF7F3] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Search Bar */}
-          <div className="mb-6">
-            <CategorySearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-          </div>
-
-          {/* Stats Cards */}
-          <CategoryStatsCards
-            totalCategories={overallStats.totalCategories}
-            activeCourses={overallStats.activeCourses}
-            totalRevenue={overallStats.totalRevenue}
-            trendingCount={overallStats.trendingCount}
-          />
-
-          {/* Filters */}
-          <CategoryFilters
-            categoryFilter={categoryFilter}
-            onCategoryChange={setCategoryFilter}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            categories={categoryNames}
-            onAddCategory={handleAddCategory}
-          />
-
-          {/* Results Count */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-600">
-              Showing <span className="font-semibold">{filteredCategories.length}</span> of{' '}
-              <span className="font-semibold">{categories.length}</span> categories
-            </p>
-          </div>
-
-          {/* Category Cards Grid */}
-          {filteredCategories.length === 0 ? (
-            <div className="bg-white rounded-2xl p-12 text-center shadow-sm border border-gray-100">
-              <p className="text-gray-500 text-lg">No categories found</p>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              {filteredCategories.map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
-            </div>
-          )}
+      <div className="max-w-7xl mx-auto">
+        {/* Search Bar */}
+        <div className="mb-6">
+          <CategorySearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
         </div>
+
+        {/* Stats Cards */}
+        <CategoryStatsCards
+          totalCategories={overallStats.totalCategories}
+          activeCourses={overallStats.activeCourses}
+          totalRevenue={overallStats.totalRevenue}
+          trendingCount={overallStats.trendingCount}
+        />
+
+        {/* Filters */}
+        <CategoryFilters
+          categoryFilter={categoryFilter}
+          onCategoryChange={setCategoryFilter}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          categories={categoryNames}
+          onAddCategory={handleAddCategory}
+        />
+
+        {/* Results Count */}
+        <div className="mb-4">
+          <p className="text-sm text-gray-600">
+            Showing <span className="font-semibold">{filteredCategories.length}</span> of{' '}
+            <span className="font-semibold">{categories.length}</span> categories
+          </p>
+        </div>
+
+        {/* Category Cards Grid */}
+        {filteredCategories.length === 0 ? (
+          <div className="bg-white rounded-2xl p-12 text-center shadow-sm border border-gray-100">
+            <p className="text-gray-500 text-lg">No categories found</p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {filteredCategories.map((category) => (
+              <CategoryCard key={category.id} category={category} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Add Category Modal */}
