@@ -236,13 +236,22 @@ export default function Navbar() {
               </>
             )}
 
-            {isInstructorPage || isAdminPage ? null : (
-              <Link href="/contact" className="group hover:text-black px-4 py-3 font-medium transition-colors">
-                <span className="relative">
-                  Contact
-                  <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/contact' ? 'w-full' : 'w-0'}`} />
-                </span>
-              </Link>
+            {!isInstructorPage && !isAdminPage && (
+              <>
+                <Link href="/about" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                  <span className="relative">
+                    About
+                    <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/about' ? 'w-full' : 'w-0'}`} />
+                  </span>
+                </Link>
+
+                <Link href="/contact" className="group hover:text-black px-4 py-3 font-medium transition-colors">
+                  <span className="relative">
+                    Contact
+                    <span className={`absolute left-0 bottom-[-28px] h-[3px] bg-[#094CA4] transition-all duration-500 rounded-t-sm ${pathname === '/contact' ? 'w-full' : 'w-0'}`} />
+                  </span>
+                </Link>
+              </>
             )}
           </nav>
 
@@ -366,7 +375,7 @@ export default function Navbar() {
             )}
 
             {/* Login/Signup - Hidden on mobile */}
-            {!isLoggedIn && isLanding && (
+            {!isLoggedIn && (
 
               <div className="hidden md:flex items-center gap-2 text-sm whitespace-nowrap">
                 <Link
