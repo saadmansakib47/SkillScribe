@@ -24,7 +24,7 @@ export default function InstructorDashboardPage() {
 
   return (
     <AdminLayout>
-      <div className="w-full p-6 space-y-6 bg-[#F8FAFC] min-h-screen">
+      <div className="w-full space-y-6">
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard label="Total Instructor" value={INSTRUCTORS.length.toString()} />
